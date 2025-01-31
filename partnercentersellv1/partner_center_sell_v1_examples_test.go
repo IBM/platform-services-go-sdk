@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ package partnercentersellv1_test
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"os"
-	"strconv"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
@@ -92,15 +90,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Skip("Unable to load service properties, skipping examples")
 			}
 
-			accountId = config["ACCOUNT_ID"]
-			Expect(accountId).ToNot(BeEmpty())
-
-			productIdWithApprovedProgrammaticName = config["PRODUCT_ID_APPROVED"]
-			Expect(productIdWithApprovedProgrammaticName).ToNot(BeEmpty())
-
-			badgeId = config["BADGE_ID"]
-			Expect(badgeId).ToNot(BeEmpty())
-
 			shouldSkipTest = func() {}
 		})
 	})
@@ -126,25 +115,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			Expect(partnerCenterSellService).ToNot(BeNil())
 		})
-		It("Successfully construct the service client instance with alternative credentials", func() {
-			var err error
-
-			// begin-common
-
-			partnerCenterSellServiceOptions := &partnercentersellv1.PartnerCenterSellV1Options{
-				ServiceName: "partner_center_sell_alt",
-			}
-
-			partnerCenterSellServiceAlt, err = partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(partnerCenterSellServiceOptions)
-
-			if err != nil {
-				panic(err)
-			}
-
-			// end-common
-
-			Expect(partnerCenterSellServiceAlt).ToNot(BeNil())
-		})
 	})
 
 	Describe(`PartnerCenterSellV1 request examples`, func() {
@@ -160,13 +130,13 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Email: core.StringPtr("companyrep@email.com"),
 			}
 
-			createRegistrationOptions := partnerCenterSellServiceAlt.NewCreateRegistrationOptions(
-				accountId,
+			createRegistrationOptions := partnerCenterSellService.NewCreateRegistrationOptions(
+				"4a5c3c51b97a446fbb1d0e1ef089823b",
 				"Beautiful Company",
 				primaryContactModel,
 			)
 
-			registration, response, err := partnerCenterSellServiceAlt.CreateRegistration(createRegistrationOptions)
+			registration, response, err := partnerCenterSellService.CreateRegistration(createRegistrationOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -176,7 +146,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// end-create_registration
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(201))
 			Expect(registration).ToNot(BeNil())
 
 			registrationIdLink = *registration.ID
@@ -191,12 +161,12 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
-			createOnboardingProductOptions := partnerCenterSellServiceAlt.NewCreateOnboardingProductOptions(
+			createOnboardingProductOptions := partnerCenterSellService.NewCreateOnboardingProductOptions(
 				"service",
 				primaryContactModel,
 			)
 
-			onboardingProduct, response, err := partnerCenterSellServiceAlt.CreateOnboardingProduct(createOnboardingProductOptions)
+			onboardingProduct, response, err := partnerCenterSellService.CreateOnboardingProduct(createOnboardingProductOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -216,16 +186,18 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateOnboardingProduct() result:")
 			// begin-update_onboarding_product
 
-			onboardingProductPatchModel := &partnercentersellv1.OnboardingProductPatch{}
+			onboardingProductPatchModel := &partnercentersellv1.OnboardingProductPatch{
+				Unspsc: core.Float64Ptr(float64(12345)),
+			}
 			onboardingProductPatchModelAsPatch, asPatchErr := onboardingProductPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
-			updateOnboardingProductOptions := partnerCenterSellServiceAlt.NewUpdateOnboardingProductOptions(
+			updateOnboardingProductOptions := partnerCenterSellService.NewUpdateOnboardingProductOptions(
 				productIdLink,
 				onboardingProductPatchModelAsPatch,
 			)
 
-			onboardingProduct, response, err := partnerCenterSellServiceAlt.UpdateOnboardingProduct(updateOnboardingProductOptions)
+			onboardingProduct, response, err := partnerCenterSellService.UpdateOnboardingProduct(updateOnboardingProductOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -270,12 +242,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Service:      globalCatalogProductMetadataServiceModel,
 			}
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			catalogProductName := fmt.Sprintf("gc-product-example-%s", randomInteger)
-
 			createCatalogProductOptions := partnerCenterSellService.NewCreateCatalogProductOptions(
-				productIdWithApprovedProgrammaticName,
-				catalogProductName,
+				productIdLink,
+				"1p-service-08-06",
 				true,
 				false,
 				"service",
@@ -320,7 +289,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateCatalogProductOptions := partnerCenterSellService.NewUpdateCatalogProductOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				globalCatalogProductPatchModelAsPatch,
 			)
@@ -377,7 +346,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			}
 
 			createCatalogPlanOptions := partnerCenterSellService.NewCreateCatalogPlanOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				"free-plan2",
 				true,
@@ -426,7 +395,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateCatalogPlanOptions := partnerCenterSellService.NewUpdateCatalogPlanOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 				globalCatalogPlanPatchModelAsPatch,
@@ -481,7 +450,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			}
 
 			createCatalogDeploymentOptions := partnerCenterSellService.NewCreateCatalogDeploymentOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 				"deployment-eu-de",
@@ -536,7 +505,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateCatalogDeploymentOptions := partnerCenterSellService.NewUpdateCatalogDeploymentOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 				catalogDeploymentIdLink,
@@ -563,10 +532,127 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nCreateIamRegistration() result:")
 			// begin-create_iam_registration
 
+			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
+			}
+
+			iamServiceRegistrationDisplayNameObjectModel := &partnercentersellv1.IamServiceRegistrationDisplayNameObject{
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
+			}
+
+			iamServiceRegistrationActionModel := &partnercentersellv1.IamServiceRegistrationAction{
+				ID:          core.StringPtr("pet-store.dashboard.view"),
+				Roles:       []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"},
+				Description: iamServiceRegistrationDescriptionObjectModel,
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
+				AccountID:            core.StringPtr("testString"),
+				ServiceName:          core.StringPtr("testString"),
+				AdditionalProperties: map[string]string{"key1": "testString"},
+			}
+
+			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
+				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
+				Roles:      []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"},
+			}
+
+			supportedAttributesOptionsModel := &partnercentersellv1.SupportedAttributesOptions{
+				Operators: []string{"stringMatch", "stringEquals"},
+			}
+
+			supportedAttributeUiInputValueModel := &partnercentersellv1.SupportedAttributeUiInputValue{
+				Value:       core.StringPtr("staticValue"),
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			supportedAttributeUiInputGstModel := &partnercentersellv1.SupportedAttributeUiInputGst{
+				Query:             core.StringPtr("ghost query"),
+				ValuePropertyName: core.StringPtr("instance"),
+				InputOptionLabel:  core.StringPtr("{name} - {instance_id}"),
+			}
+
+			supportedAttributeUiInputDetailsModel := &partnercentersellv1.SupportedAttributeUiInputDetails{
+				Type:   core.StringPtr("gst"),
+				Values: []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel},
+				Gst:    supportedAttributeUiInputGstModel,
+			}
+
+			supportedAttributeUiModel := &partnercentersellv1.SupportedAttributeUi{
+				InputType:    core.StringPtr("selector"),
+				InputDetails: supportedAttributeUiInputDetailsModel,
+			}
+
+			iamServiceRegistrationSupportedAttributeModel := &partnercentersellv1.IamServiceRegistrationSupportedAttribute{
+				Key:         core.StringPtr("testAttribute"),
+				Options:     supportedAttributesOptionsModel,
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+				Description: iamServiceRegistrationDescriptionObjectModel,
+				Ui:          supportedAttributeUiModel,
+			}
+
+			supportAuthorizationSubjectAttributeModel := &partnercentersellv1.SupportAuthorizationSubjectAttribute{}
+
+			iamServiceRegistrationSupportedAuthorizationSubjectModel := &partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{
+				Attributes: supportAuthorizationSubjectAttributeModel,
+				Roles:      []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"},
+			}
+
+			iamServiceRegistrationSupportedRoleModel := &partnercentersellv1.IamServiceRegistrationSupportedRole{
+				ID:          core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader"),
+				Description: iamServiceRegistrationDescriptionObjectModel,
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			environmentAttributeOptionsModel := &partnercentersellv1.EnvironmentAttributeOptions{
+				Hidden: core.BoolPtr(true),
+			}
+
+			environmentAttributeModel := &partnercentersellv1.EnvironmentAttribute{
+				Key:     core.StringPtr("networkType"),
+				Values:  []string{"public"},
+				Options: environmentAttributeOptionsModel,
+			}
+
+			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{
+				EnvironmentAttributes: []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel},
+			}
+
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
-				productIdWithApprovedProgrammaticName,
-				"sample-name",
+				productIdLink,
+				"pet-store",
 			)
+			createIamRegistrationOptions.SetEnabled(true)
+			createIamRegistrationOptions.SetActions([]partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel})
+			createIamRegistrationOptions.SetAdditionalPolicyScopes([]string{"pet-store"})
+			createIamRegistrationOptions.SetDisplayName(iamServiceRegistrationDisplayNameObjectModel)
+			createIamRegistrationOptions.SetParentIds([]string{})
+			createIamRegistrationOptions.SetSupportedAnonymousAccesses([]partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel})
+			createIamRegistrationOptions.SetSupportedAttributes([]partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel})
+			createIamRegistrationOptions.SetSupportedAuthorizationSubjects([]partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel})
+			createIamRegistrationOptions.SetSupportedRoles([]partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel})
+			createIamRegistrationOptions.SetSupportedNetwork(iamServiceRegistrationSupportedNetworkModel)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
 			if err != nil {
@@ -588,12 +674,130 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateIamRegistration() result:")
 			// begin-update_iam_registration
 
-			iamServiceRegistrationPatchModel := &partnercentersellv1.IamServiceRegistrationPatch{}
+			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
+			}
+
+			iamServiceRegistrationDisplayNameObjectModel := &partnercentersellv1.IamServiceRegistrationDisplayNameObject{
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
+			}
+
+			iamServiceRegistrationActionModel := &partnercentersellv1.IamServiceRegistrationAction{
+				ID:          core.StringPtr("pet-store.dashboard.view"),
+				Roles:       []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"},
+				Description: iamServiceRegistrationDescriptionObjectModel,
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
+				AccountID:            core.StringPtr("testString"),
+				ServiceName:          core.StringPtr("testString"),
+				AdditionalProperties: map[string]string{"key1": "testString"},
+			}
+
+			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
+				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
+				Roles:      []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"},
+			}
+
+			supportedAttributesOptionsModel := &partnercentersellv1.SupportedAttributesOptions{
+				Operators: []string{"stringMatch", "stringEquals"},
+			}
+
+			supportedAttributeUiInputValueModel := &partnercentersellv1.SupportedAttributeUiInputValue{
+				Value:       core.StringPtr("staticValue"),
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			supportedAttributeUiInputGstModel := &partnercentersellv1.SupportedAttributeUiInputGst{
+				Query:             core.StringPtr("ghost query"),
+				ValuePropertyName: core.StringPtr("instance"),
+				InputOptionLabel:  core.StringPtr("{name} - {instance_id}"),
+			}
+
+			supportedAttributeUiInputDetailsModel := &partnercentersellv1.SupportedAttributeUiInputDetails{
+				Type:   core.StringPtr("gst"),
+				Values: []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel},
+				Gst:    supportedAttributeUiInputGstModel,
+			}
+
+			supportedAttributeUiModel := &partnercentersellv1.SupportedAttributeUi{
+				InputType:    core.StringPtr("selector"),
+				InputDetails: supportedAttributeUiInputDetailsModel,
+			}
+
+			iamServiceRegistrationSupportedAttributeModel := &partnercentersellv1.IamServiceRegistrationSupportedAttribute{
+				Key:         core.StringPtr("testAttribute"),
+				Options:     supportedAttributesOptionsModel,
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+				Description: iamServiceRegistrationDescriptionObjectModel,
+				Ui:          supportedAttributeUiModel,
+			}
+
+			supportAuthorizationSubjectAttributeModel := &partnercentersellv1.SupportAuthorizationSubjectAttribute{}
+
+			iamServiceRegistrationSupportedAuthorizationSubjectModel := &partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{
+				Attributes: supportAuthorizationSubjectAttributeModel,
+				Roles:      []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"},
+			}
+
+			iamServiceRegistrationSupportedRoleModel := &partnercentersellv1.IamServiceRegistrationSupportedRole{
+				ID:          core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader"),
+				Description: iamServiceRegistrationDescriptionObjectModel,
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			environmentAttributeOptionsModel := &partnercentersellv1.EnvironmentAttributeOptions{
+				Hidden: core.BoolPtr(true),
+			}
+
+			environmentAttributeModel := &partnercentersellv1.EnvironmentAttribute{
+				Key:     core.StringPtr("networkType"),
+				Values:  []string{"public"},
+				Options: environmentAttributeOptionsModel,
+			}
+
+			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{
+				EnvironmentAttributes: []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel},
+			}
+
+			iamServiceRegistrationPatchModel := &partnercentersellv1.IamServiceRegistrationPatch{
+				Enabled:                        core.BoolPtr(true),
+				Actions:                        []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel},
+				AdditionalPolicyScopes:         []string{"pet-store"},
+				DisplayName:                    iamServiceRegistrationDisplayNameObjectModel,
+				ParentIds:                      []string{},
+				SupportedAnonymousAccesses:     []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel},
+				SupportedAttributes:            []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel},
+				SupportedAuthorizationSubjects: []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel},
+				SupportedRoles:                 []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel},
+				SupportedNetwork:               iamServiceRegistrationSupportedNetworkModel,
+			}
 			iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
 			updateIamRegistrationOptions := partnerCenterSellService.NewUpdateIamRegistrationOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				programmaticNameLink,
 				iamServiceRegistrationPatchModelAsPatch,
 			)
@@ -618,16 +822,14 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
 			// begin-create_resource_broker
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerName := fmt.Sprintf("broker-example-%s", randomInteger)
-			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
-
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
-				"bearer-crn",
-				brokerName,
-				brokerLink,
+				"bearer",
+				"brokername",
+				"https://broker-url-for-my-service.com",
 				"provision_through",
 			)
+			createResourceBrokerOptions.SetAuthUsername("apikey")
+			createResourceBrokerOptions.SetResourceGroupCrn("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 			createResourceBrokerOptions.SetState("active")
 			createResourceBrokerOptions.SetAllowContextUpdates(false)
 			createResourceBrokerOptions.SetCatalogType("service")
@@ -653,11 +855,11 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nGetRegistration() result:")
 			// begin-get_registration
 
-			getRegistrationOptions := partnerCenterSellServiceAlt.NewGetRegistrationOptions(
+			getRegistrationOptions := partnerCenterSellService.NewGetRegistrationOptions(
 				registrationIdLink,
 			)
 
-			registration, response, err := partnerCenterSellServiceAlt.GetRegistration(getRegistrationOptions)
+			registration, response, err := partnerCenterSellService.GetRegistration(getRegistrationOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -678,12 +880,12 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			registrationPatchModelAsPatch, asPatchErr := registrationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
-			updateRegistrationOptions := partnerCenterSellServiceAlt.NewUpdateRegistrationOptions(
+			updateRegistrationOptions := partnerCenterSellService.NewUpdateRegistrationOptions(
 				registrationIdLink,
 				registrationPatchModelAsPatch,
 			)
 
-			registration, response, err := partnerCenterSellServiceAlt.UpdateRegistration(updateRegistrationOptions)
+			registration, response, err := partnerCenterSellService.UpdateRegistration(updateRegistrationOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -700,11 +902,11 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nGetOnboardingProduct() result:")
 			// begin-get_onboarding_product
 
-			getOnboardingProductOptions := partnerCenterSellServiceAlt.NewGetOnboardingProductOptions(
+			getOnboardingProductOptions := partnerCenterSellService.NewGetOnboardingProductOptions(
 				productIdLink,
 			)
 
-			onboardingProduct, response, err := partnerCenterSellServiceAlt.GetOnboardingProduct(getOnboardingProductOptions)
+			onboardingProduct, response, err := partnerCenterSellService.GetOnboardingProduct(getOnboardingProductOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -725,7 +927,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-get_catalog_product
 
 			getCatalogProductOptions := partnerCenterSellService.NewGetCatalogProductOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 			)
 
@@ -750,7 +952,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-get_catalog_plan
 
 			getCatalogPlanOptions := partnerCenterSellService.NewGetCatalogPlanOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 			)
@@ -776,7 +978,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-get_catalog_deployment
 
 			getCatalogDeploymentOptions := partnerCenterSellService.NewGetCatalogDeploymentOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 				catalogDeploymentIdLink,
@@ -803,7 +1005,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-get_iam_registration
 
 			getIamRegistrationOptions := partnerCenterSellService.NewGetIamRegistrationOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				programmaticNameLink,
 			)
 
@@ -827,11 +1029,8 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateResourceBroker() result:")
 			// begin-update_resource_broker
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
-
 			brokerPatchModel := &partnercentersellv1.BrokerPatch{
-				BrokerURL: core.StringPtr(brokerLink),
+				BrokerURL: core.StringPtr("https://my-updated-broker-url.com"),
 			}
 			brokerPatchModelAsPatch, asPatchErr := brokerPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -899,7 +1098,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-get_product_badge
 
 			getProductBadgeOptions := partnerCenterSellService.NewGetProductBadgeOptions(
-				CreateMockUUID(badgeId),
+				CreateMockUUID("9fab83da-98cb-4f18-a7ba-b6f0435c9673"),
 			)
 
 			productBadge, response, err := partnerCenterSellService.GetProductBadge(getProductBadgeOptions)
@@ -915,11 +1114,31 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(productBadge).ToNot(BeNil())
 		})
+		It(`DeleteRegistration request example`, func() {
+			// begin-delete_registration
+
+			deleteRegistrationOptions := partnerCenterSellService.NewDeleteRegistrationOptions(
+				registrationIdLink,
+			)
+
+			response, err := partnerCenterSellService.DeleteRegistration(deleteRegistrationOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteRegistration(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_registration
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`DeleteCatalogDeployment request example`, func() {
 			// begin-delete_catalog_deployment
 
 			deleteCatalogDeploymentOptions := partnerCenterSellService.NewDeleteCatalogDeploymentOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 				catalogDeploymentIdLink,
@@ -942,7 +1161,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-delete_catalog_plan
 
 			deleteCatalogPlanOptions := partnerCenterSellService.NewDeleteCatalogPlanOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 				catalogPlanIdLink,
 			)
@@ -964,7 +1183,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-delete_catalog_product
 
 			deleteCatalogProductOptions := partnerCenterSellService.NewDeleteCatalogProductOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				catalogProductIdLink,
 			)
 
@@ -985,7 +1204,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-delete_iam_registration
 
 			deleteIamRegistrationOptions := partnerCenterSellService.NewDeleteIamRegistrationOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				programmaticNameLink,
 			)
 
@@ -1005,11 +1224,11 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`DeleteOnboardingProduct request example`, func() {
 			// begin-delete_onboarding_product
 
-			deleteOnboardingProductOptions := partnerCenterSellServiceAlt.NewDeleteOnboardingProductOptions(
+			deleteOnboardingProductOptions := partnerCenterSellService.NewDeleteOnboardingProductOptions(
 				productIdLink,
 			)
 
-			response, err := partnerCenterSellServiceAlt.DeleteOnboardingProduct(deleteOnboardingProductOptions)
+			response, err := partnerCenterSellService.DeleteOnboardingProduct(deleteOnboardingProductOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -1018,26 +1237,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			}
 
 			// end-delete_onboarding_product
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-		It(`DeleteRegistration request example`, func() {
-			// begin-delete_registration
-
-			deleteRegistrationOptions := partnerCenterSellServiceAlt.NewDeleteRegistrationOptions(
-				registrationIdLink,
-			)
-
-			response, err := partnerCenterSellServiceAlt.DeleteRegistration(deleteRegistrationOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteRegistration(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_registration
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))

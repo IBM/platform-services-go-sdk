@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.98.0-8be2046a-20241205-162752
+ * IBM OpenAPI SDK Code Generator Version: 3.99.0-d27cee72-20250129-204831
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -42,7 +42,7 @@ type PartnerCenterSellV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://product-lifecycle.cloud.ibm.com/openapi/v1"
+const DefaultServiceURL = "http://localhost:5005/openapi/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "partner_center_sell"
@@ -3606,6 +3606,7 @@ type CreateCatalogProductOptions struct {
 // The kind of the global catalog object.
 const (
 	CreateCatalogProductOptions_Kind_Composite       = "composite"
+	CreateCatalogProductOptions_Kind_Iaas            = "iaas"
 	CreateCatalogProductOptions_Kind_PlatformService = "platform_service"
 	CreateCatalogProductOptions_Kind_Service         = "service"
 )
@@ -6613,6 +6614,7 @@ type GlobalCatalogProduct struct {
 // The kind of the global catalog object.
 const (
 	GlobalCatalogProduct_Kind_Composite       = "composite"
+	GlobalCatalogProduct_Kind_Iaas            = "iaas"
 	GlobalCatalogProduct_Kind_PlatformService = "platform_service"
 	GlobalCatalogProduct_Kind_Service         = "service"
 )
