@@ -1,3 +1,10 @@
+# [0.74.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.73.0...v0.74.0) (2025-02-04)
+
+
+### Features
+
+* **IAM Identity:** add Identity Preference API ([#370](https://github.com/IBM/platform-services-go-sdk/issues/370)) ([34d910b](https://github.com/IBM/platform-services-go-sdk/commit/34d910b7022ec09f8bb79fdd9d0dee17a8537c72))
+
 # [0.73.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.72.0...v0.73.0) (2025-01-07)
 
 
