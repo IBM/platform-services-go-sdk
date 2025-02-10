@@ -136,23 +136,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetCatalogAccount - Get catalog account settings`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions)`, func() {
-			getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{}
-
-			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(account).ToNot(BeNil())
-
-			accountRevLink = *account.Rev
-			fmt.Fprintf(GinkgoWriter, "Saved accountRevLink value: %v\n", accountRevLink)
-		})
-	})
-
 	Describe(`ListRegions - get list of available regions`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -178,6 +161,23 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(regions).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetCatalogAccount - Get catalog account settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions)`, func() {
+			getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{}
+
+			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(account).ToNot(BeNil())
+
+			accountRevLink = *account.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved accountRevLink value: %v\n", accountRevLink)
 		})
 	})
 
@@ -212,6 +212,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Rev:                 &accountRevLink,
 				HideIBMCloudCatalog: core.BoolPtr(true),
 				AccountFilters:      filtersModel,
+				RegionFilter:        core.StringPtr("geo:na"),
 			}
 
 			account, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
