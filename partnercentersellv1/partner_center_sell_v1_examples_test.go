@@ -563,7 +563,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-create_iam_registration
 
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
-				productIdLink,
+				productIdWithApprovedProgrammaticName,
 				"pet-store",
 			)
 
@@ -625,6 +625,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				"bearer-crn",
 				brokerName,
 				brokerLink,
+				"provision_through",
 			)
 
 			createResourceBrokerOptions.SetState("active")
