@@ -592,7 +592,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateIamRegistrationOptions := partnerCenterSellService.NewUpdateIamRegistrationOptions(
-				productIdLink,
+				productIdWithApprovedProgrammaticName,
 				programmaticNameLink,
 				iamServiceRegistrationPatchModelAsPatch,
 			)
@@ -617,14 +617,16 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
 			// begin-create_resource_broker
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			brokerName := fmt.Sprintf("broker-example-%s", randomInteger)
+			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
+
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
-				"bearer",
-				"brokername",
-				"https://broker-url-for-my-service.com",
-				"provision_through",
+				"bearer-crn",
+				brokerName,
+				brokerLink,
 			)
-			createResourceBrokerOptions.SetAuthUsername("apikey")
-			createResourceBrokerOptions.SetResourceGroupCrn("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
+
 			createResourceBrokerOptions.SetState("active")
 			createResourceBrokerOptions.SetAllowContextUpdates(false)
 			createResourceBrokerOptions.SetCatalogType("service")
