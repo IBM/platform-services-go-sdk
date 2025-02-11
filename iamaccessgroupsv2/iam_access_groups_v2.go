@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.97.1-d6730d2a-20241125-163317
+ * IBM OpenAPI SDK Code Generator Version: 3.99.1-daeb6e46-20250131-173156
  */
 
 // Package iamaccessgroupsv2 : Operations and models for the IamAccessGroupsV2 service
@@ -330,6 +330,9 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupsWithContext(ctx contex
 	if listAccessGroupsOptions.HidePublicAccess != nil {
 		builder.AddQuery("hide_public_access", fmt.Sprint(*listAccessGroupsOptions.HidePublicAccess))
 	}
+	if listAccessGroupsOptions.ShowCRN != nil {
+		builder.AddQuery("show_crn", fmt.Sprint(*listAccessGroupsOptions.ShowCRN))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -407,6 +410,9 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupWithContext(ctx context.
 
 	if getAccessGroupOptions.ShowFederated != nil {
 		builder.AddQuery("show_federated", fmt.Sprint(*getAccessGroupOptions.ShowFederated))
+	}
+	if getAccessGroupOptions.ShowCRN != nil {
+		builder.AddQuery("show_crn", fmt.Sprint(*getAccessGroupOptions.ShowCRN))
 	}
 
 	request, err := builder.Build()
@@ -4401,6 +4407,9 @@ type GetAccessGroupOptions struct {
 	// group.
 	ShowFederated *bool `json:"show_federated,omitempty"`
 
+	// If show_crn is true, group CRN will be included in the response.
+	ShowCRN *bool `json:"show_crn,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -4427,6 +4436,12 @@ func (_options *GetAccessGroupOptions) SetTransactionID(transactionID string) *G
 // SetShowFederated : Allow user to set ShowFederated
 func (_options *GetAccessGroupOptions) SetShowFederated(showFederated bool) *GetAccessGroupOptions {
 	_options.ShowFederated = core.BoolPtr(showFederated)
+	return _options
+}
+
+// SetShowCRN : Allow user to set ShowCRN
+func (_options *GetAccessGroupOptions) SetShowCRN(showCRN bool) *GetAccessGroupOptions {
+	_options.ShowCRN = core.BoolPtr(showCRN)
 	return _options
 }
 
@@ -5326,6 +5341,9 @@ type ListAccessGroupsOptions struct {
 	// If hide_public_access is true, do not include the Public Access Group in the results.
 	HidePublicAccess *bool `json:"hide_public_access,omitempty"`
 
+	// If show_crn is true, group CRN will be included in the response.
+	ShowCRN *bool `json:"show_crn,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -5394,6 +5412,12 @@ func (_options *ListAccessGroupsOptions) SetShowFederated(showFederated bool) *L
 // SetHidePublicAccess : Allow user to set HidePublicAccess
 func (_options *ListAccessGroupsOptions) SetHidePublicAccess(hidePublicAccess bool) *ListAccessGroupsOptions {
 	_options.HidePublicAccess = core.BoolPtr(hidePublicAccess)
+	return _options
+}
+
+// SetShowCRN : Allow user to set ShowCRN
+func (_options *ListAccessGroupsOptions) SetShowCRN(showCRN bool) *ListAccessGroupsOptions {
+	_options.ShowCRN = core.BoolPtr(showCRN)
 	return _options
 }
 
