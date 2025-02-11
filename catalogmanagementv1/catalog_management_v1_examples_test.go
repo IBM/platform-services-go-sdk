@@ -71,6 +71,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		planID                        string
 		approverToken                 string
 		offeringVersion               *catalogmanagementv1.Offering
+		catalogAccount                *catalogmanagementv1.Account
 	)
 
 	var shouldSkipTest = func() {
@@ -520,26 +521,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			objectID = *catalogObject.ID
 		})
 
-		It(`GetCatalogAccount request example`, func() {
-			fmt.Println("\nGetCatalogAccount() result:")
-			// begin-get_catalog_account
-
-			getCatalogAccountOptions := catalogManagementService.NewGetCatalogAccountOptions()
-
-			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(account, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_catalog_account
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(account).ToNot(BeNil())
-		})
-
 		It(`ListRegions request example`, func() {
 			fmt.Println("\nListRegions() result:")
 			// begin-list_regions
@@ -580,16 +561,40 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(regions).ToNot(BeNil())
 		})
 
+		It(`GetCatalogAccount request example`, func() {
+			fmt.Println("\nGetCatalogAccount() result:")
+			// begin-get_catalog_account
+
+			getCatalogAccountOptions := catalogManagementService.NewGetCatalogAccountOptions()
+
+			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(account, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_catalog_account
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(account).ToNot(BeNil())
+
+			catalogAccount = account
+		})
+
 		It(`UpdateCatalogAccount request example`, func() {
-			Skip("Skipped bby design.")
+			// Skip("Skipped bby design.")
 			// begin-update_catalog_account
 
 			includeAllFilter := &catalogmanagementv1.Filters{
 				IncludeAll: core.BoolPtr(true),
 			}
 			updateCatalogAccountOptions := catalogManagementService.NewUpdateCatalogAccountOptions()
+			updateCatalogAccountOptions.Rev = catalogAccount.Rev
 			updateCatalogAccountOptions.AccountFilters = includeAllFilter
 			updateCatalogAccountOptions.ID = &accountID
+			updateCatalogAccountOptions.RegionFilter = core.StringPtr("geo:na")
 
 			_, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
 			if err != nil {
