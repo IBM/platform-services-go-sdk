@@ -31,7 +31,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Partner Center Sell service.
 //
 // The following configuration properties are assumed to be defined:
@@ -50,7 +49,6 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-
 var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 	const externalConfigFile = "../partner_center_sell_v1.env"
@@ -568,16 +566,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				productIdLink,
 				"pet-store",
 			)
-			createIamRegistrationOptions.SetEnabled(true)
-			createIamRegistrationOptions.SetActions([]partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel})
-			createIamRegistrationOptions.SetAdditionalPolicyScopes([]string{"pet-store"})
-			createIamRegistrationOptions.SetDisplayName(iamServiceRegistrationDisplayNameObjectModel)
-			createIamRegistrationOptions.SetParentIds([]string{})
-			createIamRegistrationOptions.SetSupportedAnonymousAccesses([]partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel})
-			createIamRegistrationOptions.SetSupportedAttributes([]partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel})
-			createIamRegistrationOptions.SetSupportedAuthorizationSubjects([]partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel})
-			createIamRegistrationOptions.SetSupportedRoles([]partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel})
-			createIamRegistrationOptions.SetSupportedNetwork(iamServiceRegistrationSupportedNetworkModel)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
 			if err != nil {
