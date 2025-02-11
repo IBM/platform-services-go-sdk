@@ -1,3 +1,10 @@
+# [0.75.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.1...v0.75.0) (2025-02-11)
+
+
+### Features
+
+* **IAM Access Groups:** Add CRN filter ([#373](https://github.com/IBM/platform-services-go-sdk/issues/373)) ([5f2bc85](https://github.com/IBM/platform-services-go-sdk/commit/5f2bc85660470340bb9c605d36739436890bd9c8))
+
 ## [0.74.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.0...v0.74.1) (2025-02-11)
 
 
