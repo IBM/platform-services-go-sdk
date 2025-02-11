@@ -1,3 +1,10 @@
+## [0.74.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.0...v0.74.1) (2025-02-11)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** consolidate MCSP flags ([#372](https://github.com/IBM/platform-services-go-sdk/issues/372)) ([e348dce](https://github.com/IBM/platform-services-go-sdk/commit/e348dceb0fb84438e92d2c2aea68b4bfb12bb9d7))
+
 # [0.74.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.73.0...v0.74.0) (2025-02-04)
 
 
