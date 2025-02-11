@@ -289,19 +289,20 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				URL:       core.StringPtr("https://http.cat/images/100.jpg"),
 			}
 
+			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
+				ID:    core.StringPtr("testString"),
+				URL:   core.StringPtr("testString"),
+				Label: core.StringPtr("testString"),
+			}
+
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				Bullets:         []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:           []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				NavigationItems: []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
 				En: globalCatalogMetadataUiStringsContentModel,
-			}
-
-			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
-				ID:    core.StringPtr("navItemId"),
-				URL:   core.StringPtr("https://http.cat/Navitem"),
-				Label: core.StringPtr("navItemLabel"),
 			}
 
 			globalCatalogMetadataUiUrlsModel := &partnercentersellv1.GlobalCatalogMetadataUIUrls{
@@ -316,7 +317,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogProductMetadataUiModel := &partnercentersellv1.GlobalCatalogProductMetadataUI{
 				Strings:                   globalCatalogMetadataUiStringsModel,
-				NavigationItems:           []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
 				Urls:                      globalCatalogMetadataUiUrlsModel,
 				Hidden:                    core.BoolPtr(true),
 				SideBySideIndex:           core.Float64Ptr(float64(72)),
@@ -514,19 +514,20 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				URL:       core.StringPtr("https://http.cat/images/200.jpg"),
 			}
 
-			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-			}
-
-			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
-				En: globalCatalogMetadataUiStringsContentModel,
-			}
-
 			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
 				ID:    core.StringPtr("testString"),
 				URL:   core.StringPtr("testString"),
 				Label: core.StringPtr("testString"),
+			}
+
+			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
+				Bullets:         []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:           []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				NavigationItems: []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
+			}
+
+			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
+				En: globalCatalogMetadataUiStringsContentModel,
 			}
 
 			globalCatalogMetadataUiUrlsModel := &partnercentersellv1.GlobalCatalogMetadataUIUrls{
@@ -541,7 +542,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogProductMetadataUiModel := &partnercentersellv1.GlobalCatalogProductMetadataUI{
 				Strings:                   globalCatalogMetadataUiStringsModel,
-				NavigationItems:           []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
 				Urls:                      globalCatalogMetadataUiUrlsModel,
 				Hidden:                    core.BoolPtr(false),
 				SideBySideIndex:           core.Float64Ptr(float64(72)),
@@ -735,9 +735,16 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				URL:       core.StringPtr("testString"),
 			}
 
+			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
+				ID:    core.StringPtr("testString"),
+				URL:   core.StringPtr("testString"),
+				Label: core.StringPtr("testString"),
+			}
+
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				Bullets:         []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:           []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				NavigationItems: []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
@@ -782,7 +789,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogPlanMetadataOtherResourceControllerModel := &partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController{
-				SubscriptionProviderID: core.StringPtr("subscriptionProviderId"),
+				SubscriptionProviderID: core.StringPtr("crn:v1:staging:public:resource-controller::a/280d69caa3744c7b8e09878d4009c07a::resource-broker:17061cd2-911a-4c37-b8aa-991b99493d32"),
 			}
 
 			globalCatalogPlanMetadataOtherModel := &partnercentersellv1.GlobalCatalogPlanMetadataOther{
@@ -859,9 +866,16 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				URL:       core.StringPtr("https://http.cat/images/200.jpg"),
 			}
 
+			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
+				ID:    core.StringPtr("testString"),
+				URL:   core.StringPtr("testString"),
+				Label: core.StringPtr("testString"),
+			}
+
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				Bullets:         []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:           []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
+				NavigationItems: []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
@@ -906,7 +920,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogPlanMetadataOtherResourceControllerModel := &partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController{
-				SubscriptionProviderID: core.StringPtr("subscriptionProviderId"),
+				SubscriptionProviderID: core.StringPtr("crn:v1:staging:public:resource-controller::a/280d69caa3744c7b8e09878d4009c07a::resource-broker:17061cd2-911a-4c37-b8aa-991b99493d32"),
 			}
 
 			globalCatalogPlanMetadataOtherModel := &partnercentersellv1.GlobalCatalogPlanMetadataOther{
@@ -1086,8 +1100,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			catalogProductProviderModel := &partnercentersellv1.CatalogProductProvider{
-				Name:  core.StringPtr("testString"),
-				Email: core.StringPtr("testString"),
+				Name:  core.StringPtr("IBM"),
+				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
 			globalCatalogMetadataServiceCustomParametersI18nFieldsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields{
@@ -1194,7 +1208,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		var randomInteger = strconv.Itoa(rand.Intn(1000))
-		roleDisplayName := fmt.Sprintf("random-%s", randomInteger)
+		roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
@@ -1269,7 +1283,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				PolicyTypes:                       []string{"access"},
 				IsEmptyValueSupported:             core.BoolPtr(true),
 				IsStringExistsFalseValueSupported: core.BoolPtr(true),
-				Key:                               core.StringPtr("testString"),
 				ResourceHierarchy:                 supportedAttributesOptionsResourceHierarchyModel,
 			}
 
@@ -1370,8 +1383,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateIamRegistration(updateIamRegistrationOptions *UpdateIamRegistrationOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			roleDisplayName := fmt.Sprintf("random-%s", randomInteger)
+			var randomInteger = strconv.Itoa(rand.Intn(10000))
+			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
 
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
 				Default: core.StringPtr("View dashboard"),
@@ -1406,7 +1419,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationActionModel := &partnercentersellv1.IamServiceRegistrationAction{
-				ID:          core.StringPtr("pet-store.dashboard.view"),
+				ID:          core.StringPtr(fmt.Sprintf("%s.dashboard.view", iamServiceRegistrationId)),
 				Roles:       []string{fmt.Sprintf("crn:v1:bluemix:public:%s::::serviceRole:%s", iamServiceRegistrationId, roleDisplayName)},
 				Description: iamServiceRegistrationDescriptionObjectModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
@@ -1441,7 +1454,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			supportedAttributesOptionsModel := &partnercentersellv1.SupportedAttributesOptions{
 				Operators:                         []string{"stringEquals"},
 				Hidden:                            core.BoolPtr(false),
-				SupportedPatterns:                 []string{"."},
+				SupportedPatterns:                 []string{"attribute-based-condition:resource:literal-and-wildcard"},
 				PolicyTypes:                       []string{"access"},
 				IsEmptyValueSupported:             core.BoolPtr(true),
 				IsStringExistsFalseValueSupported: core.BoolPtr(true),
@@ -1553,8 +1566,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		})
 		It(`CreateResourceBroker(createResourceBrokerOptions *CreateResourceBrokerOptions)`, func() {
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
-			brokerName := fmt.Sprintf("petya_test_%s", randomInteger)
+			brokerUrl := fmt.Sprintf("https://broker-url-for-service.com/%s", randomInteger)
+			brokerName := fmt.Sprintf("petya_test_2_%s", randomInteger)
 
 			createResourceBrokerOptions := &partnercentersellv1.CreateResourceBrokerOptions{
 				AuthUsername:        core.StringPtr("apikey"),

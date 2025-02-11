@@ -2116,20 +2116,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -2144,7 +2145,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -2344,7 +2344,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}], "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2387,20 +2387,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -2415,7 +2416,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -2618,7 +2618,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}], "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2666,20 +2666,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -2694,7 +2695,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -2889,20 +2889,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -2917,7 +2918,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -3133,20 +3133,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -3161,7 +3162,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -3389,7 +3389,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}], "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3446,7 +3446,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}], "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3603,20 +3603,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -3631,7 +3632,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -3834,7 +3834,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}], "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -3877,20 +3877,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -3905,7 +3906,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -4111,7 +4111,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}], "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -4159,20 +4159,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -4187,7 +4188,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -4385,20 +4385,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -4413,7 +4414,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -4632,20 +4632,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
 				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -4660,7 +4661,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogProductMetadataUI model
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -4949,10 +4949,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5081,7 +5088,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully with retries`, func() {
@@ -5120,10 +5127,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5255,7 +5269,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully`, func() {
@@ -5299,10 +5313,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5422,10 +5443,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5566,10 +5594,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5727,7 +5762,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully with retries`, func() {
@@ -5785,7 +5820,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully`, func() {
@@ -5941,10 +5976,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6076,7 +6118,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully with retries`, func() {
@@ -6115,10 +6157,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6253,7 +6302,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully`, func() {
@@ -6297,10 +6346,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6423,10 +6479,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6570,10 +6633,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -12650,13 +12720,25 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				Expect(globalCatalogMetadataUiNavigationItemModel).ToNot(BeNil())
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+				Expect(globalCatalogMetadataUiNavigationItemModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiNavigationItemModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiNavigationItemModel.Label).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				Expect(globalCatalogMetadataUiStringsContentModel).ToNot(BeNil())
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				Expect(globalCatalogMetadataUiStringsContentModel.Bullets).To(Equal([]partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}))
 				Expect(globalCatalogMetadataUiStringsContentModel.Media).To(Equal([]partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}))
+				Expect(globalCatalogMetadataUiStringsContentModel.NavigationItems).To(Equal([]partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}))
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -12849,20 +12931,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				Expect(globalCatalogMetadataUiStringsContentModel).ToNot(BeNil())
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				Expect(globalCatalogMetadataUiStringsContentModel.Bullets).To(Equal([]partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}))
-				Expect(globalCatalogMetadataUiStringsContentModel.Media).To(Equal([]partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}))
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				Expect(globalCatalogMetadataUiStringsModel).ToNot(BeNil())
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-				Expect(globalCatalogMetadataUiStringsModel.En).To(Equal(globalCatalogMetadataUiStringsContentModel))
-
 				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
 				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
 				Expect(globalCatalogMetadataUiNavigationItemModel).ToNot(BeNil())
@@ -12872,6 +12940,22 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataUiNavigationItemModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataUiNavigationItemModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataUiNavigationItemModel.Label).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
+				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
+				Expect(globalCatalogMetadataUiStringsContentModel).ToNot(BeNil())
+				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
+				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
+				Expect(globalCatalogMetadataUiStringsContentModel.Bullets).To(Equal([]partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}))
+				Expect(globalCatalogMetadataUiStringsContentModel.Media).To(Equal([]partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}))
+				Expect(globalCatalogMetadataUiStringsContentModel.NavigationItems).To(Equal([]partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}))
+
+				// Construct an instance of the GlobalCatalogMetadataUIStrings model
+				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
+				Expect(globalCatalogMetadataUiStringsModel).ToNot(BeNil())
+				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
+				Expect(globalCatalogMetadataUiStringsModel.En).To(Equal(globalCatalogMetadataUiStringsContentModel))
 
 				// Construct an instance of the GlobalCatalogMetadataUIUrls model
 				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
@@ -12895,7 +12979,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 				Expect(globalCatalogProductMetadataUiModel).ToNot(BeNil())
 				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogProductMetadataUiModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
 				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
@@ -12903,7 +12986,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
 				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 				Expect(globalCatalogProductMetadataUiModel.Strings).To(Equal(globalCatalogMetadataUiStringsModel))
-				Expect(globalCatalogProductMetadataUiModel.NavigationItems).To(Equal([]partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}))
 				Expect(globalCatalogProductMetadataUiModel.Urls).To(Equal(globalCatalogMetadataUiUrlsModel))
 				Expect(globalCatalogProductMetadataUiModel.Hidden).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogProductMetadataUiModel.SideBySideIndex).To(Equal(core.Float64Ptr(float64(72.5))))
@@ -14339,6 +14421,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 			model.Bullets = nil
 			model.Media = nil
+			model.NavigationItems = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14732,7 +14815,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
 			model.Strings = nil
-			model.NavigationItems = nil
 			model.Urls = nil
 			model.Hidden = core.BoolPtr(true)
 			model.SideBySideIndex = core.Float64Ptr(float64(72.5))

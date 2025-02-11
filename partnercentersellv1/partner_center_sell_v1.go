@@ -6014,6 +6014,9 @@ type GlobalCatalogMetadataUIStringsContent struct {
 
 	// The list of supporting media for this product.
 	Media []CatalogProductMediaItem `json:"media,omitempty"`
+
+	// List of custom navigation panel.
+	NavigationItems []GlobalCatalogMetadataUINavigationItem `json:"navigation_items,omitempty"`
 }
 
 // UnmarshalGlobalCatalogMetadataUIStringsContent unmarshals an instance of GlobalCatalogMetadataUIStringsContent from the specified map of raw messages.
@@ -6027,6 +6030,11 @@ func UnmarshalGlobalCatalogMetadataUIStringsContent(m map[string]json.RawMessage
 	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalCatalogProductMediaItem)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "media-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "navigation_items", &obj.NavigationItems, UnmarshalGlobalCatalogMetadataUINavigationItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "navigation_items-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6049,6 +6057,13 @@ func (globalCatalogMetadataUIStringsContent *GlobalCatalogMetadataUIStringsConte
 			mediaPatches = append(mediaPatches, media.asPatch())
 		}
 		_patch["media"] = mediaPatches
+	}
+	if !core.IsNil(globalCatalogMetadataUIStringsContent.NavigationItems) {
+		var navigationItemsPatches []map[string]interface{}
+		for _, navigationItems := range globalCatalogMetadataUIStringsContent.NavigationItems {
+			navigationItemsPatches = append(navigationItemsPatches, navigationItems.asPatch())
+		}
+		_patch["navigation_items"] = navigationItemsPatches
 	}
 
 	return
@@ -7681,9 +7696,6 @@ type GlobalCatalogProductMetadataUI struct {
 	// The data strings.
 	Strings *GlobalCatalogMetadataUIStrings `json:"strings,omitempty"`
 
-	// List of custom navigation panel.
-	NavigationItems []GlobalCatalogMetadataUINavigationItem `json:"navigation_items,omitempty"`
-
 	// Metadata with URLs related to a service.
 	Urls *GlobalCatalogMetadataUIUrls `json:"urls,omitempty"`
 
@@ -7710,11 +7722,6 @@ func UnmarshalGlobalCatalogProductMetadataUI(m map[string]json.RawMessage, resul
 	err = core.UnmarshalModel(m, "strings", &obj.Strings, UnmarshalGlobalCatalogMetadataUIStrings)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "strings-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "navigation_items", &obj.NavigationItems, UnmarshalGlobalCatalogMetadataUINavigationItem)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "navigation_items-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "urls", &obj.Urls, UnmarshalGlobalCatalogMetadataUIUrls)
@@ -7756,13 +7763,6 @@ func (globalCatalogProductMetadataUI *GlobalCatalogProductMetadataUI) asPatch() 
 	_patch = map[string]interface{}{}
 	if !core.IsNil(globalCatalogProductMetadataUI.Strings) {
 		_patch["strings"] = globalCatalogProductMetadataUI.Strings.asPatch()
-	}
-	if !core.IsNil(globalCatalogProductMetadataUI.NavigationItems) {
-		var navigationItemsPatches []map[string]interface{}
-		for _, navigationItems := range globalCatalogProductMetadataUI.NavigationItems {
-			navigationItemsPatches = append(navigationItemsPatches, navigationItems.asPatch())
-		}
-		_patch["navigation_items"] = navigationItemsPatches
 	}
 	if !core.IsNil(globalCatalogProductMetadataUI.Urls) {
 		_patch["urls"] = globalCatalogProductMetadataUI.Urls.asPatch()
