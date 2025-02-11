@@ -152,11 +152,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			createRegistrationOptions := &partnercentersellv1.CreateRegistrationOptions{
-				AccountID:               core.StringPtr(accountId),
-				CompanyName:             core.StringPtr("company_sdk"),
-				PrimaryContact:          primaryContactModel,
-				DefaultPrivateCatalogID: core.StringPtr("testString"),
-				ProviderAccessGroup:     core.StringPtr("testString"),
+				AccountID:      core.StringPtr(accountId),
+				CompanyName:    core.StringPtr("company_sdk"),
+				PrimaryContact: primaryContactModel,
 			}
 
 			registration, response, err := partnerCenterSellServiceAlt.CreateRegistration(createRegistrationOptions)
@@ -280,18 +278,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
-				Description:     core.StringPtr("highlight desc"),
-				DescriptionI18n: map[string]string{"key1": "testString"},
-				Title:           core.StringPtr("Title"),
-				TitleI18n:       map[string]string{"key1": "testString"},
+				Description: core.StringPtr("highlight desc"),
+				Title:       core.StringPtr("Title"),
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
-				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]string{"key1": "testString"},
-				Thumbnail:   core.StringPtr("testString"),
-				Type:        core.StringPtr("image"),
-				URL:         core.StringPtr("https://http.cat/images/100.jpg"),
+				Caption:   core.StringPtr("testString"),
+				Thumbnail: core.StringPtr("testString"),
+				Type:      core.StringPtr("image"),
+				URL:       core.StringPtr("https://http.cat/images/100.jpg"),
 			}
 
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
@@ -469,7 +464,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ObjectID:       core.StringPtr(objectId),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Images:         globalCatalogProductImagesModel,
-				Metadata:       globalCatalogProductMetadataModel,
+				Metadata:       globalCatalogProductMetadataPrototypePatchModel,
 				Env:            core.StringPtr(env),
 			}
 
@@ -1142,8 +1137,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			globalCatalogDeploymentMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch{
 				RcProvisionable:     core.BoolPtr(true),
 				IamCompatible:       core.BoolPtr(true),
-				Bindable:            core.BoolPtr(true),
-				PlanUpdateable:      core.BoolPtr(true),
 				ServiceKeySupported: core.BoolPtr(true),
 				Parameters:          []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
 			}
