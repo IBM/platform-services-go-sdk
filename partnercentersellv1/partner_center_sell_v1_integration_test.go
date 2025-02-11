@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,9 +152,11 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			createRegistrationOptions := &partnercentersellv1.CreateRegistrationOptions{
-				AccountID:      core.StringPtr(accountId),
-				CompanyName:    core.StringPtr("company_sdk"),
-				PrimaryContact: primaryContactModel,
+				AccountID:               core.StringPtr(accountId),
+				CompanyName:             core.StringPtr("company_sdk"),
+				PrimaryContact:          primaryContactModel,
+				DefaultPrivateCatalogID: core.StringPtr("testString"),
+				ProviderAccessGroup:     core.StringPtr("testString"),
 			}
 
 			registration, response, err := partnerCenterSellServiceAlt.CreateRegistration(createRegistrationOptions)
@@ -293,13 +295,18 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets:             []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:               []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-				EmbeddableDashboard: core.StringPtr("testString"),
+				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
 				En: globalCatalogMetadataUiStringsContentModel,
+			}
+
+			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
+				ID:    core.StringPtr("navItemId"),
+				URL:   core.StringPtr("https://http.cat/Navitem"),
+				Label: core.StringPtr("navItemLabel"),
 			}
 
 			globalCatalogMetadataUiUrlsModel := &partnercentersellv1.GlobalCatalogMetadataUIUrls{
@@ -312,11 +319,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Dashboard:           core.StringPtr("https://http.cat/doc"),
 			}
 
-			globalCatalogMetadataUiModel := &partnercentersellv1.GlobalCatalogMetadataUI{
-				Strings:         globalCatalogMetadataUiStringsModel,
-				Urls:            globalCatalogMetadataUiUrlsModel,
-				Hidden:          core.BoolPtr(true),
-				SideBySideIndex: core.Float64Ptr(float64(72)),
+			globalCatalogProductMetadataUiModel := &partnercentersellv1.GlobalCatalogProductMetadataUI{
+				Strings:                   globalCatalogMetadataUiStringsModel,
+				NavigationItems:           []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
+				Urls:                      globalCatalogMetadataUiUrlsModel,
+				Hidden:                    core.BoolPtr(true),
+				SideBySideIndex:           core.Float64Ptr(float64(72)),
+				EmbeddableDashboard:       core.StringPtr("https://http.cat/emb"),
+				AccessibleDuringProvision: core.BoolPtr(true),
+				PrimaryOfferingID:         core.StringPtr("offeringId"),
 			}
 
 			globalCatalogMetadataServiceCustomParametersI18nFieldsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields{
@@ -363,14 +374,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
-			globalCatalogProductMetadataServiceModel := &partnercentersellv1.GlobalCatalogProductMetadataService{
-				RcProvisionable:     core.BoolPtr(true),
-				IamCompatible:       core.BoolPtr(true),
-				Bindable:            core.BoolPtr(true),
-				PlanUpdateable:      core.BoolPtr(true),
-				ServiceKeySupported: core.BoolPtr(true),
-				UniqueApiKey:        core.BoolPtr(true),
-				Parameters:          []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
+			globalCatalogProductMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch{
+				RcProvisionable:               core.BoolPtr(true),
+				IamCompatible:                 core.BoolPtr(true),
+				ServiceKeySupported:           core.BoolPtr(true),
+				UniqueApiKey:                  core.BoolPtr(true),
+				AsyncProvisioningSupported:    core.BoolPtr(true),
+				AsyncUnprovisioningSupported:  core.BoolPtr(true),
+				CustomCreatePageHybridEnabled: core.BoolPtr(true),
+				Parameters:                    []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
 			}
 
 			supportTimeIntervalModel := &partnercentersellv1.SupportTimeInterval{
@@ -435,10 +447,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Composite: globalCatalogProductMetadataOtherCompositeModel,
 			}
 
-			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
+			globalCatalogProductMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Ui:           globalCatalogMetadataUiModel,
-				Service:      globalCatalogProductMetadataServiceModel,
+				Ui:           globalCatalogProductMetadataUiModel,
+				Service:      globalCatalogProductMetadataServicePrototypePatchModel,
 				Other:        globalCatalogProductMetadataOtherModel,
 			}
 
@@ -496,28 +508,30 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
-				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]string{"key1": "testString"},
-				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]string{"key1": "testString"},
+				Description: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
-				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]string{"key1": "testString"},
-				Thumbnail:   core.StringPtr("testString"),
-				Type:        core.StringPtr("image"),
-				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
+				Caption:   core.StringPtr("testString"),
+				Thumbnail: core.StringPtr("testString"),
+				Type:      core.StringPtr("image"),
+				URL:       core.StringPtr("https://http.cat/images/200.jpg"),
 			}
 
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets:             []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:               []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-				EmbeddableDashboard: core.StringPtr("testString"),
+				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
 				En: globalCatalogMetadataUiStringsContentModel,
+			}
+
+			globalCatalogMetadataUiNavigationItemModel := &partnercentersellv1.GlobalCatalogMetadataUINavigationItem{
+				ID:    core.StringPtr("testString"),
+				URL:   core.StringPtr("testString"),
+				Label: core.StringPtr("testString"),
 			}
 
 			globalCatalogMetadataUiUrlsModel := &partnercentersellv1.GlobalCatalogMetadataUIUrls{
@@ -530,11 +544,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Dashboard:           core.StringPtr("https://http.cat/elua"),
 			}
 
-			globalCatalogMetadataUiModel := &partnercentersellv1.GlobalCatalogMetadataUI{
-				Strings:         globalCatalogMetadataUiStringsModel,
-				Urls:            globalCatalogMetadataUiUrlsModel,
-				Hidden:          core.BoolPtr(true),
-				SideBySideIndex: core.Float64Ptr(float64(72)),
+			globalCatalogProductMetadataUiModel := &partnercentersellv1.GlobalCatalogProductMetadataUI{
+				Strings:                   globalCatalogMetadataUiStringsModel,
+				NavigationItems:           []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel},
+				Urls:                      globalCatalogMetadataUiUrlsModel,
+				Hidden:                    core.BoolPtr(false),
+				SideBySideIndex:           core.Float64Ptr(float64(72)),
+				EmbeddableDashboard:       core.StringPtr("https://http.cat/emb"),
+				AccessibleDuringProvision: core.BoolPtr(true),
+				PrimaryOfferingID:         core.StringPtr("offeringId"),
 			}
 
 			globalCatalogMetadataServiceCustomParametersI18nFieldsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields{
@@ -581,14 +599,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
-			globalCatalogProductMetadataServiceModel := &partnercentersellv1.GlobalCatalogProductMetadataService{
-				RcProvisionable:     core.BoolPtr(true),
-				IamCompatible:       core.BoolPtr(true),
-				Bindable:            core.BoolPtr(true),
-				PlanUpdateable:      core.BoolPtr(true),
-				ServiceKeySupported: core.BoolPtr(true),
-				UniqueApiKey:        core.BoolPtr(true),
-				Parameters:          []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
+			globalCatalogProductMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch{
+				RcProvisionable:               core.BoolPtr(true),
+				IamCompatible:                 core.BoolPtr(true),
+				ServiceKeySupported:           core.BoolPtr(true),
+				UniqueApiKey:                  core.BoolPtr(true),
+				AsyncProvisioningSupported:    core.BoolPtr(true),
+				AsyncUnprovisioningSupported:  core.BoolPtr(true),
+				CustomCreatePageHybridEnabled: core.BoolPtr(true),
+				Parameters:                    []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
 			}
 
 			supportTimeIntervalModel := &partnercentersellv1.SupportTimeInterval{
@@ -653,10 +672,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Composite: globalCatalogProductMetadataOtherCompositeModel,
 			}
 
-			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
+			globalCatalogProductMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Ui:           globalCatalogMetadataUiModel,
-				Service:      globalCatalogProductMetadataServiceModel,
+				Ui:           globalCatalogProductMetadataUiModel,
+				Service:      globalCatalogProductMetadataServicePrototypePatchModel,
 				Other:        globalCatalogProductMetadataOtherModel,
 			}
 
@@ -667,7 +686,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Tags:           []string{"tag"},
 				Images:         globalCatalogProductImagesModel,
 				ObjectProvider: catalogProductProviderModel,
-				Metadata:       globalCatalogProductMetadataModel,
+				Metadata:       globalCatalogProductMetadataPrototypePatchModel,
 			}
 			globalCatalogProductPatchModelAsPatch, asPatchErr := globalCatalogProductPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -710,24 +729,20 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
-				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]string{"anyKey": "anyValue"},
-				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]string{"anyKey": "anyValue"},
+				Description: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
-				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]string{"anyKey": "anyValue"},
-				Thumbnail:   core.StringPtr("testString"),
-				Type:        core.StringPtr("image"),
-				URL:         core.StringPtr("testString"),
+				Caption:   core.StringPtr("testString"),
+				Thumbnail: core.StringPtr("testString"),
+				Type:      core.StringPtr("image"),
+				URL:       core.StringPtr("testString"),
 			}
 
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets:             []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:               []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-				EmbeddableDashboard: core.StringPtr("testString"),
+				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
@@ -744,14 +759,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Dashboard:           core.StringPtr("https://http.cat/do"),
 			}
 
-			globalCatalogMetadataUiModel := &partnercentersellv1.GlobalCatalogMetadataUI{
+			globalCatalogPlanMetadataUiModel := &partnercentersellv1.GlobalCatalogPlanMetadataUI{
 				Strings:         globalCatalogMetadataUiStringsModel,
 				Urls:            globalCatalogMetadataUiUrlsModel,
 				Hidden:          core.BoolPtr(true),
 				SideBySideIndex: core.Float64Ptr(float64(72)),
 			}
 
-			globalCatalogPlanMetadataServiceModel := &partnercentersellv1.GlobalCatalogPlanMetadataService{
+			globalCatalogPlanMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch{
 				RcProvisionable:     core.BoolPtr(false),
 				IamCompatible:       core.BoolPtr(true),
 				Bindable:            core.BoolPtr(true),
@@ -760,21 +775,32 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataPricingModel := &partnercentersellv1.GlobalCatalogMetadataPricing{
-				Type:   core.StringPtr("paid"),
-				Origin: core.StringPtr("pricing_catalog"),
+				Type:        core.StringPtr("paid"),
+				Origin:      core.StringPtr("pricing_catalog"),
+				SalesAvenue: []string{"seller"},
 			}
 
 			globalCatalogPlanMetadataPlanModel := &partnercentersellv1.GlobalCatalogPlanMetadataPlan{
 				AllowInternalUsers: core.BoolPtr(true),
-				Bindable:           core.BoolPtr(true),
+				ProvisionType:      core.StringPtr("ibm_cloud"),
+				Reservable:         core.BoolPtr(true),
 			}
 
-			globalCatalogPlanMetadataModel := &partnercentersellv1.GlobalCatalogPlanMetadata{
+			globalCatalogPlanMetadataOtherResourceControllerModel := &partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController{
+				SubscriptionProviderID: core.StringPtr("subscriptionProviderId"),
+			}
+
+			globalCatalogPlanMetadataOtherModel := &partnercentersellv1.GlobalCatalogPlanMetadataOther{
+				ResourceController: globalCatalogPlanMetadataOtherResourceControllerModel,
+			}
+
+			globalCatalogPlanMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Ui:           globalCatalogMetadataUiModel,
-				Service:      globalCatalogPlanMetadataServiceModel,
+				Ui:           globalCatalogPlanMetadataUiModel,
+				Service:      globalCatalogPlanMetadataServicePrototypePatchModel,
 				Pricing:      globalCatalogMetadataPricingModel,
 				Plan:         globalCatalogPlanMetadataPlanModel,
+				Other:        globalCatalogPlanMetadataOtherModel,
 			}
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -791,7 +817,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ObjectProvider:   catalogProductProviderModel,
 				ObjectID:         core.StringPtr(objectId),
 				OverviewUi:       globalCatalogOverviewUiModel,
-				Metadata:         globalCatalogPlanMetadataModel,
+				PricingTags:      []string{"free"},
+				Metadata:         globalCatalogPlanMetadataPrototypePatchModel,
 				Env:              core.StringPtr(env),
 			}
 
@@ -826,24 +853,20 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
-				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]string{"key1": "testString"},
-				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]string{"key1": "testString"},
+				Description: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
-				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]string{"key1": "testString"},
-				Thumbnail:   core.StringPtr("testString"),
-				Type:        core.StringPtr("image"),
-				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
+				Caption:   core.StringPtr("testString"),
+				Thumbnail: core.StringPtr("testString"),
+				Type:      core.StringPtr("image"),
+				URL:       core.StringPtr("https://http.cat/images/200.jpg"),
 			}
 
 			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets:             []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:               []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-				EmbeddableDashboard: core.StringPtr("testString"),
+				Bullets: []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
+				Media:   []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
 			}
 
 			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
@@ -860,14 +883,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Dashboard:           core.StringPtr("https://http.cat/elua"),
 			}
 
-			globalCatalogMetadataUiModel := &partnercentersellv1.GlobalCatalogMetadataUI{
+			globalCatalogPlanMetadataUiModel := &partnercentersellv1.GlobalCatalogPlanMetadataUI{
 				Strings:         globalCatalogMetadataUiStringsModel,
 				Urls:            globalCatalogMetadataUiUrlsModel,
 				Hidden:          core.BoolPtr(true),
 				SideBySideIndex: core.Float64Ptr(float64(72)),
 			}
 
-			globalCatalogPlanMetadataServiceModel := &partnercentersellv1.GlobalCatalogPlanMetadataService{
+			globalCatalogPlanMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch{
 				RcProvisionable:     core.BoolPtr(true),
 				IamCompatible:       core.BoolPtr(true),
 				Bindable:            core.BoolPtr(true),
@@ -876,21 +899,32 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataPricingModel := &partnercentersellv1.GlobalCatalogMetadataPricing{
-				Type:   core.StringPtr("free"),
-				Origin: core.StringPtr("pricing_catalog"),
+				Type:        core.StringPtr("free"),
+				Origin:      core.StringPtr("pricing_catalog"),
+				SalesAvenue: []string{"seller"},
 			}
 
 			globalCatalogPlanMetadataPlanModel := &partnercentersellv1.GlobalCatalogPlanMetadataPlan{
 				AllowInternalUsers: core.BoolPtr(true),
-				Bindable:           core.BoolPtr(true),
+				ProvisionType:      core.StringPtr("ibm_cloud"),
+				Reservable:         core.BoolPtr(true),
 			}
 
-			globalCatalogPlanMetadataModel := &partnercentersellv1.GlobalCatalogPlanMetadata{
+			globalCatalogPlanMetadataOtherResourceControllerModel := &partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController{
+				SubscriptionProviderID: core.StringPtr("subscriptionProviderId"),
+			}
+
+			globalCatalogPlanMetadataOtherModel := &partnercentersellv1.GlobalCatalogPlanMetadataOther{
+				ResourceController: globalCatalogPlanMetadataOtherResourceControllerModel,
+			}
+
+			globalCatalogPlanMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Ui:           globalCatalogMetadataUiModel,
-				Service:      globalCatalogPlanMetadataServiceModel,
+				Ui:           globalCatalogPlanMetadataUiModel,
+				Service:      globalCatalogPlanMetadataServicePrototypePatchModel,
 				Pricing:      globalCatalogMetadataPricingModel,
 				Plan:         globalCatalogPlanMetadataPlanModel,
+				Other:        globalCatalogPlanMetadataOtherModel,
 			}
 
 			globalCatalogPlanPatchModel := &partnercentersellv1.GlobalCatalogPlanPatch{
@@ -898,8 +932,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Disabled:       core.BoolPtr(false),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Tags:           []string{"testString"},
+				PricingTags:    []string{"free"},
 				ObjectProvider: catalogProductProviderModel,
-				Metadata:       globalCatalogPlanMetadataModel,
+				Metadata:       globalCatalogPlanMetadataPrototypePatchModel,
 			}
 			globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -942,48 +977,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
-				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]string{"anyKey": "anyValue"},
-				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]string{"anyKey": "anyValue"},
-			}
-
-			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
-				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]string{"key1": "testString"},
-				Thumbnail:   core.StringPtr("testString"),
-				Type:        core.StringPtr("image"),
-				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
-			}
-
-			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets:             []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:               []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-				EmbeddableDashboard: core.StringPtr("testString"),
-			}
-
-			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
-				En: globalCatalogMetadataUiStringsContentModel,
-			}
-
-			globalCatalogMetadataUiUrlsModel := &partnercentersellv1.GlobalCatalogMetadataUIUrls{
-				DocURL:              core.StringPtr("https://http.cat/elua"),
-				ApidocsURL:          core.StringPtr("https://http.cat/elua"),
-				TermsURL:            core.StringPtr("https://http.cat/elua"),
-				InstructionsURL:     core.StringPtr("https://http.cat/elua"),
-				CatalogDetailsURL:   core.StringPtr("https://http.cat/elua"),
-				CustomCreatePageURL: core.StringPtr("https://http.cat/elua"),
-				Dashboard:           core.StringPtr("https://http.cat/elua"),
-			}
-
-			globalCatalogMetadataUiModel := &partnercentersellv1.GlobalCatalogMetadataUI{
-				Strings:         globalCatalogMetadataUiStringsModel,
-				Urls:            globalCatalogMetadataUiUrlsModel,
-				Hidden:          core.BoolPtr(true),
-				SideBySideIndex: core.Float64Ptr(float64(72)),
-			}
-
 			globalCatalogMetadataServiceCustomParametersI18nFieldsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields{
 				Displayname: core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
@@ -1028,11 +1021,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
-			globalCatalogDeploymentMetadataServiceModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataService{
+			globalCatalogDeploymentMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch{
 				RcProvisionable:     core.BoolPtr(true),
 				IamCompatible:       core.BoolPtr(true),
-				Bindable:            core.BoolPtr(true),
-				PlanUpdateable:      core.BoolPtr(true),
 				ServiceKeySupported: core.BoolPtr(true),
 				Parameters:          []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
 			}
@@ -1049,10 +1040,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				TargetCrn:   core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb"),
 			}
 
-			globalCatalogDeploymentMetadataModel := &partnercentersellv1.GlobalCatalogDeploymentMetadata{
+			globalCatalogDeploymentMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Ui:           globalCatalogMetadataUiModel,
-				Service:      globalCatalogDeploymentMetadataServiceModel,
+				Service:      globalCatalogDeploymentMetadataServicePrototypePatchModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
@@ -1071,7 +1061,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ObjectProvider:   catalogProductProviderModel,
 				ObjectID:         core.StringPtr(objectId),
 				OverviewUi:       globalCatalogOverviewUiModel,
-				Metadata:         globalCatalogDeploymentMetadataModel,
+				Metadata:         globalCatalogDeploymentMetadataPrototypePatchModel,
 				Env:              core.StringPtr(env),
 			}
 
@@ -1101,50 +1091,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			catalogProductProviderModel := &partnercentersellv1.CatalogProductProvider{
-				Name:  core.StringPtr("Petra"),
-				Email: core.StringPtr("petra@ibm.com"),
-			}
-
-			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
-				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]string{"key1": "testString"},
-				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]string{"key1": "testString"},
-			}
-
-			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
-				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]string{"key1": "testString"},
-				Thumbnail:   core.StringPtr("testString"),
-				Type:        core.StringPtr("image"),
-				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
-			}
-
-			globalCatalogMetadataUiStringsContentModel := &partnercentersellv1.GlobalCatalogMetadataUIStringsContent{
-				Bullets:             []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel},
-				Media:               []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel},
-				EmbeddableDashboard: core.StringPtr("testString"),
-			}
-
-			globalCatalogMetadataUiStringsModel := &partnercentersellv1.GlobalCatalogMetadataUIStrings{
-				En: globalCatalogMetadataUiStringsContentModel,
-			}
-
-			globalCatalogMetadataUiUrlsModel := &partnercentersellv1.GlobalCatalogMetadataUIUrls{
-				DocURL:              core.StringPtr("https://http.cat/doc"),
-				ApidocsURL:          core.StringPtr("https://http.cat/doc"),
-				TermsURL:            core.StringPtr("https://http.cat/doc"),
-				InstructionsURL:     core.StringPtr("https://http.cat/doc"),
-				CatalogDetailsURL:   core.StringPtr("https://http.cat/doc"),
-				CustomCreatePageURL: core.StringPtr("https://http.cat/doc"),
-				Dashboard:           core.StringPtr("https://http.cat/doc"),
-			}
-
-			globalCatalogMetadataUiModel := &partnercentersellv1.GlobalCatalogMetadataUI{
-				Strings:         globalCatalogMetadataUiStringsModel,
-				Urls:            globalCatalogMetadataUiUrlsModel,
-				Hidden:          core.BoolPtr(true),
-				SideBySideIndex: core.Float64Ptr(float64(72)),
+				Name:  core.StringPtr("testString"),
+				Email: core.StringPtr("testString"),
 			}
 
 			globalCatalogMetadataServiceCustomParametersI18nFieldsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields{
@@ -1191,7 +1139,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
-			globalCatalogDeploymentMetadataServiceModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataService{
+			globalCatalogDeploymentMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch{
 				RcProvisionable:     core.BoolPtr(true),
 				IamCompatible:       core.BoolPtr(true),
 				Bindable:            core.BoolPtr(true),
@@ -1212,10 +1160,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				TargetCrn:   core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb"),
 			}
 
-			globalCatalogDeploymentMetadataModel := &partnercentersellv1.GlobalCatalogDeploymentMetadata{
+			globalCatalogDeploymentMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Ui:           globalCatalogMetadataUiModel,
-				Service:      globalCatalogDeploymentMetadataServiceModel,
+				Service:      globalCatalogDeploymentMetadataServicePrototypePatchModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
@@ -1225,7 +1172,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Tags:           []string{"testString"},
 				ObjectProvider: catalogProductProviderModel,
-				Metadata:       globalCatalogDeploymentMetadataModel,
+				Metadata:       globalCatalogDeploymentMetadataPrototypePatchModel,
 			}
 			globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -1329,6 +1276,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				PolicyTypes:                       []string{"access"},
 				IsEmptyValueSupported:             core.BoolPtr(true),
 				IsStringExistsFalseValueSupported: core.BoolPtr(true),
+				Key:                               core.StringPtr("testString"),
 				ResourceHierarchy:                 supportedAttributesOptionsResourceHierarchyModel,
 			}
 
@@ -1500,6 +1448,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			supportedAttributesOptionsModel := &partnercentersellv1.SupportedAttributesOptions{
 				Operators:                         []string{"stringEquals"},
 				Hidden:                            core.BoolPtr(false),
+				SupportedPatterns:                 []string{"."},
 				PolicyTypes:                       []string{"access"},
 				IsEmptyValueSupported:             core.BoolPtr(true),
 				IsStringExistsFalseValueSupported: core.BoolPtr(true),
