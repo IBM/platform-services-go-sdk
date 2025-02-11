@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,13 +68,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+				})
 				Expect(partnerCenterSellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+				})
 				err := partnerCenterSellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerCenterSellService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerCenterSellService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_AUTH_TYPE": "NOAuth",
+				"PARTNER_CENTER_SELL_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2104,23 +2107,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -2136,12 +2142,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -2187,15 +2196,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -2259,12 +2269,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogProductOptions model
 				createCatalogProductOptionsModel := new(partnercentersellv1.CreateCatalogProductOptions)
@@ -2279,7 +2289,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
-				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
+				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				createCatalogProductOptionsModel.Env = core.StringPtr("testString")
 				createCatalogProductOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2334,7 +2344,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2368,23 +2378,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -2400,12 +2413,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -2451,15 +2467,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -2523,12 +2540,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogProductOptions model
 				createCatalogProductOptionsModel := new(partnercentersellv1.CreateCatalogProductOptions)
@@ -2543,7 +2560,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
-				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
+				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				createCatalogProductOptionsModel.Env = core.StringPtr("testString")
 				createCatalogProductOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2601,7 +2618,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2640,23 +2657,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -2672,12 +2692,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -2723,15 +2746,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -2795,12 +2819,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogProductOptions model
 				createCatalogProductOptionsModel := new(partnercentersellv1.CreateCatalogProductOptions)
@@ -2815,7 +2839,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
-				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
+				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				createCatalogProductOptionsModel.Env = core.StringPtr("testString")
 				createCatalogProductOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2856,23 +2880,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -2888,12 +2915,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -2939,15 +2969,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -3011,12 +3042,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogProductOptions model
 				createCatalogProductOptionsModel := new(partnercentersellv1.CreateCatalogProductOptions)
@@ -3031,7 +3062,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
-				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
+				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				createCatalogProductOptionsModel.Env = core.StringPtr("testString")
 				createCatalogProductOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3093,23 +3124,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -3125,12 +3159,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -3176,15 +3213,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -3248,12 +3286,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogProductOptions model
 				createCatalogProductOptionsModel := new(partnercentersellv1.CreateCatalogProductOptions)
@@ -3268,7 +3306,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
-				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
+				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				createCatalogProductOptionsModel.Env = core.StringPtr("testString")
 				createCatalogProductOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3351,7 +3389,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3408,7 +3446,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3556,23 +3594,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -3588,12 +3629,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -3639,15 +3683,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -3711,12 +3756,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogProductPatch model
 				globalCatalogProductPatchModel := new(partnercentersellv1.GlobalCatalogProductPatch)
@@ -3726,7 +3771,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductPatchModel.Tags = []string{"testString"}
 				globalCatalogProductPatchModel.Images = globalCatalogProductImagesModel
 				globalCatalogProductPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataModel
+				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				globalCatalogProductPatchModelAsPatch, asPatchErr := globalCatalogProductPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -3789,7 +3834,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -3823,23 +3868,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -3855,12 +3903,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -3906,15 +3957,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -3978,12 +4030,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogProductPatch model
 				globalCatalogProductPatchModel := new(partnercentersellv1.GlobalCatalogProductPatch)
@@ -3993,7 +4045,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductPatchModel.Tags = []string{"testString"}
 				globalCatalogProductPatchModel.Images = globalCatalogProductImagesModel
 				globalCatalogProductPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataModel
+				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				globalCatalogProductPatchModelAsPatch, asPatchErr := globalCatalogProductPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -4059,7 +4111,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -4098,23 +4150,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -4130,12 +4185,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -4181,15 +4239,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -4253,12 +4312,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogProductPatch model
 				globalCatalogProductPatchModel := new(partnercentersellv1.GlobalCatalogProductPatch)
@@ -4268,7 +4327,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductPatchModel.Tags = []string{"testString"}
 				globalCatalogProductPatchModel.Images = globalCatalogProductImagesModel
 				globalCatalogProductPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataModel
+				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				globalCatalogProductPatchModelAsPatch, asPatchErr := globalCatalogProductPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -4317,23 +4376,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -4349,12 +4411,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -4400,15 +4465,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -4472,12 +4538,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogProductPatch model
 				globalCatalogProductPatchModel := new(partnercentersellv1.GlobalCatalogProductPatch)
@@ -4487,7 +4553,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductPatchModel.Tags = []string{"testString"}
 				globalCatalogProductPatchModel.Images = globalCatalogProductImagesModel
 				globalCatalogProductPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataModel
+				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				globalCatalogProductPatchModelAsPatch, asPatchErr := globalCatalogProductPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -4557,23 +4623,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -4589,12 +4658,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -4640,15 +4712,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -4712,12 +4785,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
 				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogProductPatch model
 				globalCatalogProductPatchModel := new(partnercentersellv1.GlobalCatalogProductPatch)
@@ -4727,7 +4800,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductPatchModel.Tags = []string{"testString"}
 				globalCatalogProductPatchModel.Images = globalCatalogProductImagesModel
 				globalCatalogProductPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataModel
+				globalCatalogProductPatchModel.Metadata = globalCatalogProductMetadataPrototypePatchModel
 				globalCatalogProductPatchModelAsPatch, asPatchErr := globalCatalogProductPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -4867,23 +4940,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -4899,38 +4975,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(false)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(false)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("paid")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogPlanOptions model
 				createCatalogPlanOptionsModel := new(partnercentersellv1.CreateCatalogPlanOptions)
@@ -4945,7 +5032,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
+				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
+				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -5000,7 +5088,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully with retries`, func() {
@@ -5030,23 +5118,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5062,38 +5153,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(false)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(false)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("paid")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogPlanOptions model
 				createCatalogPlanOptionsModel := new(partnercentersellv1.CreateCatalogPlanOptions)
@@ -5108,7 +5210,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
+				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
+				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5166,7 +5269,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully`, func() {
@@ -5201,23 +5304,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5233,38 +5339,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(false)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(false)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("paid")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogPlanOptions model
 				createCatalogPlanOptionsModel := new(partnercentersellv1.CreateCatalogPlanOptions)
@@ -5279,7 +5396,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
+				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
+				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5316,23 +5434,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5348,38 +5469,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(false)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(false)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("paid")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogPlanOptions model
 				createCatalogPlanOptionsModel := new(partnercentersellv1.CreateCatalogPlanOptions)
@@ -5394,7 +5526,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
+				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
+				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -5452,23 +5585,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5484,38 +5620,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(false)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(false)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("paid")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the CreateCatalogPlanOptions model
 				createCatalogPlanOptionsModel := new(partnercentersellv1.CreateCatalogPlanOptions)
@@ -5530,7 +5677,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
+				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
+				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5614,7 +5762,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully with retries`, func() {
@@ -5672,7 +5820,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully`, func() {
@@ -5819,23 +5967,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -5851,38 +6002,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("free")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogPlanPatch model
 				globalCatalogPlanPatchModel := new(partnercentersellv1.GlobalCatalogPlanPatch)
@@ -5890,8 +6052,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogPlanPatchModel.Disabled = core.BoolPtr(true)
 				globalCatalogPlanPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogPlanPatchModel.Tags = []string{"testString"}
+				globalCatalogPlanPatchModel.PricingTags = []string{"testString"}
 				globalCatalogPlanPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataModel
+				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -5955,7 +6118,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully with retries`, func() {
@@ -5985,23 +6148,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6017,38 +6183,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("free")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogPlanPatch model
 				globalCatalogPlanPatchModel := new(partnercentersellv1.GlobalCatalogPlanPatch)
@@ -6056,8 +6233,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogPlanPatchModel.Disabled = core.BoolPtr(true)
 				globalCatalogPlanPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogPlanPatchModel.Tags = []string{"testString"}
+				globalCatalogPlanPatchModel.PricingTags = []string{"testString"}
 				globalCatalogPlanPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataModel
+				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6124,7 +6302,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully`, func() {
@@ -6159,23 +6337,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6191,38 +6372,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("free")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogPlanPatch model
 				globalCatalogPlanPatchModel := new(partnercentersellv1.GlobalCatalogPlanPatch)
@@ -6230,8 +6422,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogPlanPatchModel.Disabled = core.BoolPtr(true)
 				globalCatalogPlanPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogPlanPatchModel.Tags = []string{"testString"}
+				globalCatalogPlanPatchModel.PricingTags = []string{"testString"}
 				globalCatalogPlanPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataModel
+				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6277,23 +6470,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6309,38 +6505,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("free")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogPlanPatch model
 				globalCatalogPlanPatchModel := new(partnercentersellv1.GlobalCatalogPlanPatch)
@@ -6348,8 +6555,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogPlanPatchModel.Disabled = core.BoolPtr(true)
 				globalCatalogPlanPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogPlanPatchModel.Tags = []string{"testString"}
+				globalCatalogPlanPatchModel.PricingTags = []string{"testString"}
 				globalCatalogPlanPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataModel
+				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6416,23 +6624,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -6448,38 +6659,49 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("free")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
 
 				// Construct an instance of the GlobalCatalogPlanPatch model
 				globalCatalogPlanPatchModel := new(partnercentersellv1.GlobalCatalogPlanPatch)
@@ -6487,8 +6709,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogPlanPatchModel.Disabled = core.BoolPtr(true)
 				globalCatalogPlanPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogPlanPatchModel.Tags = []string{"testString"}
+				globalCatalogPlanPatchModel.PricingTags = []string{"testString"}
 				globalCatalogPlanPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataModel
+				globalCatalogPlanPatchModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -6628,48 +6851,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogOverviewUiModel := new(partnercentersellv1.GlobalCatalogOverviewUI)
 				globalCatalogOverviewUiModel.En = globalCatalogOverviewUiTranslatedContentModel
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel.Displayname = core.StringPtr("testString")
@@ -6714,14 +6895,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -6735,12 +6914,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -6756,7 +6934,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
+				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -6811,7 +6989,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully with retries`, func() {
@@ -6837,48 +7015,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogOverviewUI model
 				globalCatalogOverviewUiModel := new(partnercentersellv1.GlobalCatalogOverviewUI)
 				globalCatalogOverviewUiModel.En = globalCatalogOverviewUiTranslatedContentModel
-
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -6924,14 +7060,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -6945,12 +7079,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -6966,7 +7099,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
+				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7024,7 +7157,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully`, func() {
@@ -7055,48 +7188,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the GlobalCatalogOverviewUI model
 				globalCatalogOverviewUiModel := new(partnercentersellv1.GlobalCatalogOverviewUI)
 				globalCatalogOverviewUiModel.En = globalCatalogOverviewUiTranslatedContentModel
-
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -7142,14 +7233,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -7163,12 +7252,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7184,7 +7272,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
+				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7218,48 +7306,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogOverviewUiModel := new(partnercentersellv1.GlobalCatalogOverviewUI)
 				globalCatalogOverviewUiModel.En = globalCatalogOverviewUiTranslatedContentModel
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel.Displayname = core.StringPtr("testString")
@@ -7304,14 +7350,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -7325,12 +7369,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7346,7 +7389,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
+				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -7401,48 +7444,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogOverviewUiModel := new(partnercentersellv1.GlobalCatalogOverviewUI)
 				globalCatalogOverviewUiModel.En = globalCatalogOverviewUiTranslatedContentModel
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel.Displayname = core.StringPtr("testString")
@@ -7487,14 +7488,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -7508,12 +7507,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7529,7 +7527,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
-				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
+				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7614,7 +7612,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully with retries`, func() {
@@ -7673,7 +7671,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully`, func() {
@@ -7820,48 +7818,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductProviderModel.Name = core.StringPtr("testString")
 				catalogProductProviderModel.Email = core.StringPtr("testString")
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel.Displayname = core.StringPtr("testString")
@@ -7906,14 +7862,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -7927,12 +7881,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -7941,7 +7894,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogDeploymentPatchModel.Tags = []string{"testString"}
 				globalCatalogDeploymentPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataModel
+				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -8006,7 +7959,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully with retries`, func() {
@@ -8032,48 +7985,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductProviderModel := new(partnercentersellv1.CatalogProductProvider)
 				catalogProductProviderModel.Name = core.StringPtr("testString")
 				catalogProductProviderModel.Email = core.StringPtr("testString")
-
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -8119,14 +8030,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -8140,12 +8049,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8154,7 +8062,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogDeploymentPatchModel.Tags = []string{"testString"}
 				globalCatalogDeploymentPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataModel
+				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -8222,7 +8130,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully`, func() {
@@ -8253,48 +8161,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductProviderModel := new(partnercentersellv1.CatalogProductProvider)
 				catalogProductProviderModel.Name = core.StringPtr("testString")
 				catalogProductProviderModel.Email = core.StringPtr("testString")
-
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -8340,14 +8206,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -8361,12 +8225,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8375,7 +8238,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogDeploymentPatchModel.Tags = []string{"testString"}
 				globalCatalogDeploymentPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataModel
+				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -8419,48 +8282,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductProviderModel.Name = core.StringPtr("testString")
 				catalogProductProviderModel.Email = core.StringPtr("testString")
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel.Displayname = core.StringPtr("testString")
@@ -8505,14 +8326,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -8526,12 +8345,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8540,7 +8358,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogDeploymentPatchModel.Tags = []string{"testString"}
 				globalCatalogDeploymentPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataModel
+				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -8605,48 +8423,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogProductProviderModel.Name = core.StringPtr("testString")
 				catalogProductProviderModel.Email = core.StringPtr("testString")
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel.Displayname = core.StringPtr("testString")
@@ -8691,14 +8467,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Hidden = core.BoolPtr(true)
 				globalCatalogMetadataServiceCustomParametersModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -8712,12 +8486,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8726,7 +8499,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentPatchModel.OverviewUi = globalCatalogOverviewUiModel
 				globalCatalogDeploymentPatchModel.Tags = []string{"testString"}
 				globalCatalogDeploymentPatchModel.ObjectProvider = catalogProductProviderModel
-				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataModel
+				globalCatalogDeploymentPatchModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -12737,78 +12510,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogOverviewUiModel.En = globalCatalogOverviewUiTranslatedContentModel
 				Expect(globalCatalogOverviewUiModel.En).To(Equal(globalCatalogOverviewUiTranslatedContentModel))
 
-				// Construct an instance of the CatalogHighlightItem model
-				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
-				Expect(catalogHighlightItemModel).ToNot(BeNil())
-				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
-				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
-				Expect(catalogHighlightItemModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]string{"key1": "testString"}))
-				Expect(catalogHighlightItemModel.Title).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]string{"key1": "testString"}))
-
-				// Construct an instance of the CatalogProductMediaItem model
-				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
-				Expect(catalogProductMediaItemModel).ToNot(BeNil())
-				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
-				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
-				catalogProductMediaItemModel.Type = core.StringPtr("image")
-				catalogProductMediaItemModel.URL = core.StringPtr("testString")
-				Expect(catalogProductMediaItemModel.Caption).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]string{"key1": "testString"}))
-				Expect(catalogProductMediaItemModel.Thumbnail).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
-				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
-				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
-				Expect(globalCatalogMetadataUiStringsContentModel).ToNot(BeNil())
-				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
-				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
-				Expect(globalCatalogMetadataUiStringsContentModel.Bullets).To(Equal([]partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}))
-				Expect(globalCatalogMetadataUiStringsContentModel.Media).To(Equal([]partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}))
-				Expect(globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the GlobalCatalogMetadataUIStrings model
-				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
-				Expect(globalCatalogMetadataUiStringsModel).ToNot(BeNil())
-				globalCatalogMetadataUiStringsModel.En = globalCatalogMetadataUiStringsContentModel
-				Expect(globalCatalogMetadataUiStringsModel.En).To(Equal(globalCatalogMetadataUiStringsContentModel))
-
-				// Construct an instance of the GlobalCatalogMetadataUIUrls model
-				globalCatalogMetadataUiUrlsModel := new(partnercentersellv1.GlobalCatalogMetadataUIUrls)
-				Expect(globalCatalogMetadataUiUrlsModel).ToNot(BeNil())
-				globalCatalogMetadataUiUrlsModel.DocURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.ApidocsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.TermsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.InstructionsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CatalogDetailsURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.CustomCreatePageURL = core.StringPtr("testString")
-				globalCatalogMetadataUiUrlsModel.Dashboard = core.StringPtr("testString")
-				Expect(globalCatalogMetadataUiUrlsModel.DocURL).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataUiUrlsModel.ApidocsURL).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataUiUrlsModel.TermsURL).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataUiUrlsModel.InstructionsURL).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataUiUrlsModel.CatalogDetailsURL).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataUiUrlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataUiUrlsModel.Dashboard).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				Expect(globalCatalogMetadataUiModel).ToNot(BeNil())
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-				Expect(globalCatalogMetadataUiModel.Strings).To(Equal(globalCatalogMetadataUiStringsModel))
-				Expect(globalCatalogMetadataUiModel.Urls).To(Equal(globalCatalogMetadataUiUrlsModel))
-				Expect(globalCatalogMetadataUiModel.Hidden).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogMetadataUiModel.SideBySideIndex).To(Equal(core.Float64Ptr(float64(72.5))))
-
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
 				Expect(globalCatalogMetadataServiceCustomParametersI18nFieldsModel).ToNot(BeNil())
@@ -12889,21 +12590,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Hidden).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.I18n).To(Equal(globalCatalogMetadataServiceCustomParametersI18nModel))
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadataService model
-				globalCatalogDeploymentMetadataServiceModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
-				Expect(globalCatalogDeploymentMetadataServiceModel).ToNot(BeNil())
-				globalCatalogDeploymentMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
-				Expect(globalCatalogDeploymentMetadataServiceModel.RcProvisionable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogDeploymentMetadataServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogDeploymentMetadataServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogDeploymentMetadataServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogDeploymentMetadataServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogDeploymentMetadataServiceModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}))
+				// Construct an instance of the GlobalCatalogDeploymentMetadataServicePrototypePatch model
+				globalCatalogDeploymentMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
+				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel).ToNot(BeNil())
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}))
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
@@ -12925,17 +12622,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataDeploymentModel.LocationURL).To(Equal(core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")))
 				Expect(globalCatalogMetadataDeploymentModel.TargetCrn).To(Equal(core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")))
 
-				// Construct an instance of the GlobalCatalogDeploymentMetadata model
-				globalCatalogDeploymentMetadataModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
-				Expect(globalCatalogDeploymentMetadataModel).ToNot(BeNil())
-				globalCatalogDeploymentMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogDeploymentMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogDeploymentMetadataModel.Service = globalCatalogDeploymentMetadataServiceModel
-				globalCatalogDeploymentMetadataModel.Deployment = globalCatalogMetadataDeploymentModel
-				Expect(globalCatalogDeploymentMetadataModel.RcCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogDeploymentMetadataModel.Ui).To(Equal(globalCatalogMetadataUiModel))
-				Expect(globalCatalogDeploymentMetadataModel.Service).To(Equal(globalCatalogDeploymentMetadataServiceModel))
-				Expect(globalCatalogDeploymentMetadataModel.Deployment).To(Equal(globalCatalogMetadataDeploymentModel))
+				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
+				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
+				Expect(globalCatalogDeploymentMetadataPrototypePatchModel).ToNot(BeNil())
+				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.Service).To(Equal(globalCatalogDeploymentMetadataServicePrototypePatchModel))
+				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.Deployment).To(Equal(globalCatalogMetadataDeploymentModel))
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				productID := "testString"
@@ -12960,7 +12655,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.SetID("testString")
 				createCatalogDeploymentOptionsModel.SetObjectID("testString")
 				createCatalogDeploymentOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
-				createCatalogDeploymentOptionsModel.SetMetadata(globalCatalogDeploymentMetadataModel)
+				createCatalogDeploymentOptionsModel.SetMetadata(globalCatalogDeploymentMetadataPrototypePatchModel)
 				createCatalogDeploymentOptionsModel.SetEnv("testString")
 				createCatalogDeploymentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCatalogDeploymentOptionsModel).ToNot(BeNil())
@@ -12976,7 +12671,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogDeploymentOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
-				Expect(createCatalogDeploymentOptionsModel.Metadata).To(Equal(globalCatalogDeploymentMetadataModel))
+				Expect(createCatalogDeploymentOptionsModel.Metadata).To(Equal(globalCatalogDeploymentMetadataPrototypePatchModel))
 				Expect(createCatalogDeploymentOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -13009,37 +12704,41 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				Expect(catalogHighlightItemModel).ToNot(BeNil())
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 				Expect(catalogHighlightItemModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogHighlightItemModel.Title).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				Expect(catalogProductMediaItemModel).ToNot(BeNil())
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 				Expect(catalogProductMediaItemModel.Caption).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogProductMediaItemModel.Thumbnail).To(Equal(core.StringPtr("testString")))
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				Expect(globalCatalogMetadataUiNavigationItemModel).ToNot(BeNil())
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+				Expect(globalCatalogMetadataUiNavigationItemModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiNavigationItemModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiNavigationItemModel.Label).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				Expect(globalCatalogMetadataUiStringsContentModel).ToNot(BeNil())
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				Expect(globalCatalogMetadataUiStringsContentModel.Bullets).To(Equal([]partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}))
 				Expect(globalCatalogMetadataUiStringsContentModel.Media).To(Equal([]partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}))
-				Expect(globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiStringsContentModel.NavigationItems).To(Equal([]partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}))
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -13065,61 +12764,79 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataUiUrlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataUiUrlsModel.Dashboard).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				Expect(globalCatalogMetadataUiModel).ToNot(BeNil())
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-				Expect(globalCatalogMetadataUiModel.Strings).To(Equal(globalCatalogMetadataUiStringsModel))
-				Expect(globalCatalogMetadataUiModel.Urls).To(Equal(globalCatalogMetadataUiUrlsModel))
-				Expect(globalCatalogMetadataUiModel.Hidden).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogMetadataUiModel.SideBySideIndex).To(Equal(core.Float64Ptr(float64(72.5))))
+				// Construct an instance of the GlobalCatalogPlanMetadataUI model
+				globalCatalogPlanMetadataUiModel := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+				Expect(globalCatalogPlanMetadataUiModel).ToNot(BeNil())
+				globalCatalogPlanMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogPlanMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogPlanMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogPlanMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				Expect(globalCatalogPlanMetadataUiModel.Strings).To(Equal(globalCatalogMetadataUiStringsModel))
+				Expect(globalCatalogPlanMetadataUiModel.Urls).To(Equal(globalCatalogMetadataUiUrlsModel))
+				Expect(globalCatalogPlanMetadataUiModel.Hidden).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogPlanMetadataUiModel.SideBySideIndex).To(Equal(core.Float64Ptr(float64(72.5))))
 
-				// Construct an instance of the GlobalCatalogPlanMetadataService model
-				globalCatalogPlanMetadataServiceModel := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
-				Expect(globalCatalogPlanMetadataServiceModel).ToNot(BeNil())
-				globalCatalogPlanMetadataServiceModel.RcProvisionable = core.BoolPtr(false)
-				globalCatalogPlanMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogPlanMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				Expect(globalCatalogPlanMetadataServiceModel.RcProvisionable).To(Equal(core.BoolPtr(false)))
-				Expect(globalCatalogPlanMetadataServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogPlanMetadataServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogPlanMetadataServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogPlanMetadataServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+				// Construct an instance of the GlobalCatalogPlanMetadataServicePrototypePatch model
+				globalCatalogPlanMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
+				Expect(globalCatalogPlanMetadataServicePrototypePatchModel).ToNot(BeNil())
+				globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(false)
+				globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
+				globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				Expect(globalCatalogPlanMetadataServicePrototypePatchModel.RcProvisionable).To(Equal(core.BoolPtr(false)))
+				Expect(globalCatalogPlanMetadataServicePrototypePatchModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogPlanMetadataServicePrototypePatchModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogPlanMetadataServicePrototypePatchModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogPlanMetadataServicePrototypePatchModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the GlobalCatalogMetadataPricing model
 				globalCatalogMetadataPricingModel := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 				Expect(globalCatalogMetadataPricingModel).ToNot(BeNil())
 				globalCatalogMetadataPricingModel.Type = core.StringPtr("paid")
 				globalCatalogMetadataPricingModel.Origin = core.StringPtr("pricing_catalog")
+				globalCatalogMetadataPricingModel.SalesAvenue = []string{"seller"}
 				Expect(globalCatalogMetadataPricingModel.Type).To(Equal(core.StringPtr("paid")))
 				Expect(globalCatalogMetadataPricingModel.Origin).To(Equal(core.StringPtr("pricing_catalog")))
+				Expect(globalCatalogMetadataPricingModel.SalesAvenue).To(Equal([]string{"seller"}))
 
 				// Construct an instance of the GlobalCatalogPlanMetadataPlan model
 				globalCatalogPlanMetadataPlanModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 				Expect(globalCatalogPlanMetadataPlanModel).ToNot(BeNil())
 				globalCatalogPlanMetadataPlanModel.AllowInternalUsers = core.BoolPtr(true)
-				globalCatalogPlanMetadataPlanModel.Bindable = core.BoolPtr(true)
+				globalCatalogPlanMetadataPlanModel.ProvisionType = core.StringPtr("ibm_cloud")
+				globalCatalogPlanMetadataPlanModel.Reservable = core.BoolPtr(true)
 				Expect(globalCatalogPlanMetadataPlanModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogPlanMetadataPlanModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogPlanMetadataPlanModel.ProvisionType).To(Equal(core.StringPtr("ibm_cloud")))
+				Expect(globalCatalogPlanMetadataPlanModel.Reservable).To(Equal(core.BoolPtr(true)))
 
-				// Construct an instance of the GlobalCatalogPlanMetadata model
-				globalCatalogPlanMetadataModel := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-				Expect(globalCatalogPlanMetadataModel).ToNot(BeNil())
-				globalCatalogPlanMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogPlanMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogPlanMetadataModel.Service = globalCatalogPlanMetadataServiceModel
-				globalCatalogPlanMetadataModel.Pricing = globalCatalogMetadataPricingModel
-				globalCatalogPlanMetadataModel.Plan = globalCatalogPlanMetadataPlanModel
-				Expect(globalCatalogPlanMetadataModel.RcCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogPlanMetadataModel.Ui).To(Equal(globalCatalogMetadataUiModel))
-				Expect(globalCatalogPlanMetadataModel.Service).To(Equal(globalCatalogPlanMetadataServiceModel))
-				Expect(globalCatalogPlanMetadataModel.Pricing).To(Equal(globalCatalogMetadataPricingModel))
-				Expect(globalCatalogPlanMetadataModel.Plan).To(Equal(globalCatalogPlanMetadataPlanModel))
+				// Construct an instance of the GlobalCatalogPlanMetadataOtherResourceController model
+				globalCatalogPlanMetadataOtherResourceControllerModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+				Expect(globalCatalogPlanMetadataOtherResourceControllerModel).ToNot(BeNil())
+				globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID = core.StringPtr("testString")
+				Expect(globalCatalogPlanMetadataOtherResourceControllerModel.SubscriptionProviderID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the GlobalCatalogPlanMetadataOther model
+				globalCatalogPlanMetadataOtherModel := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+				Expect(globalCatalogPlanMetadataOtherModel).ToNot(BeNil())
+				globalCatalogPlanMetadataOtherModel.ResourceController = globalCatalogPlanMetadataOtherResourceControllerModel
+				Expect(globalCatalogPlanMetadataOtherModel.ResourceController).To(Equal(globalCatalogPlanMetadataOtherResourceControllerModel))
+
+				// Construct an instance of the GlobalCatalogPlanMetadataPrototypePatch model
+				globalCatalogPlanMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+				Expect(globalCatalogPlanMetadataPrototypePatchModel).ToNot(BeNil())
+				globalCatalogPlanMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogPlanMetadataPrototypePatchModel.Ui = globalCatalogPlanMetadataUiModel
+				globalCatalogPlanMetadataPrototypePatchModel.Service = globalCatalogPlanMetadataServicePrototypePatchModel
+				globalCatalogPlanMetadataPrototypePatchModel.Pricing = globalCatalogMetadataPricingModel
+				globalCatalogPlanMetadataPrototypePatchModel.Plan = globalCatalogPlanMetadataPlanModel
+				globalCatalogPlanMetadataPrototypePatchModel.Other = globalCatalogPlanMetadataOtherModel
+				Expect(globalCatalogPlanMetadataPrototypePatchModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogPlanMetadataPrototypePatchModel.Ui).To(Equal(globalCatalogPlanMetadataUiModel))
+				Expect(globalCatalogPlanMetadataPrototypePatchModel.Service).To(Equal(globalCatalogPlanMetadataServicePrototypePatchModel))
+				Expect(globalCatalogPlanMetadataPrototypePatchModel.Pricing).To(Equal(globalCatalogMetadataPricingModel))
+				Expect(globalCatalogPlanMetadataPrototypePatchModel.Plan).To(Equal(globalCatalogPlanMetadataPlanModel))
+				Expect(globalCatalogPlanMetadataPrototypePatchModel.Other).To(Equal(globalCatalogPlanMetadataOtherModel))
 
 				// Construct an instance of the CreateCatalogPlanOptions model
 				productID := "testString"
@@ -13142,7 +12859,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.SetID("testString")
 				createCatalogPlanOptionsModel.SetObjectID("testString")
 				createCatalogPlanOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
-				createCatalogPlanOptionsModel.SetMetadata(globalCatalogPlanMetadataModel)
+				createCatalogPlanOptionsModel.SetPricingTags([]string{"testString"})
+				createCatalogPlanOptionsModel.SetMetadata(globalCatalogPlanMetadataPrototypePatchModel)
 				createCatalogPlanOptionsModel.SetEnv("testString")
 				createCatalogPlanOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCatalogPlanOptionsModel).ToNot(BeNil())
@@ -13157,7 +12875,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogPlanOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
-				Expect(createCatalogPlanOptionsModel.Metadata).To(Equal(globalCatalogPlanMetadataModel))
+				Expect(createCatalogPlanOptionsModel.PricingTags).To(Equal([]string{"testString"}))
+				Expect(createCatalogPlanOptionsModel.Metadata).To(Equal(globalCatalogPlanMetadataPrototypePatchModel))
 				Expect(createCatalogPlanOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -13196,37 +12915,41 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				Expect(catalogHighlightItemModel).ToNot(BeNil())
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 				Expect(catalogHighlightItemModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogHighlightItemModel.Title).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				Expect(catalogProductMediaItemModel).ToNot(BeNil())
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 				Expect(catalogProductMediaItemModel.Caption).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogProductMediaItemModel.Thumbnail).To(Equal(core.StringPtr("testString")))
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the GlobalCatalogMetadataUINavigationItem model
+				globalCatalogMetadataUiNavigationItemModel := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+				Expect(globalCatalogMetadataUiNavigationItemModel).ToNot(BeNil())
+				globalCatalogMetadataUiNavigationItemModel.ID = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.URL = core.StringPtr("testString")
+				globalCatalogMetadataUiNavigationItemModel.Label = core.StringPtr("testString")
+				Expect(globalCatalogMetadataUiNavigationItemModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiNavigationItemModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiNavigationItemModel.Label).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the GlobalCatalogMetadataUIStringsContent model
 				globalCatalogMetadataUiStringsContentModel := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 				Expect(globalCatalogMetadataUiStringsContentModel).ToNot(BeNil())
 				globalCatalogMetadataUiStringsContentModel.Bullets = []partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}
 				globalCatalogMetadataUiStringsContentModel.Media = []partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}
-				globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogMetadataUiStringsContentModel.NavigationItems = []partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}
 				Expect(globalCatalogMetadataUiStringsContentModel.Bullets).To(Equal([]partnercentersellv1.CatalogHighlightItem{*catalogHighlightItemModel}))
 				Expect(globalCatalogMetadataUiStringsContentModel.Media).To(Equal([]partnercentersellv1.CatalogProductMediaItem{*catalogProductMediaItemModel}))
-				Expect(globalCatalogMetadataUiStringsContentModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataUiStringsContentModel.NavigationItems).To(Equal([]partnercentersellv1.GlobalCatalogMetadataUINavigationItem{*globalCatalogMetadataUiNavigationItemModel}))
 
 				// Construct an instance of the GlobalCatalogMetadataUIStrings model
 				globalCatalogMetadataUiStringsModel := new(partnercentersellv1.GlobalCatalogMetadataUIStrings)
@@ -13252,17 +12975,23 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataUiUrlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataUiUrlsModel.Dashboard).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the GlobalCatalogMetadataUI model
-				globalCatalogMetadataUiModel := new(partnercentersellv1.GlobalCatalogMetadataUI)
-				Expect(globalCatalogMetadataUiModel).ToNot(BeNil())
-				globalCatalogMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
-				globalCatalogMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
-				globalCatalogMetadataUiModel.Hidden = core.BoolPtr(true)
-				globalCatalogMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
-				Expect(globalCatalogMetadataUiModel.Strings).To(Equal(globalCatalogMetadataUiStringsModel))
-				Expect(globalCatalogMetadataUiModel.Urls).To(Equal(globalCatalogMetadataUiUrlsModel))
-				Expect(globalCatalogMetadataUiModel.Hidden).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogMetadataUiModel.SideBySideIndex).To(Equal(core.Float64Ptr(float64(72.5))))
+				// Construct an instance of the GlobalCatalogProductMetadataUI model
+				globalCatalogProductMetadataUiModel := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+				Expect(globalCatalogProductMetadataUiModel).ToNot(BeNil())
+				globalCatalogProductMetadataUiModel.Strings = globalCatalogMetadataUiStringsModel
+				globalCatalogProductMetadataUiModel.Urls = globalCatalogMetadataUiUrlsModel
+				globalCatalogProductMetadataUiModel.Hidden = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.SideBySideIndex = core.Float64Ptr(float64(72.5))
+				globalCatalogProductMetadataUiModel.EmbeddableDashboard = core.StringPtr("testString")
+				globalCatalogProductMetadataUiModel.AccessibleDuringProvision = core.BoolPtr(true)
+				globalCatalogProductMetadataUiModel.PrimaryOfferingID = core.StringPtr("testString")
+				Expect(globalCatalogProductMetadataUiModel.Strings).To(Equal(globalCatalogMetadataUiStringsModel))
+				Expect(globalCatalogProductMetadataUiModel.Urls).To(Equal(globalCatalogMetadataUiUrlsModel))
+				Expect(globalCatalogProductMetadataUiModel.Hidden).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataUiModel.SideBySideIndex).To(Equal(core.Float64Ptr(float64(72.5))))
+				Expect(globalCatalogProductMetadataUiModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogProductMetadataUiModel.AccessibleDuringProvision).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataUiModel.PrimaryOfferingID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersI18nFields model
 				globalCatalogMetadataServiceCustomParametersI18nFieldsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersI18nFields)
@@ -13344,23 +13073,25 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Hidden).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.I18n).To(Equal(globalCatalogMetadataServiceCustomParametersI18nModel))
 
-				// Construct an instance of the GlobalCatalogProductMetadataService model
-				globalCatalogProductMetadataServiceModel := new(partnercentersellv1.GlobalCatalogProductMetadataService)
-				Expect(globalCatalogProductMetadataServiceModel).ToNot(BeNil())
-				globalCatalogProductMetadataServiceModel.RcProvisionable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.IamCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Bindable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.PlanUpdateable = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.UniqueApiKey = core.BoolPtr(true)
-				globalCatalogProductMetadataServiceModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
-				Expect(globalCatalogProductMetadataServiceModel.RcProvisionable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataServiceModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataServiceModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}))
+				// Construct an instance of the GlobalCatalogProductMetadataServicePrototypePatch model
+				globalCatalogProductMetadataServicePrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel).ToNot(BeNil())
+				globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled = core.BoolPtr(true)
+				globalCatalogProductMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.RcProvisionable).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.CustomCreatePageHybridEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataServicePrototypePatchModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}))
 
 				// Construct an instance of the SupportTimeInterval model
 				supportTimeIntervalModel := new(partnercentersellv1.SupportTimeInterval)
@@ -13466,17 +13197,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogProductMetadataOtherModel.PC).To(Equal(globalCatalogProductMetadataOtherPcModel))
 				Expect(globalCatalogProductMetadataOtherModel.Composite).To(Equal(globalCatalogProductMetadataOtherCompositeModel))
 
-				// Construct an instance of the GlobalCatalogProductMetadata model
-				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
-				Expect(globalCatalogProductMetadataModel).ToNot(BeNil())
-				globalCatalogProductMetadataModel.RcCompatible = core.BoolPtr(true)
-				globalCatalogProductMetadataModel.Ui = globalCatalogMetadataUiModel
-				globalCatalogProductMetadataModel.Service = globalCatalogProductMetadataServiceModel
-				globalCatalogProductMetadataModel.Other = globalCatalogProductMetadataOtherModel
-				Expect(globalCatalogProductMetadataModel.RcCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(globalCatalogProductMetadataModel.Ui).To(Equal(globalCatalogMetadataUiModel))
-				Expect(globalCatalogProductMetadataModel.Service).To(Equal(globalCatalogProductMetadataServiceModel))
-				Expect(globalCatalogProductMetadataModel.Other).To(Equal(globalCatalogProductMetadataOtherModel))
+				// Construct an instance of the GlobalCatalogProductMetadataPrototypePatch model
+				globalCatalogProductMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+				Expect(globalCatalogProductMetadataPrototypePatchModel).ToNot(BeNil())
+				globalCatalogProductMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
+				globalCatalogProductMetadataPrototypePatchModel.Ui = globalCatalogProductMetadataUiModel
+				globalCatalogProductMetadataPrototypePatchModel.Service = globalCatalogProductMetadataServicePrototypePatchModel
+				globalCatalogProductMetadataPrototypePatchModel.Other = globalCatalogProductMetadataOtherModel
+				Expect(globalCatalogProductMetadataPrototypePatchModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogProductMetadataPrototypePatchModel.Ui).To(Equal(globalCatalogProductMetadataUiModel))
+				Expect(globalCatalogProductMetadataPrototypePatchModel.Service).To(Equal(globalCatalogProductMetadataServicePrototypePatchModel))
+				Expect(globalCatalogProductMetadataPrototypePatchModel.Other).To(Equal(globalCatalogProductMetadataOtherModel))
 
 				// Construct an instance of the CreateCatalogProductOptions model
 				productID := "testString"
@@ -13498,7 +13229,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.SetObjectID("testString")
 				createCatalogProductOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
 				createCatalogProductOptionsModel.SetImages(globalCatalogProductImagesModel)
-				createCatalogProductOptionsModel.SetMetadata(globalCatalogProductMetadataModel)
+				createCatalogProductOptionsModel.SetMetadata(globalCatalogProductMetadataPrototypePatchModel)
 				createCatalogProductOptionsModel.SetEnv("testString")
 				createCatalogProductOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCatalogProductOptionsModel).ToNot(BeNil())
@@ -13513,7 +13244,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogProductOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogProductOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
 				Expect(createCatalogProductOptionsModel.Images).To(Equal(globalCatalogProductImagesModel))
-				Expect(createCatalogProductOptionsModel.Metadata).To(Equal(globalCatalogProductMetadataModel))
+				Expect(createCatalogProductOptionsModel.Metadata).To(Equal(globalCatalogProductMetadataPrototypePatchModel))
 				Expect(createCatalogProductOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogProductOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -14330,9 +14061,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.CatalogHighlightItem)
 			model.Description = core.StringPtr("testString")
-			model.DescriptionI18n = map[string]string{"key1": "testString"}
 			model.Title = core.StringPtr("testString")
-			model.TitleI18n = map[string]string{"key1": "testString"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14351,7 +14080,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.CatalogProductMediaItem)
 			model.Caption = core.StringPtr("testString")
-			model.CaptionI18n = map[string]string{"key1": "testString"}
 			model.Thumbnail = core.StringPtr("testString")
 			model.Type = core.StringPtr("image")
 			model.URL = core.StringPtr("testString")
@@ -14426,11 +14154,10 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalGlobalCatalogDeploymentMetadata successfully`, func() {
+		It(`Invoke UnmarshalGlobalCatalogDeploymentMetadataPrototypePatch successfully`, func() {
 			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogDeploymentMetadata)
+			model := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 			model.RcCompatible = core.BoolPtr(true)
-			model.Ui = nil
 			model.Service = nil
 			model.Deployment = nil
 
@@ -14441,19 +14168,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *partnercentersellv1.GlobalCatalogDeploymentMetadata
-			err = partnercentersellv1.UnmarshalGlobalCatalogDeploymentMetadata(raw, &result)
+			var result *partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch
+			err = partnercentersellv1.UnmarshalGlobalCatalogDeploymentMetadataPrototypePatch(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalGlobalCatalogDeploymentMetadataService successfully`, func() {
+		It(`Invoke UnmarshalGlobalCatalogDeploymentMetadataServicePrototypePatch successfully`, func() {
 			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogDeploymentMetadataService)
+			model := new(partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch)
 			model.RcProvisionable = core.BoolPtr(true)
 			model.IamCompatible = core.BoolPtr(true)
-			model.Bindable = core.BoolPtr(true)
-			model.PlanUpdateable = core.BoolPtr(true)
 			model.ServiceKeySupported = core.BoolPtr(true)
 			model.Parameters = nil
 
@@ -14464,8 +14189,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *partnercentersellv1.GlobalCatalogDeploymentMetadataService
-			err = partnercentersellv1.UnmarshalGlobalCatalogDeploymentMetadataService(raw, &result)
+			var result *partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch
+			err = partnercentersellv1.UnmarshalGlobalCatalogDeploymentMetadataServicePrototypePatch(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -14538,6 +14263,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.GlobalCatalogMetadataPricing)
 			model.Type = core.StringPtr("free")
 			model.Origin = core.StringPtr("global_catalog")
+			model.SalesAvenue = []string{"seller"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14652,13 +14378,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalGlobalCatalogMetadataUI successfully`, func() {
+		It(`Invoke UnmarshalGlobalCatalogMetadataUINavigationItem successfully`, func() {
 			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogMetadataUI)
-			model.Strings = nil
-			model.Urls = nil
-			model.Hidden = core.BoolPtr(true)
-			model.SideBySideIndex = core.Float64Ptr(float64(72.5))
+			model := new(partnercentersellv1.GlobalCatalogMetadataUINavigationItem)
+			model.ID = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14667,8 +14392,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *partnercentersellv1.GlobalCatalogMetadataUI
-			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataUI(raw, &result)
+			var result *partnercentersellv1.GlobalCatalogMetadataUINavigationItem
+			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataUINavigationItem(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -14696,7 +14421,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.GlobalCatalogMetadataUIStringsContent)
 			model.Bullets = nil
 			model.Media = nil
-			model.EmbeddableDashboard = core.StringPtr("testString")
+			model.NavigationItems = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14773,14 +14498,10 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalGlobalCatalogPlanMetadata successfully`, func() {
+		It(`Invoke UnmarshalGlobalCatalogPlanMetadataOther successfully`, func() {
 			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogPlanMetadata)
-			model.RcCompatible = core.BoolPtr(true)
-			model.Ui = nil
-			model.Service = nil
-			model.Pricing = nil
-			model.Plan = nil
+			model := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
+			model.ResourceController = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14789,8 +14510,26 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *partnercentersellv1.GlobalCatalogPlanMetadata
-			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadata(raw, &result)
+			var result *partnercentersellv1.GlobalCatalogPlanMetadataOther
+			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataOther(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogPlanMetadataOtherResourceController successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController)
+			model.SubscriptionProviderID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController
+			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataOtherResourceController(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -14800,6 +14539,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.GlobalCatalogPlanMetadataPlan)
 			model.AllowInternalUsers = core.BoolPtr(true)
 			model.Bindable = core.BoolPtr(true)
+			model.ProvisionType = core.StringPtr("ibm_cloud")
+			model.Reservable = core.BoolPtr(true)
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14814,9 +14555,32 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalGlobalCatalogPlanMetadataService successfully`, func() {
+		It(`Invoke UnmarshalGlobalCatalogPlanMetadataPrototypePatch successfully`, func() {
 			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogPlanMetadataService)
+			model := new(partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch)
+			model.RcCompatible = core.BoolPtr(true)
+			model.Ui = nil
+			model.Service = nil
+			model.Pricing = nil
+			model.Plan = nil
+			model.Other = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch
+			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataPrototypePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogPlanMetadataServicePrototypePatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch)
 			model.RcProvisionable = core.BoolPtr(true)
 			model.IamCompatible = core.BoolPtr(true)
 			model.Bindable = core.BoolPtr(true)
@@ -14830,8 +14594,29 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *partnercentersellv1.GlobalCatalogPlanMetadataService
-			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataService(raw, &result)
+			var result *partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch
+			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataServicePrototypePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogPlanMetadataUI successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogPlanMetadataUI)
+			model.Strings = nil
+			model.Urls = nil
+			model.Hidden = core.BoolPtr(true)
+			model.SideBySideIndex = core.Float64Ptr(float64(72.5))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogPlanMetadataUI
+			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataUI(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -14843,6 +14628,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.Disabled = core.BoolPtr(true)
 			model.OverviewUi = nil
 			model.Tags = []string{"testString"}
+			model.PricingTags = []string{"testString"}
 			model.ObjectProvider = nil
 			model.Metadata = nil
 
@@ -14873,27 +14659,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.GlobalCatalogProductImages
 			err = partnercentersellv1.UnmarshalGlobalCatalogProductImages(raw, &result)
-			Expect(err).To(BeNil())
-			Expect(result).ToNot(BeNil())
-			Expect(result).To(Equal(model))
-		})
-		It(`Invoke UnmarshalGlobalCatalogProductMetadata successfully`, func() {
-			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogProductMetadata)
-			model.RcCompatible = core.BoolPtr(true)
-			model.Ui = nil
-			model.Service = nil
-			model.Other = nil
-
-			b, err := json.Marshal(model)
-			Expect(err).To(BeNil())
-
-			var raw map[string]json.RawMessage
-			err = json.Unmarshal(b, &raw)
-			Expect(err).To(BeNil())
-
-			var result *partnercentersellv1.GlobalCatalogProductMetadata
-			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadata(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -15000,15 +14765,37 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalGlobalCatalogProductMetadataService successfully`, func() {
+		It(`Invoke UnmarshalGlobalCatalogProductMetadataPrototypePatch successfully`, func() {
 			// Construct an instance of the model.
-			model := new(partnercentersellv1.GlobalCatalogProductMetadataService)
+			model := new(partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch)
+			model.RcCompatible = core.BoolPtr(true)
+			model.Ui = nil
+			model.Service = nil
+			model.Other = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch
+			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataPrototypePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogProductMetadataServicePrototypePatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch)
 			model.RcProvisionable = core.BoolPtr(true)
 			model.IamCompatible = core.BoolPtr(true)
-			model.Bindable = core.BoolPtr(true)
-			model.PlanUpdateable = core.BoolPtr(true)
 			model.ServiceKeySupported = core.BoolPtr(true)
 			model.UniqueApiKey = core.BoolPtr(true)
+			model.AsyncProvisioningSupported = core.BoolPtr(true)
+			model.AsyncUnprovisioningSupported = core.BoolPtr(true)
+			model.CustomCreatePageHybridEnabled = core.BoolPtr(true)
 			model.Parameters = nil
 
 			b, err := json.Marshal(model)
@@ -15018,8 +14805,32 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *partnercentersellv1.GlobalCatalogProductMetadataService
-			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataService(raw, &result)
+			var result *partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch
+			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataServicePrototypePatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogProductMetadataUI successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogProductMetadataUI)
+			model.Strings = nil
+			model.Urls = nil
+			model.Hidden = core.BoolPtr(true)
+			model.SideBySideIndex = core.Float64Ptr(float64(72.5))
+			model.EmbeddableDashboard = core.StringPtr("testString")
+			model.AccessibleDuringProvision = core.BoolPtr(true)
+			model.PrimaryOfferingID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogProductMetadataUI
+			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataUI(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
