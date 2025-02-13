@@ -1,6 +1,6 @@
 module github.com/IBM/platform-services-go-sdk
 
-go 1.21
+go 1.22
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.18.5
