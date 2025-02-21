@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/IBM/platform-services-go-sdk.svg?branch=main)](https://app.travis-ci.com/IBM/platform-services-go-sdk)
+[![Build Status](https://github.com/IBM/platform-services-go-sdk/actions/workflows/build.yaml/badge.svg)](https://github.com/IBM/platform-services-go-sdk/actions/workflows/build.yaml)
 [![Release](https://img.shields.io/github/v/release/IBM/platform-services-go-sdk)](https://github.com/IBM/platform-services-go-sdk/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/IBM/platform-services-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/platform-services-go-sdk)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/platform-services-go-sdk)
@@ -7,7 +7,7 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/IBM/platform-services-go-sdk)](https://cla-assistant.io/IBM/platform-services-go-sdk)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.63.1
+# IBM Cloud Platform Services Go SDK Version 0.75.0
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -61,8 +61,8 @@ Service Name | Package name
 [IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell?code=go) | ibmcloudshellv1
 [Metrics Router](https://cloud.ibm.com/apidocs/metrics-router/metrics-router-v3) | metricsrouterv3
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
-[Partner Billing Units](https://cloud.ibm.com/apidocs/partner-apis/billing-unit?code=go) | partnerbillingunitsv1
-[Partner Usage Reports](https://cloud.ibm.com/apidocs/partner-apis/resource-usage-reports?code=go) | partnerusagereportsv1
+[Partner Center Sell](https://test.cloud.ibm.com/apidocs/partner-center-sell?code=go) | partnercentersellv1
+[Partner Management APIs](https://cloud.ibm.com/apidocs/partner-apis/partner?code=go) | partnermanagementv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
 [Usage Metering](https://cloud.ibm.com/apidocs/usage-metering?code=go) | usagemeteringv4
@@ -84,10 +84,10 @@ Service Name | Package name
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one
 [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.20 or above.
+* Go version 1.22 or above.
 
 ## Installation
-The current version of this SDK: 0.63.1
+The current version of this SDK: 0.75.0
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 

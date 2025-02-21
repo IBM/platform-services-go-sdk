@@ -135,7 +135,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				Ref: &contextbasedrestrictionsv1.ServiceRefValue{
 					AccountID:   core.StringPtr(testAccountID),
 					ServiceName: core.StringPtr("containers-kubernetes"),
-					Location:    core.StringPtr("us-south"),
+					Location:    core.StringPtr("dal"),
 				},
 			}
 

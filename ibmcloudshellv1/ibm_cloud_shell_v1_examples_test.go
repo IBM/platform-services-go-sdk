@@ -150,10 +150,6 @@ var _ = Describe(`IBMCloudShellV1 Examples Tests`, func() {
 				},
 				{
 					Enabled: core.BoolPtr(true),
-					Key:     core.StringPtr("jp-tok"),
-				},
-				{
-					Enabled: core.BoolPtr(true),
 					Key:     core.StringPtr("us-south"),
 				},
 			}

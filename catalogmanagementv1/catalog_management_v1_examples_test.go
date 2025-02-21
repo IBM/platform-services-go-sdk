@@ -63,12 +63,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		catalogID                     string
 		objectCatalogID               string
 		offeringID                    string
+		kindID                        string
 		clusterID                     string
 		objectID                      string
 		offeringInstanceID            string
 		versionLocatorID              string
 		planID                        string
 		approverToken                 string
+		offeringVersion               *catalogmanagementv1.Offering
+		catalogAccount                *catalogmanagementv1.Account
 	)
 
 	var shouldSkipTest = func() {
@@ -420,6 +423,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			versionLocatorID = *offering.Kinds[0].Versions[0].VersionLocator
 			offeringID = *offering.ID
+			kindID = *offering.Kinds[0].ID
 		})
 
 		It(`GetOfferingChangeNotices request example`, func() {
@@ -517,6 +521,46 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			objectID = *catalogObject.ID
 		})
 
+		It(`ListRegions request example`, func() {
+			fmt.Println("\nListRegions() result:")
+			// begin-list_regions
+
+			listRegionOptions := catalogManagementService.NewListRegionsOptions()
+
+			regions, response, err := catalogManagementService.ListRegions(listRegionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(regions, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_regions
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(regions).ToNot(BeNil())
+		})
+
+		It(`PreviewRegions request example`, func() {
+			fmt.Println("\nPreviewRegions() result:")
+			// begin-preview_regions
+
+			previewRegionOptions := catalogManagementService.NewPreviewRegionsOptions()
+
+			regions, response, err := catalogManagementService.PreviewRegions(previewRegionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(regions, "", "  ")
+			fmt.Println(string(b))
+
+			// end-preview_regions
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(regions).ToNot(BeNil())
+		})
+
 		It(`GetCatalogAccount request example`, func() {
 			fmt.Println("\nGetCatalogAccount() result:")
 			// begin-get_catalog_account
@@ -535,18 +579,22 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(account).ToNot(BeNil())
+
+			catalogAccount = account
 		})
 
 		It(`UpdateCatalogAccount request example`, func() {
-			Skip("Skipped bby design.")
+			// Skip("Skipped bby design.")
 			// begin-update_catalog_account
 
 			includeAllFilter := &catalogmanagementv1.Filters{
 				IncludeAll: core.BoolPtr(true),
 			}
 			updateCatalogAccountOptions := catalogManagementService.NewUpdateCatalogAccountOptions()
+			updateCatalogAccountOptions.Rev = catalogAccount.Rev
 			updateCatalogAccountOptions.AccountFilters = includeAllFilter
 			updateCatalogAccountOptions.ID = &accountID
+			updateCatalogAccountOptions.RegionFilter = core.StringPtr("geo:na")
 
 			_, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
 			if err != nil {
@@ -770,6 +818,165 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offering).ToNot(BeNil())
 		})
 
+		It(`GetVersions request example`, func() {
+			fmt.Println("\nGetVersions() result:")
+			// begin-get_versions
+
+			getVersionsOptions := catalogManagementService.NewGetVersionsOptions(
+				catalogID,
+				offeringID,
+				kindID,
+			)
+
+			versions, response, err := catalogManagementService.GetVersions(getVersionsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(versions, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_versions
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(versions).ToNot(BeNil())
+		})
+
+		It(`GetVersion request example`, func() {
+			fmt.Println("\nGetVersion() result:")
+			// begin-get_version
+
+			getVersionOptions := catalogManagementService.NewGetVersionOptions(
+				versionLocatorID,
+			)
+
+			offering, response, err := catalogManagementService.GetVersion(getVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(offering, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringVersion = offering
+		})
+
+		It(`GetVersionDependencies request example`, func() {
+			fmt.Println("\nGetVersionDependencies() result:")
+			// begin-get_version_dependencies
+
+			getVersionDependenciesOptions := catalogManagementService.NewGetVersionDependenciesOptions(
+				versionLocatorID,
+			)
+
+			version, response, err := catalogManagementService.GetVersionDependencies(getVersionDependenciesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(version, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_version_dependencies
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(version).ToNot(BeNil())
+		})
+
+		It(`ValidateInputs request example`, func() {
+			fmt.Println("\nValidateInputs() result:")
+			// begin-validate_inputs
+
+			validateInputsOptions := catalogManagementService.NewValidateInputsOptions(
+				versionLocatorID,
+			)
+			validateInputsOptions.SetInput1("testString1")
+			validateInputsOptions.SetInput2("testString2")
+
+			resp, response, err := catalogManagementService.ValidateInputs(validateInputsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resp, "", "  ")
+			fmt.Println(string(b))
+
+			// end-validate_inputs
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resp).ToNot(BeNil())
+		})
+
+		It(`UpdateVersion request example`, func() {
+			fmt.Println("\nUpdateVersion() result:")
+			// begin-update_version
+
+			updateVersionOptions := catalogManagementService.NewUpdateVersionOptions(
+				versionLocatorID,
+			)
+
+			updateVersionOptions.ID = offeringVersion.ID
+			updateVersionOptions.CatalogID = offeringVersion.CatalogID
+			updateVersionOptions.Rev = offeringVersion.Rev
+			updateVersionOptions.URL = offeringVersion.URL
+			updateVersionOptions.CRN = offeringVersion.CRN
+			updateVersionOptions.Label = offeringVersion.Label
+			updateVersionOptions.Kinds = offeringVersion.Kinds
+
+			offering, response, err := catalogManagementService.UpdateVersion(updateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(offering, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringVersion = offering
+		})
+
+		It(`PatchUpdateVersion request example`, func() {
+			fmt.Println("\nPatchUpdateVersion() result:")
+			// begin-patch_update_version
+
+			jsonPatchOperationModel := &catalogmanagementv1.JSONPatchOperation{
+				Op:    core.StringPtr("replace"),
+				Path:  core.StringPtr("/kinds/0/versions/0/long_description"),
+				Value: core.StringPtr("testString"),
+			}
+
+			patchUpdateVersionOptions := catalogManagementService.NewPatchUpdateVersionOptions(
+				versionLocatorID,
+				fmt.Sprintf("\"%s\"", *offeringVersion.Rev),
+			)
+
+			patchUpdateVersionOptions.Updates = []catalogmanagementv1.JSONPatchOperation{*jsonPatchOperationModel}
+
+			offering, response, err := catalogManagementService.PatchUpdateVersion(patchUpdateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(offering, "", "  ")
+			fmt.Println(string(b))
+
+			// end-patch_update_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringVersion = offering
+		})
+
 		// Offering must be "managed in Partner Center" before we can perform plan operations
 		// Done with helper API call as we do not expose this route in our api definition
 		It(`SetAllowPublishOffering`, func() {
@@ -777,7 +984,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 				"X-Approver-Token": approverToken,
 			}
 
-			response, err := catalogManagementService.SetAllowPublishOffering(catalogID, offeringID, headers)
+			response, err := catalogManagementService.SetAllowPublishOffering(catalogID, offeringID, "publish_approved", true, headers)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 		})
@@ -1770,6 +1977,17 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// end-delete_object
 			fmt.Printf("\nDeleteObject() response status code: %d\n", response.StatusCode)
 
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+
+		// Unset pc managed
+		It(`SetAllowPublishOffering`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			response, err := catalogManagementService.SetAllowPublishOffering(catalogID, offeringID, "pc_managed", false, headers)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 		})

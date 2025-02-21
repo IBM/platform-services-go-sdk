@@ -1,3 +1,178 @@
+# [0.75.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.1...v0.75.0) (2025-02-11)
+
+
+### Features
+
+* **IAM Access Groups:** Add CRN filter ([#373](https://github.com/IBM/platform-services-go-sdk/issues/373)) ([5f2bc85](https://github.com/IBM/platform-services-go-sdk/commit/5f2bc85660470340bb9c605d36739436890bd9c8))
+
+## [0.74.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.0...v0.74.1) (2025-02-11)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** consolidate MCSP flags ([#372](https://github.com/IBM/platform-services-go-sdk/issues/372)) ([e348dce](https://github.com/IBM/platform-services-go-sdk/commit/e348dceb0fb84438e92d2c2aea68b4bfb12bb9d7))
+
+# [0.74.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.73.0...v0.74.0) (2025-02-04)
+
+
+### Features
+
+* **IAM Identity:** add Identity Preference API ([#370](https://github.com/IBM/platform-services-go-sdk/issues/370)) ([34d910b](https://github.com/IBM/platform-services-go-sdk/commit/34d910b7022ec09f8bb79fdd9d0dee17a8537c72))
+
+# [0.73.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.72.0...v0.73.0) (2025-01-07)
+
+
+### Features
+
+* **Partner Center Sell:** add custom service parameters and other gc metadata service flags ([#366](https://github.com/IBM/platform-services-go-sdk/issues/366)) ([fba2608](https://github.com/IBM/platform-services-go-sdk/commit/fba26084d40baf3a29619ae1d2d24b7d66d200f8))
+
+# [0.72.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.2...v0.72.0) (2024-11-29)
+
+
+### Features
+
+* **IBM Cloud Shell:** re-gen service for adopting the new error toolchain ([#365](https://github.com/IBM/platform-services-go-sdk/issues/365)) ([19271ad](https://github.com/IBM/platform-services-go-sdk/commit/19271adfc5403d3d593db20246d7bc218c9234c2))
+
+## [0.71.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.1...v0.71.2) (2024-11-27)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** enable error toolchain ([#363](https://github.com/IBM/platform-services-go-sdk/issues/363)) ([398c392](https://github.com/IBM/platform-services-go-sdk/commit/398c392c74c4474b31ff7594040b39eedbc69579))
+
+## [0.71.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.0...v0.71.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** bug fix ([#362](https://github.com/IBM/platform-services-go-sdk/issues/362)) ([edc97bd](https://github.com/IBM/platform-services-go-sdk/commit/edc97bd5eb8b2d7eee700590ecc0a8e03551753f))
+
+# [0.71.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.70.0...v0.71.0) (2024-10-28)
+
+
+### Features
+
+* **Usage Reports:** add "created_by_email_id" to Offer schema ([#355](https://github.com/IBM/platform-services-go-sdk/issues/355)) ([b57da5a](https://github.com/IBM/platform-services-go-sdk/commit/b57da5aa81ab19bee569581f3553a385ed0c420f))
+
+# [0.70.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.4...v0.70.0) (2024-10-24)
+
+
+### Features
+
+* **Partner Management APIs:** add new service to project ([#360](https://github.com/IBM/platform-services-go-sdk/issues/360)) ([dd6152a](https://github.com/IBM/platform-services-go-sdk/commit/dd6152a6e8bafe17c0986cc94eb76b1e06e7c53a))
+
+## [0.69.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.3...v0.69.4) (2024-10-22)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** re-gen SDK  code after recent API changes ([#361](https://github.com/IBM/platform-services-go-sdk/issues/361)) ([654e5ca](https://github.com/IBM/platform-services-go-sdk/commit/654e5ca27258b4936a5607cfd53d930ae51e8852))
+
+## [0.69.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.2...v0.69.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* **build:** bump go core to 5.18.0 ([#359](https://github.com/IBM/platform-services-go-sdk/issues/359)) ([5d1ad83](https://github.com/IBM/platform-services-go-sdk/commit/5d1ad83ae8a0f2ab348e2f4bcbe65ceb01bb4fe6))
+
+## [0.69.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.1...v0.69.2) (2024-10-07)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** re-gen service after recent API definition changes ([#358](https://github.com/IBM/platform-services-go-sdk/issues/358)) ([36d86ae](https://github.com/IBM/platform-services-go-sdk/commit/36d86ae24e37244303dc0c87a5e48947ae96979b))
+
+## [0.69.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.0...v0.69.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* **build:** bump core to 5.17.5 ([#357](https://github.com/IBM/platform-services-go-sdk/issues/357)) ([8d77a4b](https://github.com/IBM/platform-services-go-sdk/commit/8d77a4bc5ed69ec94fb67f73ef3e1fcb407baed2))
+
+# [0.69.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.68.1...v0.69.0) (2024-09-06)
+
+
+### Features
+
+* **Catalog Management:** re-gen service after recent API changes ([#353](https://github.com/IBM/platform-services-go-sdk/issues/353)) ([41163ad](https://github.com/IBM/platform-services-go-sdk/commit/41163adee4af741fbb5799ada52a0792df4d38d5))
+
+## [0.68.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.68.0...v0.68.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **ATracker:** re-gen service after es s2s API changes and hand edits for examples and IT ([#352](https://github.com/IBM/platform-services-go-sdk/issues/352)) ([f7efa3d](https://github.com/IBM/platform-services-go-sdk/commit/f7efa3df92b8436f8a06ab61e4f5f84fb56e4b4f))
+
+# [0.68.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.67.0...v0.68.0) (2024-08-29)
+
+
+### Features
+
+* **Resource Controller:** deprecate alias, bindings APIs, and related schema items ([#351](https://github.com/IBM/platform-services-go-sdk/issues/351)) ([6591ab9](https://github.com/IBM/platform-services-go-sdk/commit/6591ab9404b61129ffb7c9325443861dc41c71ba))
+
+# [0.67.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.66.0...v0.67.0) (2024-08-22)
+
+
+### Features
+
+* **Partner Center Sell:** add new service to project ([#349](https://github.com/IBM/platform-services-go-sdk/issues/349)) ([523201c](https://github.com/IBM/platform-services-go-sdk/commit/523201cd46a9ddcf5ae24a24479fe22f384c8fde))
+
+# [0.66.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.65.1...v0.66.0) (2024-08-12)
+
+
+### Features
+
+* **IAM Identity:** adding effective account settings ([#347](https://github.com/IBM/platform-services-go-sdk/issues/347)) ([bd383f8](https://github.com/IBM/platform-services-go-sdk/commit/bd383f89fa2ba45e5f609d8fc02cf8334c96f96c))
+
+## [0.65.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.65.0...v0.65.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* add detect-secrets stage to build ([#346](https://github.com/IBM/platform-services-go-sdk/issues/346)) ([59980d5](https://github.com/IBM/platform-services-go-sdk/commit/59980d51198182b9c1f6a4e58fb40a18b888ed56))
+
+# [0.65.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.4...v0.65.0) (2024-07-11)
+
+
+### Features
+
+* **Resource Controller:** add "onetime_credentials" property in ResourceInstance and ResourceKey schemas ([#338](https://github.com/IBM/platform-services-go-sdk/issues/338)) ([44b748d](https://github.com/IBM/platform-services-go-sdk/commit/44b748db5d2afda439fb224a9d32425f14918e6f))
+
+## [0.64.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.3...v0.64.4) (2024-07-09)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** address ID support (for use by terraform only) ([#344](https://github.com/IBM/platform-services-go-sdk/issues/344)) ([239d353](https://github.com/IBM/platform-services-go-sdk/commit/239d353c9f17660f5caf32872c220726739643d8))
+
+## [0.64.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.2...v0.64.3) (2024-07-05)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** remove `options` property from PolicyAssignment ([#341](https://github.com/IBM/platform-services-go-sdk/issues/341)) ([6f14d26](https://github.com/IBM/platform-services-go-sdk/commit/6f14d2634198d7f3ba46b616b07ee3ebc6d0c16b))
+
+## [0.64.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.1...v0.64.2) (2024-06-26)
+
+
+### Bug Fixes
+
+* **deps:** update core to 5.17.4 ([#342](https://github.com/IBM/platform-services-go-sdk/issues/342)) ([41216f4](https://github.com/IBM/platform-services-go-sdk/commit/41216f4a166f03b317c3a36a8cdc2a1beef223c7))
+
+## [0.64.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.0...v0.64.1) (2024-06-21)
+
+
+### Bug Fixes
+
+* **Global Tagging:** add 'update' option to attach_tag operation ([#337](https://github.com/IBM/platform-services-go-sdk/issues/337)) ([fb7c355](https://github.com/IBM/platform-services-go-sdk/commit/fb7c355c958fa5de0dd5e9e0fda96f027c29c888))
+
+# [0.64.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.63.1...v0.64.0) (2024-06-18)
+
+
+### Features
+
+* **Usage Reports:** re-gen service to pickup changes to Instance Reports  ([#331](https://github.com/IBM/platform-services-go-sdk/issues/331)) ([3d034e7](https://github.com/IBM/platform-services-go-sdk/commit/3d034e78d248331bdcb455a9b6d39b1819203d71))
+
 ## [0.63.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.63.0...v0.63.1) (2024-05-28)
 
 

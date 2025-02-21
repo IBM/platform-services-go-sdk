@@ -2729,9 +2729,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment
 	if createPolicyTemplateAssignmentOptions.Target != nil {
 		body["target"] = createPolicyTemplateAssignmentOptions.Target
 	}
-	if createPolicyTemplateAssignmentOptions.Options != nil {
-		body["options"] = createPolicyTemplateAssignmentOptions.Options
-	}
 	if createPolicyTemplateAssignmentOptions.Templates != nil {
 		body["templates"] = createPolicyTemplateAssignmentOptions.Templates
 	}
@@ -3514,11 +3511,10 @@ type CreatePolicyTemplateAssignmentOptions struct {
 }
 
 // NewCreatePolicyTemplateAssignmentOptions : Instantiate CreatePolicyTemplateAssignmentOptions
-func (*IamPolicyManagementV1) NewCreatePolicyTemplateAssignmentOptions(version string, target *AssignmentTargetDetails, options *PolicyAssignmentV1Options, templates []AssignmentTemplateDetails) *CreatePolicyTemplateAssignmentOptions {
+func (*IamPolicyManagementV1) NewCreatePolicyTemplateAssignmentOptions(version string, target *AssignmentTargetDetails, templates []AssignmentTemplateDetails) *CreatePolicyTemplateAssignmentOptions {
 	return &CreatePolicyTemplateAssignmentOptions{
 		Version:   core.StringPtr(version),
 		Target:    target,
-		Options:   options,
 		Templates: templates,
 	}
 }
@@ -3532,12 +3528,6 @@ func (_options *CreatePolicyTemplateAssignmentOptions) SetVersion(version string
 // SetTarget : Allow user to set Target
 func (_options *CreatePolicyTemplateAssignmentOptions) SetTarget(target *AssignmentTargetDetails) *CreatePolicyTemplateAssignmentOptions {
 	_options.Target = target
-	return _options
-}
-
-// SetOptions : Allow user to set Options
-func (_options *CreatePolicyTemplateAssignmentOptions) SetOptions(options *PolicyAssignmentV1Options) *CreatePolicyTemplateAssignmentOptions {
-	_options.Options = options
 	return _options
 }
 
@@ -4450,6 +4440,232 @@ func (_options *GetPolicyAssignmentOptions) SetVersion(version string) *GetPolic
 func (options *GetPolicyAssignmentOptions) SetHeaders(param map[string]string) *GetPolicyAssignmentOptions {
 	options.Headers = param
 	return options
+}
+
+// GetPolicyAssignmentResponse : GetPolicyAssignmentResponse struct
+// Models which "extend" this model:
+// - GetPolicyAssignmentResponsePolicyAssignmentV1
+// - GetPolicyAssignmentResponsePolicyAssignment
+type GetPolicyAssignmentResponse struct {
+	// assignment target account and type.
+	Target *AssignmentTargetDetails `json:"target,omitempty"`
+
+	// Policy assignment ID.
+	ID *string `json:"id,omitempty"`
+
+	// The account GUID that the policies assignments belong to..
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The href URL that links to the policies assignments API by policy assignment ID.
+	Href *string `json:"href,omitempty"`
+
+	// The UTC timestamp when the policy assignment was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy assignment.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy assignment was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy assignment.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+
+	// Object for each account assigned.
+	Resources []PolicyAssignmentV1Resources `json:"resources,omitempty"`
+
+	// subject details of access type assignment.
+	Subject *GetPolicyAssignmentResponseSubject `json:"subject,omitempty"`
+
+	// policy template details.
+	Template *AssignmentTemplateDetails `json:"template,omitempty"`
+
+	// The policy assignment status.
+	Status *string `json:"status,omitempty"`
+
+	// policy template id.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// policy template version.
+	TemplateVersion *string `json:"template_version,omitempty"`
+
+	// Passed in value to correlate with other assignments.
+	AssignmentID *string `json:"assignment_id,omitempty"`
+
+	// Assignment target type.
+	TargetType *string `json:"target_type,omitempty"`
+}
+
+// Constants associated with the GetPolicyAssignmentResponse.Status property.
+// The policy assignment status.
+const (
+	GetPolicyAssignmentResponseStatusFailedConst            = "failed"
+	GetPolicyAssignmentResponseStatusInProgressConst        = "in_progress"
+	GetPolicyAssignmentResponseStatusSucceedWithErrorsConst = "succeed_with_errors"
+	GetPolicyAssignmentResponseStatusSucceededConst         = "succeeded"
+)
+
+// Constants associated with the GetPolicyAssignmentResponse.TargetType property.
+// Assignment target type.
+const (
+	GetPolicyAssignmentResponseTargetTypeAccountConst      = "Account"
+	GetPolicyAssignmentResponseTargetTypeAccountgroupConst = "AccountGroup"
+	GetPolicyAssignmentResponseTargetTypeEnterpriseConst   = "Enterprise"
+)
+
+func (*GetPolicyAssignmentResponse) isaGetPolicyAssignmentResponse() bool {
+	return true
+}
+
+type GetPolicyAssignmentResponseIntf interface {
+	isaGetPolicyAssignmentResponse() bool
+}
+
+// UnmarshalGetPolicyAssignmentResponse unmarshals an instance of GetPolicyAssignmentResponse from the specified map of raw messages.
+func UnmarshalGetPolicyAssignmentResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetPolicyAssignmentResponse)
+	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponseSubject)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetPolicyAssignmentResponsePolicyAssignmentV1Subject : subject details of access type assignment.
+type GetPolicyAssignmentResponsePolicyAssignmentV1Subject struct {
+	ID *string `json:"id,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1Subject.Type property.
+const (
+	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
+	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeIamIDConst         = "iam_id"
+)
+
+// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1Subject from the specified map of raw messages.
+func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1Subject)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetPolicyAssignmentResponseSubject : subject details of access type assignment.
+type GetPolicyAssignmentResponseSubject struct {
+	ID *string `json:"id,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the GetPolicyAssignmentResponseSubject.Type property.
+const (
+	GetPolicyAssignmentResponseSubjectTypeAccessGroupIDConst = "access_group_id"
+	GetPolicyAssignmentResponseSubjectTypeIamIDConst         = "iam_id"
+)
+
+// UnmarshalGetPolicyAssignmentResponseSubject unmarshals an instance of GetPolicyAssignmentResponseSubject from the specified map of raw messages.
+func UnmarshalGetPolicyAssignmentResponseSubject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetPolicyAssignmentResponseSubject)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // GetPolicyOptions : The GetPolicy options.
@@ -5882,9 +6098,6 @@ type PolicyAssignmentV1 struct {
 	// assignment target account and type.
 	Target *AssignmentTargetDetails `json:"target" validate:"required"`
 
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options" validate:"required"`
-
 	// Policy assignment ID.
 	ID *string `json:"id,omitempty"`
 
@@ -5934,11 +6147,6 @@ func UnmarshalPolicyAssignmentV1(m map[string]json.RawMessage, result interface{
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
@@ -6424,9 +6632,6 @@ type PolicyTemplateAssignmentItems struct {
 	// assignment target account and type.
 	Target *AssignmentTargetDetails `json:"target,omitempty"`
 
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options,omitempty"`
-
 	// Policy assignment ID.
 	ID *string `json:"id,omitempty"`
 
@@ -6485,7 +6690,9 @@ const (
 // Constants associated with the PolicyTemplateAssignmentItems.TargetType property.
 // Assignment target type.
 const (
-	PolicyTemplateAssignmentItemsTargetTypeAccountConst = "Account"
+	PolicyTemplateAssignmentItemsTargetTypeAccountConst      = "Account"
+	PolicyTemplateAssignmentItemsTargetTypeAccountgroupConst = "AccountGroup"
+	PolicyTemplateAssignmentItemsTargetTypeEnterpriseConst   = "Enterprise"
 )
 
 func (*PolicyTemplateAssignmentItems) isaPolicyTemplateAssignmentItems() bool {
@@ -6502,11 +6709,6 @@ func UnmarshalPolicyTemplateAssignmentItems(m map[string]json.RawMessage, result
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
@@ -7683,7 +7885,7 @@ type TemplatePolicy struct {
 	Description *string `json:"description,omitempty"`
 
 	// The resource attributes to which the policy grants access.
-	Resource *V2PolicyResource `json:"resource" validate:"required"`
+	Resource *V2PolicyResource `json:"resource,omitempty"`
 
 	// The subject attributes for whom the policy grants access.
 	Subject *V2PolicySubject `json:"subject,omitempty"`
@@ -7696,7 +7898,7 @@ type TemplatePolicy struct {
 	Rule V2PolicyRuleIntf `json:"rule,omitempty"`
 
 	// Specifies the type of access granted by the policy.
-	Control *Control `json:"control" validate:"required"`
+	Control *Control `json:"control,omitempty"`
 }
 
 // Constants associated with the TemplatePolicy.Type property.
@@ -7707,11 +7909,9 @@ const (
 )
 
 // NewTemplatePolicy : Instantiate TemplatePolicy (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string, resource *V2PolicyResource, control *Control) (_model *TemplatePolicy, err error) {
+func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string) (_model *TemplatePolicy, err error) {
 	_model = &TemplatePolicy{
-		Type:     core.StringPtr(typeVar),
-		Resource: resource,
-		Control:  control,
+		Type: core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -8642,6 +8842,270 @@ func UnmarshalControlResponseControlWithEnrichedRoles(m map[string]json.RawMessa
 	return
 }
 
+// GetPolicyAssignmentResponsePolicyAssignment : The set of properties associated with the policy template assignment.
+// This model "extends" GetPolicyAssignmentResponse
+type GetPolicyAssignmentResponsePolicyAssignment struct {
+	// policy template id.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// policy template version.
+	TemplateVersion *string `json:"template_version,omitempty"`
+
+	// Passed in value to correlate with other assignments.
+	AssignmentID *string `json:"assignment_id,omitempty"`
+
+	// Assignment target type.
+	TargetType *string `json:"target_type,omitempty"`
+
+	// ID of the target account.
+	Target *string `json:"target,omitempty"`
+
+	// Policy assignment ID.
+	ID *string `json:"id,omitempty"`
+
+	// The account GUID that the policies assignments belong to..
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The href URL that links to the policies assignments API by policy assignment ID.
+	Href *string `json:"href,omitempty"`
+
+	// The UTC timestamp when the policy assignment was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy assignment.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy assignment was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy assignment.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+
+	// Object for each account assigned.
+	Resources []PolicyAssignmentResources `json:"resources,omitempty"`
+
+	// The policy assignment status.
+	Status *string `json:"status,omitempty"`
+}
+
+// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.TargetType property.
+// Assignment target type.
+const (
+	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountConst      = "Account"
+	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountgroupConst = "AccountGroup"
+	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeEnterpriseConst   = "Enterprise"
+)
+
+// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.Status property.
+// The policy assignment status.
+const (
+	GetPolicyAssignmentResponsePolicyAssignmentStatusFailedConst            = "failed"
+	GetPolicyAssignmentResponsePolicyAssignmentStatusInProgressConst        = "in_progress"
+	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceedWithErrorsConst = "succeed_with_errors"
+	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceededConst         = "succeeded"
+)
+
+func (*GetPolicyAssignmentResponsePolicyAssignment) isaGetPolicyAssignmentResponse() bool {
+	return true
+}
+
+// UnmarshalGetPolicyAssignmentResponsePolicyAssignment unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignment from the specified map of raw messages.
+func UnmarshalGetPolicyAssignmentResponsePolicyAssignment(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetPolicyAssignmentResponsePolicyAssignment)
+	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetPolicyAssignmentResponsePolicyAssignmentV1 : The set of properties associated with the policy template assignment.
+// This model "extends" GetPolicyAssignmentResponse
+type GetPolicyAssignmentResponsePolicyAssignmentV1 struct {
+	// assignment target account and type.
+	Target *AssignmentTargetDetails `json:"target" validate:"required"`
+
+	// Policy assignment ID.
+	ID *string `json:"id,omitempty"`
+
+	// The account GUID that the policies assignments belong to..
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The href URL that links to the policies assignments API by policy assignment ID.
+	Href *string `json:"href,omitempty"`
+
+	// The UTC timestamp when the policy assignment was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy assignment.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy assignment was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy assignment.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+
+	// Object for each account assigned.
+	Resources []PolicyAssignmentV1Resources `json:"resources" validate:"required"`
+
+	// subject details of access type assignment.
+	Subject *GetPolicyAssignmentResponsePolicyAssignmentV1Subject `json:"subject,omitempty"`
+
+	// policy template details.
+	Template *AssignmentTemplateDetails `json:"template" validate:"required"`
+
+	// The policy assignment status.
+	Status *string `json:"status" validate:"required"`
+}
+
+// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1.Status property.
+// The policy assignment status.
+const (
+	GetPolicyAssignmentResponsePolicyAssignmentV1StatusFailedConst            = "failed"
+	GetPolicyAssignmentResponsePolicyAssignmentV1StatusInProgressConst        = "in_progress"
+	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
+	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceededConst         = "succeeded"
+)
+
+func (*GetPolicyAssignmentResponsePolicyAssignmentV1) isaGetPolicyAssignmentResponse() bool {
+	return true
+}
+
+// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1 unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1 from the specified map of raw messages.
+func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1)
+	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // NestedConditionRuleAttribute : Rule that specifies additional access granted (e.g., time-based condition).
 // This model "extends" NestedCondition
 type NestedConditionRuleAttribute struct {
@@ -8790,9 +9254,6 @@ type PolicyTemplateAssignmentItemsPolicyAssignment struct {
 	// ID of the target account.
 	Target *string `json:"target,omitempty"`
 
-	// List of objects with required properties for a policy assignment.
-	Options []PolicyAssignmentOptions `json:"options,omitempty"`
-
 	// Policy assignment ID.
 	ID *string `json:"id,omitempty"`
 
@@ -8824,7 +9285,9 @@ type PolicyTemplateAssignmentItemsPolicyAssignment struct {
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignment.TargetType property.
 // Assignment target type.
 const (
-	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountConst = "Account"
+	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountConst      = "Account"
+	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountgroupConst = "AccountGroup"
+	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeEnterpriseConst   = "Enterprise"
 )
 
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignment.Status property.
@@ -8866,11 +9329,6 @@ func UnmarshalPolicyTemplateAssignmentItemsPolicyAssignment(m map[string]json.Ra
 	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentOptions)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
@@ -8928,9 +9386,6 @@ type PolicyTemplateAssignmentItemsPolicyAssignmentV1 struct {
 	// assignment target account and type.
 	Target *AssignmentTargetDetails `json:"target" validate:"required"`
 
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options" validate:"required"`
-
 	// Policy assignment ID.
 	ID *string `json:"id,omitempty"`
 
@@ -8984,11 +9439,6 @@ func UnmarshalPolicyTemplateAssignmentItemsPolicyAssignmentV1(m map[string]json.
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)

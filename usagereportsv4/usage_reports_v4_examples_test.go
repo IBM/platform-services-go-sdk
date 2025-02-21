@@ -52,6 +52,7 @@ import (
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
 var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
+
 	const externalConfigFile = "../usage_reports.env"
 
 	var (

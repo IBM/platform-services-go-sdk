@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ package iamaccessgroupsv2_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -452,6 +454,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
+					// TODO: Add check for show_crn query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -477,6 +480,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptionsModel)
@@ -518,6 +522,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
+					// TODO: Add check for show_crn query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -548,6 +553,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -595,6 +601,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
+					// TODO: Add check for show_crn query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -627,6 +634,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -656,6 +664,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -706,6 +715,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -726,14 +736,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.GroupsList)
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -743,7 +753,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -753,7 +763,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -800,6 +810,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Sort: core.StringPtr("name"),
 					ShowFederated: core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
+					ShowCRN: core.BoolPtr(false),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
@@ -833,6 +844,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Sort: core.StringPtr("name"),
 					ShowFederated: core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
+					ShowCRN: core.BoolPtr(false),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
@@ -859,6 +871,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for show_federated query parameter
+					// TODO: Add check for show_crn query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -877,6 +890,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamAccessGroupsService.GetAccessGroup(getAccessGroupOptionsModel)
@@ -910,6 +924,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for show_federated query parameter
+					// TODO: Add check for show_crn query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -933,6 +948,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -972,6 +988,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for show_federated query parameter
+					// TODO: Add check for show_crn query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -997,6 +1014,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1019,6 +1037,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -1062,6 +1081,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2063,14 +2083,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.GroupMembersList)
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2080,7 +2100,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2090,7 +2110,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -5487,14 +5507,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.ListTemplatesResponse)
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5504,7 +5524,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5514,7 +5534,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -6405,14 +6425,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.ListTemplateVersionsResponse)
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6422,7 +6442,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6432,7 +6452,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -9346,11 +9366,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.SetAccessGroupID("testString")
 				getAccessGroupOptionsModel.SetTransactionID("testString")
 				getAccessGroupOptionsModel.SetShowFederated(false)
+				getAccessGroupOptionsModel.SetShowCRN(false)
 				getAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(getAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccessGroupOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
+				Expect(getAccessGroupOptionsModel.ShowCRN).To(Equal(core.BoolPtr(false)))
 				Expect(getAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccessGroupRuleOptions successfully`, func() {
@@ -9490,6 +9512,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.SetSort("name")
 				listAccessGroupsOptionsModel.SetShowFederated(false)
 				listAccessGroupsOptionsModel.SetHidePublicAccess(false)
+				listAccessGroupsOptionsModel.SetShowCRN(false)
 				listAccessGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccessGroupsOptionsModel).ToNot(BeNil())
 				Expect(listAccessGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -9502,6 +9525,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.Sort).To(Equal(core.StringPtr("name")))
 				Expect(listAccessGroupsOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.HidePublicAccess).To(Equal(core.BoolPtr(false)))
+				Expect(listAccessGroupsOptionsModel.ShowCRN).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAssignmentsOptions successfully`, func() {
@@ -9841,9 +9865,264 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAccessActionControls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.AccessActionControls)
+			model.Add = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.AccessActionControls
+			err = iamaccessgroupsv2.UnmarshalAccessActionControls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAccessGroupRequest successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.AccessGroupRequest)
+			model.Name = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Members = nil
+			model.Assertions = nil
+			model.ActionControls = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.AccessGroupRequest
+			err = iamaccessgroupsv2.UnmarshalAccessGroupRequest(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAddGroupMembersRequestMembersItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
+			model.IamID = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.AddGroupMembersRequestMembersItem
+			err = iamaccessgroupsv2.UnmarshalAddGroupMembersRequestMembersItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAssertions successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.Assertions)
+			model.Rules = nil
+			model.ActionControls = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.Assertions
+			err = iamaccessgroupsv2.UnmarshalAssertions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAssertionsActionControls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.AssertionsActionControls)
+			model.Add = core.BoolPtr(true)
+			model.Remove = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.AssertionsActionControls
+			err = iamaccessgroupsv2.UnmarshalAssertionsActionControls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAssertionsRule successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.AssertionsRule)
+			model.Name = core.StringPtr("testString")
+			model.Expiration = core.Int64Ptr(int64(38))
+			model.RealmName = core.StringPtr("testString")
+			model.Conditions = nil
+			model.ActionControls = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.AssertionsRule
+			err = iamaccessgroupsv2.UnmarshalAssertionsRule(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalConditions successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.Conditions)
+			model.Claim = core.StringPtr("testString")
+			model.Operator = core.StringPtr("testString")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.Conditions
+			err = iamaccessgroupsv2.UnmarshalConditions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGroupActionControls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.GroupActionControls)
+			model.Access = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.GroupActionControls
+			err = iamaccessgroupsv2.UnmarshalGroupActionControls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalMembers successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.Members)
+			model.Users = []string{"testString"}
+			model.Services = []string{"testString"}
+			model.ActionControls = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.Members
+			err = iamaccessgroupsv2.UnmarshalMembers(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalMembersActionControls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.MembersActionControls)
+			model.Add = core.BoolPtr(true)
+			model.Remove = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.MembersActionControls
+			err = iamaccessgroupsv2.UnmarshalMembersActionControls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPolicyTemplates successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.PolicyTemplates)
+			model.ID = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.PolicyTemplates
+			err = iamaccessgroupsv2.UnmarshalPolicyTemplates(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRuleActionControls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.RuleActionControls)
+			model.Remove = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.RuleActionControls
+			err = iamaccessgroupsv2.UnmarshalRuleActionControls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRuleConditions successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamaccessgroupsv2.RuleConditions)
+			model.Claim = core.StringPtr("testString")
+			model.Operator = core.StringPtr("EQUALS")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamaccessgroupsv2.RuleConditions
+			err = iamaccessgroupsv2.UnmarshalRuleConditions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -9869,9 +10148,11 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 

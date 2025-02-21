@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package partnerusagereportsv1_test
+package partnercentersellv1_test
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestPartnerUsageReportsV1(t *testing.T) {
+func TestPartnerCenterSellV1(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "PartnerUsageReportsV1 Suite")
+	RunSpecs(t, "PartnerCenterSellV1 Suite")
 }

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -64,22 +64,26 @@ func NewAtrackerV2UsingExternalConfig(options *AtrackerV2Options) (atracker *Atr
 	if options.Authenticator == nil {
 		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	atracker, err = NewAtrackerV2(options)
+	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
 	err = atracker.Service.ConfigureService(options.ServiceName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = atracker.Service.SetServiceURL(options.URL)
+		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
@@ -93,12 +97,14 @@ func NewAtrackerV2(options *AtrackerV2Options) (service *AtrackerV2, err error) 
 
 	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
 			return
 		}
 	}
@@ -142,7 +148,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 	if url, ok := endpoints[region]; ok {
 		return url, nil
 	}
-	return "", fmt.Errorf("service URL for region '%s' not found", region)
+	return "", core.SDKErrorf(nil, fmt.Sprintf("service URL for region '%s' not found", region), "invalid-region", common.GetComponentInfo())
 }
 
 // Clone makes a copy of "atracker" suitable for processing requests.
@@ -157,7 +163,11 @@ func (atracker *AtrackerV2) Clone() *AtrackerV2 {
 
 // SetServiceURL sets the service URL
 func (atracker *AtrackerV2) SetServiceURL(url string) error {
-	return atracker.Service.SetServiceURL(url)
+	err := atracker.Service.SetServiceURL(url)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
+	}
+	return err
 }
 
 // GetServiceURL returns the service URL
@@ -196,17 +206,21 @@ func (atracker *AtrackerV2) DisableRetries() {
 // You can send your logs from all regions to a single target, different targets or multiple targets. One target per
 // region is not required. You can define up to 16 targets per account.
 func (atracker *AtrackerV2) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return atracker.CreateTargetWithContext(context.Background(), createTargetOptions)
+	result, response, err = atracker.CreateTargetWithContext(context.Background(), createTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTargetWithContext is an alternate form of the CreateTarget method which supports a Context parameter
 func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTargetOptions, "createTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTargetOptions, "createTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -215,6 +229,7 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/targets`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -253,22 +268,27 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -280,13 +300,16 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 // ListTargets : List targets
 // List all targets that are defined for your account.
 func (atracker *AtrackerV2) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetList, response *core.DetailedResponse, err error) {
-	return atracker.ListTargetsWithContext(context.Background(), listTargetsOptions)
+	result, response, err = atracker.ListTargetsWithContext(context.Background(), listTargetsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTargetsWithContext is an alternate form of the ListTargets method which supports a Context parameter
 func (atracker *AtrackerV2) ListTargetsWithContext(ctx context.Context, listTargetsOptions *ListTargetsOptions) (result *TargetList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listTargetsOptions, "listTargetsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -295,6 +318,7 @@ func (atracker *AtrackerV2) ListTargetsWithContext(ctx context.Context, listTarg
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/targets`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -314,17 +338,21 @@ func (atracker *AtrackerV2) ListTargetsWithContext(ctx context.Context, listTarg
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_targets", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTargetList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -336,17 +364,21 @@ func (atracker *AtrackerV2) ListTargetsWithContext(ctx context.Context, listTarg
 // GetTarget : Get details of a target
 // Retrieve the configuration details of a target.
 func (atracker *AtrackerV2) GetTarget(getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return atracker.GetTargetWithContext(context.Background(), getTargetOptions)
+	result, response, err = atracker.GetTargetWithContext(context.Background(), getTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTargetWithContext is an alternate form of the GetTarget method which supports a Context parameter
 func (atracker *AtrackerV2) GetTargetWithContext(ctx context.Context, getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTargetOptions, "getTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTargetOptions, "getTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -359,6 +391,7 @@ func (atracker *AtrackerV2) GetTargetWithContext(ctx context.Context, getTargetO
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/targets/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -374,17 +407,21 @@ func (atracker *AtrackerV2) GetTargetWithContext(ctx context.Context, getTargetO
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -396,17 +433,21 @@ func (atracker *AtrackerV2) GetTargetWithContext(ctx context.Context, getTargetO
 // ReplaceTarget : Update a target
 // Update the configuration details of a target.
 func (atracker *AtrackerV2) ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return atracker.ReplaceTargetWithContext(context.Background(), replaceTargetOptions)
+	result, response, err = atracker.ReplaceTargetWithContext(context.Background(), replaceTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceTargetWithContext is an alternate form of the ReplaceTarget method which supports a Context parameter
 func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replaceTargetOptions *ReplaceTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceTargetOptions, "replaceTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceTargetOptions, "replaceTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -419,6 +460,7 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/targets/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -451,22 +493,27 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -478,17 +525,21 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 // DeleteTarget : Delete a target
 // Delete a target.
 func (atracker *AtrackerV2) DeleteTarget(deleteTargetOptions *DeleteTargetOptions) (result *WarningReport, response *core.DetailedResponse, err error) {
-	return atracker.DeleteTargetWithContext(context.Background(), deleteTargetOptions)
+	result, response, err = atracker.DeleteTargetWithContext(context.Background(), deleteTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTargetWithContext is an alternate form of the DeleteTarget method which supports a Context parameter
 func (atracker *AtrackerV2) DeleteTargetWithContext(ctx context.Context, deleteTargetOptions *DeleteTargetOptions) (result *WarningReport, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTargetOptions, "deleteTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTargetOptions, "deleteTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -501,6 +552,7 @@ func (atracker *AtrackerV2) DeleteTargetWithContext(ctx context.Context, deleteT
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/targets/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -516,17 +568,21 @@ func (atracker *AtrackerV2) DeleteTargetWithContext(ctx context.Context, deleteT
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWarningReport)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -539,17 +595,21 @@ func (atracker *AtrackerV2) DeleteTargetWithContext(ctx context.Context, deleteT
 // Validate a target by checking the credentials to write to the target. The result is included as additional data of
 // the target in the section "write_status".
 func (atracker *AtrackerV2) ValidateTarget(validateTargetOptions *ValidateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return atracker.ValidateTargetWithContext(context.Background(), validateTargetOptions)
+	result, response, err = atracker.ValidateTargetWithContext(context.Background(), validateTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ValidateTargetWithContext is an alternate form of the ValidateTarget method which supports a Context parameter
 func (atracker *AtrackerV2) ValidateTargetWithContext(ctx context.Context, validateTargetOptions *ValidateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(validateTargetOptions, "validateTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(validateTargetOptions, "validateTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -562,6 +622,7 @@ func (atracker *AtrackerV2) ValidateTargetWithContext(ctx context.Context, valid
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/targets/{id}/validate`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -577,17 +638,21 @@ func (atracker *AtrackerV2) ValidateTargetWithContext(ctx context.Context, valid
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "validate_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -599,17 +664,21 @@ func (atracker *AtrackerV2) ValidateTargetWithContext(ctx context.Context, valid
 // CreateRoute : Create a route
 // Create a route to define the rule that specifies how to manage auditing events.
 func (atracker *AtrackerV2) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
-	return atracker.CreateRouteWithContext(context.Background(), createRouteOptions)
+	result, response, err = atracker.CreateRouteWithContext(context.Background(), createRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateRouteWithContext is an alternate form of the CreateRoute method which supports a Context parameter
 func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createRouteOptions, "createRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createRouteOptions, "createRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -618,6 +687,7 @@ func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRo
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/routes`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -641,22 +711,27 @@ func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRo
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -668,13 +743,16 @@ func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRo
 // ListRoutes : List routes
 // List the route that is configured for an account.
 func (atracker *AtrackerV2) ListRoutes(listRoutesOptions *ListRoutesOptions) (result *RouteList, response *core.DetailedResponse, err error) {
-	return atracker.ListRoutesWithContext(context.Background(), listRoutesOptions)
+	result, response, err = atracker.ListRoutesWithContext(context.Background(), listRoutesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListRoutesWithContext is an alternate form of the ListRoutes method which supports a Context parameter
 func (atracker *AtrackerV2) ListRoutesWithContext(ctx context.Context, listRoutesOptions *ListRoutesOptions) (result *RouteList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listRoutesOptions, "listRoutesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -683,6 +761,7 @@ func (atracker *AtrackerV2) ListRoutesWithContext(ctx context.Context, listRoute
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/routes`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -698,17 +777,21 @@ func (atracker *AtrackerV2) ListRoutesWithContext(ctx context.Context, listRoute
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_routes", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRouteList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -720,17 +803,21 @@ func (atracker *AtrackerV2) ListRoutesWithContext(ctx context.Context, listRoute
 // GetRoute : Get details of a route
 // Get the configuration details of a route.
 func (atracker *AtrackerV2) GetRoute(getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
-	return atracker.GetRouteWithContext(context.Background(), getRouteOptions)
+	result, response, err = atracker.GetRouteWithContext(context.Background(), getRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetRouteWithContext is an alternate form of the GetRoute method which supports a Context parameter
 func (atracker *AtrackerV2) GetRouteWithContext(ctx context.Context, getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRouteOptions, "getRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getRouteOptions, "getRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -743,6 +830,7 @@ func (atracker *AtrackerV2) GetRouteWithContext(ctx context.Context, getRouteOpt
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/routes/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -758,17 +846,21 @@ func (atracker *AtrackerV2) GetRouteWithContext(ctx context.Context, getRouteOpt
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -780,17 +872,21 @@ func (atracker *AtrackerV2) GetRouteWithContext(ctx context.Context, getRouteOpt
 // ReplaceRoute : Update a route
 // Update the configuration details of a route.
 func (atracker *AtrackerV2) ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
-	return atracker.ReplaceRouteWithContext(context.Background(), replaceRouteOptions)
+	result, response, err = atracker.ReplaceRouteWithContext(context.Background(), replaceRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceRouteWithContext is an alternate form of the ReplaceRoute method which supports a Context parameter
 func (atracker *AtrackerV2) ReplaceRouteWithContext(ctx context.Context, replaceRouteOptions *ReplaceRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceRouteOptions, "replaceRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceRouteOptions, "replaceRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -803,6 +899,7 @@ func (atracker *AtrackerV2) ReplaceRouteWithContext(ctx context.Context, replace
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/routes/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -826,22 +923,27 @@ func (atracker *AtrackerV2) ReplaceRouteWithContext(ctx context.Context, replace
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -853,17 +955,21 @@ func (atracker *AtrackerV2) ReplaceRouteWithContext(ctx context.Context, replace
 // DeleteRoute : Delete a route
 // Deletes a route.
 func (atracker *AtrackerV2) DeleteRoute(deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
-	return atracker.DeleteRouteWithContext(context.Background(), deleteRouteOptions)
+	response, err = atracker.DeleteRouteWithContext(context.Background(), deleteRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteRouteWithContext is an alternate form of the DeleteRoute method which supports a Context parameter
 func (atracker *AtrackerV2) DeleteRouteWithContext(ctx context.Context, deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteRouteOptions, "deleteRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteRouteOptions, "deleteRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -876,6 +982,7 @@ func (atracker *AtrackerV2) DeleteRouteWithContext(ctx context.Context, deleteRo
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/routes/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -890,10 +997,16 @@ func (atracker *AtrackerV2) DeleteRouteWithContext(ctx context.Context, deleteRo
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = atracker.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -901,13 +1014,16 @@ func (atracker *AtrackerV2) DeleteRouteWithContext(ctx context.Context, deleteRo
 // GetSettings : Get settings
 // Get information about the current settings including default targets.
 func (atracker *AtrackerV2) GetSettings(getSettingsOptions *GetSettingsOptions) (result *Settings, response *core.DetailedResponse, err error) {
-	return atracker.GetSettingsWithContext(context.Background(), getSettingsOptions)
+	result, response, err = atracker.GetSettingsWithContext(context.Background(), getSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetSettingsWithContext is an alternate form of the GetSettings method which supports a Context parameter
 func (atracker *AtrackerV2) GetSettingsWithContext(ctx context.Context, getSettingsOptions *GetSettingsOptions) (result *Settings, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getSettingsOptions, "getSettingsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -916,6 +1032,7 @@ func (atracker *AtrackerV2) GetSettingsWithContext(ctx context.Context, getSetti
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/settings`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -931,17 +1048,21 @@ func (atracker *AtrackerV2) GetSettingsWithContext(ctx context.Context, getSetti
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSettings)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -953,17 +1074,21 @@ func (atracker *AtrackerV2) GetSettingsWithContext(ctx context.Context, getSetti
 // PutSettings : Modify settings
 // Modify the current settings such as default targets, permitted target regions, metadata region primary and secondary.
 func (atracker *AtrackerV2) PutSettings(putSettingsOptions *PutSettingsOptions) (result *Settings, response *core.DetailedResponse, err error) {
-	return atracker.PutSettingsWithContext(context.Background(), putSettingsOptions)
+	result, response, err = atracker.PutSettingsWithContext(context.Background(), putSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // PutSettingsWithContext is an alternate form of the PutSettings method which supports a Context parameter
 func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSettingsOptions *PutSettingsOptions) (result *Settings, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(putSettingsOptions, "putSettingsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(putSettingsOptions, "putSettingsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -972,6 +1097,7 @@ func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSetti
 	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v2/settings`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1004,28 +1130,36 @@ func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSetti
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = atracker.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "put_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSettings)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
 	}
 
 	return
+}
+func getServiceComponentInfo() *core.ProblemComponent {
+	return core.NewProblemComponent(DefaultServiceName, "2.0.0")
 }
 
 // CloudLogsEndpoint : Property values for the IBM Cloud Logs endpoint in responses.
@@ -1039,6 +1173,7 @@ func UnmarshalCloudLogsEndpoint(m map[string]json.RawMessage, result interface{}
 	obj := new(CloudLogsEndpoint)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1057,6 +1192,9 @@ func (*AtrackerV2) NewCloudLogsEndpointPrototype(targetCRN string) (_model *Clou
 		TargetCRN: core.StringPtr(targetCRN),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1065,6 +1203,7 @@ func UnmarshalCloudLogsEndpointPrototype(m map[string]json.RawMessage, result in
 	obj := new(CloudLogsEndpointPrototype)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1082,8 +1221,8 @@ type CosEndpoint struct {
 	// The bucket name under the Cloud Object Storage instance.
 	Bucket *string `json:"bucket" validate:"required"`
 
-	// ATracker service is enabled to support service to service authentication. If service to service is enabled then set
-	// this flag is true and do not supply apikey.
+	// Determines if IBM Cloud Activity Tracker Event Routing has service to service authentication enabled. Set this flag
+	// to true if service to service is enabled and do not supply an apikey.
 	ServiceToServiceEnabled *bool `json:"service_to_service_enabled" validate:"required"`
 }
 
@@ -1092,18 +1231,22 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(CosEndpoint)
 	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "bucket", &obj.Bucket)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "bucket-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_to_service_enabled", &obj.ServiceToServiceEnabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_to_service_enabled-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1125,8 +1268,8 @@ type CosEndpointPrototype struct {
 	// response. This is required if service_to_service is not enabled.
 	APIKey *string `json:"api_key,omitempty"`
 
-	// ATracker service is enabled to support service to service authentication. If service to service is enabled then set
-	// this flag is true and do not supply apikey.
+	// Determines if IBM Cloud Activity Tracker Event Routing has service to service authentication enabled. Set this flag
+	// to true if service to service is enabled and do not supply an apikey.
 	ServiceToServiceEnabled *bool `json:"service_to_service_enabled,omitempty"`
 }
 
@@ -1138,6 +1281,9 @@ func (*AtrackerV2) NewCosEndpointPrototype(endpoint string, targetCRN string, bu
 		Bucket: core.StringPtr(bucket),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1146,22 +1292,27 @@ func UnmarshalCosEndpointPrototype(m map[string]json.RawMessage, result interfac
 	obj := new(CosEndpointPrototype)
 	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "bucket", &obj.Bucket)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "bucket-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_to_service_enabled", &obj.ServiceToServiceEnabled)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_to_service_enabled-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1177,7 +1328,7 @@ type CreateRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1233,7 +1384,7 @@ type CreateTargetOptions struct {
 	// connected.
 	Region *string `json:"region,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1308,7 +1459,7 @@ type DeleteRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1336,7 +1487,7 @@ type DeleteTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1371,7 +1522,11 @@ type EventstreamsEndpoint struct {
 	Topic *string `json:"topic" validate:"required"`
 
 	// The user password (api key) for the message hub topic in the Event Streams instance.
-	APIKey *string `json:"api_key" validate:"required"`
+	APIKey *string `json:"api_key,omitempty"`
+
+	// Determines if IBM Cloud Activity Tracker Event Routing has service to service authentication enabled. Set this flag
+	// to true if service to service is enabled and do not supply an apikey.
+	ServiceToServiceEnabled *bool `json:"service_to_service_enabled,omitempty"`
 }
 
 // UnmarshalEventstreamsEndpoint unmarshals an instance of EventstreamsEndpoint from the specified map of raw messages.
@@ -1379,18 +1534,27 @@ func UnmarshalEventstreamsEndpoint(m map[string]json.RawMessage, result interfac
 	obj := new(EventstreamsEndpoint)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "brokers", &obj.Brokers)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "brokers-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "topic", &obj.Topic)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "topic-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_key-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_to_service_enabled", &obj.ServiceToServiceEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_to_service_enabled-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1409,18 +1573,24 @@ type EventstreamsEndpointPrototype struct {
 	Topic *string `json:"topic" validate:"required"`
 
 	// The user password (api key) for the message hub topic in the Event Streams instance.
-	APIKey *string `json:"api_key" validate:"required"`
+	APIKey *string `json:"api_key,omitempty"`
+
+	// Determines if IBM Cloud Activity Tracker Event Routing has service to service authentication enabled. Set this flag
+	// to true if service to service is enabled and do not supply an apikey.
+	ServiceToServiceEnabled *bool `json:"service_to_service_enabled,omitempty"`
 }
 
 // NewEventstreamsEndpointPrototype : Instantiate EventstreamsEndpointPrototype (Generic Model Constructor)
-func (*AtrackerV2) NewEventstreamsEndpointPrototype(targetCRN string, brokers []string, topic string, apiKey string) (_model *EventstreamsEndpointPrototype, err error) {
+func (*AtrackerV2) NewEventstreamsEndpointPrototype(targetCRN string, brokers []string, topic string) (_model *EventstreamsEndpointPrototype, err error) {
 	_model = &EventstreamsEndpointPrototype{
 		TargetCRN: core.StringPtr(targetCRN),
 		Brokers: brokers,
 		Topic: core.StringPtr(topic),
-		APIKey: core.StringPtr(apiKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1429,18 +1599,27 @@ func UnmarshalEventstreamsEndpointPrototype(m map[string]json.RawMessage, result
 	obj := new(EventstreamsEndpointPrototype)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "brokers", &obj.Brokers)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "brokers-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "topic", &obj.Topic)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "topic-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_key-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_to_service_enabled", &obj.ServiceToServiceEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_to_service_enabled-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1452,7 +1631,7 @@ type GetRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1478,7 +1657,7 @@ func (options *GetRouteOptions) SetHeaders(param map[string]string) *GetRouteOpt
 // GetSettingsOptions : The GetSettings options.
 type GetSettingsOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1498,7 +1677,7 @@ type GetTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1524,7 +1703,7 @@ func (options *GetTargetOptions) SetHeaders(param map[string]string) *GetTargetO
 // ListRoutesOptions : The ListRoutes options.
 type ListRoutesOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1544,7 +1723,7 @@ type ListTargetsOptions struct {
 	// Limit the query to the specified region.
 	Region *string `json:"region,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1576,6 +1755,7 @@ func UnmarshalLogdnaEndpoint(m map[string]json.RawMessage, result interface{}) (
 	obj := new(LogdnaEndpoint)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1598,6 +1778,9 @@ func (*AtrackerV2) NewLogdnaEndpointPrototype(targetCRN string, ingestionKey str
 		IngestionKey: core.StringPtr(ingestionKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1606,10 +1789,12 @@ func UnmarshalLogdnaEndpointPrototype(m map[string]json.RawMessage, result inter
 	obj := new(LogdnaEndpointPrototype)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "ingestion_key", &obj.IngestionKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ingestion_key-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1634,7 +1819,7 @@ type PutSettingsOptions struct {
 	// To store all your meta data in a backup region.
 	MetadataRegionBackup *string `json:"metadata_region_backup,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1694,7 +1879,7 @@ type ReplaceRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1752,7 +1937,7 @@ type ReplaceTargetOptions struct {
 	// Property values for an IBM Cloud Logs endpoint in requests.
 	CloudlogsEndpoint *CloudLogsEndpointPrototype `json:"cloudlogs_endpoint,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1842,38 +2027,47 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 	obj := new(Route)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalRule)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "rules-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1891,6 +2085,7 @@ func UnmarshalRouteList(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(RouteList)
 	err = core.UnmarshalModel(m, "routes", &obj.Routes, UnmarshalRoute)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "routes-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1913,10 +2108,12 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 	obj := new(Rule)
 	err = core.UnmarshalPrimitive(m, "target_ids", &obj.TargetIds)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_ids-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "locations", &obj.Locations)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "locations-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1940,6 +2137,9 @@ func (*AtrackerV2) NewRulePrototype(targetIds []string) (_model *RulePrototype, 
 		TargetIds: targetIds,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1948,10 +2148,12 @@ func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(RulePrototype)
 	err = core.UnmarshalPrimitive(m, "target_ids", &obj.TargetIds)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_ids-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "locations", &obj.Locations)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "locations-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1988,30 +2190,37 @@ func UnmarshalSettings(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(Settings)
 	err = core.UnmarshalPrimitive(m, "default_targets", &obj.DefaultTargets)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "default_targets-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "permitted_target_regions", &obj.PermittedTargetRegions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "permitted_target_regions-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "metadata_region_primary", &obj.MetadataRegionPrimary)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "metadata_region_primary-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "metadata_region_backup", &obj.MetadataRegionBackup)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "metadata_region_backup-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "private_api_endpoint_only", &obj.PrivateAPIEndpointOnly)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "private_api_endpoint_only-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2078,58 +2287,72 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	obj := new(Target)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "cos_endpoint", &obj.CosEndpoint, UnmarshalCosEndpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "cos_endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "logdna_endpoint", &obj.LogdnaEndpoint, UnmarshalLogdnaEndpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "logdna_endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "eventstreams_endpoint", &obj.EventstreamsEndpoint, UnmarshalEventstreamsEndpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "eventstreams_endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "cloudlogs_endpoint", &obj.CloudlogsEndpoint, UnmarshalCloudLogsEndpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "cloudlogs_endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "write_status", &obj.WriteStatus, UnmarshalWriteStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "write_status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2147,6 +2370,7 @@ func UnmarshalTargetList(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(TargetList)
 	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTarget)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2158,7 +2382,7 @@ type ValidateTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2195,10 +2419,12 @@ func UnmarshalWarning(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(Warning)
 	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2222,14 +2448,17 @@ func UnmarshalWarningReport(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(WarningReport)
 	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_code-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "trace-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "warnings", &obj.Warnings, UnmarshalWarning)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "warnings-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2253,14 +2482,17 @@ func UnmarshalWriteStatus(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(WriteStatus)
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_failure", &obj.LastFailure)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "last_failure-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reason_for_last_failure", &obj.ReasonForLastFailure)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason_for_last_failure-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
