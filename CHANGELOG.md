@@ -1,3 +1,10 @@
+# [0.76.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.75.0...v0.76.0) (2025-02-23)
+
+
+### Features
+
+* **IAM Access Groups:** add CRN to schema ([#375](https://github.com/IBM/platform-services-go-sdk/issues/375)) ([2e09509](https://github.com/IBM/platform-services-go-sdk/commit/2e0950952c82dacc83e1e933fb9e0c5ab961994d))
+
 # [0.75.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.1...v0.75.0) (2025-02-11)
 
 
