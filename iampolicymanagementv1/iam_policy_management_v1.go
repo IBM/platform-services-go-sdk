@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.90.1-64fd3296-20240515-180710
+ * IBM OpenAPI SDK Code Generator Version: 3.100.0-2ad7a784-20250212-162551
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -245,6 +245,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 	if listPoliciesOptions.State != nil {
 		builder.AddQuery("state", fmt.Sprint(*listPoliciesOptions.State))
 	}
+	if listPoliciesOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listPoliciesOptions.Limit))
+	}
+	if listPoliciesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listPoliciesOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -296,9 +302,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 // their support of authorization policies. To create an authorization policy, use **`"type": "authorization"`** in the
 // body. The subject attributes must match the supported authorization subjects of the resource. Multiple subject
 // attributes might be provided. The following attributes are supported:
-//
-//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
-//
+//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -426,9 +430,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 // To update an authorization policy, use **`"type": "authorization"`** in the body. The subject attributes must match
 // the supported authorization subjects of the resource. Multiple subject attributes might be provided. The following
 // attributes are supported:
-//
-//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
-//
+//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -1226,6 +1228,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 	if listV2PoliciesOptions.State != nil {
 		builder.AddQuery("state", fmt.Sprint(*listV2PoliciesOptions.State))
 	}
+	if listV2PoliciesOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listV2PoliciesOptions.Limit))
+	}
+	if listV2PoliciesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listV2PoliciesOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1278,32 +1286,28 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 // Monday-Friday work week). For example, a policy can grant access Monday-Friday, 9:00am-5:00pm using the following
 // rule:
 // ```json
-//
-//	"rule": {
-//	  "operator": "and",
-//	  "conditions": [{
-//	    "key": "{{environment.attributes.day_of_week}}",
-//	    "operator": "dayOfWeekAnyOf",
-//	    "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
-//	  },
-//	    "key": "{{environment.attributes.current_time}}",
-//	    "operator": "timeGreaterThanOrEquals",
-//	    "value": "09:00:00+00:00"
-//	  },
-//	    "key": "{{environment.attributes.current_time}}",
-//	    "operator": "timeLessThanOrEquals",
-//	    "value": "17:00:00+00:00"
-//	  }]
-//	}
-//
+//   "rule": {
+//     "operator": "and",
+//     "conditions": [{
+//       "key": "{{environment.attributes.day_of_week}}",
+//       "operator": "dayOfWeekAnyOf",
+//       "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeGreaterThanOrEquals",
+//       "value": "09:00:00+00:00"
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeLessThanOrEquals",
+//       "value": "17:00:00+00:00"
+//     }]
+//   }
 // ``` You can use the following operators in the **`key`** and **`value`** pair:
 // ```
-//
-//	'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
-//	'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
-//	'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
-//	'dayOfWeekEquals', 'dayOfWeekAnyOf'
-//
+//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//   'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
+//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//   'dayOfWeekEquals', 'dayOfWeekAnyOf'
 // ``` The pattern field that matches the rule is required when rule is provided. For the business hour rule example
 // above, the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
 // operators](/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties) and
@@ -1316,34 +1320,32 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 //
 // For example, a policy can grant access based on multiple conditions applied on the resource attributes below:
 // ```json
-//
-//	"pattern": "attribute-based-condition:resource:literal-and-wildcard"
-//	"rule": {
-//	    "operator": "or",
-//	    "conditions": [
-//	      {
-//	        "operator": "and",
-//	        "conditions": [
-//	          {
-//	            "key": "{{resource.attributes.prefix}}",
-//	            "operator": "stringEquals",
-//	            "value": "home/test"
-//	          },
-//	          {
-//	            "key": "{{environment.attributes.delimiter}}",
-//	            "operator": "stringEquals",
-//	            "value": "/"
-//	          }
-//	        ]
-//	      },
-//	      {
-//	        "key": "{{resource.attributes.path}}",
-//	        "operator": "stringMatch",
-//	        "value": "home/David/_*"
-//	      }
-//	    ]
-//	}
-//
+//   "pattern": "attribute-based-condition:resource:literal-and-wildcard"
+//   "rule": {
+//       "operator": "or",
+//       "conditions": [
+//         {
+//           "operator": "and",
+//           "conditions": [
+//             {
+//               "key": "{{resource.attributes.prefix}}",
+//               "operator": "stringEquals",
+//               "value": "home/test"
+//             },
+//             {
+//               "key": "{{environment.attributes.delimiter}}",
+//               "operator": "stringEquals",
+//               "value": "/"
+//             }
+//           ]
+//         },
+//         {
+//           "key": "{{resource.attributes.path}}",
+//           "operator": "stringMatch",
+//           "value": "home/David/_*"
+//         }
+//       ]
+//   }
 // ```
 //
 // In addition to satisfying the `resources` section, the policy grants permission only if either the `path` begins with
@@ -1358,9 +1360,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 // their support of authorization policies. To create an authorization policy, use **`"type": "authorization"`** in the
 // body. The subject attributes must match the supported authorization subjects of the resource. Multiple subject
 // attributes might be provided. The following attributes are supported:
-//
-//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
-//
+//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -1498,32 +1498,28 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 // Monday-Friday work week). For example, a policy can grant access Monday-Friday, 9:00am-5:00pm using the following
 // rule:
 // ```json
-//
-//	"rule": {
-//	  "operator": "and",
-//	  "conditions": [{
-//	    "key": "{{environment.attributes.day_of_week}}",
-//	    "operator": "dayOfWeekAnyOf",
-//	    "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
-//	  },
-//	    "key": "{{environment.attributes.current_time}}",
-//	    "operator": "timeGreaterThanOrEquals",
-//	    "value": "09:00:00+00:00"
-//	  },
-//	    "key": "{{environment.attributes.current_time}}",
-//	    "operator": "timeLessThanOrEquals",
-//	    "value": "17:00:00+00:00"
-//	  }]
-//	}
-//
+//   "rule": {
+//     "operator": "and",
+//     "conditions": [{
+//       "key": "{{environment.attributes.day_of_week}}",
+//       "operator": "dayOfWeekAnyOf",
+//       "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeGreaterThanOrEquals",
+//       "value": "09:00:00+00:00"
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeLessThanOrEquals",
+//       "value": "17:00:00+00:00"
+//     }]
+//   }
 // ``` You can use the following operators in the **`key`** and **`value`** pair:
 // ```
-//
-//	'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
-//	'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
-//	'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
-//	'dayOfWeekEquals', 'dayOfWeekAnyOf'
-//
+//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//   'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
+//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//   'dayOfWeekEquals', 'dayOfWeekAnyOf'
 // ``` The pattern field that matches the rule is required when rule is provided. For the business hour rule example
 // above, the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
 // operators](/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties) and
@@ -1536,34 +1532,32 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 //
 // For example, a policy can grant access based on multiple conditions applied on the resource attributes below:
 // ```json
-//
-//	"pattern": "attribute-based-condition:resource:literal-and-wildcard"
-//	"rule": {
-//	    "operator": "or",
-//	    "conditions": [
-//	      {
-//	        "operator": "and",
-//	        "conditions": [
-//	          {
-//	            "key": "{{resource.attributes.prefix}}",
-//	            "operator": "stringEquals",
-//	            "value": "home/test"
-//	          },
-//	          {
-//	            "key": "{{environment.attributes.delimiter}}",
-//	            "operator": "stringEquals",
-//	            "value": "/"
-//	          }
-//	        ]
-//	      },
-//	      {
-//	        "key": "{{resource.attributes.path}}",
-//	        "operator": "stringMatch",
-//	        "value": "home/David/_*"
-//	      }
-//	    ]
-//	}
-//
+//   "pattern": "attribute-based-condition:resource:literal-and-wildcard"
+//   "rule": {
+//       "operator": "or",
+//       "conditions": [
+//         {
+//           "operator": "and",
+//           "conditions": [
+//             {
+//               "key": "{{resource.attributes.prefix}}",
+//               "operator": "stringEquals",
+//               "value": "home/test"
+//             },
+//             {
+//               "key": "{{environment.attributes.delimiter}}",
+//               "operator": "stringEquals",
+//               "value": "/"
+//             }
+//           ]
+//         },
+//         {
+//           "key": "{{resource.attributes.path}}",
+//           "operator": "stringMatch",
+//           "value": "home/David/_*"
+//         }
+//       ]
+//   }
 // ```
 //
 // In addition to satisfying the `resources` section, the policy grants permission only if either the `path` begins with
@@ -1577,9 +1571,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 // To update an authorization policy, use **`"type": "authorization"`** in the body. The subject attributes must match
 // the supported authorization subjects of the resource. Multiple subject attributes might be provided. The following
 // attributes are supported:
-//
-//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
-//
+//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -1895,6 +1887,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplatesWithContext
 	}
 	if listPolicyTemplatesOptions.PolicyType != nil {
 		builder.AddQuery("policy_type", fmt.Sprint(*listPolicyTemplatesOptions.PolicyType))
+	}
+	if listPolicyTemplatesOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listPolicyTemplatesOptions.Limit))
+	}
+	if listPolicyTemplatesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listPolicyTemplatesOptions.Start))
 	}
 
 	request, err := builder.Build()
@@ -2285,6 +2283,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVersionsWith
 	if listPolicyTemplateVersionsOptions.State != nil {
 		builder.AddQuery("state", fmt.Sprint(*listPolicyTemplateVersionsOptions.State))
 	}
+	if listPolicyTemplateVersionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listPolicyTemplateVersionsOptions.Limit))
+	}
+	if listPolicyTemplateVersionsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listPolicyTemplateVersionsOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -2334,7 +2338,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *replacePolicyTemplateOptions.PolicyTemplateID,
-		"version":            *replacePolicyTemplateOptions.Version,
+		"version": *replacePolicyTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2429,7 +2433,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWit
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *deletePolicyTemplateVersionOptions.PolicyTemplateID,
-		"version":            *deletePolicyTemplateVersionOptions.Version,
+		"version": *deletePolicyTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2489,7 +2493,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithCo
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *getPolicyTemplateVersionOptions.PolicyTemplateID,
-		"version":            *getPolicyTemplateVersionOptions.Version,
+		"version": *getPolicyTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2560,7 +2564,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContex
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *commitPolicyTemplateOptions.PolicyTemplateID,
-		"version":            *commitPolicyTemplateOptions.Version,
+		"version": *commitPolicyTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -2651,6 +2655,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignmentsWithConte
 	}
 	if listPolicyAssignmentsOptions.TemplateVersion != nil {
 		builder.AddQuery("template_version", fmt.Sprint(*listPolicyAssignmentsOptions.TemplateVersion))
+	}
+	if listPolicyAssignmentsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listPolicyAssignmentsOptions.Limit))
+	}
+	if listPolicyAssignmentsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listPolicyAssignmentsOptions.Start))
 	}
 
 	request, err := builder.Build()
@@ -3268,7 +3278,7 @@ type CommitPolicyTemplateOptions struct {
 	// The policy template version.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3276,7 +3286,7 @@ type CommitPolicyTemplateOptions struct {
 func (*IamPolicyManagementV1) NewCommitPolicyTemplateOptions(policyTemplateID string, version string) *CommitPolicyTemplateOptions {
 	return &CommitPolicyTemplateOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version:          core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -3370,7 +3380,6 @@ type ControlResponse struct {
 	// Permission granted by the policy.
 	Grant *Grant `json:"grant,omitempty"`
 }
-
 func (*ControlResponse) isaControlResponse() bool {
 	return true
 }
@@ -3422,16 +3431,16 @@ type CreatePolicyOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewCreatePolicyOptions : Instantiate CreatePolicyOptions
 func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *CreatePolicyOptions {
 	return &CreatePolicyOptions{
-		Type:      core.StringPtr(typeVar),
-		Subjects:  subjects,
-		Roles:     roles,
+		Type: core.StringPtr(typeVar),
+		Subjects: subjects,
+		Roles: roles,
 		Resources: resources,
 	}
 }
@@ -3486,9 +3495,6 @@ type CreatePolicyTemplateAssignmentOptions struct {
 	// assignment target account and type.
 	Target *AssignmentTargetDetails `json:"target" validate:"required"`
 
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options" validate:"required"`
-
 	// List of template details for policy assignment.
 	Templates []AssignmentTemplateDetails `json:"templates" validate:"required"`
 
@@ -3506,15 +3512,15 @@ type CreatePolicyTemplateAssignmentOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewCreatePolicyTemplateAssignmentOptions : Instantiate CreatePolicyTemplateAssignmentOptions
 func (*IamPolicyManagementV1) NewCreatePolicyTemplateAssignmentOptions(version string, target *AssignmentTargetDetails, templates []AssignmentTemplateDetails) *CreatePolicyTemplateAssignmentOptions {
 	return &CreatePolicyTemplateAssignmentOptions{
-		Version:   core.StringPtr(version),
-		Target:    target,
+		Version: core.StringPtr(version),
+		Target: target,
 		Templates: templates,
 	}
 }
@@ -3582,16 +3588,16 @@ type CreatePolicyTemplateOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewCreatePolicyTemplateOptions : Instantiate CreatePolicyTemplateOptions
 func (*IamPolicyManagementV1) NewCreatePolicyTemplateOptions(name string, accountID string, policy *TemplatePolicy) *CreatePolicyTemplateOptions {
 	return &CreatePolicyTemplateOptions{
-		Name:      core.StringPtr(name),
+		Name: core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
-		Policy:    policy,
+		Policy: policy,
 	}
 }
 
@@ -3656,7 +3662,7 @@ type CreatePolicyTemplateVersionOptions struct {
 	// Committed status of the template version.
 	Committed *bool `json:"committed,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3664,7 +3670,7 @@ type CreatePolicyTemplateVersionOptions struct {
 func (*IamPolicyManagementV1) NewCreatePolicyTemplateVersionOptions(policyTemplateID string, policy *TemplatePolicy) *CreatePolicyTemplateVersionOptions {
 	return &CreatePolicyTemplateVersionOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Policy:           policy,
+		Policy: policy,
 	}
 }
 
@@ -3739,7 +3745,7 @@ type CreateRoleOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3747,9 +3753,9 @@ type CreateRoleOptions struct {
 func (*IamPolicyManagementV1) NewCreateRoleOptions(displayName string, actions []string, name string, accountID string, serviceName string) *CreateRoleOptions {
 	return &CreateRoleOptions{
 		DisplayName: core.StringPtr(displayName),
-		Actions:     actions,
-		Name:        core.StringPtr(name),
-		AccountID:   core.StringPtr(accountID),
+		Actions: actions,
+		Name: core.StringPtr(name),
+		AccountID: core.StringPtr(accountID),
 		ServiceName: core.StringPtr(serviceName),
 	}
 }
@@ -3840,14 +3846,14 @@ type CreateV2PolicyOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the CreateV2PolicyOptions.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	CreateV2PolicyOptionsTypeAccessConst        = "access"
+	CreateV2PolicyOptionsTypeAccessConst = "access"
 	CreateV2PolicyOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -3855,7 +3861,7 @@ const (
 func (*IamPolicyManagementV1) NewCreateV2PolicyOptions(control *Control, typeVar string) *CreateV2PolicyOptions {
 	return &CreateV2PolicyOptions{
 		Control: control,
-		Type:    core.StringPtr(typeVar),
+		Type: core.StringPtr(typeVar),
 	}
 }
 
@@ -4034,7 +4040,7 @@ type DeletePolicyAssignmentOptions struct {
 	// The policy template assignment ID.
 	AssignmentID *string `json:"assignment_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4062,7 +4068,7 @@ type DeletePolicyOptions struct {
 	// The policy ID.
 	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4090,7 +4096,7 @@ type DeletePolicyTemplateOptions struct {
 	// The policy template ID.
 	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4121,7 +4127,7 @@ type DeletePolicyTemplateVersionOptions struct {
 	// The policy template version.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4129,7 +4135,7 @@ type DeletePolicyTemplateVersionOptions struct {
 func (*IamPolicyManagementV1) NewDeletePolicyTemplateVersionOptions(policyTemplateID string, version string) *DeletePolicyTemplateVersionOptions {
 	return &DeletePolicyTemplateVersionOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version:          core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -4156,7 +4162,7 @@ type DeleteRoleOptions struct {
 	// The role ID.
 	RoleID *string `json:"role_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4184,7 +4190,7 @@ type DeleteV2PolicyOptions struct {
 	// The policy ID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4287,24 +4293,24 @@ type ErrorObject struct {
 // Constants associated with the ErrorObject.Code property.
 // The API error code for the error.
 const (
-	ErrorObjectCodeInsufficentPermissionsConst        = "insufficent_permissions"
-	ErrorObjectCodeInvalidBodyConst                   = "invalid_body"
-	ErrorObjectCodeInvalidTokenConst                  = "invalid_token"
+	ErrorObjectCodeInsufficentPermissionsConst = "insufficent_permissions"
+	ErrorObjectCodeInvalidBodyConst = "invalid_body"
+	ErrorObjectCodeInvalidTokenConst = "invalid_token"
 	ErrorObjectCodeMissingRequiredQueryParameterConst = "missing_required_query_parameter"
-	ErrorObjectCodeNotFoundConst                      = "not_found"
+	ErrorObjectCodeNotFoundConst = "not_found"
 	ErrorObjectCodePolicyAssignmentConflictErrorConst = "policy_assignment_conflict_error"
-	ErrorObjectCodePolicyAssignmentNotFoundConst      = "policy_assignment_not_found"
-	ErrorObjectCodePolicyConflictErrorConst           = "policy_conflict_error"
-	ErrorObjectCodePolicyNotFoundConst                = "policy_not_found"
-	ErrorObjectCodePolicyTemplateConflictErrorConst   = "policy_template_conflict_error"
-	ErrorObjectCodePolicyTemplateNotFoundConst        = "policy_template_not_found"
-	ErrorObjectCodeRequestNotProcessedConst           = "request_not_processed"
-	ErrorObjectCodeResourceNotFoundConst              = "resource_not_found"
-	ErrorObjectCodeRoleConflictErrorConst             = "role_conflict_error"
-	ErrorObjectCodeRoleNotFoundConst                  = "role_not_found"
-	ErrorObjectCodeTooManyRequestsConst               = "too_many_requests"
-	ErrorObjectCodeUnableToProcessConst               = "unable_to_process"
-	ErrorObjectCodeUnsupportedContentTypeConst        = "unsupported_content_type"
+	ErrorObjectCodePolicyAssignmentNotFoundConst = "policy_assignment_not_found"
+	ErrorObjectCodePolicyConflictErrorConst = "policy_conflict_error"
+	ErrorObjectCodePolicyNotFoundConst = "policy_not_found"
+	ErrorObjectCodePolicyTemplateConflictErrorConst = "policy_template_conflict_error"
+	ErrorObjectCodePolicyTemplateNotFoundConst = "policy_template_not_found"
+	ErrorObjectCodeRequestNotProcessedConst = "request_not_processed"
+	ErrorObjectCodeResourceNotFoundConst = "resource_not_found"
+	ErrorObjectCodeRoleConflictErrorConst = "role_conflict_error"
+	ErrorObjectCodeRoleNotFoundConst = "role_not_found"
+	ErrorObjectCodeTooManyRequestsConst = "too_many_requests"
+	ErrorObjectCodeUnableToProcessConst = "unable_to_process"
+	ErrorObjectCodeUnsupportedContentTypeConst = "unsupported_content_type"
 )
 
 // UnmarshalErrorObject unmarshals an instance of ErrorObject from the specified map of raw messages.
@@ -4404,6 +4410,24 @@ func UnmarshalExternalAccountIdentityInteractionPatch(m map[string]json.RawMessa
 	return
 }
 
+// First : Details with href linking to first page of requested collection.
+type First struct {
+	// The href linking to the page of requested collection.
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalFirst unmarshals an instance of First from the specified map of raw messages.
+func UnmarshalFirst(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(First)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // GetPolicyAssignmentOptions : The GetPolicyAssignment options.
 type GetPolicyAssignmentOptions struct {
 	// The policy template assignment ID.
@@ -4412,7 +4436,7 @@ type GetPolicyAssignmentOptions struct {
 	// specify version of response body format.
 	Version *string `json:"version" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4420,7 +4444,7 @@ type GetPolicyAssignmentOptions struct {
 func (*IamPolicyManagementV1) NewGetPolicyAssignmentOptions(assignmentID string, version string) *GetPolicyAssignmentOptions {
 	return &GetPolicyAssignmentOptions{
 		AssignmentID: core.StringPtr(assignmentID),
-		Version:      core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -4442,238 +4466,12 @@ func (options *GetPolicyAssignmentOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
-// GetPolicyAssignmentResponse : GetPolicyAssignmentResponse struct
-// Models which "extend" this model:
-// - GetPolicyAssignmentResponsePolicyAssignmentV1
-// - GetPolicyAssignmentResponsePolicyAssignment
-type GetPolicyAssignmentResponse struct {
-	// assignment target account and type.
-	Target *AssignmentTargetDetails `json:"target,omitempty"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentV1Resources `json:"resources,omitempty"`
-
-	// subject details of access type assignment.
-	Subject *GetPolicyAssignmentResponseSubject `json:"subject,omitempty"`
-
-	// policy template details.
-	Template *AssignmentTemplateDetails `json:"template,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status,omitempty"`
-
-	// policy template id.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// policy template version.
-	TemplateVersion *string `json:"template_version,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// Assignment target type.
-	TargetType *string `json:"target_type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponse.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponseStatusFailedConst            = "failed"
-	GetPolicyAssignmentResponseStatusInProgressConst        = "in_progress"
-	GetPolicyAssignmentResponseStatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponseStatusSucceededConst         = "succeeded"
-)
-
-// Constants associated with the GetPolicyAssignmentResponse.TargetType property.
-// Assignment target type.
-const (
-	GetPolicyAssignmentResponseTargetTypeAccountConst      = "Account"
-	GetPolicyAssignmentResponseTargetTypeAccountgroupConst = "AccountGroup"
-	GetPolicyAssignmentResponseTargetTypeEnterpriseConst   = "Enterprise"
-)
-
-func (*GetPolicyAssignmentResponse) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-type GetPolicyAssignmentResponseIntf interface {
-	isaGetPolicyAssignmentResponse() bool
-}
-
-// UnmarshalGetPolicyAssignmentResponse unmarshals an instance of GetPolicyAssignmentResponse from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponse)
-	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponseSubject)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignmentV1Subject : subject details of access type assignment.
-type GetPolicyAssignmentResponsePolicyAssignmentV1Subject struct {
-	ID *string `json:"id,omitempty"`
-
-	Type *string `json:"type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1Subject.Type property.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
-	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeIamIDConst         = "iam_id"
-)
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1Subject from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1Subject)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponseSubject : subject details of access type assignment.
-type GetPolicyAssignmentResponseSubject struct {
-	ID *string `json:"id,omitempty"`
-
-	Type *string `json:"type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponseSubject.Type property.
-const (
-	GetPolicyAssignmentResponseSubjectTypeAccessGroupIDConst = "access_group_id"
-	GetPolicyAssignmentResponseSubjectTypeIamIDConst         = "iam_id"
-)
-
-// UnmarshalGetPolicyAssignmentResponseSubject unmarshals an instance of GetPolicyAssignmentResponseSubject from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponseSubject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponseSubject)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // GetPolicyOptions : The GetPolicy options.
 type GetPolicyOptions struct {
 	// The policy ID.
 	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4704,14 +4502,14 @@ type GetPolicyTemplateOptions struct {
 	// The policy template state.
 	State *string `json:"state,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the GetPolicyTemplateOptions.State property.
 // The policy template state.
 const (
-	GetPolicyTemplateOptionsStateActiveConst  = "active"
+	GetPolicyTemplateOptionsStateActiveConst = "active"
 	GetPolicyTemplateOptionsStateDeletedConst = "deleted"
 )
 
@@ -4748,7 +4546,7 @@ type GetPolicyTemplateVersionOptions struct {
 	// The policy template version.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4756,7 +4554,7 @@ type GetPolicyTemplateVersionOptions struct {
 func (*IamPolicyManagementV1) NewGetPolicyTemplateVersionOptions(policyTemplateID string, version string) *GetPolicyTemplateVersionOptions {
 	return &GetPolicyTemplateVersionOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version:          core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -4783,7 +4581,7 @@ type GetRoleOptions struct {
 	// The role ID.
 	RoleID *string `json:"role_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4825,7 +4623,7 @@ type GetSettingsOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4866,7 +4664,7 @@ type GetV2PolicyOptions struct {
 	// fields.
 	Format *string `json:"format,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4877,7 +4675,7 @@ type GetV2PolicyOptions struct {
 // * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
 // fields.
 const (
-	GetV2PolicyOptionsFormatDisplayConst           = "display"
+	GetV2PolicyOptionsFormatDisplayConst = "display"
 	GetV2PolicyOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -5008,7 +4806,7 @@ const (
 // NewIdentityTypesBase : Instantiate IdentityTypesBase (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewIdentityTypesBase(state string, externalAllowedAccounts []string) (_model *IdentityTypesBase, err error) {
 	_model = &IdentityTypesBase{
-		State:                   core.StringPtr(state),
+		State: core.StringPtr(state),
 		ExternalAllowedAccounts: externalAllowedAccounts,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -5147,14 +4945,20 @@ type ListPoliciesOptions struct {
 	// * `deleted` - returns non-active policies.
 	State *string `json:"state,omitempty"`
 
-	// Allows users to set headers on API requests
+	// The number of documents to include in collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Page token that refers to the page of collection to return.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListPoliciesOptions.Type property.
 // Optional type of policy.
 const (
-	ListPoliciesOptionsTypeAccessConst        = "access"
+	ListPoliciesOptionsTypeAccessConst = "access"
 	ListPoliciesOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -5162,21 +4966,21 @@ const (
 // Optional type of service.
 const (
 	ListPoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
-	ListPoliciesOptionsServiceTypeServiceConst         = "service"
+	ListPoliciesOptionsServiceTypeServiceConst = "service"
 )
 
 // Constants associated with the ListPoliciesOptions.Sort property.
 // Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
 // '-' to field. Example '-last_modified_at'.
 const (
-	ListPoliciesOptionsSortCreatedAtConst        = "created_at"
-	ListPoliciesOptionsSortCreatedByIDConst      = "created_by_id"
-	ListPoliciesOptionsSortHrefConst             = "href"
-	ListPoliciesOptionsSortIDConst               = "id"
-	ListPoliciesOptionsSortLastModifiedAtConst   = "last_modified_at"
+	ListPoliciesOptionsSortCreatedAtConst = "created_at"
+	ListPoliciesOptionsSortCreatedByIDConst = "created_by_id"
+	ListPoliciesOptionsSortHrefConst = "href"
+	ListPoliciesOptionsSortIDConst = "id"
+	ListPoliciesOptionsSortLastModifiedAtConst = "last_modified_at"
 	ListPoliciesOptionsSortLastModifiedByIDConst = "last_modified_by_id"
-	ListPoliciesOptionsSortStateConst            = "state"
-	ListPoliciesOptionsSortTypeConst             = "type"
+	ListPoliciesOptionsSortStateConst = "state"
+	ListPoliciesOptionsSortTypeConst = "type"
 )
 
 // Constants associated with the ListPoliciesOptions.Format property.
@@ -5185,7 +4989,7 @@ const (
 // it has done so
 // * `display` - returns the list of all actions included in each of the policy roles.
 const (
-	ListPoliciesOptionsFormatDisplayConst           = "display"
+	ListPoliciesOptionsFormatDisplayConst = "display"
 	ListPoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -5194,7 +4998,7 @@ const (
 // * `active` - returns active policies
 // * `deleted` - returns non-active policies.
 const (
-	ListPoliciesOptionsStateActiveConst  = "active"
+	ListPoliciesOptionsStateActiveConst = "active"
 	ListPoliciesOptionsStateDeletedConst = "deleted"
 )
 
@@ -5271,6 +5075,18 @@ func (_options *ListPoliciesOptions) SetState(state string) *ListPoliciesOptions
 	return _options
 }
 
+// SetLimit : Allow user to set Limit
+func (_options *ListPoliciesOptions) SetLimit(limit int64) *ListPoliciesOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListPoliciesOptions) SetStart(start string) *ListPoliciesOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ListPoliciesOptions) SetHeaders(param map[string]string) *ListPoliciesOptions {
 	options.Headers = param
@@ -5305,14 +5121,20 @@ type ListPolicyAssignmentsOptions struct {
 	// Optional policy template version.
 	TemplateVersion *string `json:"template_version,omitempty"`
 
-	// Allows users to set headers on API requests
+	// The number of documents to include in collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Page token that refers to the page of collection to return.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewListPolicyAssignmentsOptions : Instantiate ListPolicyAssignmentsOptions
 func (*IamPolicyManagementV1) NewListPolicyAssignmentsOptions(version string, accountID string) *ListPolicyAssignmentsOptions {
 	return &ListPolicyAssignmentsOptions{
-		Version:   core.StringPtr(version),
+		Version: core.StringPtr(version),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -5347,6 +5169,18 @@ func (_options *ListPolicyAssignmentsOptions) SetTemplateVersion(templateVersion
 	return _options
 }
 
+// SetLimit : Allow user to set Limit
+func (_options *ListPolicyAssignmentsOptions) SetLimit(limit int64) *ListPolicyAssignmentsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListPolicyAssignmentsOptions) SetStart(start string) *ListPolicyAssignmentsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ListPolicyAssignmentsOptions) SetHeaders(param map[string]string) *ListPolicyAssignmentsOptions {
 	options.Headers = param
@@ -5361,14 +5195,20 @@ type ListPolicyTemplateVersionsOptions struct {
 	// The policy template state.
 	State *string `json:"state,omitempty"`
 
-	// Allows users to set headers on API requests
+	// The number of documents to include in collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Page token that refers to the page of collection to return.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListPolicyTemplateVersionsOptions.State property.
 // The policy template state.
 const (
-	ListPolicyTemplateVersionsOptionsStateActiveConst  = "active"
+	ListPolicyTemplateVersionsOptionsStateActiveConst = "active"
 	ListPolicyTemplateVersionsOptionsStateDeletedConst = "deleted"
 )
 
@@ -5388,6 +5228,18 @@ func (_options *ListPolicyTemplateVersionsOptions) SetPolicyTemplateID(policyTem
 // SetState : Allow user to set State
 func (_options *ListPolicyTemplateVersionsOptions) SetState(state string) *ListPolicyTemplateVersionsOptions {
 	_options.State = core.StringPtr(state)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListPolicyTemplateVersionsOptions) SetLimit(limit int64) *ListPolicyTemplateVersionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListPolicyTemplateVersionsOptions) SetStart(start string) *ListPolicyTemplateVersionsOptions {
+	_options.Start = core.StringPtr(start)
 	return _options
 }
 
@@ -5434,14 +5286,20 @@ type ListPolicyTemplatesOptions struct {
 	// Policy type, Optional.
 	PolicyType *string `json:"policy_type,omitempty"`
 
-	// Allows users to set headers on API requests
+	// The number of documents to include in collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Page token that refers to the page of collection to return.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListPolicyTemplatesOptions.State property.
 // The policy template state.
 const (
-	ListPolicyTemplatesOptionsStateActiveConst  = "active"
+	ListPolicyTemplatesOptionsStateActiveConst = "active"
 	ListPolicyTemplatesOptionsStateDeletedConst = "deleted"
 )
 
@@ -5449,13 +5307,13 @@ const (
 // Service type, Optional.
 const (
 	ListPolicyTemplatesOptionsPolicyServiceTypePlatformServiceConst = "platform_service"
-	ListPolicyTemplatesOptionsPolicyServiceTypeServiceConst         = "service"
+	ListPolicyTemplatesOptionsPolicyServiceTypeServiceConst = "service"
 )
 
 // Constants associated with the ListPolicyTemplatesOptions.PolicyType property.
 // Policy type, Optional.
 const (
-	ListPolicyTemplatesOptionsPolicyTypeAccessConst        = "access"
+	ListPolicyTemplatesOptionsPolicyTypeAccessConst = "access"
 	ListPolicyTemplatesOptionsPolicyTypeAuthorizationConst = "authorization"
 )
 
@@ -5514,6 +5372,18 @@ func (_options *ListPolicyTemplatesOptions) SetPolicyType(policyType string) *Li
 	return _options
 }
 
+// SetLimit : Allow user to set Limit
+func (_options *ListPolicyTemplatesOptions) SetLimit(limit int64) *ListPolicyTemplatesOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListPolicyTemplatesOptions) SetStart(start string) *ListPolicyTemplatesOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ListPolicyTemplatesOptions) SetHeaders(param map[string]string) *ListPolicyTemplatesOptions {
 	options.Headers = param
@@ -5551,7 +5421,7 @@ type ListRolesOptions struct {
 	// Optional id of service group.
 	ServiceGroupID *string `json:"service_group_id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5667,14 +5537,20 @@ type ListV2PoliciesOptions struct {
 	// * `deleted` - returns non-active policies.
 	State *string `json:"state,omitempty"`
 
-	// Allows users to set headers on API requests
+	// The number of documents to include in collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Page token that refers to the page of collection to return.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListV2PoliciesOptions.Type property.
 // Optional type of policy.
 const (
-	ListV2PoliciesOptionsTypeAccessConst        = "access"
+	ListV2PoliciesOptionsTypeAccessConst = "access"
 	ListV2PoliciesOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -5682,7 +5558,7 @@ const (
 // Optional type of service.
 const (
 	ListV2PoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
-	ListV2PoliciesOptionsServiceTypeServiceConst         = "service"
+	ListV2PoliciesOptionsServiceTypeServiceConst = "service"
 )
 
 // Constants associated with the ListV2PoliciesOptions.Format property.
@@ -5692,7 +5568,7 @@ const (
 // * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
 // fields.
 const (
-	ListV2PoliciesOptionsFormatDisplayConst           = "display"
+	ListV2PoliciesOptionsFormatDisplayConst = "display"
 	ListV2PoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -5701,7 +5577,7 @@ const (
 // * `active` - returns active policies
 // * `deleted` - returns non-active policies.
 const (
-	ListV2PoliciesOptionsStateActiveConst  = "active"
+	ListV2PoliciesOptionsStateActiveConst = "active"
 	ListV2PoliciesOptionsStateDeletedConst = "deleted"
 )
 
@@ -5778,6 +5654,18 @@ func (_options *ListV2PoliciesOptions) SetState(state string) *ListV2PoliciesOpt
 	return _options
 }
 
+// SetLimit : Allow user to set Limit
+func (_options *ListV2PoliciesOptions) SetLimit(limit int64) *ListV2PoliciesOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListV2PoliciesOptions) SetStart(start string) *ListV2PoliciesOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ListV2PoliciesOptions) SetHeaders(param map[string]string) *ListV2PoliciesOptions {
 	options.Headers = param
@@ -5807,27 +5695,26 @@ type NestedCondition struct {
 // Constants associated with the NestedCondition.Operator property.
 // The operator of an attribute.
 const (
-	NestedConditionOperatorDategreaterthanConst             = "dateGreaterThan"
-	NestedConditionOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
-	NestedConditionOperatorDatelessthanConst                = "dateLessThan"
-	NestedConditionOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
-	NestedConditionOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
+	NestedConditionOperatorDategreaterthanConst = "dateGreaterThan"
+	NestedConditionOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
+	NestedConditionOperatorDatelessthanConst = "dateLessThan"
+	NestedConditionOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
+	NestedConditionOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
 	NestedConditionOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	NestedConditionOperatorDatetimelessthanConst            = "dateTimeLessThan"
-	NestedConditionOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
-	NestedConditionOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
-	NestedConditionOperatorDayofweekequalsConst             = "dayOfWeekEquals"
-	NestedConditionOperatorStringequalsConst                = "stringEquals"
-	NestedConditionOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
-	NestedConditionOperatorStringexistsConst                = "stringExists"
-	NestedConditionOperatorStringmatchConst                 = "stringMatch"
-	NestedConditionOperatorStringmatchanyofConst            = "stringMatchAnyOf"
-	NestedConditionOperatorTimegreaterthanConst             = "timeGreaterThan"
-	NestedConditionOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
-	NestedConditionOperatorTimelessthanConst                = "timeLessThan"
-	NestedConditionOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
+	NestedConditionOperatorDatetimelessthanConst = "dateTimeLessThan"
+	NestedConditionOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
+	NestedConditionOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
+	NestedConditionOperatorDayofweekequalsConst = "dayOfWeekEquals"
+	NestedConditionOperatorStringequalsConst = "stringEquals"
+	NestedConditionOperatorStringequalsanyofConst = "stringEqualsAnyOf"
+	NestedConditionOperatorStringexistsConst = "stringExists"
+	NestedConditionOperatorStringmatchConst = "stringMatch"
+	NestedConditionOperatorStringmatchanyofConst = "stringMatchAnyOf"
+	NestedConditionOperatorTimegreaterthanConst = "timeGreaterThan"
+	NestedConditionOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
+	NestedConditionOperatorTimelessthanConst = "timeLessThan"
+	NestedConditionOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
 )
-
 func (*NestedCondition) isaNestedCondition() bool {
 	return true
 }
@@ -5857,6 +5744,32 @@ func UnmarshalNestedCondition(m map[string]json.RawMessage, result interface{}) 
 	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalRuleAttribute)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "conditions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Next : Details with href linking to following page of requested collection.
+type Next struct {
+	// The href linking to the page of requested collection.
+	Href *string `json:"href,omitempty"`
+
+	// Page token that refers to the page of collection.
+	Start *string `json:"start,omitempty"`
+}
+
+// UnmarshalNext unmarshals an instance of Next from the specified map of raw messages.
+func UnmarshalNext(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Next)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5905,7 +5818,7 @@ type Policy struct {
 // Constants associated with the Policy.State property.
 // The policy state.
 const (
-	PolicyStateActiveConst  = "active"
+	PolicyStateActiveConst = "active"
 	PolicyStateDeletedConst = "deleted"
 )
 
@@ -5970,63 +5883,6 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyAssignmentOptions : The set of properties required for a policy assignment.
-type PolicyAssignmentOptions struct {
-	// The policy subject type; either 'iam_id' or 'access_group_id'.
-	SubjectType *string `json:"subject_type" validate:"required"`
-
-	// The policy subject id.
-	SubjectID *string `json:"subject_id" validate:"required"`
-
-	// The policy assignment requester id.
-	RootRequesterID *string `json:"root_requester_id" validate:"required"`
-
-	// The template id where this policy is being assigned from.
-	RootTemplateID *string `json:"root_template_id,omitempty"`
-
-	// The template version where this policy is being assigned from.
-	RootTemplateVersion *string `json:"root_template_version,omitempty"`
-}
-
-// Constants associated with the PolicyAssignmentOptions.SubjectType property.
-// The policy subject type; either 'iam_id' or 'access_group_id'.
-const (
-	PolicyAssignmentOptionsSubjectTypeAccessGroupIDConst = "access_group_id"
-	PolicyAssignmentOptionsSubjectTypeIamIDConst         = "iam_id"
-)
-
-// UnmarshalPolicyAssignmentOptions unmarshals an instance of PolicyAssignmentOptions from the specified map of raw messages.
-func UnmarshalPolicyAssignmentOptions(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentOptions)
-	err = core.UnmarshalPrimitive(m, "subject_type", &obj.SubjectType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject_type-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "subject_id", &obj.SubjectID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "root_requester_id", &obj.RootRequesterID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "root_requester_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "root_template_id", &obj.RootTemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "root_template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "root_template_version", &obj.RootTemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "root_template_version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6135,10 +5991,10 @@ type PolicyAssignmentV1 struct {
 // Constants associated with the PolicyAssignmentV1.Status property.
 // The policy assignment status.
 const (
-	PolicyAssignmentV1StatusFailedConst            = "failed"
-	PolicyAssignmentV1StatusInProgressConst        = "in_progress"
+	PolicyAssignmentV1StatusFailedConst = "failed"
+	PolicyAssignmentV1StatusInProgressConst = "in_progress"
 	PolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyAssignmentV1StatusSucceededConst         = "succeeded"
+	PolicyAssignmentV1StatusSucceededConst = "succeeded"
 )
 
 // UnmarshalPolicyAssignmentV1 unmarshals an instance of PolicyAssignmentV1 from the specified map of raw messages.
@@ -6226,96 +6082,6 @@ func UnmarshalPolicyAssignmentV1Collection(m map[string]json.RawMessage, result 
 	return
 }
 
-// PolicyAssignmentV1Options : The set of properties required for a policy assignment.
-type PolicyAssignmentV1Options struct {
-	// The set of properties where the assignment is being built from.
-	Root *PolicyAssignmentV1OptionsRoot `json:"root" validate:"required"`
-}
-
-// NewPolicyAssignmentV1Options : Instantiate PolicyAssignmentV1Options (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyAssignmentV1Options(root *PolicyAssignmentV1OptionsRoot) (_model *PolicyAssignmentV1Options, err error) {
-	_model = &PolicyAssignmentV1Options{
-		Root: root,
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
-	return
-}
-
-// UnmarshalPolicyAssignmentV1Options unmarshals an instance of PolicyAssignmentV1Options from the specified map of raw messages.
-func UnmarshalPolicyAssignmentV1Options(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentV1Options)
-	err = core.UnmarshalModel(m, "root", &obj.Root, UnmarshalPolicyAssignmentV1OptionsRoot)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "root-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyAssignmentV1OptionsRoot : The set of properties where the assignment is being built from.
-type PolicyAssignmentV1OptionsRoot struct {
-	// The policy assignment requester id.
-	RequesterID *string `json:"requester_id,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// The template where the assignment is being built from.
-	Template *PolicyAssignmentV1OptionsRootTemplate `json:"template,omitempty"`
-}
-
-// UnmarshalPolicyAssignmentV1OptionsRoot unmarshals an instance of PolicyAssignmentV1OptionsRoot from the specified map of raw messages.
-func UnmarshalPolicyAssignmentV1OptionsRoot(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentV1OptionsRoot)
-	err = core.UnmarshalPrimitive(m, "requester_id", &obj.RequesterID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "requester_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalPolicyAssignmentV1OptionsRootTemplate)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyAssignmentV1OptionsRootTemplate : The template where the assignment is being built from.
-type PolicyAssignmentV1OptionsRootTemplate struct {
-	// The template id where this policy is being assigned from.
-	ID *string `json:"id,omitempty"`
-
-	// The template version where this policy is being assigned from.
-	Version *string `json:"version,omitempty"`
-}
-
-// UnmarshalPolicyAssignmentV1OptionsRootTemplate unmarshals an instance of PolicyAssignmentV1OptionsRootTemplate from the specified map of raw messages.
-func UnmarshalPolicyAssignmentV1OptionsRootTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentV1OptionsRootTemplate)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // PolicyAssignmentV1Resources : The policy assignment resources.
 type PolicyAssignmentV1Resources struct {
 	// assignment target account and type.
@@ -6355,7 +6121,7 @@ type PolicyAssignmentV1Subject struct {
 // The identity type of the subject of the assignment.
 const (
 	PolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
-	PolicyAssignmentV1SubjectTypeIamIDConst         = "iam_id"
+	PolicyAssignmentV1SubjectTypeIamIDConst = "iam_id"
 )
 
 // UnmarshalPolicyAssignmentV1Subject unmarshals an instance of PolicyAssignmentV1Subject from the specified map of raw messages.
@@ -6377,6 +6143,18 @@ func UnmarshalPolicyAssignmentV1Subject(m map[string]json.RawMessage, result int
 
 // PolicyCollection : A collection of policies.
 type PolicyCollection struct {
+	// The number of documents to include per each page of collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Details with href linking to first page of requested collection.
+	First *First `json:"first,omitempty"`
+
+	// Details with href linking to following page of requested collection.
+	Next *Next `json:"next,omitempty"`
+
+	// Details with href linking to previous page of requested collection.
+	Previous *Previous `json:"previous,omitempty"`
+
 	// List of policies.
 	Policies []PolicyTemplateMetaData `json:"policies,omitempty"`
 }
@@ -6384,6 +6162,26 @@ type PolicyCollection struct {
 // UnmarshalPolicyCollection unmarshals an instance of PolicyCollection from the specified map of raw messages.
 func UnmarshalPolicyCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyCollection)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalFirst)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalNext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPrevious)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalPolicyTemplateMetaData)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "policies-error", common.GetComponentInfo())
@@ -6391,6 +6189,14 @@ func UnmarshalPolicyCollection(m map[string]json.RawMessage, result interface{})
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *PolicyCollection) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // PolicyResource : The attributes of the resource. Note that only one resource is allowed in a policy.
@@ -6530,7 +6336,7 @@ type PolicyTemplate struct {
 // Constants associated with the PolicyTemplate.State property.
 // State of policy template.
 const (
-	PolicyTemplateStateActiveConst  = "active"
+	PolicyTemplateStateActiveConst = "active"
 	PolicyTemplateStateDeletedConst = "deleted"
 )
 
@@ -6608,6 +6414,18 @@ func UnmarshalPolicyTemplate(m map[string]json.RawMessage, result interface{}) (
 
 // PolicyTemplateAssignmentCollection : A collection of policies assignments.
 type PolicyTemplateAssignmentCollection struct {
+	// The number of documents to include per each page of collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Details with href linking to first page of requested collection.
+	First *First `json:"first,omitempty"`
+
+	// Details with href linking to following page of requested collection.
+	Next *Next `json:"next,omitempty"`
+
+	// Details with href linking to previous page of requested collection.
+	Previous *Previous `json:"previous,omitempty"`
+
 	// List of policy assignments.
 	Assignments []PolicyTemplateAssignmentItemsIntf `json:"assignments,omitempty"`
 }
@@ -6615,6 +6433,26 @@ type PolicyTemplateAssignmentCollection struct {
 // UnmarshalPolicyTemplateAssignmentCollection unmarshals an instance of PolicyTemplateAssignmentCollection from the specified map of raw messages.
 func UnmarshalPolicyTemplateAssignmentCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyTemplateAssignmentCollection)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalFirst)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalNext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPrevious)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "assignments", &obj.Assignments, UnmarshalPolicyTemplateAssignmentItems)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "assignments-error", common.GetComponentInfo())
@@ -6622,6 +6460,14 @@ func UnmarshalPolicyTemplateAssignmentCollection(m map[string]json.RawMessage, r
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *PolicyTemplateAssignmentCollection) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // PolicyTemplateAssignmentItems : PolicyTemplateAssignmentItems struct
@@ -6681,20 +6527,17 @@ type PolicyTemplateAssignmentItems struct {
 // Constants associated with the PolicyTemplateAssignmentItems.Status property.
 // The policy assignment status.
 const (
-	PolicyTemplateAssignmentItemsStatusFailedConst            = "failed"
-	PolicyTemplateAssignmentItemsStatusInProgressConst        = "in_progress"
+	PolicyTemplateAssignmentItemsStatusFailedConst = "failed"
+	PolicyTemplateAssignmentItemsStatusInProgressConst = "in_progress"
 	PolicyTemplateAssignmentItemsStatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyTemplateAssignmentItemsStatusSucceededConst         = "succeeded"
+	PolicyTemplateAssignmentItemsStatusSucceededConst = "succeeded"
 )
 
 // Constants associated with the PolicyTemplateAssignmentItems.TargetType property.
 // Assignment target type.
 const (
-	PolicyTemplateAssignmentItemsTargetTypeAccountConst      = "Account"
-	PolicyTemplateAssignmentItemsTargetTypeAccountgroupConst = "AccountGroup"
-	PolicyTemplateAssignmentItemsTargetTypeEnterpriseConst   = "Enterprise"
+	PolicyTemplateAssignmentItemsTargetTypeAccountConst = "Account"
 )
-
 func (*PolicyTemplateAssignmentItems) isaPolicyTemplateAssignmentItems() bool {
 	return true
 }
@@ -6792,6 +6635,18 @@ func UnmarshalPolicyTemplateAssignmentItems(m map[string]json.RawMessage, result
 
 // PolicyTemplateCollection : A collection of policy Templates.
 type PolicyTemplateCollection struct {
+	// The number of documents to include per each page of collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Details with href linking to first page of requested collection.
+	First *First `json:"first,omitempty"`
+
+	// Details with href linking to following page of requested collection.
+	Next *Next `json:"next,omitempty"`
+
+	// Details with href linking to previous page of requested collection.
+	Previous *Previous `json:"previous,omitempty"`
+
 	// List of policy templates.
 	PolicyTemplates []PolicyTemplate `json:"policy_templates,omitempty"`
 }
@@ -6799,6 +6654,26 @@ type PolicyTemplateCollection struct {
 // UnmarshalPolicyTemplateCollection unmarshals an instance of PolicyTemplateCollection from the specified map of raw messages.
 func UnmarshalPolicyTemplateCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyTemplateCollection)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalFirst)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalNext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPrevious)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "policy_templates", &obj.PolicyTemplates, UnmarshalPolicyTemplate)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "policy_templates-error", common.GetComponentInfo())
@@ -6806,6 +6681,14 @@ func UnmarshalPolicyTemplateCollection(m map[string]json.RawMessage, result inte
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *PolicyTemplateCollection) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // PolicyTemplateLimitData : The core set of properties associated with the policy template.
@@ -6858,7 +6741,7 @@ type PolicyTemplateLimitData struct {
 // Constants associated with the PolicyTemplateLimitData.State property.
 // State of policy template.
 const (
-	PolicyTemplateLimitDataStateActiveConst  = "active"
+	PolicyTemplateLimitDataStateActiveConst = "active"
 	PolicyTemplateLimitDataStateDeletedConst = "deleted"
 )
 
@@ -6985,7 +6868,7 @@ type PolicyTemplateMetaData struct {
 // Constants associated with the PolicyTemplateMetaData.State property.
 // The policy state.
 const (
-	PolicyTemplateMetaDataStateActiveConst  = "active"
+	PolicyTemplateMetaDataStateActiveConst = "active"
 	PolicyTemplateMetaDataStateDeletedConst = "deleted"
 )
 
@@ -7063,6 +6946,18 @@ func UnmarshalPolicyTemplateMetaData(m map[string]json.RawMessage, result interf
 
 // PolicyTemplateVersionsCollection : A collection of versions for a specific policy template.
 type PolicyTemplateVersionsCollection struct {
+	// The number of documents to include per each page of collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Details with href linking to first page of requested collection.
+	First *First `json:"first,omitempty"`
+
+	// Details with href linking to following page of requested collection.
+	Next *Next `json:"next,omitempty"`
+
+	// Details with href linking to previous page of requested collection.
+	Previous *Previous `json:"previous,omitempty"`
+
 	// List of policy templates versions.
 	Versions []PolicyTemplate `json:"versions,omitempty"`
 }
@@ -7070,9 +6965,63 @@ type PolicyTemplateVersionsCollection struct {
 // UnmarshalPolicyTemplateVersionsCollection unmarshals an instance of PolicyTemplateVersionsCollection from the specified map of raw messages.
 func UnmarshalPolicyTemplateVersionsCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyTemplateVersionsCollection)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalFirst)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalNext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPrevious)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "versions", &obj.Versions, UnmarshalPolicyTemplate)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "versions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *PolicyTemplateVersionsCollection) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// Previous : Details with href linking to previous page of requested collection.
+type Previous struct {
+	// The href linking to the page of requested collection.
+	Href *string `json:"href,omitempty"`
+
+	// Page token that refers to the page of collection.
+	Start *string `json:"start,omitempty"`
+}
+
+// UnmarshalPrevious unmarshals an instance of Previous from the specified map of raw messages.
+func UnmarshalPrevious(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Previous)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7103,18 +7052,18 @@ type ReplacePolicyOptions struct {
 	// Customer-defined description.
 	Description *string `json:"description,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewReplacePolicyOptions : Instantiate ReplacePolicyOptions
 func (*IamPolicyManagementV1) NewReplacePolicyOptions(policyID string, ifMatch string, typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *ReplacePolicyOptions {
 	return &ReplacePolicyOptions{
-		PolicyID:  core.StringPtr(policyID),
-		IfMatch:   core.StringPtr(ifMatch),
-		Type:      core.StringPtr(typeVar),
-		Subjects:  subjects,
-		Roles:     roles,
+		PolicyID: core.StringPtr(policyID),
+		IfMatch: core.StringPtr(ifMatch),
+		Type: core.StringPtr(typeVar),
+		Subjects: subjects,
+		Roles: roles,
 		Resources: resources,
 	}
 }
@@ -7194,7 +7143,7 @@ type ReplacePolicyTemplateOptions struct {
 	// Committed status of the template version.
 	Committed *bool `json:"committed,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7202,9 +7151,9 @@ type ReplacePolicyTemplateOptions struct {
 func (*IamPolicyManagementV1) NewReplacePolicyTemplateOptions(policyTemplateID string, version string, ifMatch string, policy *TemplatePolicy) *ReplacePolicyTemplateOptions {
 	return &ReplacePolicyTemplateOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version:          core.StringPtr(version),
-		IfMatch:          core.StringPtr(ifMatch),
-		Policy:           policy,
+		Version: core.StringPtr(version),
+		IfMatch: core.StringPtr(ifMatch),
+		Policy: policy,
 	}
 }
 
@@ -7275,17 +7224,17 @@ type ReplaceRoleOptions struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewReplaceRoleOptions : Instantiate ReplaceRoleOptions
 func (*IamPolicyManagementV1) NewReplaceRoleOptions(roleID string, ifMatch string, displayName string, actions []string) *ReplaceRoleOptions {
 	return &ReplaceRoleOptions{
-		RoleID:      core.StringPtr(roleID),
-		IfMatch:     core.StringPtr(ifMatch),
+		RoleID: core.StringPtr(roleID),
+		IfMatch: core.StringPtr(ifMatch),
 		DisplayName: core.StringPtr(displayName),
-		Actions:     actions,
+		Actions: actions,
 	}
 }
 
@@ -7356,24 +7305,24 @@ type ReplaceV2PolicyOptions struct {
 	// Additional access conditions associated with the policy.
 	Rule V2PolicyRuleIntf `json:"rule,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ReplaceV2PolicyOptions.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	ReplaceV2PolicyOptionsTypeAccessConst        = "access"
+	ReplaceV2PolicyOptionsTypeAccessConst = "access"
 	ReplaceV2PolicyOptionsTypeAuthorizationConst = "authorization"
 )
 
 // NewReplaceV2PolicyOptions : Instantiate ReplaceV2PolicyOptions
 func (*IamPolicyManagementV1) NewReplaceV2PolicyOptions(id string, ifMatch string, control *Control, typeVar string) *ReplaceV2PolicyOptions {
 	return &ReplaceV2PolicyOptions{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 		Control: control,
-		Type:    core.StringPtr(typeVar),
+		Type: core.StringPtr(typeVar),
 	}
 }
 
@@ -7452,7 +7401,7 @@ type ResourceAttribute struct {
 // NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (_model *ResourceAttribute, err error) {
 	_model = &ResourceAttribute{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7499,7 +7448,7 @@ type ResourceTag struct {
 // NewResourceTag : Instantiate ResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (_model *ResourceTag, err error) {
 	_model = &ResourceTag{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7552,7 +7501,7 @@ type Role struct {
 func (*IamPolicyManagementV1) NewRole(displayName string, actions []string) (_model *Role, err error) {
 	_model = &Role{
 		DisplayName: core.StringPtr(displayName),
-		Actions:     actions,
+		Actions: actions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7702,33 +7651,33 @@ type RuleAttribute struct {
 // Constants associated with the RuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	RuleAttributeOperatorDategreaterthanConst             = "dateGreaterThan"
-	RuleAttributeOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
-	RuleAttributeOperatorDatelessthanConst                = "dateLessThan"
-	RuleAttributeOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
-	RuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
+	RuleAttributeOperatorDategreaterthanConst = "dateGreaterThan"
+	RuleAttributeOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
+	RuleAttributeOperatorDatelessthanConst = "dateLessThan"
+	RuleAttributeOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
+	RuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
 	RuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	RuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
-	RuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
-	RuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
-	RuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
-	RuleAttributeOperatorStringequalsConst                = "stringEquals"
-	RuleAttributeOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
-	RuleAttributeOperatorStringexistsConst                = "stringExists"
-	RuleAttributeOperatorStringmatchConst                 = "stringMatch"
-	RuleAttributeOperatorStringmatchanyofConst            = "stringMatchAnyOf"
-	RuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
-	RuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
-	RuleAttributeOperatorTimelessthanConst                = "timeLessThan"
-	RuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
+	RuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
+	RuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
+	RuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
+	RuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
+	RuleAttributeOperatorStringequalsConst = "stringEquals"
+	RuleAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
+	RuleAttributeOperatorStringexistsConst = "stringExists"
+	RuleAttributeOperatorStringmatchConst = "stringMatch"
+	RuleAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
+	RuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
+	RuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
+	RuleAttributeOperatorTimelessthanConst = "timeLessThan"
+	RuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
 )
 
 // NewRuleAttribute : Instantiate RuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewRuleAttribute(key string, operator string, value interface{}) (_model *RuleAttribute, err error) {
 	_model = &RuleAttribute{
-		Key:      core.StringPtr(key),
+		Key: core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value:    value,
+		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7771,7 +7720,7 @@ type SubjectAttribute struct {
 // NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (_model *SubjectAttribute, err error) {
 	_model = &SubjectAttribute{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7904,7 +7853,7 @@ type TemplatePolicy struct {
 // Constants associated with the TemplatePolicy.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	TemplatePolicyTypeAccessConst        = "access"
+	TemplatePolicyTypeAccessConst = "access"
 	TemplatePolicyTypeAuthorizationConst = "authorization"
 )
 
@@ -7978,16 +7927,16 @@ type UpdatePolicyAssignmentOptions struct {
 	// The policy template version to update to.
 	TemplateVersion *string `json:"template_version" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdatePolicyAssignmentOptions : Instantiate UpdatePolicyAssignmentOptions
 func (*IamPolicyManagementV1) NewUpdatePolicyAssignmentOptions(assignmentID string, version string, ifMatch string, templateVersion string) *UpdatePolicyAssignmentOptions {
 	return &UpdatePolicyAssignmentOptions{
-		AssignmentID:    core.StringPtr(assignmentID),
-		Version:         core.StringPtr(version),
-		IfMatch:         core.StringPtr(ifMatch),
+		AssignmentID: core.StringPtr(assignmentID),
+		Version: core.StringPtr(version),
+		IfMatch: core.StringPtr(ifMatch),
 		TemplateVersion: core.StringPtr(templateVersion),
 	}
 }
@@ -8034,14 +7983,14 @@ type UpdatePolicyStateOptions struct {
 	// The policy state.
 	State *string `json:"state,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the UpdatePolicyStateOptions.State property.
 // The policy state.
 const (
-	UpdatePolicyStateOptionsStateActiveConst  = "active"
+	UpdatePolicyStateOptionsStateActiveConst = "active"
 	UpdatePolicyStateOptionsStateDeletedConst = "deleted"
 )
 
@@ -8049,7 +7998,7 @@ const (
 func (*IamPolicyManagementV1) NewUpdatePolicyStateOptions(policyID string, ifMatch string) *UpdatePolicyStateOptions {
 	return &UpdatePolicyStateOptions{
 		PolicyID: core.StringPtr(policyID),
-		IfMatch:  core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -8104,7 +8053,7 @@ type UpdateSettingsOptions struct {
 	// * `zh-tw` - (Chinese, Taiwan).
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8112,7 +8061,7 @@ type UpdateSettingsOptions struct {
 func (*IamPolicyManagementV1) NewUpdateSettingsOptions(accountID string, ifMatch string) *UpdateSettingsOptions {
 	return &UpdateSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IfMatch:   core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -8201,14 +8150,14 @@ type V2Policy struct {
 // Constants associated with the V2Policy.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	V2PolicyTypeAccessConst        = "access"
+	V2PolicyTypeAccessConst = "access"
 	V2PolicyTypeAuthorizationConst = "authorization"
 )
 
 // Constants associated with the V2Policy.State property.
 // The policy state, either 'deleted' or 'active'.
 const (
-	V2PolicyStateActiveConst  = "active"
+	V2PolicyStateActiveConst = "active"
 	V2PolicyStateDeletedConst = "deleted"
 )
 
@@ -8301,6 +8250,18 @@ func UnmarshalV2Policy(m map[string]json.RawMessage, result interface{}) (err er
 
 // V2PolicyCollection : A collection of policies.
 type V2PolicyCollection struct {
+	// The number of documents to include per each page of collection.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Details with href linking to first page of requested collection.
+	First *First `json:"first,omitempty"`
+
+	// Details with href linking to following page of requested collection.
+	Next *Next `json:"next,omitempty"`
+
+	// Details with href linking to previous page of requested collection.
+	Previous *Previous `json:"previous,omitempty"`
+
 	// List of policies.
 	Policies []V2PolicyTemplateMetaData `json:"policies,omitempty"`
 }
@@ -8308,6 +8269,26 @@ type V2PolicyCollection struct {
 // UnmarshalV2PolicyCollection unmarshals an instance of V2PolicyCollection from the specified map of raw messages.
 func UnmarshalV2PolicyCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(V2PolicyCollection)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalFirst)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalNext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPrevious)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalV2PolicyTemplateMetaData)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "policies-error", common.GetComponentInfo())
@@ -8315,6 +8296,14 @@ func UnmarshalV2PolicyCollection(m map[string]json.RawMessage, result interface{
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *V2PolicyCollection) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // V2PolicyResource : The resource attributes to which the policy grants access.
@@ -8371,19 +8360,19 @@ type V2PolicyResourceAttribute struct {
 // Constants associated with the V2PolicyResourceAttribute.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyResourceAttributeOperatorStringequalsConst      = "stringEquals"
+	V2PolicyResourceAttributeOperatorStringequalsConst = "stringEquals"
 	V2PolicyResourceAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	V2PolicyResourceAttributeOperatorStringexistsConst      = "stringExists"
-	V2PolicyResourceAttributeOperatorStringmatchConst       = "stringMatch"
-	V2PolicyResourceAttributeOperatorStringmatchanyofConst  = "stringMatchAnyOf"
+	V2PolicyResourceAttributeOperatorStringexistsConst = "stringExists"
+	V2PolicyResourceAttributeOperatorStringmatchConst = "stringMatch"
+	V2PolicyResourceAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
 )
 
 // NewV2PolicyResourceAttribute : Instantiate V2PolicyResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyResourceAttribute(key string, operator string, value interface{}) (_model *V2PolicyResourceAttribute, err error) {
 	_model = &V2PolicyResourceAttribute{
-		Key:      core.StringPtr(key),
+		Key: core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value:    value,
+		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -8430,14 +8419,14 @@ type V2PolicyResourceTag struct {
 // The operator of an access management tag.
 const (
 	V2PolicyResourceTagOperatorStringequalsConst = "stringEquals"
-	V2PolicyResourceTagOperatorStringmatchConst  = "stringMatch"
+	V2PolicyResourceTagOperatorStringmatchConst = "stringMatch"
 )
 
 // NewV2PolicyResourceTag : Instantiate V2PolicyResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyResourceTag(key string, value string, operator string) (_model *V2PolicyResourceTag, err error) {
 	_model = &V2PolicyResourceTag{
-		Key:      core.StringPtr(key),
-		Value:    core.StringPtr(value),
+		Key: core.StringPtr(key),
+		Value: core.StringPtr(value),
 		Operator: core.StringPtr(operator),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -8492,27 +8481,26 @@ type V2PolicyRule struct {
 // Constants associated with the V2PolicyRule.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyRuleOperatorDategreaterthanConst             = "dateGreaterThan"
-	V2PolicyRuleOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
-	V2PolicyRuleOperatorDatelessthanConst                = "dateLessThan"
-	V2PolicyRuleOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
-	V2PolicyRuleOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
+	V2PolicyRuleOperatorDategreaterthanConst = "dateGreaterThan"
+	V2PolicyRuleOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
+	V2PolicyRuleOperatorDatelessthanConst = "dateLessThan"
+	V2PolicyRuleOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
+	V2PolicyRuleOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
 	V2PolicyRuleOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	V2PolicyRuleOperatorDatetimelessthanConst            = "dateTimeLessThan"
-	V2PolicyRuleOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
-	V2PolicyRuleOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
-	V2PolicyRuleOperatorDayofweekequalsConst             = "dayOfWeekEquals"
-	V2PolicyRuleOperatorStringequalsConst                = "stringEquals"
-	V2PolicyRuleOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
-	V2PolicyRuleOperatorStringexistsConst                = "stringExists"
-	V2PolicyRuleOperatorStringmatchConst                 = "stringMatch"
-	V2PolicyRuleOperatorStringmatchanyofConst            = "stringMatchAnyOf"
-	V2PolicyRuleOperatorTimegreaterthanConst             = "timeGreaterThan"
-	V2PolicyRuleOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
-	V2PolicyRuleOperatorTimelessthanConst                = "timeLessThan"
-	V2PolicyRuleOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
+	V2PolicyRuleOperatorDatetimelessthanConst = "dateTimeLessThan"
+	V2PolicyRuleOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
+	V2PolicyRuleOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
+	V2PolicyRuleOperatorDayofweekequalsConst = "dayOfWeekEquals"
+	V2PolicyRuleOperatorStringequalsConst = "stringEquals"
+	V2PolicyRuleOperatorStringequalsanyofConst = "stringEqualsAnyOf"
+	V2PolicyRuleOperatorStringexistsConst = "stringExists"
+	V2PolicyRuleOperatorStringmatchConst = "stringMatch"
+	V2PolicyRuleOperatorStringmatchanyofConst = "stringMatchAnyOf"
+	V2PolicyRuleOperatorTimegreaterthanConst = "timeGreaterThan"
+	V2PolicyRuleOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
+	V2PolicyRuleOperatorTimelessthanConst = "timeLessThan"
+	V2PolicyRuleOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
 )
-
 func (*V2PolicyRule) isaV2PolicyRule() bool {
 	return true
 }
@@ -8601,9 +8589,9 @@ const (
 // NewV2PolicySubjectAttribute : Instantiate V2PolicySubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicySubjectAttribute(key string, operator string, value interface{}) (_model *V2PolicySubjectAttribute, err error) {
 	_model = &V2PolicySubjectAttribute{
-		Key:      core.StringPtr(key),
+		Key: core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value:    value,
+		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -8693,14 +8681,14 @@ type V2PolicyTemplateMetaData struct {
 // Constants associated with the V2PolicyTemplateMetaData.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	V2PolicyTemplateMetaDataTypeAccessConst        = "access"
+	V2PolicyTemplateMetaDataTypeAccessConst = "access"
 	V2PolicyTemplateMetaDataTypeAuthorizationConst = "authorization"
 )
 
 // Constants associated with the V2PolicyTemplateMetaData.State property.
 // The policy state, either 'deleted' or 'active'.
 const (
-	V2PolicyTemplateMetaDataStateActiveConst  = "active"
+	V2PolicyTemplateMetaDataStateActiveConst = "active"
 	V2PolicyTemplateMetaDataStateDeletedConst = "deleted"
 )
 
@@ -8842,270 +8830,6 @@ func UnmarshalControlResponseControlWithEnrichedRoles(m map[string]json.RawMessa
 	return
 }
 
-// GetPolicyAssignmentResponsePolicyAssignment : The set of properties associated with the policy template assignment.
-// This model "extends" GetPolicyAssignmentResponse
-type GetPolicyAssignmentResponsePolicyAssignment struct {
-	// policy template id.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// policy template version.
-	TemplateVersion *string `json:"template_version,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// Assignment target type.
-	TargetType *string `json:"target_type,omitempty"`
-
-	// ID of the target account.
-	Target *string `json:"target,omitempty"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentResources `json:"resources,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.TargetType property.
-// Assignment target type.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountConst      = "Account"
-	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountgroupConst = "AccountGroup"
-	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeEnterpriseConst   = "Enterprise"
-)
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentStatusFailedConst            = "failed"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusInProgressConst        = "in_progress"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceededConst         = "succeeded"
-)
-
-func (*GetPolicyAssignmentResponsePolicyAssignment) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignment unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignment from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignment(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignment)
-	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignmentV1 : The set of properties associated with the policy template assignment.
-// This model "extends" GetPolicyAssignmentResponse
-type GetPolicyAssignmentResponsePolicyAssignmentV1 struct {
-	// assignment target account and type.
-	Target *AssignmentTargetDetails `json:"target" validate:"required"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentV1Resources `json:"resources" validate:"required"`
-
-	// subject details of access type assignment.
-	Subject *GetPolicyAssignmentResponsePolicyAssignmentV1Subject `json:"subject,omitempty"`
-
-	// policy template details.
-	Template *AssignmentTemplateDetails `json:"template" validate:"required"`
-
-	// The policy assignment status.
-	Status *string `json:"status" validate:"required"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusFailedConst            = "failed"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusInProgressConst        = "in_progress"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceededConst         = "succeeded"
-)
-
-func (*GetPolicyAssignmentResponsePolicyAssignmentV1) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1 unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1 from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1)
-	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // NestedConditionRuleAttribute : Rule that specifies additional access granted (e.g., time-based condition).
 // This model "extends" NestedCondition
 type NestedConditionRuleAttribute struct {
@@ -9123,33 +8847,33 @@ type NestedConditionRuleAttribute struct {
 // Constants associated with the NestedConditionRuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	NestedConditionRuleAttributeOperatorDategreaterthanConst             = "dateGreaterThan"
-	NestedConditionRuleAttributeOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
-	NestedConditionRuleAttributeOperatorDatelessthanConst                = "dateLessThan"
-	NestedConditionRuleAttributeOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
-	NestedConditionRuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
+	NestedConditionRuleAttributeOperatorDategreaterthanConst = "dateGreaterThan"
+	NestedConditionRuleAttributeOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
+	NestedConditionRuleAttributeOperatorDatelessthanConst = "dateLessThan"
+	NestedConditionRuleAttributeOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
+	NestedConditionRuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
 	NestedConditionRuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	NestedConditionRuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
-	NestedConditionRuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
-	NestedConditionRuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
-	NestedConditionRuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
-	NestedConditionRuleAttributeOperatorStringequalsConst                = "stringEquals"
-	NestedConditionRuleAttributeOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
-	NestedConditionRuleAttributeOperatorStringexistsConst                = "stringExists"
-	NestedConditionRuleAttributeOperatorStringmatchConst                 = "stringMatch"
-	NestedConditionRuleAttributeOperatorStringmatchanyofConst            = "stringMatchAnyOf"
-	NestedConditionRuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
-	NestedConditionRuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
-	NestedConditionRuleAttributeOperatorTimelessthanConst                = "timeLessThan"
-	NestedConditionRuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
+	NestedConditionRuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
+	NestedConditionRuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
+	NestedConditionRuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
+	NestedConditionRuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
+	NestedConditionRuleAttributeOperatorStringequalsConst = "stringEquals"
+	NestedConditionRuleAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
+	NestedConditionRuleAttributeOperatorStringexistsConst = "stringExists"
+	NestedConditionRuleAttributeOperatorStringmatchConst = "stringMatch"
+	NestedConditionRuleAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
+	NestedConditionRuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
+	NestedConditionRuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
+	NestedConditionRuleAttributeOperatorTimelessthanConst = "timeLessThan"
+	NestedConditionRuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
 )
 
 // NewNestedConditionRuleAttribute : Instantiate NestedConditionRuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewNestedConditionRuleAttribute(key string, operator string, value interface{}) (_model *NestedConditionRuleAttribute, err error) {
 	_model = &NestedConditionRuleAttribute{
-		Key:      core.StringPtr(key),
+		Key: core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value:    value,
+		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -9199,13 +8923,13 @@ type NestedConditionRuleWithConditions struct {
 // Operator to evaluate conditions.
 const (
 	NestedConditionRuleWithConditionsOperatorAndConst = "and"
-	NestedConditionRuleWithConditionsOperatorOrConst  = "or"
+	NestedConditionRuleWithConditionsOperatorOrConst = "or"
 )
 
 // NewNestedConditionRuleWithConditions : Instantiate NestedConditionRuleWithConditions (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewNestedConditionRuleWithConditions(operator string, conditions []RuleAttribute) (_model *NestedConditionRuleWithConditions, err error) {
 	_model = &NestedConditionRuleWithConditions{
-		Operator:   core.StringPtr(operator),
+		Operator: core.StringPtr(operator),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -9285,18 +9009,16 @@ type PolicyTemplateAssignmentItemsPolicyAssignment struct {
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignment.TargetType property.
 // Assignment target type.
 const (
-	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountConst      = "Account"
-	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountgroupConst = "AccountGroup"
-	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeEnterpriseConst   = "Enterprise"
+	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountConst = "Account"
 )
 
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignment.Status property.
 // The policy assignment status.
 const (
-	PolicyTemplateAssignmentItemsPolicyAssignmentStatusFailedConst            = "failed"
-	PolicyTemplateAssignmentItemsPolicyAssignmentStatusInProgressConst        = "in_progress"
+	PolicyTemplateAssignmentItemsPolicyAssignmentStatusFailedConst = "failed"
+	PolicyTemplateAssignmentItemsPolicyAssignmentStatusInProgressConst = "in_progress"
 	PolicyTemplateAssignmentItemsPolicyAssignmentStatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyTemplateAssignmentItemsPolicyAssignmentStatusSucceededConst         = "succeeded"
+	PolicyTemplateAssignmentItemsPolicyAssignmentStatusSucceededConst = "succeeded"
 )
 
 func (*PolicyTemplateAssignmentItemsPolicyAssignment) isaPolicyTemplateAssignmentItems() bool {
@@ -9423,10 +9145,10 @@ type PolicyTemplateAssignmentItemsPolicyAssignmentV1 struct {
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignmentV1.Status property.
 // The policy assignment status.
 const (
-	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusFailedConst            = "failed"
-	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusInProgressConst        = "in_progress"
+	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusFailedConst = "failed"
+	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusInProgressConst = "in_progress"
 	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusSucceededConst         = "succeeded"
+	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusSucceededConst = "succeeded"
 )
 
 func (*PolicyTemplateAssignmentItemsPolicyAssignmentV1) isaPolicyTemplateAssignmentItems() bool {
@@ -9517,33 +9239,33 @@ type V2PolicyRuleRuleAttribute struct {
 // Constants associated with the V2PolicyRuleRuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyRuleRuleAttributeOperatorDategreaterthanConst             = "dateGreaterThan"
-	V2PolicyRuleRuleAttributeOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatelessthanConst                = "dateLessThan"
-	V2PolicyRuleRuleAttributeOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorDategreaterthanConst = "dateGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatelessthanConst = "dateLessThan"
+	V2PolicyRuleRuleAttributeOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
 	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
-	V2PolicyRuleRuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
-	V2PolicyRuleRuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
-	V2PolicyRuleRuleAttributeOperatorStringequalsConst                = "stringEquals"
-	V2PolicyRuleRuleAttributeOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
-	V2PolicyRuleRuleAttributeOperatorStringexistsConst                = "stringExists"
-	V2PolicyRuleRuleAttributeOperatorStringmatchConst                 = "stringMatch"
-	V2PolicyRuleRuleAttributeOperatorStringmatchanyofConst            = "stringMatchAnyOf"
-	V2PolicyRuleRuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
-	V2PolicyRuleRuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorTimelessthanConst                = "timeLessThan"
-	V2PolicyRuleRuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
+	V2PolicyRuleRuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
+	V2PolicyRuleRuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
+	V2PolicyRuleRuleAttributeOperatorStringequalsConst = "stringEquals"
+	V2PolicyRuleRuleAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
+	V2PolicyRuleRuleAttributeOperatorStringexistsConst = "stringExists"
+	V2PolicyRuleRuleAttributeOperatorStringmatchConst = "stringMatch"
+	V2PolicyRuleRuleAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
+	V2PolicyRuleRuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorTimelessthanConst = "timeLessThan"
+	V2PolicyRuleRuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
 )
 
 // NewV2PolicyRuleRuleAttribute : Instantiate V2PolicyRuleRuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyRuleRuleAttribute(key string, operator string, value interface{}) (_model *V2PolicyRuleRuleAttribute, err error) {
 	_model = &V2PolicyRuleRuleAttribute{
-		Key:      core.StringPtr(key),
+		Key: core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value:    value,
+		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -9593,13 +9315,13 @@ type V2PolicyRuleRuleWithNestedConditions struct {
 // Operator to evaluate conditions.
 const (
 	V2PolicyRuleRuleWithNestedConditionsOperatorAndConst = "and"
-	V2PolicyRuleRuleWithNestedConditionsOperatorOrConst  = "or"
+	V2PolicyRuleRuleWithNestedConditionsOperatorOrConst = "or"
 )
 
 // NewV2PolicyRuleRuleWithNestedConditions : Instantiate V2PolicyRuleRuleWithNestedConditions (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyRuleRuleWithNestedConditions(operator string, conditions []NestedConditionIntf) (_model *V2PolicyRuleRuleWithNestedConditions, err error) {
 	_model = &V2PolicyRuleRuleWithNestedConditions{
-		Operator:   core.StringPtr(operator),
+		Operator: core.StringPtr(operator),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -9627,5 +9349,440 @@ func UnmarshalV2PolicyRuleRuleWithNestedConditions(m map[string]json.RawMessage,
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+//
+// PoliciesPager can be used to simplify the use of the "ListPolicies" method.
+//
+type PoliciesPager struct {
+	hasNext bool
+	options *ListPoliciesOptions
+	client  *IamPolicyManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewPoliciesPager returns a new PoliciesPager instance.
+func (iamPolicyManagement *IamPolicyManagementV1) NewPoliciesPager(options *ListPoliciesOptions) (pager *PoliciesPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListPoliciesOptions = *options
+	pager = &PoliciesPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  iamPolicyManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *PoliciesPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *PoliciesPager) GetNextWithContext(ctx context.Context) (page []PolicyTemplateMetaData, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListPoliciesWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Policies
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *PoliciesPager) GetAllWithContext(ctx context.Context) (allItems []PolicyTemplateMetaData, err error) {
+	for pager.HasNext() {
+		var nextPage []PolicyTemplateMetaData
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *PoliciesPager) GetNext() (page []PolicyTemplateMetaData, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *PoliciesPager) GetAll() (allItems []PolicyTemplateMetaData, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
+// V2PoliciesPager can be used to simplify the use of the "ListV2Policies" method.
+//
+type V2PoliciesPager struct {
+	hasNext bool
+	options *ListV2PoliciesOptions
+	client  *IamPolicyManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewV2PoliciesPager returns a new V2PoliciesPager instance.
+func (iamPolicyManagement *IamPolicyManagementV1) NewV2PoliciesPager(options *ListV2PoliciesOptions) (pager *V2PoliciesPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListV2PoliciesOptions = *options
+	pager = &V2PoliciesPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  iamPolicyManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *V2PoliciesPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *V2PoliciesPager) GetNextWithContext(ctx context.Context) (page []V2PolicyTemplateMetaData, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListV2PoliciesWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Policies
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *V2PoliciesPager) GetAllWithContext(ctx context.Context) (allItems []V2PolicyTemplateMetaData, err error) {
+	for pager.HasNext() {
+		var nextPage []V2PolicyTemplateMetaData
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *V2PoliciesPager) GetNext() (page []V2PolicyTemplateMetaData, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *V2PoliciesPager) GetAll() (allItems []V2PolicyTemplateMetaData, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
+// PolicyTemplatesPager can be used to simplify the use of the "ListPolicyTemplates" method.
+//
+type PolicyTemplatesPager struct {
+	hasNext bool
+	options *ListPolicyTemplatesOptions
+	client  *IamPolicyManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewPolicyTemplatesPager returns a new PolicyTemplatesPager instance.
+func (iamPolicyManagement *IamPolicyManagementV1) NewPolicyTemplatesPager(options *ListPolicyTemplatesOptions) (pager *PolicyTemplatesPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListPolicyTemplatesOptions = *options
+	pager = &PolicyTemplatesPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  iamPolicyManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *PolicyTemplatesPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *PolicyTemplatesPager) GetNextWithContext(ctx context.Context) (page []PolicyTemplate, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListPolicyTemplatesWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.PolicyTemplates
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *PolicyTemplatesPager) GetAllWithContext(ctx context.Context) (allItems []PolicyTemplate, err error) {
+	for pager.HasNext() {
+		var nextPage []PolicyTemplate
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *PolicyTemplatesPager) GetNext() (page []PolicyTemplate, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *PolicyTemplatesPager) GetAll() (allItems []PolicyTemplate, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
+// PolicyTemplateVersionsPager can be used to simplify the use of the "ListPolicyTemplateVersions" method.
+//
+type PolicyTemplateVersionsPager struct {
+	hasNext bool
+	options *ListPolicyTemplateVersionsOptions
+	client  *IamPolicyManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewPolicyTemplateVersionsPager returns a new PolicyTemplateVersionsPager instance.
+func (iamPolicyManagement *IamPolicyManagementV1) NewPolicyTemplateVersionsPager(options *ListPolicyTemplateVersionsOptions) (pager *PolicyTemplateVersionsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListPolicyTemplateVersionsOptions = *options
+	pager = &PolicyTemplateVersionsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  iamPolicyManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *PolicyTemplateVersionsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *PolicyTemplateVersionsPager) GetNextWithContext(ctx context.Context) (page []PolicyTemplate, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListPolicyTemplateVersionsWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Versions
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *PolicyTemplateVersionsPager) GetAllWithContext(ctx context.Context) (allItems []PolicyTemplate, err error) {
+	for pager.HasNext() {
+		var nextPage []PolicyTemplate
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *PolicyTemplateVersionsPager) GetNext() (page []PolicyTemplate, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *PolicyTemplateVersionsPager) GetAll() (allItems []PolicyTemplate, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
+// PolicyAssignmentsPager can be used to simplify the use of the "ListPolicyAssignments" method.
+//
+type PolicyAssignmentsPager struct {
+	hasNext bool
+	options *ListPolicyAssignmentsOptions
+	client  *IamPolicyManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewPolicyAssignmentsPager returns a new PolicyAssignmentsPager instance.
+func (iamPolicyManagement *IamPolicyManagementV1) NewPolicyAssignmentsPager(options *ListPolicyAssignmentsOptions) (pager *PolicyAssignmentsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListPolicyAssignmentsOptions = *options
+	pager = &PolicyAssignmentsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  iamPolicyManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *PolicyAssignmentsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *PolicyAssignmentsPager) GetNextWithContext(ctx context.Context) (page []PolicyTemplateAssignmentItemsIntf, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListPolicyAssignmentsWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Assignments
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *PolicyAssignmentsPager) GetAllWithContext(ctx context.Context) (allItems []PolicyTemplateAssignmentItemsIntf, err error) {
+	for pager.HasNext() {
+		var nextPage []PolicyTemplateAssignmentItemsIntf
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *PolicyAssignmentsPager) GetNext() (page []PolicyTemplateAssignmentItemsIntf, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *PolicyAssignmentsPager) GetAll() (allItems []PolicyTemplateAssignmentItemsIntf, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
 	return
 }

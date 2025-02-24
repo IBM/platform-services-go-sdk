@@ -80,11 +80,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		assignmentPolicyID                    string
 		testTargetAccountID                   string = ""
 		testTargetEnterpriseID                string = ""
-		assignmentRequesterId                 string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
-		assignmentID                          string = "orchestrator-id"
 		testPolicyAssignmentETag              string = ""
 		testTargetType                        string = "Account"
-		testTargetTypeEnterprise              string = "Enterprise"
 		testAcountSettingsETag                string = ""
 	)
 
@@ -1215,36 +1212,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			response, err := service.CommitPolicyTemplate(commitPolicyTemplateOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-		})
-	})
-
-	Describe(`CreatePolicyAssignments - Create policy assignments by templates by type Enterprise resulted in an error Instance Target Type is not one of enum values `, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-
-		It(`CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) by of type Enterprise resulted in an error because the instance.target.type is not one of the allowed enum values`, func() {
-			template := iampolicymanagementv1.AssignmentTemplateDetails{
-				ID:      &testPolicyS2STemplateID,
-				Version: &testPolicyS2STemplateVersion,
-			}
-			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
-				template,
-			}
-
-			target := &iampolicymanagementv1.AssignmentTargetDetails{
-				Type: &testTargetTypeEnterprise,
-				ID:   &testTargetEnterpriseID,
-			}
-
-			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
-				Version:   core.StringPtr("1.0"),
-				Target:    target,
-				Templates: templates,
-			}
-			_, _, err := service.CreatePolicyTemplateAssignment(createPolicyTemplateVersionOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(err.Error()).To(Equal("Invalid body format. Check the input parameters. instance.target.type is not one of enum values: Account"))
 		})
 	})
 
