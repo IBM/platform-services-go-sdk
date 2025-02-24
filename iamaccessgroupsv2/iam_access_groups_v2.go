@@ -4722,6 +4722,9 @@ type Group struct {
 
 	// This is set to true if rules exist for the group.
 	IsFederated *bool `json:"is_federated,omitempty"`
+
+	// CRN of the access group.
+	CRN *string `json:"crn,omitempty"`
 }
 
 // UnmarshalGroup unmarshals an instance of Group from the specified map of raw messages.
@@ -4775,6 +4778,11 @@ func UnmarshalGroup(m map[string]json.RawMessage, result interface{}) (err error
 	err = core.UnmarshalPrimitive(m, "is_federated", &obj.IsFederated)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "is_federated-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
