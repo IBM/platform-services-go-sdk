@@ -1,3 +1,10 @@
+# [0.77.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.76.0...v0.77.0) (2025-02-25)
+
+
+### Features
+
+* **IAM Policy Management:** add access management account settings API ([#330](https://github.com/IBM/platform-services-go-sdk/issues/330)) ([9332c67](https://github.com/IBM/platform-services-go-sdk/commit/9332c67eacb5105f613e7eadedbba7497c48d16d))
+
 # [0.76.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.75.0...v0.76.0) (2025-02-23)
 
 
