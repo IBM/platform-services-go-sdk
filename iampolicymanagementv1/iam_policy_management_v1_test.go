@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -187,6 +187,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"id"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -213,6 +215,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.Sort = core.StringPtr("id")
 				listPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listPoliciesOptionsModel.State = core.StringPtr("active")
+				listPoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPoliciesOptionsModel.Start = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicies(listPoliciesOptionsModel)
@@ -255,13 +259,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"id"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListPolicies successfully with retries`, func() {
@@ -286,6 +292,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.Sort = core.StringPtr("id")
 				listPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listPoliciesOptionsModel.State = core.StringPtr("active")
+				listPoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPoliciesOptionsModel.Start = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -334,10 +342,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"id"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListPolicies successfully`, func() {
@@ -367,6 +377,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.Sort = core.StringPtr("id")
 				listPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listPoliciesOptionsModel.State = core.StringPtr("active")
+				listPoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPoliciesOptionsModel.Start = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -397,6 +409,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.Sort = core.StringPtr("id")
 				listPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listPoliciesOptionsModel.State = core.StringPtr("active")
+				listPoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPoliciesOptionsModel.Start = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -448,6 +462,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.Sort = core.StringPtr("id")
 				listPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listPoliciesOptionsModel.State = core.StringPtr("active")
+				listPoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPoliciesOptionsModel.Start = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -460,6 +476,117 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listPoliciesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"policies":[{"id":"ID","type":"Type","description":"Description","subjects":[{"attributes":[{"name":"Name","value":"Value"}]}],"roles":[{"role_id":"RoleID","display_name":"DisplayName","description":"Description"}],"resources":[{"attributes":[{"name":"Name","value":"Value","operator":"Operator"}],"tags":[{"name":"Name","value":"Value","operator":"Operator"}]}],"href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","state":"active","template":{"id":"ID","version":"Version","assignment_id":"AssignmentID","root_id":"RootID","root_version":"RootVersion"}}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"policies":[{"id":"ID","type":"Type","description":"Description","subjects":[{"attributes":[{"name":"Name","value":"Value"}]}],"roles":[{"role_id":"RoleID","display_name":"DisplayName","description":"Description"}],"resources":[{"attributes":[{"name":"Name","value":"Value","operator":"Operator"}],"tags":[{"name":"Name","value":"Value","operator":"Operator"}]}],"href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","state":"active","template":{"id":"ID","version":"Version","assignment_id":"AssignmentID","root_id":"RootID","root_version":"RootVersion"}}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use PoliciesPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPoliciesOptionsModel := &iampolicymanagementv1.ListPoliciesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					IamID: core.StringPtr("testString"),
+					AccessGroupID: core.StringPtr("testString"),
+					Type: core.StringPtr("access"),
+					ServiceType: core.StringPtr("service"),
+					TagName: core.StringPtr("testString"),
+					TagValue: core.StringPtr("testString"),
+					Sort: core.StringPtr("id"),
+					Format: core.StringPtr("include_last_permit"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPoliciesPager(listPoliciesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.PolicyTemplateMetaData
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use PoliciesPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPoliciesOptionsModel := &iampolicymanagementv1.ListPoliciesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					IamID: core.StringPtr("testString"),
+					AccessGroupID: core.StringPtr("testString"),
+					Type: core.StringPtr("access"),
+					ServiceType: core.StringPtr("service"),
+					TagName: core.StringPtr("testString"),
+					TagValue: core.StringPtr("testString"),
+					Sort: core.StringPtr("id"),
+					Format: core.StringPtr("include_last_permit"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPoliciesPager(listPoliciesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -2961,6 +3088,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2987,6 +3116,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listV2PoliciesOptionsModel.Start = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
@@ -3029,13 +3160,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListV2Policies successfully with retries`, func() {
@@ -3060,6 +3193,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listV2PoliciesOptionsModel.Start = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3108,10 +3243,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListV2Policies successfully`, func() {
@@ -3141,6 +3278,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listV2PoliciesOptionsModel.Start = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3171,6 +3310,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listV2PoliciesOptionsModel.Start = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -3222,6 +3363,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listV2PoliciesOptionsModel.Start = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3234,6 +3377,117 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.V2PolicyCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.V2PolicyCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listV2PoliciesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"policies":[{"type":"access","description":"Description","subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"id":"ID","href":"Href","control":{"grant":{"roles":[{"role_id":"RoleID"}]}},"created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","state":"active","last_permit_at":"LastPermitAt","last_permit_frequency":19,"template":{"id":"ID","version":"Version","assignment_id":"AssignmentID","root_id":"RootID","root_version":"RootVersion"}}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"policies":[{"type":"access","description":"Description","subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"id":"ID","href":"Href","control":{"grant":{"roles":[{"role_id":"RoleID"}]}},"created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","state":"active","last_permit_at":"LastPermitAt","last_permit_frequency":19,"template":{"id":"ID","version":"Version","assignment_id":"AssignmentID","root_id":"RootID","root_version":"RootVersion"}}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use V2PoliciesPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listV2PoliciesOptionsModel := &iampolicymanagementv1.ListV2PoliciesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					IamID: core.StringPtr("testString"),
+					AccessGroupID: core.StringPtr("testString"),
+					Type: core.StringPtr("access"),
+					ServiceType: core.StringPtr("service"),
+					ServiceName: core.StringPtr("testString"),
+					ServiceGroupID: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+					Format: core.StringPtr("include_last_permit"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewV2PoliciesPager(listV2PoliciesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.V2PolicyTemplateMetaData
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use V2PoliciesPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listV2PoliciesOptionsModel := &iampolicymanagementv1.ListV2PoliciesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					IamID: core.StringPtr("testString"),
+					AccessGroupID: core.StringPtr("testString"),
+					Type: core.StringPtr("access"),
+					ServiceType: core.StringPtr("service"),
+					ServiceName: core.StringPtr("testString"),
+					ServiceGroupID: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+					Format: core.StringPtr("include_last_permit"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewV2PoliciesPager(listV2PoliciesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -4569,6 +4823,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["policy_service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["policy_service_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["policy_type"]).To(Equal([]string{"access"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4592,6 +4848,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel.PolicyServiceName = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyServiceGroupID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyType = core.StringPtr("access")
+				listPolicyTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplatesOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicyTemplates(listPolicyTemplatesOptionsModel)
@@ -4631,13 +4889,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["policy_service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["policy_service_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["policy_type"]).To(Equal([]string{"access"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully with retries`, func() {
@@ -4659,6 +4919,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel.PolicyServiceName = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyServiceGroupID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyType = core.StringPtr("access")
+				listPolicyTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplatesOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4704,10 +4966,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["policy_service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["policy_service_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["policy_type"]).To(Equal([]string{"access"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully`, func() {
@@ -4734,6 +4998,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel.PolicyServiceName = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyServiceGroupID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyType = core.StringPtr("access")
+				listPolicyTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplatesOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4761,6 +5027,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel.PolicyServiceName = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyServiceGroupID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyType = core.StringPtr("access")
+				listPolicyTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplatesOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -4809,6 +5077,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel.PolicyServiceName = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyServiceGroupID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.PolicyType = core.StringPtr("access")
+				listPolicyTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplatesOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4821,6 +5091,111 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyTemplateCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyTemplateCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listPolicyTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"policy_templates":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"policy_templates":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use PolicyTemplatesPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPolicyTemplatesOptionsModel := &iampolicymanagementv1.ListPolicyTemplatesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					State: core.StringPtr("active"),
+					Name: core.StringPtr("testString"),
+					PolicyServiceType: core.StringPtr("service"),
+					PolicyServiceName: core.StringPtr("testString"),
+					PolicyServiceGroupID: core.StringPtr("testString"),
+					PolicyType: core.StringPtr("access"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPolicyTemplatesPager(listPolicyTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.PolicyTemplate
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use PolicyTemplatesPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPolicyTemplatesOptionsModel := &iampolicymanagementv1.ListPolicyTemplatesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					State: core.StringPtr("active"),
+					Name: core.StringPtr("testString"),
+					PolicyServiceType: core.StringPtr("service"),
+					PolicyServiceName: core.StringPtr("testString"),
+					PolicyServiceGroupID: core.StringPtr("testString"),
+					PolicyType: core.StringPtr("access"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPolicyTemplatesPager(listPolicyTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -6212,6 +6587,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listPolicyTemplateVersionsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6229,6 +6606,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listPolicyTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicyTemplateVersions(listPolicyTemplateVersionsOptionsModel)
@@ -6260,13 +6639,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully with retries`, func() {
@@ -6282,6 +6663,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listPolicyTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6319,10 +6702,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully`, func() {
@@ -6343,6 +6728,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listPolicyTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6364,6 +6751,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listPolicyTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -6406,6 +6795,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listPolicyTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6418,6 +6809,99 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyTemplateVersionsCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyTemplateVersionsCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listPolicyTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use PolicyTemplateVersionsPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPolicyTemplateVersionsOptionsModel := &iampolicymanagementv1.ListPolicyTemplateVersionsOptions{
+					PolicyTemplateID: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPolicyTemplateVersionsPager(listPolicyTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.PolicyTemplate
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use PolicyTemplateVersionsPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPolicyTemplateVersionsOptionsModel := &iampolicymanagementv1.ListPolicyTemplateVersionsOptions{
+					PolicyTemplateID: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPolicyTemplateVersionsPager(listPolicyTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -7349,6 +7833,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -7369,6 +7855,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
 				listPolicyAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listPolicyAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyAssignmentsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicyAssignments(listPolicyAssignmentsOptionsModel)
@@ -7405,13 +7893,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully with retries`, func() {
@@ -7430,6 +7920,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
 				listPolicyAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listPolicyAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyAssignmentsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -7472,10 +7964,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully`, func() {
@@ -7499,6 +7993,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
 				listPolicyAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listPolicyAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyAssignmentsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -7523,6 +8019,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
 				listPolicyAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listPolicyAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyAssignmentsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -7568,6 +8066,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
 				listPolicyAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listPolicyAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listPolicyAssignmentsOptionsModel.Start = core.StringPtr("testString")
 				listPolicyAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -7580,6 +8080,105 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyTemplateAssignmentCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.PolicyTemplateAssignmentCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listPolicyAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"assignments":[{"target":{"type":"Account","id":"ID"},"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","resources":[{"target":{"type":"Account","id":"ID"},"policy":{"resource_created":{"id":"ID"},"status":"Status","error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":10}}}],"subject":{"id":"ID","type":"iam_id"},"template":{"id":"ID","version":"Version"},"status":"in_progress"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"assignments":[{"target":{"type":"Account","id":"ID"},"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","resources":[{"target":{"type":"Account","id":"ID"},"policy":{"resource_created":{"id":"ID"},"status":"Status","error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":10}}}],"subject":{"id":"ID","type":"iam_id"},"template":{"id":"ID","version":"Version"},"status":"in_progress"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use PolicyAssignmentsPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPolicyAssignmentsOptionsModel := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
+					Version: core.StringPtr("1.0"),
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					TemplateID: core.StringPtr("testString"),
+					TemplateVersion: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPolicyAssignmentsPager(listPolicyAssignmentsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.PolicyTemplateAssignmentItemsIntf
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use PolicyAssignmentsPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listPolicyAssignmentsOptionsModel := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
+					Version: core.StringPtr("1.0"),
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					TemplateID: core.StringPtr("testString"),
+					TemplateVersion: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewPolicyAssignmentsPager(listPolicyAssignmentsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -8457,6 +9056,575 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`GetSettings(getSettingsOptions *GetSettingsOptions) - Operation response error`, func() {
+		getSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetSettings with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
+		getSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke GetSettings successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetSettingsWithContext(ctx, getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetSettingsWithContext(ctx, getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke GetSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetSettings with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetSettingsOptions model with no property values
+				getSettingsOptionsModelNew := new(iampolicymanagementv1.GetSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetSettings(getSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) - Operation response error`, func() {
+		updateSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateSettings with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
+		updateSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke UpdateSettings successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.UpdateSettingsWithContext(ctx, updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.UpdateSettingsWithContext(ctx, updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke UpdateSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateSettings with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateSettingsOptions model with no property values
+				updateSettingsOptionsModelNew := new(iampolicymanagementv1.UpdateSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamPolicyManagementService, _ := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -9051,6 +10219,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(getRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
 				Expect(getRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetSettingsOptions successfully`, func() {
+				// Construct an instance of the GetSettingsOptions model
+				accountID := "testString"
+				getSettingsOptionsModel := iamPolicyManagementService.NewGetSettingsOptions(accountID)
+				getSettingsOptionsModel.SetAccountID("testString")
+				getSettingsOptionsModel.SetAcceptLanguage("default")
+				getSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getSettingsOptionsModel).ToNot(BeNil())
+				Expect(getSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getSettingsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(getSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetV2PolicyOptions successfully`, func() {
 				// Construct an instance of the GetV2PolicyOptions model
 				id := "testString"
@@ -9069,6 +10249,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewIdentityTypesBase successfully`, func() {
+				state := "enabled"
+				externalAllowedAccounts := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewIdentityTypesBase(state, externalAllowedAccounts)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewListPoliciesOptions successfully`, func() {
 				// Construct an instance of the ListPoliciesOptions model
 				accountID := "testString"
@@ -9084,6 +10271,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.SetSort("id")
 				listPoliciesOptionsModel.SetFormat("include_last_permit")
 				listPoliciesOptionsModel.SetState("active")
+				listPoliciesOptionsModel.SetLimit(int64(10))
+				listPoliciesOptionsModel.SetStart("testString")
 				listPoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPoliciesOptionsModel).ToNot(BeNil())
 				Expect(listPoliciesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -9097,6 +10286,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listPoliciesOptionsModel.Sort).To(Equal(core.StringPtr("id")))
 				Expect(listPoliciesOptionsModel.Format).To(Equal(core.StringPtr("include_last_permit")))
 				Expect(listPoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listPoliciesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listPoliciesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listPoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListPolicyAssignmentsOptions successfully`, func() {
@@ -9109,6 +10300,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyAssignmentsOptionsModel.SetAcceptLanguage("default")
 				listPolicyAssignmentsOptionsModel.SetTemplateID("testString")
 				listPolicyAssignmentsOptionsModel.SetTemplateVersion("testString")
+				listPolicyAssignmentsOptionsModel.SetLimit(int64(10))
+				listPolicyAssignmentsOptionsModel.SetStart("testString")
 				listPolicyAssignmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPolicyAssignmentsOptionsModel).ToNot(BeNil())
 				Expect(listPolicyAssignmentsOptionsModel.Version).To(Equal(core.StringPtr("1.0")))
@@ -9116,6 +10309,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listPolicyAssignmentsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
 				Expect(listPolicyAssignmentsOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyAssignmentsOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(listPolicyAssignmentsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listPolicyAssignmentsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyAssignmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListPolicyTemplateVersionsOptions successfully`, func() {
@@ -9124,10 +10319,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplateVersionsOptionsModel := iamPolicyManagementService.NewListPolicyTemplateVersionsOptions(policyTemplateID)
 				listPolicyTemplateVersionsOptionsModel.SetPolicyTemplateID("testString")
 				listPolicyTemplateVersionsOptionsModel.SetState("active")
+				listPolicyTemplateVersionsOptionsModel.SetLimit(int64(10))
+				listPolicyTemplateVersionsOptionsModel.SetStart("testString")
 				listPolicyTemplateVersionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPolicyTemplateVersionsOptionsModel).ToNot(BeNil())
 				Expect(listPolicyTemplateVersionsOptionsModel.PolicyTemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplateVersionsOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listPolicyTemplateVersionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listPolicyTemplateVersionsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplateVersionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListPolicyTemplatesOptions successfully`, func() {
@@ -9142,6 +10341,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel.SetPolicyServiceName("testString")
 				listPolicyTemplatesOptionsModel.SetPolicyServiceGroupID("testString")
 				listPolicyTemplatesOptionsModel.SetPolicyType("access")
+				listPolicyTemplatesOptionsModel.SetLimit(int64(10))
+				listPolicyTemplatesOptionsModel.SetStart("testString")
 				listPolicyTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPolicyTemplatesOptionsModel).ToNot(BeNil())
 				Expect(listPolicyTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -9152,6 +10353,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listPolicyTemplatesOptionsModel.PolicyServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplatesOptionsModel.PolicyServiceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplatesOptionsModel.PolicyType).To(Equal(core.StringPtr("access")))
+				Expect(listPolicyTemplatesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listPolicyTemplatesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListRolesOptions successfully`, func() {
@@ -9188,6 +10391,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.SetSort("testString")
 				listV2PoliciesOptionsModel.SetFormat("include_last_permit")
 				listV2PoliciesOptionsModel.SetState("active")
+				listV2PoliciesOptionsModel.SetLimit(int64(10))
+				listV2PoliciesOptionsModel.SetStart("testString")
 				listV2PoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listV2PoliciesOptionsModel).ToNot(BeNil())
 				Expect(listV2PoliciesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -9201,6 +10406,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listV2PoliciesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listV2PoliciesOptionsModel.Format).To(Equal(core.StringPtr("include_last_permit")))
 				Expect(listV2PoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listV2PoliciesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listV2PoliciesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listV2PoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPolicyRole successfully`, func() {
@@ -9603,6 +10810,47 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(updatePolicyStateOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(updatePolicyStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewUpdateSettingsOptions successfully`, func() {
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				Expect(identityTypesBaseModel).ToNot(BeNil())
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+				Expect(identityTypesBaseModel.State).To(Equal(core.StringPtr("enabled")))
+				Expect(identityTypesBaseModel.ExternalAllowedAccounts).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				Expect(identityTypesPatchModel).ToNot(BeNil())
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+				Expect(identityTypesPatchModel.User).To(Equal(identityTypesBaseModel))
+				Expect(identityTypesPatchModel.ServiceID).To(Equal(identityTypesBaseModel))
+				Expect(identityTypesPatchModel.Service).To(Equal(identityTypesBaseModel))
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				Expect(externalAccountIdentityInteractionPatchModel).ToNot(BeNil())
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+				Expect(externalAccountIdentityInteractionPatchModel.IdentityTypes).To(Equal(identityTypesPatchModel))
+
+				// Construct an instance of the UpdateSettingsOptions model
+				accountID := "testString"
+				ifMatch := "testString"
+				updateSettingsOptionsModel := iamPolicyManagementService.NewUpdateSettingsOptions(accountID, ifMatch)
+				updateSettingsOptionsModel.SetAccountID("testString")
+				updateSettingsOptionsModel.SetIfMatch("testString")
+				updateSettingsOptionsModel.SetExternalAccountIdentityInteraction(externalAccountIdentityInteractionPatchModel)
+				updateSettingsOptionsModel.SetAcceptLanguage("default")
+				updateSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateSettingsOptionsModel).ToNot(BeNil())
+				Expect(updateSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateSettingsOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateSettingsOptionsModel.ExternalAccountIdentityInteraction).To(Equal(externalAccountIdentityInteractionPatchModel))
+				Expect(updateSettingsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(updateSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewV2PolicyResource successfully`, func() {
 				attributes := []iampolicymanagementv1.V2PolicyResourceAttribute{}
 				_model, err := iamPolicyManagementService.NewV2PolicyResource(attributes)
@@ -9728,6 +10976,24 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalExternalAccountIdentityInteractionPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+			model.IdentityTypes = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.ExternalAccountIdentityInteractionPatch
+			err = iampolicymanagementv1.UnmarshalExternalAccountIdentityInteractionPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalGrant successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.Grant)
@@ -9742,6 +11008,45 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.Grant
 			err = iampolicymanagementv1.UnmarshalGrant(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIdentityTypesBase successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.IdentityTypesBase)
+			model.State = core.StringPtr("enabled")
+			model.ExternalAllowedAccounts = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.IdentityTypesBase
+			err = iampolicymanagementv1.UnmarshalIdentityTypesBase(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIdentityTypesPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.IdentityTypesPatch)
+			model.User = nil
+			model.ServiceID = nil
+			model.Service = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.IdentityTypesPatch
+			err = iampolicymanagementv1.UnmarshalIdentityTypesPatch(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))

@@ -71,6 +71,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		exampleAssignmentPolicyID        string
 		exampleTargetAccountID           string = ""
 		examplePolicyAssignmentETag      string = ""
+		exampleAccountSettingsETag       string
 		exampleETagHeader                string = "ETag"
 	)
 
@@ -1091,7 +1092,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyAssignmentRecord).ToNot(BeNil())
-			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.GetPolicyAssignmentResponse)
+			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.PolicyTemplateAssignmentItems)
 			Expect(*assignmentDetails.Template.ID).ToNot(BeNil())
 			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
@@ -1184,6 +1185,67 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`GetSettings request example`, func() {
+			fmt.Println("\nGetSettings() result:")
+			// begin-get_settings
+
+			getSettingsOptions := iamPolicyManagementService.NewGetSettingsOptions(
+				exampleAccountID,
+			)
+
+			accountSettingsAccessManagement, response, err := iamPolicyManagementService.GetSettings(getSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsAccessManagement, "", "  ")
+			exampleAccountSettingsETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-get_settings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsAccessManagement).ToNot(BeNil())
+		})
+
+		It(`UpdateSettings request example`, func() {
+			fmt.Println("\nUpdateSettings() result:")
+			// begin-update_settings
+
+			updateSettingsOptions := iamPolicyManagementService.NewUpdateSettingsOptions(
+				exampleAccountID,
+				exampleAccountSettingsETag,
+			)
+			identityTypesBase := &iampolicymanagementv1.IdentityTypesBase{
+				State:                   core.StringPtr("monitor"),
+				ExternalAllowedAccounts: []string{},
+			}
+
+			identityTypes := &iampolicymanagementv1.IdentityTypesPatch{
+				User:      identityTypesBase,
+				ServiceID: identityTypesBase,
+				Service:   identityTypesBase,
+			}
+
+			externalAccountIdentityInteraction := &iampolicymanagementv1.ExternalAccountIdentityInteractionPatch{
+				IdentityTypes: identityTypes,
+			}
+			updateSettingsOptions.SetExternalAccountIdentityInteraction(externalAccountIdentityInteraction)
+
+			accountSettingsAccessManagement, response, err := iamPolicyManagementService.UpdateSettings(updateSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsAccessManagement, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_settings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsAccessManagement).ToNot(BeNil())
 		})
 	})
 })
