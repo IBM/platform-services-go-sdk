@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
+ * IBM OpenAPI SDK Code Generator Version: 3.101.0-62624c1e-20250225-192301
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -35,7 +35,7 @@ import (
 )
 
 // AtrackerV2 : IBM Cloud Activity Tracker allows you to configure how auditing events are collected and stored in each
-// region in your account. Events can be sent to Cloud Object Storage bucket, Logdna or Event Streams.
+// region in your account. Events can be sent to Cloud Object Storage bucket, Cloud Logs or Event Streams.
 //
 // API Version: 2.0.0
 type AtrackerV2 struct {
@@ -253,9 +253,6 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 	}
 	if createTargetOptions.CosEndpoint != nil {
 		body["cos_endpoint"] = createTargetOptions.CosEndpoint
-	}
-	if createTargetOptions.LogdnaEndpoint != nil {
-		body["logdna_endpoint"] = createTargetOptions.LogdnaEndpoint
 	}
 	if createTargetOptions.EventstreamsEndpoint != nil {
 		body["eventstreams_endpoint"] = createTargetOptions.EventstreamsEndpoint
@@ -481,9 +478,6 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 	}
 	if replaceTargetOptions.CosEndpoint != nil {
 		body["cos_endpoint"] = replaceTargetOptions.CosEndpoint
-	}
-	if replaceTargetOptions.LogdnaEndpoint != nil {
-		body["logdna_endpoint"] = replaceTargetOptions.LogdnaEndpoint
 	}
 	if replaceTargetOptions.EventstreamsEndpoint != nil {
 		body["eventstreams_endpoint"] = replaceTargetOptions.EventstreamsEndpoint
@@ -1364,15 +1358,12 @@ type CreateTargetOptions struct {
 	// than `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
 	Name *string `json:"name" validate:"required"`
 
-	// The type of the target. It can be cloud_object_storage, logdna, event_streams, or cloud_logs. Based on this type you
-	// must include cos_endpoint, logdna_endpoint, eventstreams_endpoint or cloudlogs_endpoint.
+	// The type of the target. It can be cloud_object_storage, event_streams, or cloud_logs. Based on this type you must
+	// include cos_endpoint, eventstreams_endpoint or cloudlogs_endpoint.
 	TargetType *string `json:"target_type" validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint in requests.
 	CosEndpoint *CosEndpointPrototype `json:"cos_endpoint,omitempty"`
-
-	// Property values for a LogDNA Endpoint in requests.
-	LogdnaEndpoint *LogdnaEndpointPrototype `json:"logdna_endpoint,omitempty"`
 
 	// Property values for an Event Streams Endpoint in requests.
 	EventstreamsEndpoint *EventstreamsEndpointPrototype `json:"eventstreams_endpoint,omitempty"`
@@ -1389,13 +1380,12 @@ type CreateTargetOptions struct {
 }
 
 // Constants associated with the CreateTargetOptions.TargetType property.
-// The type of the target. It can be cloud_object_storage, logdna, event_streams, or cloud_logs. Based on this type you
-// must include cos_endpoint, logdna_endpoint, eventstreams_endpoint or cloudlogs_endpoint.
+// The type of the target. It can be cloud_object_storage, event_streams, or cloud_logs. Based on this type you must
+// include cos_endpoint, eventstreams_endpoint or cloudlogs_endpoint.
 const (
 	CreateTargetOptionsTargetTypeCloudLogsConst = "cloud_logs"
 	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 	CreateTargetOptionsTargetTypeEventStreamsConst = "event_streams"
-	CreateTargetOptionsTargetTypeLogdnaConst = "logdna"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
@@ -1421,12 +1411,6 @@ func (_options *CreateTargetOptions) SetTargetType(targetType string) *CreateTar
 // SetCosEndpoint : Allow user to set CosEndpoint
 func (_options *CreateTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpointPrototype) *CreateTargetOptions {
 	_options.CosEndpoint = cosEndpoint
-	return _options
-}
-
-// SetLogdnaEndpoint : Allow user to set LogdnaEndpoint
-func (_options *CreateTargetOptions) SetLogdnaEndpoint(logdnaEndpoint *LogdnaEndpointPrototype) *CreateTargetOptions {
-	_options.LogdnaEndpoint = logdnaEndpoint
 	return _options
 }
 
@@ -1572,7 +1556,8 @@ type EventstreamsEndpointPrototype struct {
 	// The messsage hub topic defined in the Event Streams instance.
 	Topic *string `json:"topic" validate:"required"`
 
-	// The user password (api key) for the message hub topic in the Event Streams instance.
+	// The user password (api key) for the message hub topic in the Event Streams instance. This is required if
+	// service_to_service is not enabled.
 	APIKey *string `json:"api_key,omitempty"`
 
 	// Determines if IBM Cloud Activity Tracker Event Routing has service to service authentication enabled. Set this flag
@@ -1744,63 +1729,6 @@ func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTarg
 	return options
 }
 
-// LogdnaEndpoint : Property values for a LogDNA Endpoint in responses.
-type LogdnaEndpoint struct {
-	// The CRN of the LogDNA instance.
-	TargetCRN *string `json:"target_crn" validate:"required"`
-}
-
-// UnmarshalLogdnaEndpoint unmarshals an instance of LogdnaEndpoint from the specified map of raw messages.
-func UnmarshalLogdnaEndpoint(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(LogdnaEndpoint)
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// LogdnaEndpointPrototype : Property values for a LogDNA Endpoint in requests.
-type LogdnaEndpointPrototype struct {
-	// The CRN of the LogDNA instance.
-	TargetCRN *string `json:"target_crn" validate:"required"`
-
-	// The LogDNA ingestion key is used for routing logs to a specific LogDNA instance.
-	IngestionKey *string `json:"ingestion_key" validate:"required"`
-}
-
-// NewLogdnaEndpointPrototype : Instantiate LogdnaEndpointPrototype (Generic Model Constructor)
-func (*AtrackerV2) NewLogdnaEndpointPrototype(targetCRN string, ingestionKey string) (_model *LogdnaEndpointPrototype, err error) {
-	_model = &LogdnaEndpointPrototype{
-		TargetCRN: core.StringPtr(targetCRN),
-		IngestionKey: core.StringPtr(ingestionKey),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
-	return
-}
-
-// UnmarshalLogdnaEndpointPrototype unmarshals an instance of LogdnaEndpointPrototype from the specified map of raw messages.
-func UnmarshalLogdnaEndpointPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(LogdnaEndpointPrototype)
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ingestion_key", &obj.IngestionKey)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "ingestion_key-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // PutSettingsOptions : The PutSettings options.
 type PutSettingsOptions struct {
 	// To store all your meta data in a single region.
@@ -1928,9 +1856,6 @@ type ReplaceTargetOptions struct {
 	// Property values for a Cloud Object Storage Endpoint in requests.
 	CosEndpoint *CosEndpointPrototype `json:"cos_endpoint,omitempty"`
 
-	// Property values for a LogDNA Endpoint in requests.
-	LogdnaEndpoint *LogdnaEndpointPrototype `json:"logdna_endpoint,omitempty"`
-
 	// Property values for an Event Streams Endpoint in requests.
 	EventstreamsEndpoint *EventstreamsEndpointPrototype `json:"eventstreams_endpoint,omitempty"`
 
@@ -1963,12 +1888,6 @@ func (_options *ReplaceTargetOptions) SetName(name string) *ReplaceTargetOptions
 // SetCosEndpoint : Allow user to set CosEndpoint
 func (_options *ReplaceTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpointPrototype) *ReplaceTargetOptions {
 	_options.CosEndpoint = cosEndpoint
-	return _options
-}
-
-// SetLogdnaEndpoint : Allow user to set LogdnaEndpoint
-func (_options *ReplaceTargetOptions) SetLogdnaEndpoint(logdnaEndpoint *LogdnaEndpointPrototype) *ReplaceTargetOptions {
-	_options.LogdnaEndpoint = logdnaEndpoint
 	return _options
 }
 
@@ -2248,9 +2167,6 @@ type Target struct {
 	// Property values for a Cloud Object Storage Endpoint in responses.
 	CosEndpoint *CosEndpoint `json:"cos_endpoint,omitempty"`
 
-	// Property values for a LogDNA Endpoint in responses.
-	LogdnaEndpoint *LogdnaEndpoint `json:"logdna_endpoint,omitempty"`
-
 	// Property values for the Event Streams Endpoint in responses.
 	EventstreamsEndpoint *EventstreamsEndpoint `json:"eventstreams_endpoint,omitempty"`
 
@@ -2279,7 +2195,6 @@ const (
 	TargetTargetTypeCloudLogsConst = "cloud_logs"
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 	TargetTargetTypeEventStreamsConst = "event_streams"
-	TargetTargetTypeLogdnaConst = "logdna"
 )
 
 // UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
@@ -2313,11 +2228,6 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalModel(m, "cos_endpoint", &obj.CosEndpoint, UnmarshalCosEndpoint)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cos_endpoint-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "logdna_endpoint", &obj.LogdnaEndpoint, UnmarshalLogdnaEndpoint)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "logdna_endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "eventstreams_endpoint", &obj.EventstreamsEndpoint, UnmarshalEventstreamsEndpoint)

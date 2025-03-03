@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		// Variables to hold link values
 		routeIDLink   string
 		targetIDLink  string
-		targetIDLink2 string
 		targetIDLink3 string
 	)
 
@@ -151,28 +150,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			targetIDLink = *target.ID
 			fmt.Fprintf(GinkgoWriter, "Saved cos targetIDLink value: %v\n", targetIDLink)
-		})
-		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
-
-			logdnaEndpointPrototypeModel := &atrackerv2.LogdnaEndpointPrototype{
-				TargetCRN:    core.StringPtr("crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				IngestionKey: core.StringPtr("xxxxxxxxxxxxxx"),
-			}
-
-			createTargetOptions := &atrackerv2.CreateTargetOptions{
-				Name:           core.StringPtr("my-logdna-target"),
-				TargetType:     core.StringPtr("logdna"),
-				LogdnaEndpoint: logdnaEndpointPrototypeModel,
-			}
-
-			target, response, err := atrackerService.CreateTarget(createTargetOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(target).ToNot(BeNil())
-
-			targetIDLink2 = *target.ID
-			fmt.Fprintf(GinkgoWriter, "Saved logdna targetIDLink value: %v\n", targetIDLink)
 		})
 
 		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
@@ -391,25 +368,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				ID:          &targetIDLink,
 				Name:        core.StringPtr("my-cos-target"),
 				CosEndpoint: cosEndpointPrototypeModel,
-			}
-
-			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
-
-		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for logdna type of target`, func() {
-
-			logdnaEndpointPrototypeModel := &atrackerv2.LogdnaEndpointPrototype{
-				TargetCRN:    core.StringPtr("crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				IngestionKey: core.StringPtr("xxxxxxxxxxxxxx"),
-			}
-
-			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
-				ID:             &targetIDLink2,
-				Name:           core.StringPtr("my-logdna-target-modified"),
-				LogdnaEndpoint: logdnaEndpointPrototypeModel,
 			}
 
 			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
@@ -696,21 +654,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(settings).ToNot(BeNil())
 		})
-
-		It(`Returns 403 when user is not authorized`, func() {
-
-			putSettingsOptions := &atrackerv2.PutSettingsOptions{
-				DefaultTargets:         []string{targetIDLink2},
-				PermittedTargetRegions: []string{"us-south"},
-				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				PrivateAPIEndpointOnly: core.BoolPtr(false),
-			}
-
-			_, response, err := atrackerServiceNotAuthorized.PutSettings(putSettingsOptions)
-
-			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
-		})
 	})
 
 	Describe(`DeleteRoute - Delete a route`, func() {
@@ -791,16 +734,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-		})
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-
-			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
-				ID: &targetIDLink2,
-			}
-
-			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
 		})
 		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
 
