@@ -1,3 +1,10 @@
+## [0.77.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.77.0...v0.77.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* **Atracker:** re-gen service for mezmo removal and hand edits IT ([ec0e8c0](https://github.com/IBM/platform-services-go-sdk/commit/ec0e8c0c803949e0c2e04d1360014aa25f8b83f6))
+
 # [0.77.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.76.0...v0.77.0) (2025-02-25)
 
 
