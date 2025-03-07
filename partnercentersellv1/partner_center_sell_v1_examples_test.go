@@ -382,7 +382,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				true,
 				false,
 				"plan",
-				[]string{"ibm_created"},
 				catalogProductProviderModel,
 			)
 			createCatalogPlanOptions.SetOverviewUi(globalCatalogOverviewUiModel)
@@ -487,7 +486,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				true,
 				false,
 				"deployment",
-				[]string{"eu-gb"},
 				catalogProductProviderModel,
 			)
 			createCatalogDeploymentOptions.SetMetadata(globalCatalogDeploymentMetadataPrototypePatchModel)

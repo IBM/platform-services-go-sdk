@@ -5027,11 +5027,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5205,11 +5205,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5391,11 +5391,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5521,11 +5521,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5672,11 +5672,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -6929,11 +6929,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Active = core.BoolPtr(true)
 				createCatalogDeploymentOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogDeploymentOptionsModel.Kind = core.StringPtr("deployment")
-				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7094,11 +7094,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Active = core.BoolPtr(true)
 				createCatalogDeploymentOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogDeploymentOptionsModel.Kind = core.StringPtr("deployment")
-				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7267,11 +7267,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Active = core.BoolPtr(true)
 				createCatalogDeploymentOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogDeploymentOptionsModel.Kind = core.StringPtr("deployment")
-				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7384,11 +7384,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Active = core.BoolPtr(true)
 				createCatalogDeploymentOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogDeploymentOptionsModel.Kind = core.StringPtr("deployment")
-				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7522,11 +7522,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Active = core.BoolPtr(true)
 				createCatalogDeploymentOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogDeploymentOptionsModel.Kind = core.StringPtr("deployment")
-				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataPrototypePatchModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -12640,9 +12640,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsActive := true
 				createCatalogDeploymentOptionsDisabled := false
 				createCatalogDeploymentOptionsKind := "deployment"
-				createCatalogDeploymentOptionsTags := []string{"eu-gb"}
 				var createCatalogDeploymentOptionsObjectProvider *partnercentersellv1.CatalogProductProvider = nil
-				createCatalogDeploymentOptionsModel := partnerCenterSellService.NewCreateCatalogDeploymentOptions(productID, catalogProductID, catalogPlanID, createCatalogDeploymentOptionsName, createCatalogDeploymentOptionsActive, createCatalogDeploymentOptionsDisabled, createCatalogDeploymentOptionsKind, createCatalogDeploymentOptionsTags, createCatalogDeploymentOptionsObjectProvider)
+				createCatalogDeploymentOptionsModel := partnerCenterSellService.NewCreateCatalogDeploymentOptions(productID, catalogProductID, catalogPlanID, createCatalogDeploymentOptionsName, createCatalogDeploymentOptionsActive, createCatalogDeploymentOptionsDisabled, createCatalogDeploymentOptionsKind, createCatalogDeploymentOptionsObjectProvider)
 				createCatalogDeploymentOptionsModel.SetProductID("testString")
 				createCatalogDeploymentOptionsModel.SetCatalogProductID("testString")
 				createCatalogDeploymentOptionsModel.SetCatalogPlanID("testString")
@@ -12650,11 +12649,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.SetActive(true)
 				createCatalogDeploymentOptionsModel.SetDisabled(false)
 				createCatalogDeploymentOptionsModel.SetKind("deployment")
-				createCatalogDeploymentOptionsModel.SetTags([]string{"eu-gb"})
 				createCatalogDeploymentOptionsModel.SetObjectProvider(catalogProductProviderModel)
 				createCatalogDeploymentOptionsModel.SetID("testString")
 				createCatalogDeploymentOptionsModel.SetObjectID("testString")
 				createCatalogDeploymentOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
+				createCatalogDeploymentOptionsModel.SetTags([]string{"eu-gb"})
 				createCatalogDeploymentOptionsModel.SetMetadata(globalCatalogDeploymentMetadataPrototypePatchModel)
 				createCatalogDeploymentOptionsModel.SetEnv("testString")
 				createCatalogDeploymentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -12666,11 +12665,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogDeploymentOptionsModel.Active).To(Equal(core.BoolPtr(true)))
 				Expect(createCatalogDeploymentOptionsModel.Disabled).To(Equal(core.BoolPtr(false)))
 				Expect(createCatalogDeploymentOptionsModel.Kind).To(Equal(core.StringPtr("deployment")))
-				Expect(createCatalogDeploymentOptionsModel.Tags).To(Equal([]string{"eu-gb"}))
 				Expect(createCatalogDeploymentOptionsModel.ObjectProvider).To(Equal(catalogProductProviderModel))
 				Expect(createCatalogDeploymentOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
+				Expect(createCatalogDeploymentOptionsModel.Tags).To(Equal([]string{"eu-gb"}))
 				Expect(createCatalogDeploymentOptionsModel.Metadata).To(Equal(globalCatalogDeploymentMetadataPrototypePatchModel))
 				Expect(createCatalogDeploymentOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -12845,20 +12844,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsActive := true
 				createCatalogPlanOptionsDisabled := false
 				createCatalogPlanOptionsKind := "plan"
-				createCatalogPlanOptionsTags := []string{"ibm_created"}
 				var createCatalogPlanOptionsObjectProvider *partnercentersellv1.CatalogProductProvider = nil
-				createCatalogPlanOptionsModel := partnerCenterSellService.NewCreateCatalogPlanOptions(productID, catalogProductID, createCatalogPlanOptionsName, createCatalogPlanOptionsActive, createCatalogPlanOptionsDisabled, createCatalogPlanOptionsKind, createCatalogPlanOptionsTags, createCatalogPlanOptionsObjectProvider)
+				createCatalogPlanOptionsModel := partnerCenterSellService.NewCreateCatalogPlanOptions(productID, catalogProductID, createCatalogPlanOptionsName, createCatalogPlanOptionsActive, createCatalogPlanOptionsDisabled, createCatalogPlanOptionsKind, createCatalogPlanOptionsObjectProvider)
 				createCatalogPlanOptionsModel.SetProductID("testString")
 				createCatalogPlanOptionsModel.SetCatalogProductID("testString")
 				createCatalogPlanOptionsModel.SetName("free-plan2")
 				createCatalogPlanOptionsModel.SetActive(true)
 				createCatalogPlanOptionsModel.SetDisabled(false)
 				createCatalogPlanOptionsModel.SetKind("plan")
-				createCatalogPlanOptionsModel.SetTags([]string{"ibm_created"})
 				createCatalogPlanOptionsModel.SetObjectProvider(catalogProductProviderModel)
 				createCatalogPlanOptionsModel.SetID("testString")
 				createCatalogPlanOptionsModel.SetObjectID("testString")
 				createCatalogPlanOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
+				createCatalogPlanOptionsModel.SetTags([]string{"ibm_created"})
 				createCatalogPlanOptionsModel.SetPricingTags([]string{"testString"})
 				createCatalogPlanOptionsModel.SetMetadata(globalCatalogPlanMetadataPrototypePatchModel)
 				createCatalogPlanOptionsModel.SetEnv("testString")
@@ -12870,11 +12868,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogPlanOptionsModel.Active).To(Equal(core.BoolPtr(true)))
 				Expect(createCatalogPlanOptionsModel.Disabled).To(Equal(core.BoolPtr(false)))
 				Expect(createCatalogPlanOptionsModel.Kind).To(Equal(core.StringPtr("plan")))
-				Expect(createCatalogPlanOptionsModel.Tags).To(Equal([]string{"ibm_created"}))
 				Expect(createCatalogPlanOptionsModel.ObjectProvider).To(Equal(catalogProductProviderModel))
 				Expect(createCatalogPlanOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
+				Expect(createCatalogPlanOptionsModel.Tags).To(Equal([]string{"ibm_created"}))
 				Expect(createCatalogPlanOptionsModel.PricingTags).To(Equal([]string{"testString"}))
 				Expect(createCatalogPlanOptionsModel.Metadata).To(Equal(globalCatalogPlanMetadataPrototypePatchModel))
 				Expect(createCatalogPlanOptionsModel.Env).To(Equal(core.StringPtr("testString")))
