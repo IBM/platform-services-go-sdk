@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,13 +68,14 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+				})
 				Expect(iamIdentityService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+				})
 				err := iamIdentityService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamIdentityService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_AUTH_TYPE": "NOAuth",
+				"IAM_IDENTITY_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -12596,6 +12599,793 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptions *UpdatePreferenceOnScopeAccountOptions) - Operation response error`, func() {
+		updatePreferenceOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString/testString/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updatePreferenceOnScopeAccountPath))
+					Expect(req.Method).To(Equal("PUT"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdatePreferenceOnScopeAccount with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
+				updatePreferenceOnScopeAccountOptionsModel := new(iamidentityv1.UpdatePreferenceOnScopeAccountOptions)
+				updatePreferenceOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueString = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueListOfStrings = []string{"testString"}
+				updatePreferenceOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptions *UpdatePreferenceOnScopeAccountOptions)`, func() {
+		updatePreferenceOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString/testString/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updatePreferenceOnScopeAccountPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"service": "Service", "id": "ID", "account_id": "AccountID", "scope": "Scope", "value_string": "ValueString", "value_list_of_strings": ["ValueListOfStrings"]}`)
+				}))
+			})
+			It(`Invoke UpdatePreferenceOnScopeAccount successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
+				updatePreferenceOnScopeAccountOptionsModel := new(iamidentityv1.UpdatePreferenceOnScopeAccountOptions)
+				updatePreferenceOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueString = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueListOfStrings = []string{"testString"}
+				updatePreferenceOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdatePreferenceOnScopeAccountWithContext(ctx, updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdatePreferenceOnScopeAccountWithContext(ctx, updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updatePreferenceOnScopeAccountPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"service": "Service", "id": "ID", "account_id": "AccountID", "scope": "Scope", "value_string": "ValueString", "value_list_of_strings": ["ValueListOfStrings"]}`)
+				}))
+			})
+			It(`Invoke UpdatePreferenceOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdatePreferenceOnScopeAccount(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
+				updatePreferenceOnScopeAccountOptionsModel := new(iamidentityv1.UpdatePreferenceOnScopeAccountOptions)
+				updatePreferenceOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueString = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueListOfStrings = []string{"testString"}
+				updatePreferenceOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdatePreferenceOnScopeAccount with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
+				updatePreferenceOnScopeAccountOptionsModel := new(iamidentityv1.UpdatePreferenceOnScopeAccountOptions)
+				updatePreferenceOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueString = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueListOfStrings = []string{"testString"}
+				updatePreferenceOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdatePreferenceOnScopeAccountOptions model with no property values
+				updatePreferenceOnScopeAccountOptionsModelNew := new(iamidentityv1.UpdatePreferenceOnScopeAccountOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdatePreferenceOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
+				updatePreferenceOnScopeAccountOptionsModel := new(iamidentityv1.UpdatePreferenceOnScopeAccountOptions)
+				updatePreferenceOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueString = core.StringPtr("testString")
+				updatePreferenceOnScopeAccountOptionsModel.ValueListOfStrings = []string{"testString"}
+				updatePreferenceOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptions *DeletePreferencesOnScopeAccountOptions)`, func() {
+		deletePreferencesOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString/testString/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deletePreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeletePreferencesOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeletePreferencesOnScopeAccount(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeletePreferencesOnScopeAccountOptions model
+				deletePreferencesOnScopeAccountOptionsModel := new(iamidentityv1.DeletePreferencesOnScopeAccountOptions)
+				deletePreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeletePreferencesOnScopeAccount with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeletePreferencesOnScopeAccountOptions model
+				deletePreferencesOnScopeAccountOptionsModel := new(iamidentityv1.DeletePreferencesOnScopeAccountOptions)
+				deletePreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				deletePreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeletePreferencesOnScopeAccountOptions model with no property values
+				deletePreferencesOnScopeAccountOptionsModelNew := new(iamidentityv1.DeletePreferencesOnScopeAccountOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptions *GetPreferencesOnScopeAccountOptions) - Operation response error`, func() {
+		getPreferencesOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString/testString/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetPreferencesOnScopeAccount with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetPreferencesOnScopeAccountOptions model
+				getPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetPreferencesOnScopeAccountOptions)
+				getPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptions *GetPreferencesOnScopeAccountOptions)`, func() {
+		getPreferencesOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString/testString/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"service": "Service", "id": "ID", "account_id": "AccountID", "scope": "Scope", "value_string": "ValueString", "value_list_of_strings": ["ValueListOfStrings"]}`)
+				}))
+			})
+			It(`Invoke GetPreferencesOnScopeAccount successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetPreferencesOnScopeAccountOptions model
+				getPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetPreferencesOnScopeAccountOptions)
+				getPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetPreferencesOnScopeAccountWithContext(ctx, getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetPreferencesOnScopeAccountWithContext(ctx, getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"service": "Service", "id": "ID", "account_id": "AccountID", "scope": "Scope", "value_string": "ValueString", "value_list_of_strings": ["ValueListOfStrings"]}`)
+				}))
+			})
+			It(`Invoke GetPreferencesOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetPreferencesOnScopeAccount(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetPreferencesOnScopeAccountOptions model
+				getPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetPreferencesOnScopeAccountOptions)
+				getPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetPreferencesOnScopeAccount with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetPreferencesOnScopeAccountOptions model
+				getPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetPreferencesOnScopeAccountOptions)
+				getPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetPreferencesOnScopeAccountOptions model with no property values
+				getPreferencesOnScopeAccountOptionsModelNew := new(iamidentityv1.GetPreferencesOnScopeAccountOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetPreferencesOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetPreferencesOnScopeAccountOptions model
+				getPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetPreferencesOnScopeAccountOptions)
+				getPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Service = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.PreferenceID = core.StringPtr("testString")
+				getPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptions *GetAllPreferencesOnScopeAccountOptions) - Operation response error`, func() {
+		getAllPreferencesOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAllPreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAllPreferencesOnScopeAccount with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAllPreferencesOnScopeAccountOptions model
+				getAllPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetAllPreferencesOnScopeAccountOptions)
+				getAllPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptions *GetAllPreferencesOnScopeAccountOptions)`, func() {
+		getAllPreferencesOnScopeAccountPath := "/v1/preferences/accounts/testString/identities/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAllPreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"preferences": [{"service": "Service", "id": "ID", "account_id": "AccountID", "scope": "Scope", "value_string": "ValueString", "value_list_of_strings": ["ValueListOfStrings"]}]}`)
+				}))
+			})
+			It(`Invoke GetAllPreferencesOnScopeAccount successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAllPreferencesOnScopeAccountOptions model
+				getAllPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetAllPreferencesOnScopeAccountOptions)
+				getAllPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetAllPreferencesOnScopeAccountWithContext(ctx, getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetAllPreferencesOnScopeAccountWithContext(ctx, getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAllPreferencesOnScopeAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"preferences": [{"service": "Service", "id": "ID", "account_id": "AccountID", "scope": "Scope", "value_string": "ValueString", "value_list_of_strings": ["ValueListOfStrings"]}]}`)
+				}))
+			})
+			It(`Invoke GetAllPreferencesOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetAllPreferencesOnScopeAccount(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAllPreferencesOnScopeAccountOptions model
+				getAllPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetAllPreferencesOnScopeAccountOptions)
+				getAllPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAllPreferencesOnScopeAccount with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAllPreferencesOnScopeAccountOptions model
+				getAllPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetAllPreferencesOnScopeAccountOptions)
+				getAllPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAllPreferencesOnScopeAccountOptions model with no property values
+				getAllPreferencesOnScopeAccountOptionsModelNew := new(iamidentityv1.GetAllPreferencesOnScopeAccountOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAllPreferencesOnScopeAccount successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAllPreferencesOnScopeAccountOptions model
+				getAllPreferencesOnScopeAccountOptionsModel := new(iamidentityv1.GetAllPreferencesOnScopeAccountOptions)
+				getAllPreferencesOnScopeAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.IamID = core.StringPtr("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptions *ListTrustedProfileAssignmentsOptions) - Operation response error`, func() {
 		listTrustedProfileAssignmentsPath := "/v1/profile_assignments/"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -17323,6 +18113,25 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(deleteLinkOptionsModel.LinkID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteLinkOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeletePreferencesOnScopeAccountOptions successfully`, func() {
+				// Construct an instance of the DeletePreferencesOnScopeAccountOptions model
+				accountID := "testString"
+				iamID := "testString"
+				service := "testString"
+				preferenceID := "testString"
+				deletePreferencesOnScopeAccountOptionsModel := iamIdentityService.NewDeletePreferencesOnScopeAccountOptions(accountID, iamID, service, preferenceID)
+				deletePreferencesOnScopeAccountOptionsModel.SetAccountID("testString")
+				deletePreferencesOnScopeAccountOptionsModel.SetIamID("testString")
+				deletePreferencesOnScopeAccountOptionsModel.SetService("testString")
+				deletePreferencesOnScopeAccountOptionsModel.SetPreferenceID("testString")
+				deletePreferencesOnScopeAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deletePreferencesOnScopeAccountOptionsModel).ToNot(BeNil())
+				Expect(deletePreferencesOnScopeAccountOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(deletePreferencesOnScopeAccountOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(deletePreferencesOnScopeAccountOptionsModel.Service).To(Equal(core.StringPtr("testString")))
+				Expect(deletePreferencesOnScopeAccountOptionsModel.PreferenceID).To(Equal(core.StringPtr("testString")))
+				Expect(deletePreferencesOnScopeAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteProfileIdentityOptions successfully`, func() {
 				// Construct an instance of the DeleteProfileIdentityOptions model
 				profileID := "testString"
@@ -17441,6 +18250,19 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getAccountSettingsTemplateVersionOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
 				Expect(getAccountSettingsTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetAllPreferencesOnScopeAccountOptions successfully`, func() {
+				// Construct an instance of the GetAllPreferencesOnScopeAccountOptions model
+				accountID := "testString"
+				iamID := "testString"
+				getAllPreferencesOnScopeAccountOptionsModel := iamIdentityService.NewGetAllPreferencesOnScopeAccountOptions(accountID, iamID)
+				getAllPreferencesOnScopeAccountOptionsModel.SetAccountID("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.SetIamID("testString")
+				getAllPreferencesOnScopeAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAllPreferencesOnScopeAccountOptionsModel).ToNot(BeNil())
+				Expect(getAllPreferencesOnScopeAccountOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getAllPreferencesOnScopeAccountOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(getAllPreferencesOnScopeAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetAPIKeyOptions successfully`, func() {
 				// Construct an instance of the GetAPIKeyOptions model
 				id := "testString"
@@ -17555,6 +18377,25 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getMfaStatusOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(getMfaStatusOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
 				Expect(getMfaStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetPreferencesOnScopeAccountOptions successfully`, func() {
+				// Construct an instance of the GetPreferencesOnScopeAccountOptions model
+				accountID := "testString"
+				iamID := "testString"
+				service := "testString"
+				preferenceID := "testString"
+				getPreferencesOnScopeAccountOptionsModel := iamIdentityService.NewGetPreferencesOnScopeAccountOptions(accountID, iamID, service, preferenceID)
+				getPreferencesOnScopeAccountOptionsModel.SetAccountID("testString")
+				getPreferencesOnScopeAccountOptionsModel.SetIamID("testString")
+				getPreferencesOnScopeAccountOptionsModel.SetService("testString")
+				getPreferencesOnScopeAccountOptionsModel.SetPreferenceID("testString")
+				getPreferencesOnScopeAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getPreferencesOnScopeAccountOptionsModel).ToNot(BeNil())
+				Expect(getPreferencesOnScopeAccountOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getPreferencesOnScopeAccountOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(getPreferencesOnScopeAccountOptionsModel.Service).To(Equal(core.StringPtr("testString")))
+				Expect(getPreferencesOnScopeAccountOptionsModel.PreferenceID).To(Equal(core.StringPtr("testString")))
+				Expect(getPreferencesOnScopeAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetProfileIdentitiesOptions successfully`, func() {
 				// Construct an instance of the GetProfileIdentitiesOptions model
@@ -18194,6 +19035,30 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateClaimRuleOptionsModel.CrType).To(Equal(core.StringPtr("testString")))
 				Expect(updateClaimRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(updateClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdatePreferenceOnScopeAccountOptions successfully`, func() {
+				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
+				accountID := "testString"
+				iamID := "testString"
+				service := "testString"
+				preferenceID := "testString"
+				updatePreferenceOnScopeAccountOptionsValueString := "testString"
+				updatePreferenceOnScopeAccountOptionsModel := iamIdentityService.NewUpdatePreferenceOnScopeAccountOptions(accountID, iamID, service, preferenceID, updatePreferenceOnScopeAccountOptionsValueString)
+				updatePreferenceOnScopeAccountOptionsModel.SetAccountID("testString")
+				updatePreferenceOnScopeAccountOptionsModel.SetIamID("testString")
+				updatePreferenceOnScopeAccountOptionsModel.SetService("testString")
+				updatePreferenceOnScopeAccountOptionsModel.SetPreferenceID("testString")
+				updatePreferenceOnScopeAccountOptionsModel.SetValueString("testString")
+				updatePreferenceOnScopeAccountOptionsModel.SetValueListOfStrings([]string{"testString"})
+				updatePreferenceOnScopeAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updatePreferenceOnScopeAccountOptionsModel).ToNot(BeNil())
+				Expect(updatePreferenceOnScopeAccountOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updatePreferenceOnScopeAccountOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(updatePreferenceOnScopeAccountOptionsModel.Service).To(Equal(core.StringPtr("testString")))
+				Expect(updatePreferenceOnScopeAccountOptionsModel.PreferenceID).To(Equal(core.StringPtr("testString")))
+				Expect(updatePreferenceOnScopeAccountOptionsModel.ValueString).To(Equal(core.StringPtr("testString")))
+				Expect(updatePreferenceOnScopeAccountOptionsModel.ValueListOfStrings).To(Equal([]string{"testString"}))
+				Expect(updatePreferenceOnScopeAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateProfileOptions successfully`, func() {
 				// Construct an instance of the UpdateProfileOptions model

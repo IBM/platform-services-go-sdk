@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -252,7 +252,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully with retries`, func() {
@@ -328,7 +328,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully`, func() {
@@ -454,6 +454,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
+					// TODO: Add check for show_crn query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -479,6 +480,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptionsModel)
@@ -520,13 +522,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
+					// TODO: Add check for show_crn query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully with retries`, func() {
@@ -550,6 +553,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -597,10 +601,11 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
+					// TODO: Add check for show_crn query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully`, func() {
@@ -629,6 +634,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -658,6 +664,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -708,6 +715,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.ShowCRN = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -776,9 +784,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"groups":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","href":"Href","is_federated":false}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"groups":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","href":"Href","is_federated":false,"crn":"CRN"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"groups":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","href":"Href","is_federated":false}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"groups":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","href":"Href","is_federated":false,"crn":"CRN"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -802,6 +810,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Sort: core.StringPtr("name"),
 					ShowFederated: core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
+					ShowCRN: core.BoolPtr(false),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
@@ -835,6 +844,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Sort: core.StringPtr("name"),
 					ShowFederated: core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
+					ShowCRN: core.BoolPtr(false),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
@@ -861,6 +871,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for show_federated query parameter
+					// TODO: Add check for show_crn query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -879,6 +890,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamAccessGroupsService.GetAccessGroup(getAccessGroupOptionsModel)
@@ -912,13 +924,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for show_federated query parameter
+					// TODO: Add check for show_crn query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully with retries`, func() {
@@ -935,6 +948,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -974,10 +988,11 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for show_federated query parameter
+					// TODO: Add check for show_crn query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully`, func() {
@@ -999,6 +1014,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1021,6 +1037,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -1064,6 +1081,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
+				getAccessGroupOptionsModel.ShowCRN = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1169,7 +1187,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully with retries`, func() {
@@ -1247,7 +1265,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully`, func() {
@@ -9348,11 +9366,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel.SetAccessGroupID("testString")
 				getAccessGroupOptionsModel.SetTransactionID("testString")
 				getAccessGroupOptionsModel.SetShowFederated(false)
+				getAccessGroupOptionsModel.SetShowCRN(false)
 				getAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(getAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccessGroupOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
+				Expect(getAccessGroupOptionsModel.ShowCRN).To(Equal(core.BoolPtr(false)))
 				Expect(getAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccessGroupRuleOptions successfully`, func() {
@@ -9492,6 +9512,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.SetSort("name")
 				listAccessGroupsOptionsModel.SetShowFederated(false)
 				listAccessGroupsOptionsModel.SetHidePublicAccess(false)
+				listAccessGroupsOptionsModel.SetShowCRN(false)
 				listAccessGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccessGroupsOptionsModel).ToNot(BeNil())
 				Expect(listAccessGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -9504,6 +9525,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.Sort).To(Equal(core.StringPtr("name")))
 				Expect(listAccessGroupsOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.HidePublicAccess).To(Equal(core.BoolPtr(false)))
+				Expect(listAccessGroupsOptionsModel.ShowCRN).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAssignmentsOptions successfully`, func() {

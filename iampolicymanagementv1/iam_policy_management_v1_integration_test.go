@@ -82,7 +82,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testTargetEnterpriseID                string = ""
 		testPolicyAssignmentETag              string = ""
 		testTargetType                        string = "Account"
-		testTargetTypeEnterprise              string = "Enterprise"
+		testAcountSettingsETag                string = ""
 	)
 
 	var shouldSkipTest = func() {
@@ -1215,36 +1215,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
-	Describe(`CreatePolicyAssignments - Create policy assignments by templates by type Enterprise resulted in an error Instance Target Type is not one of enum values `, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-
-		It(`CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) by of type Enterprise resulted in an error because the instance.target.type is not one of the allowed enum values`, func() {
-			template := iampolicymanagementv1.AssignmentTemplateDetails{
-				ID:      &testPolicyS2STemplateID,
-				Version: &testPolicyS2STemplateVersion,
-			}
-			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
-				template,
-			}
-
-			target := &iampolicymanagementv1.AssignmentTargetDetails{
-				Type: &testTargetTypeEnterprise,
-				ID:   &testTargetEnterpriseID,
-			}
-
-			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
-				Version:   core.StringPtr("1.0"),
-				Target:    target,
-				Templates: templates,
-			}
-			_, _, err := service.CreatePolicyTemplateAssignment(createPolicyTemplateVersionOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(err.Error()).To(Equal("Invalid body format. Check the input parameters. instance.target.type is not one of enum values: Account"))
-		})
-	})
-
 	Describe(`CreatePolicyAssignments - Create policy assignments by templates`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1349,7 +1319,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			policyAssignmentRecord, response, err := service.GetPolicyAssignment(getPolicyAssignmentOptions)
 			Expect(err).To(BeNil())
-			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.GetPolicyAssignmentResponse)
+			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.PolicyTemplateAssignmentItems)
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(*assignmentDetails).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.ID).ToNot(BeNil())
@@ -1475,6 +1445,58 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`GetSettings - Retrieve Access Management account settings by account ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
+			getSettingsOptions := &iampolicymanagementv1.GetSettingsOptions{
+				AccountID:      &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			accountSettingsAccessManagement, response, err := service.GetSettings(getSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsAccessManagement).ToNot(BeNil())
+			testAcountSettingsETag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`UpdateSettings - Updates Access Management account settings by account ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
+			identityTypesBaseModel := &iampolicymanagementv1.IdentityTypesBase{
+				State:                   core.StringPtr("monitor"),
+				ExternalAllowedAccounts: []string{},
+			}
+
+			identityTypesPatchModel := &iampolicymanagementv1.IdentityTypesPatch{
+				User:      identityTypesBaseModel,
+				ServiceID: identityTypesBaseModel,
+				Service:   identityTypesBaseModel,
+			}
+
+			externalAccountIdentityInteractionPatchModel := &iampolicymanagementv1.ExternalAccountIdentityInteractionPatch{
+				IdentityTypes: identityTypesPatchModel,
+			}
+
+			updateSettingsOptions := &iampolicymanagementv1.UpdateSettingsOptions{
+				AccountID:                          &testAccountID,
+				IfMatch:                            &testAcountSettingsETag,
+				ExternalAccountIdentityInteraction: externalAccountIdentityInteractionPatchModel,
+				AcceptLanguage:                     core.StringPtr("default"),
+			}
+
+			accountSettingsAccessManagement, response, err := service.UpdateSettings(updateSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsAccessManagement).ToNot(BeNil())
 		})
 	})
 

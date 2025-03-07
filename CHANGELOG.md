@@ -1,3 +1,59 @@
+## [0.78.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.0...v0.78.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* **build:** bump go core and cypto modules to avoid CVE ([e61b864](https://github.com/IBM/platform-services-go-sdk/commit/e61b86444de8400943dcc54ac1a1baaf2d82f36c))
+
+# [0.78.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.77.1...v0.78.0) (2025-03-07)
+
+
+### Features
+
+* **partner center sell:** make tags on deployment creation optional ([#377](https://github.com/IBM/platform-services-go-sdk/issues/377)) ([f0cbf75](https://github.com/IBM/platform-services-go-sdk/commit/f0cbf75a53900be271b23e9048cda3fc84122b82))
+
+## [0.77.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.77.0...v0.77.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* **Atracker:** re-gen service for mezmo removal and hand edits IT ([ec0e8c0](https://github.com/IBM/platform-services-go-sdk/commit/ec0e8c0c803949e0c2e04d1360014aa25f8b83f6))
+
+# [0.77.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.76.0...v0.77.0) (2025-02-25)
+
+
+### Features
+
+* **IAM Policy Management:** add access management account settings API ([#330](https://github.com/IBM/platform-services-go-sdk/issues/330)) ([9332c67](https://github.com/IBM/platform-services-go-sdk/commit/9332c67eacb5105f613e7eadedbba7497c48d16d))
+
+# [0.76.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.75.0...v0.76.0) (2025-02-23)
+
+
+### Features
+
+* **IAM Access Groups:** add CRN to schema ([#375](https://github.com/IBM/platform-services-go-sdk/issues/375)) ([2e09509](https://github.com/IBM/platform-services-go-sdk/commit/2e0950952c82dacc83e1e933fb9e0c5ab961994d))
+
+# [0.75.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.1...v0.75.0) (2025-02-11)
+
+
+### Features
+
+* **IAM Access Groups:** Add CRN filter ([#373](https://github.com/IBM/platform-services-go-sdk/issues/373)) ([5f2bc85](https://github.com/IBM/platform-services-go-sdk/commit/5f2bc85660470340bb9c605d36739436890bd9c8))
+
+## [0.74.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.74.0...v0.74.1) (2025-02-11)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** consolidate MCSP flags ([#372](https://github.com/IBM/platform-services-go-sdk/issues/372)) ([e348dce](https://github.com/IBM/platform-services-go-sdk/commit/e348dceb0fb84438e92d2c2aea68b4bfb12bb9d7))
+
+# [0.74.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.73.0...v0.74.0) (2025-02-04)
+
+
+### Features
+
+* **IAM Identity:** add Identity Preference API ([#370](https://github.com/IBM/platform-services-go-sdk/issues/370)) ([34d910b](https://github.com/IBM/platform-services-go-sdk/commit/34d910b7022ec09f8bb79fdd9d0dee17a8537c72))
+
 # [0.73.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.72.0...v0.73.0) (2025-01-07)
 
 

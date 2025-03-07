@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Partner Center Sell service.
 //
 // The following configuration properties are assumed to be defined:
@@ -260,14 +259,14 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			globalCatalogProductMetadataServiceModel := &partnercentersellv1.GlobalCatalogProductMetadataService{
+			globalCatalogProductMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataServicePrototypePatch{
 				RcProvisionable: core.BoolPtr(true),
 				IamCompatible:   core.BoolPtr(true),
 			}
 
-			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
+			globalCatalogProductMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogProductMetadataServiceModel,
+				Service:      globalCatalogProductMetadataServicePrototypePatchModel,
 			}
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -283,7 +282,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				catalogProductProviderModel,
 			)
 			createCatalogProductOptions.SetOverviewUi(globalCatalogOverviewUiModel)
-			createCatalogProductOptions.SetMetadata(globalCatalogProductMetadataModel)
+			createCatalogProductOptions.SetMetadata(globalCatalogProductMetadataPrototypePatchModel)
 
 			globalCatalogProduct, response, err := partnerCenterSellService.CreateCatalogProduct(createCatalogProductOptions)
 			if err != nil {
@@ -360,7 +359,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			globalCatalogPlanMetadataServiceModel := &partnercentersellv1.GlobalCatalogPlanMetadataService{
+			globalCatalogPlanMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataServicePrototypePatch{
 				RcProvisionable: core.BoolPtr(false),
 				IamCompatible:   core.BoolPtr(true),
 			}
@@ -370,9 +369,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Origin: core.StringPtr("pricing_catalog"),
 			}
 
-			globalCatalogPlanMetadataModel := &partnercentersellv1.GlobalCatalogPlanMetadata{
+			globalCatalogPlanMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogPlanMetadataServiceModel,
+				Service:      globalCatalogPlanMetadataServicePrototypePatchModel,
 				Pricing:      globalCatalogMetadataPricingModel,
 			}
 
@@ -383,11 +382,10 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				true,
 				false,
 				"plan",
-				[]string{"ibm_created"},
 				catalogProductProviderModel,
 			)
 			createCatalogPlanOptions.SetOverviewUi(globalCatalogOverviewUiModel)
-			createCatalogPlanOptions.SetMetadata(globalCatalogPlanMetadataModel)
+			createCatalogPlanOptions.SetMetadata(globalCatalogPlanMetadataPrototypePatchModel)
 
 			globalCatalogPlan, response, err := partnerCenterSellService.CreateCatalogPlan(createCatalogPlanOptions)
 			if err != nil {
@@ -414,13 +412,13 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Origin: core.StringPtr("pricing_catalog"),
 			}
 
-			globalCatalogPlanMetadataModel := &partnercentersellv1.GlobalCatalogPlanMetadata{
+			globalCatalogPlanMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogPlanMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
 				Pricing:      globalCatalogMetadataPricingModel,
 			}
 
 			globalCatalogPlanPatchModel := &partnercentersellv1.GlobalCatalogPlanPatch{
-				Metadata: globalCatalogPlanMetadataModel,
+				Metadata: globalCatalogPlanMetadataPrototypePatchModel,
 			}
 			globalCatalogPlanPatchModelAsPatch, asPatchErr := globalCatalogPlanPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -457,7 +455,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
-			globalCatalogDeploymentMetadataServiceModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataService{
+			globalCatalogDeploymentMetadataServicePrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataServicePrototypePatch{
 				RcProvisionable: core.BoolPtr(true),
 				IamCompatible:   core.BoolPtr(true),
 			}
@@ -474,9 +472,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				TargetCrn:   core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb"),
 			}
 
-			globalCatalogDeploymentMetadataModel := &partnercentersellv1.GlobalCatalogDeploymentMetadata{
+			globalCatalogDeploymentMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogDeploymentMetadataServiceModel,
+				Service:      globalCatalogDeploymentMetadataServicePrototypePatchModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
@@ -488,10 +486,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				true,
 				false,
 				"deployment",
-				[]string{"eu-gb"},
 				catalogProductProviderModel,
 			)
-			createCatalogDeploymentOptions.SetMetadata(globalCatalogDeploymentMetadataModel)
+			createCatalogDeploymentOptions.SetMetadata(globalCatalogDeploymentMetadataPrototypePatchModel)
 
 			globalCatalogDeployment, response, err := partnerCenterSellService.CreateCatalogDeployment(createCatalogDeploymentOptions)
 			if err != nil {
@@ -525,12 +522,12 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				TargetCrn:   core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb"),
 			}
 
-			globalCatalogDeploymentMetadataModel := &partnercentersellv1.GlobalCatalogDeploymentMetadata{
+			globalCatalogDeploymentMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch{
 				Deployment: globalCatalogMetadataDeploymentModel,
 			}
 
 			globalCatalogDeploymentPatchModel := &partnercentersellv1.GlobalCatalogDeploymentPatch{
-				Metadata: globalCatalogDeploymentMetadataModel,
+				Metadata: globalCatalogDeploymentMetadataPrototypePatchModel,
 			}
 			globalCatalogDeploymentPatchModelAsPatch, asPatchErr := globalCatalogDeploymentPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -565,7 +562,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				"sample-name",
+				"pet-store",
 			)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
@@ -628,6 +625,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				brokerLink,
 				"provision_through",
 			)
+
 			createResourceBrokerOptions.SetState("active")
 			createResourceBrokerOptions.SetAllowContextUpdates(false)
 			createResourceBrokerOptions.SetCatalogType("service")
