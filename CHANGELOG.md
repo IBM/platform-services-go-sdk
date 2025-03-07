@@ -1,3 +1,10 @@
+# [0.78.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.77.1...v0.78.0) (2025-03-07)
+
+
+### Features
+
+* **partner center sell:** make tags on deployment creation optional ([#377](https://github.com/IBM/platform-services-go-sdk/issues/377)) ([f0cbf75](https://github.com/IBM/platform-services-go-sdk/commit/f0cbf75a53900be271b23e9048cda3fc84122b82))
+
 ## [0.77.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.77.0...v0.77.1) (2025-03-05)
 
 
