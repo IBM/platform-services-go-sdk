@@ -1158,9 +1158,6 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogPlanWithContext(ctx c
 	if createCatalogPlanOptions.Kind != nil {
 		body["kind"] = createCatalogPlanOptions.Kind
 	}
-	if createCatalogPlanOptions.Tags != nil {
-		body["tags"] = createCatalogPlanOptions.Tags
-	}
 	if createCatalogPlanOptions.ObjectProvider != nil {
 		body["object_provider"] = createCatalogPlanOptions.ObjectProvider
 	}
@@ -1172,6 +1169,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogPlanWithContext(ctx c
 	}
 	if createCatalogPlanOptions.OverviewUi != nil {
 		body["overview_ui"] = createCatalogPlanOptions.OverviewUi
+	}
+	if createCatalogPlanOptions.Tags != nil {
+		body["tags"] = createCatalogPlanOptions.Tags
 	}
 	if createCatalogPlanOptions.PricingTags != nil {
 		body["pricing_tags"] = createCatalogPlanOptions.PricingTags
@@ -3394,10 +3394,6 @@ type CreateCatalogPlanOptions struct {
 	// The kind of the global catalog object.
 	Kind *string `json:"kind" validate:"required"`
 
-	// A list of tags that carry information about your product. These tags can be used to find your product in the IBM
-	// Cloud catalog.
-	Tags []string `json:"tags" validate:"required"`
-
 	// The provider or owner of the product.
 	ObjectProvider *CatalogProductProvider `json:"object_provider" validate:"required"`
 
@@ -3409,6 +3405,10 @@ type CreateCatalogPlanOptions struct {
 
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
+
+	// A list of tags that carry information about your product. These tags can be used to find your product in the IBM
+	// Cloud catalog.
+	Tags []string `json:"tags,omitempty"`
 
 	// A list of tags that carry information about the pricing information of your product.
 	PricingTags []string `json:"pricing_tags,omitempty"`
@@ -3430,7 +3430,7 @@ const (
 )
 
 // NewCreateCatalogPlanOptions : Instantiate CreateCatalogPlanOptions
-func (*PartnerCenterSellV1) NewCreateCatalogPlanOptions(productID string, catalogProductID string, name string, active bool, disabled bool, kind string, tags []string, objectProvider *CatalogProductProvider) *CreateCatalogPlanOptions {
+func (*PartnerCenterSellV1) NewCreateCatalogPlanOptions(productID string, catalogProductID string, name string, active bool, disabled bool, kind string, objectProvider *CatalogProductProvider) *CreateCatalogPlanOptions {
 	return &CreateCatalogPlanOptions{
 		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
@@ -3438,7 +3438,6 @@ func (*PartnerCenterSellV1) NewCreateCatalogPlanOptions(productID string, catalo
 		Active:           core.BoolPtr(active),
 		Disabled:         core.BoolPtr(disabled),
 		Kind:             core.StringPtr(kind),
-		Tags:             tags,
 		ObjectProvider:   objectProvider,
 	}
 }
@@ -3479,12 +3478,6 @@ func (_options *CreateCatalogPlanOptions) SetKind(kind string) *CreateCatalogPla
 	return _options
 }
 
-// SetTags : Allow user to set Tags
-func (_options *CreateCatalogPlanOptions) SetTags(tags []string) *CreateCatalogPlanOptions {
-	_options.Tags = tags
-	return _options
-}
-
 // SetObjectProvider : Allow user to set ObjectProvider
 func (_options *CreateCatalogPlanOptions) SetObjectProvider(objectProvider *CatalogProductProvider) *CreateCatalogPlanOptions {
 	_options.ObjectProvider = objectProvider
@@ -3506,6 +3499,12 @@ func (_options *CreateCatalogPlanOptions) SetObjectID(objectID string) *CreateCa
 // SetOverviewUi : Allow user to set OverviewUi
 func (_options *CreateCatalogPlanOptions) SetOverviewUi(overviewUi *GlobalCatalogOverviewUI) *CreateCatalogPlanOptions {
 	_options.OverviewUi = overviewUi
+	return _options
+}
+
+// SetTags : Allow user to set Tags
+func (_options *CreateCatalogPlanOptions) SetTags(tags []string) *CreateCatalogPlanOptions {
+	_options.Tags = tags
 	return _options
 }
 

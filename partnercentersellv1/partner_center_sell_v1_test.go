@@ -5027,11 +5027,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5205,11 +5205,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5391,11 +5391,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5521,11 +5521,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5672,11 +5672,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Active = core.BoolPtr(true)
 				createCatalogPlanOptionsModel.Disabled = core.BoolPtr(false)
 				createCatalogPlanOptionsModel.Kind = core.StringPtr("plan")
-				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
+				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.PricingTags = []string{"testString"}
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataPrototypePatchModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -12844,20 +12844,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsActive := true
 				createCatalogPlanOptionsDisabled := false
 				createCatalogPlanOptionsKind := "plan"
-				createCatalogPlanOptionsTags := []string{"ibm_created"}
 				var createCatalogPlanOptionsObjectProvider *partnercentersellv1.CatalogProductProvider = nil
-				createCatalogPlanOptionsModel := partnerCenterSellService.NewCreateCatalogPlanOptions(productID, catalogProductID, createCatalogPlanOptionsName, createCatalogPlanOptionsActive, createCatalogPlanOptionsDisabled, createCatalogPlanOptionsKind, createCatalogPlanOptionsTags, createCatalogPlanOptionsObjectProvider)
+				createCatalogPlanOptionsModel := partnerCenterSellService.NewCreateCatalogPlanOptions(productID, catalogProductID, createCatalogPlanOptionsName, createCatalogPlanOptionsActive, createCatalogPlanOptionsDisabled, createCatalogPlanOptionsKind, createCatalogPlanOptionsObjectProvider)
 				createCatalogPlanOptionsModel.SetProductID("testString")
 				createCatalogPlanOptionsModel.SetCatalogProductID("testString")
 				createCatalogPlanOptionsModel.SetName("free-plan2")
 				createCatalogPlanOptionsModel.SetActive(true)
 				createCatalogPlanOptionsModel.SetDisabled(false)
 				createCatalogPlanOptionsModel.SetKind("plan")
-				createCatalogPlanOptionsModel.SetTags([]string{"ibm_created"})
 				createCatalogPlanOptionsModel.SetObjectProvider(catalogProductProviderModel)
 				createCatalogPlanOptionsModel.SetID("testString")
 				createCatalogPlanOptionsModel.SetObjectID("testString")
 				createCatalogPlanOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
+				createCatalogPlanOptionsModel.SetTags([]string{"ibm_created"})
 				createCatalogPlanOptionsModel.SetPricingTags([]string{"testString"})
 				createCatalogPlanOptionsModel.SetMetadata(globalCatalogPlanMetadataPrototypePatchModel)
 				createCatalogPlanOptionsModel.SetEnv("testString")
@@ -12869,11 +12868,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogPlanOptionsModel.Active).To(Equal(core.BoolPtr(true)))
 				Expect(createCatalogPlanOptionsModel.Disabled).To(Equal(core.BoolPtr(false)))
 				Expect(createCatalogPlanOptionsModel.Kind).To(Equal(core.StringPtr("plan")))
-				Expect(createCatalogPlanOptionsModel.Tags).To(Equal([]string{"ibm_created"}))
 				Expect(createCatalogPlanOptionsModel.ObjectProvider).To(Equal(catalogProductProviderModel))
 				Expect(createCatalogPlanOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
+				Expect(createCatalogPlanOptionsModel.Tags).To(Equal([]string{"ibm_created"}))
 				Expect(createCatalogPlanOptionsModel.PricingTags).To(Equal([]string{"testString"}))
 				Expect(createCatalogPlanOptionsModel.Metadata).To(Equal(globalCatalogPlanMetadataPrototypePatchModel))
 				Expect(createCatalogPlanOptionsModel.Env).To(Equal(core.StringPtr("testString")))
