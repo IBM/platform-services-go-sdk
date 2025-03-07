@@ -1,3 +1,10 @@
+## [0.78.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.0...v0.78.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* **build:** bump go core and cypto modules to avoid CVE ([e61b864](https://github.com/IBM/platform-services-go-sdk/commit/e61b86444de8400943dcc54ac1a1baaf2d82f36c))
+
 # [0.78.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.77.1...v0.78.0) (2025-03-07)
 
 
