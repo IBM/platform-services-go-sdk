@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
+ * IBM OpenAPI SDK Code Generator Version: 3.102.0-615ec964-20250307-203034
  */
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
@@ -192,7 +192,7 @@ func (usageReports *UsageReportsV4) GetAccountSummaryWithContext(ctx context.Con
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountSummaryOptions.AccountID,
+		"account_id":   *getAccountSummaryOptions.AccountID,
 		"billingmonth": *getAccountSummaryOptions.Billingmonth,
 	}
 
@@ -263,7 +263,7 @@ func (usageReports *UsageReportsV4) GetAccountUsageWithContext(ctx context.Conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountUsageOptions.AccountID,
+		"account_id":   *getAccountUsageOptions.AccountID,
 		"billingmonth": *getAccountUsageOptions.Billingmonth,
 	}
 
@@ -341,9 +341,9 @@ func (usageReports *UsageReportsV4) GetResourceGroupUsageWithContext(ctx context
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceGroupUsageOptions.AccountID,
+		"account_id":        *getResourceGroupUsageOptions.AccountID,
 		"resource_group_id": *getResourceGroupUsageOptions.ResourceGroupID,
-		"billingmonth": *getResourceGroupUsageOptions.Billingmonth,
+		"billingmonth":      *getResourceGroupUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -420,7 +420,7 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageAccountOptions.AccountID,
+		"account_id":   *getResourceUsageAccountOptions.AccountID,
 		"billingmonth": *getResourceUsageAccountOptions.Billingmonth,
 	}
 
@@ -490,7 +490,63 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
+	// if rawResponse != nil {
+	// 	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
+	// 	if err != nil {
+	// 		err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+	// 		return
+	// 	}
+	// 	response.Result = result
+	// }
+
 	if rawResponse != nil {
+		if resourcesData, ok := rawResponse["resources"]; ok {
+			var resources []map[string]interface{}
+			if err = json.Unmarshal(resourcesData, &resources); err != nil {
+				err = core.SDKErrorf(err, "", "unmarshal-resources-error", common.GetComponentInfo())
+				return
+			}
+
+			for _, resource := range resources {
+				if createdAtStr, ok := resource["created_at"].(string); ok {
+					if createdAtStr == "" {
+						resource["created_at"] = float64(0) // Assign 0 if empty
+					} else {
+						if parsedTime, err := time.Parse(time.RFC3339Nano, createdAtStr); err == nil {
+							createdAtFloat := float64(parsedTime.UnixNano() / 1e6)
+							resource["created_at"] = createdAtFloat
+						} else {
+							fmt.Println("error is ", err)
+							err = core.SDKErrorf(err, "", "created-at-conversion-error", common.GetComponentInfo())
+						}
+					}
+				}
+
+				if deletedAtStr, ok := resource["deleted_at"].(string); ok {
+					if deletedAtStr == "" {
+						resource["deleted_at"] = float64(0)
+					} else {
+						if parsedTimeDel, err := time.Parse(time.RFC3339Nano, deletedAtStr); err == nil {
+							deletedAtFloat := float64(parsedTimeDel.UnixNano() / 1e6)
+							resource["deleted_at"] = deletedAtFloat
+						} else {
+							err = core.SDKErrorf(err, "", "deleted-at-conversion-error", common.GetComponentInfo())
+						}
+					}
+				}
+			}
+
+			// Marshal the modified resources back into JSON
+			modifiedResourcesData, err := json.Marshal(resources)
+			if err != nil {
+				err = core.SDKErrorf(err, "", "marshal-resources-error", common.GetComponentInfo())
+			}
+
+			// Replace the original "resources" field with the modified data
+			rawResponse["resources"] = modifiedResourcesData
+		}
+
+		// Unmarshal the modified JSON into the Go struct
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
@@ -525,9 +581,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageResourceGroupOptions.AccountID,
+		"account_id":        *getResourceUsageResourceGroupOptions.AccountID,
 		"resource_group_id": *getResourceUsageResourceGroupOptions.ResourceGroupID,
-		"billingmonth": *getResourceUsageResourceGroupOptions.Billingmonth,
+		"billingmonth":      *getResourceUsageResourceGroupOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -590,7 +646,60 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
+	// if rawResponse != nil {
+	// 	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
+	// 	if err != nil {
+	// 		err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+	// 		return
+	// 	}
+
+	// 	response.Result = result
+	// }
+
 	if rawResponse != nil {
+		if resourcesData, ok := rawResponse["resources"]; ok {
+			var resources []map[string]interface{}
+			if err = json.Unmarshal(resourcesData, &resources); err != nil {
+				err = core.SDKErrorf(err, "", "unmarshal-resources-error", common.GetComponentInfo())
+				return
+			}
+			for _, resource := range resources {
+				if createdAtStr, ok := resource["created_at"].(string); ok {
+					if createdAtStr == "" {
+						resource["created_at"] = float64(0) // Assign 0 if empty
+					} else {
+						if parsedTime, err := time.Parse(time.RFC3339Nano, createdAtStr); err == nil {
+							createdAtFloat := float64(parsedTime.UnixNano() / 1e6)
+							resource["created_at"] = createdAtFloat
+						} else {
+							fmt.Println("error is ", err)
+							err = core.SDKErrorf(err, "", "created-at-conversion-error", common.GetComponentInfo())
+						}
+					}
+				}
+
+				if deletedAtStr, ok := resource["deleted_at"].(string); ok {
+					if deletedAtStr == "" {
+						resource["deleted_at"] = float64(0)
+					} else {
+						if parsedTimeDel, err := time.Parse(time.RFC3339Nano, deletedAtStr); err == nil {
+							deletedAtFloat := float64(parsedTimeDel.UnixNano() / 1e6)
+							resource["deleted_at"] = deletedAtFloat
+						} else {
+							err = core.SDKErrorf(err, "", "deleted-at-conversion-error", common.GetComponentInfo())
+						}
+					}
+				}
+			}
+
+			modifiedResourcesData, err := json.Marshal(resources)
+			if err != nil {
+				err = core.SDKErrorf(err, "", "marshal-resources-error", common.GetComponentInfo())
+			}
+
+			rawResponse["resources"] = modifiedResourcesData
+		}
+
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
@@ -625,9 +734,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageOrgWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageOrgOptions.AccountID,
+		"account_id":      *getResourceUsageOrgOptions.AccountID,
 		"organization_id": *getResourceUsageOrgOptions.OrganizationID,
-		"billingmonth": *getResourceUsageOrgOptions.Billingmonth,
+		"billingmonth":    *getResourceUsageOrgOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -725,9 +834,9 @@ func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, 
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getOrgUsageOptions.AccountID,
+		"account_id":      *getOrgUsageOptions.AccountID,
 		"organization_id": *getOrgUsageOptions.OrganizationID,
-		"billingmonth": *getOrgUsageOptions.Billingmonth,
+		"billingmonth":    *getOrgUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1458,24 +1567,24 @@ const (
 // Constants associated with the CreateReportsSnapshotConfigOptions.ReportTypes property.
 const (
 	CreateReportsSnapshotConfigOptionsReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	CreateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst = "account_summary"
-	CreateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst = "enterprise_summary"
+	CreateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst               = "account_summary"
+	CreateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // Constants associated with the CreateReportsSnapshotConfigOptions.Versioning property.
 // A new version of report is created or the existing report version is overwritten with every update. Defaults to
 // "new".
 const (
-	CreateReportsSnapshotConfigOptionsVersioningNewConst = "new"
+	CreateReportsSnapshotConfigOptionsVersioningNewConst       = "new"
 	CreateReportsSnapshotConfigOptionsVersioningOverwriteConst = "overwrite"
 )
 
 // NewCreateReportsSnapshotConfigOptions : Instantiate CreateReportsSnapshotConfigOptions
 func (*UsageReportsV4) NewCreateReportsSnapshotConfigOptions(accountID string, interval string, cosBucket string, cosLocation string) *CreateReportsSnapshotConfigOptions {
 	return &CreateReportsSnapshotConfigOptions{
-		AccountID: core.StringPtr(accountID),
-		Interval: core.StringPtr(interval),
-		CosBucket: core.StringPtr(cosBucket),
+		AccountID:   core.StringPtr(accountID),
+		Interval:    core.StringPtr(interval),
+		CosBucket:   core.StringPtr(cosBucket),
 		CosLocation: core.StringPtr(cosLocation),
 	}
 }
@@ -1613,7 +1722,7 @@ type GetAccountSummaryOptions struct {
 // NewGetAccountSummaryOptions : Instantiate GetAccountSummaryOptions
 func (*UsageReportsV4) NewGetAccountSummaryOptions(accountID string, billingmonth string) *GetAccountSummaryOptions {
 	return &GetAccountSummaryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -1657,7 +1766,7 @@ type GetAccountUsageOptions struct {
 // NewGetAccountUsageOptions : Instantiate GetAccountUsageOptions
 func (*UsageReportsV4) NewGetAccountUsageOptions(accountID string, billingmonth string) *GetAccountUsageOptions {
 	return &GetAccountUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -1716,9 +1825,9 @@ type GetOrgUsageOptions struct {
 // NewGetOrgUsageOptions : Instantiate GetOrgUsageOptions
 func (*UsageReportsV4) NewGetOrgUsageOptions(accountID string, organizationID string, billingmonth string) *GetOrgUsageOptions {
 	return &GetOrgUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1814,7 +1923,7 @@ type GetReportsSnapshotOptions struct {
 func (*UsageReportsV4) NewGetReportsSnapshotOptions(accountID string, month string) *GetReportsSnapshotOptions {
 	return &GetReportsSnapshotOptions{
 		AccountID: core.StringPtr(accountID),
-		Month: core.StringPtr(month),
+		Month:     core.StringPtr(month),
 	}
 }
 
@@ -1884,9 +1993,9 @@ type GetResourceGroupUsageOptions struct {
 // NewGetResourceGroupUsageOptions : Instantiate GetResourceGroupUsageOptions
 func (*UsageReportsV4) NewGetResourceGroupUsageOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceGroupUsageOptions {
 	return &GetResourceGroupUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -1974,7 +2083,7 @@ type GetResourceUsageAccountOptions struct {
 // NewGetResourceUsageAccountOptions : Instantiate GetResourceUsageAccountOptions
 func (*UsageReportsV4) NewGetResourceUsageAccountOptions(accountID string, billingmonth string) *GetResourceUsageAccountOptions {
 	return &GetResourceUsageAccountOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -2108,9 +2217,9 @@ type GetResourceUsageOrgOptions struct {
 // NewGetResourceUsageOrgOptions : Instantiate GetResourceUsageOrgOptions
 func (*UsageReportsV4) NewGetResourceUsageOrgOptions(accountID string, organizationID string, billingmonth string) *GetResourceUsageOrgOptions {
 	return &GetResourceUsageOrgOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -2237,9 +2346,9 @@ type GetResourceUsageResourceGroupOptions struct {
 // NewGetResourceUsageResourceGroupOptions : Instantiate GetResourceUsageResourceGroupOptions
 func (*UsageReportsV4) NewGetResourceUsageResourceGroupOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceUsageResourceGroupOptions {
 	return &GetResourceUsageResourceGroupOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -2389,6 +2498,15 @@ type InstanceUsage struct {
 	// The ID of the pricing plan used to rate the usage.
 	PricingPlanID *string `json:"pricing_plan_id,omitempty"`
 
+	// The ID of service subscription with effective from timestamp.
+	SubscriptionID *string `json:"subscription_id,omitempty"`
+
+	// The timestamp in milliseconds at which instance is created.
+	CreatedAt *float64 `json:"created_at,omitempty"`
+
+	// The timestamp in milliseconds at which instance is deleted.
+	DeletedAt *float64 `json:"deleted_at,omitempty"`
+
 	// The month.
 	Month *string `json:"month" validate:"required"`
 
@@ -2519,6 +2637,21 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "pricing_plan_id", &obj.PricingPlanID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "pricing_plan_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "subscription_id", &obj.SubscriptionID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "subscription_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "deleted_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "month", &obj.Month)
@@ -2975,6 +3108,9 @@ type Plan struct {
 	// Total pre-discounted cost incurred by the plan.
 	RatedCost *float64 `json:"rated_cost" validate:"required"`
 
+	// The ID of service subscription with effective from timestamp.
+	SubscriptionID *string `json:"subscription_id,omitempty"`
+
 	// All the metrics in the plan.
 	Usage []Metric `json:"usage" validate:"required"`
 
@@ -3021,6 +3157,11 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 	err = core.UnmarshalPrimitive(m, "rated_cost", &obj.RatedCost)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "rated_cost-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "subscription_id", &obj.SubscriptionID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "subscription_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalMetric)
@@ -3277,13 +3418,13 @@ type SnapshotConfigHistoryItem struct {
 // Status of the billing snapshot configuration. Possible values are [enabled, disabled].
 const (
 	SnapshotConfigHistoryItemStateDisabledConst = "disabled"
-	SnapshotConfigHistoryItemStateEnabledConst = "enabled"
+	SnapshotConfigHistoryItemStateEnabledConst  = "enabled"
 )
 
 // Constants associated with the SnapshotConfigHistoryItem.AccountType property.
 // Type of account. Possible values [enterprise, account].
 const (
-	SnapshotConfigHistoryItemAccountTypeAccountConst = "account"
+	SnapshotConfigHistoryItemAccountTypeAccountConst    = "account"
 	SnapshotConfigHistoryItemAccountTypeEnterpriseConst = "enterprise"
 )
 
@@ -3296,15 +3437,15 @@ const (
 // Constants associated with the SnapshotConfigHistoryItem.Versioning property.
 // A new version of report is created or the existing report version is overwritten with every update.
 const (
-	SnapshotConfigHistoryItemVersioningNewConst = "new"
+	SnapshotConfigHistoryItemVersioningNewConst       = "new"
 	SnapshotConfigHistoryItemVersioningOverwriteConst = "overwrite"
 )
 
 // Constants associated with the SnapshotConfigHistoryItem.ReportTypes property.
 const (
 	SnapshotConfigHistoryItemReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	SnapshotConfigHistoryItemReportTypesAccountSummaryConst = "account_summary"
-	SnapshotConfigHistoryItemReportTypesEnterpriseSummaryConst = "enterprise_summary"
+	SnapshotConfigHistoryItemReportTypesAccountSummaryConst               = "account_summary"
+	SnapshotConfigHistoryItemReportTypesEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // UnmarshalSnapshotConfigHistoryItem unmarshals an instance of SnapshotConfigHistoryItem from the specified map of raw messages.
@@ -3541,7 +3682,7 @@ type SnapshotListSnapshotsItem struct {
 // Constants associated with the SnapshotListSnapshotsItem.AccountType property.
 // Type of account. Possible values are [enterprise, account].
 const (
-	SnapshotListSnapshotsItemAccountTypeAccountConst = "account"
+	SnapshotListSnapshotsItemAccountTypeAccountConst    = "account"
 	SnapshotListSnapshotsItemAccountTypeEnterpriseConst = "enterprise"
 )
 
@@ -3549,7 +3690,7 @@ const (
 // Status of the billing snapshot configuration. Possible values are [enabled, disabled].
 const (
 	SnapshotListSnapshotsItemStateDisabledConst = "disabled"
-	SnapshotListSnapshotsItemStateEnabledConst = "enabled"
+	SnapshotListSnapshotsItemStateEnabledConst  = "enabled"
 )
 
 // UnmarshalSnapshotListSnapshotsItem unmarshals an instance of SnapshotListSnapshotsItem from the specified map of raw messages.
@@ -3683,8 +3824,8 @@ type SnapshotListSnapshotsItemFilesItem struct {
 // account_resource_instance_usage].
 const (
 	SnapshotListSnapshotsItemFilesItemReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	SnapshotListSnapshotsItemFilesItemReportTypesAccountSummaryConst = "account_summary"
-	SnapshotListSnapshotsItemFilesItemReportTypesEnterpriseSummaryConst = "enterprise_summary"
+	SnapshotListSnapshotsItemFilesItemReportTypesAccountSummaryConst               = "account_summary"
+	SnapshotListSnapshotsItemFilesItemReportTypesEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // UnmarshalSnapshotListSnapshotsItemFilesItem unmarshals an instance of SnapshotListSnapshotsItemFilesItem from the specified map of raw messages.
@@ -3724,8 +3865,8 @@ type SnapshotListSnapshotsItemReportTypesItem struct {
 // account_resource_instance_usage].
 const (
 	SnapshotListSnapshotsItemReportTypesItemTypeAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	SnapshotListSnapshotsItemReportTypesItemTypeAccountSummaryConst = "account_summary"
-	SnapshotListSnapshotsItemReportTypesItemTypeEnterpriseSummaryConst = "enterprise_summary"
+	SnapshotListSnapshotsItemReportTypesItemTypeAccountSummaryConst               = "account_summary"
+	SnapshotListSnapshotsItemReportTypesItemTypeEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // UnmarshalSnapshotListSnapshotsItemReportTypesItem unmarshals an instance of SnapshotListSnapshotsItemReportTypesItem from the specified map of raw messages.
@@ -3798,13 +3939,13 @@ type SnapshotConfig struct {
 // Status of the billing snapshot configuration. Possible values are [enabled, disabled].
 const (
 	SnapshotConfigStateDisabledConst = "disabled"
-	SnapshotConfigStateEnabledConst = "enabled"
+	SnapshotConfigStateEnabledConst  = "enabled"
 )
 
 // Constants associated with the SnapshotConfig.AccountType property.
 // Type of account. Possible values are [enterprise, account].
 const (
-	SnapshotConfigAccountTypeAccountConst = "account"
+	SnapshotConfigAccountTypeAccountConst    = "account"
 	SnapshotConfigAccountTypeEnterpriseConst = "enterprise"
 )
 
@@ -3817,15 +3958,15 @@ const (
 // Constants associated with the SnapshotConfig.Versioning property.
 // A new version of report is created or the existing report version is overwritten with every update.
 const (
-	SnapshotConfigVersioningNewConst = "new"
+	SnapshotConfigVersioningNewConst       = "new"
 	SnapshotConfigVersioningOverwriteConst = "overwrite"
 )
 
 // Constants associated with the SnapshotConfig.ReportTypes property.
 const (
 	SnapshotConfigReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	SnapshotConfigReportTypesAccountSummaryConst = "account_summary"
-	SnapshotConfigReportTypesEnterpriseSummaryConst = "enterprise_summary"
+	SnapshotConfigReportTypesAccountSummaryConst               = "account_summary"
+	SnapshotConfigReportTypesEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // UnmarshalSnapshotConfig unmarshals an instance of SnapshotConfig from the specified map of raw messages.
@@ -4191,14 +4332,14 @@ const (
 // Constants associated with the UpdateReportsSnapshotConfigOptions.ReportTypes property.
 const (
 	UpdateReportsSnapshotConfigOptionsReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	UpdateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst = "account_summary"
-	UpdateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst = "enterprise_summary"
+	UpdateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst               = "account_summary"
+	UpdateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // Constants associated with the UpdateReportsSnapshotConfigOptions.Versioning property.
 // A new version of report is created or the existing report version is overwritten with every update.
 const (
-	UpdateReportsSnapshotConfigOptionsVersioningNewConst = "new"
+	UpdateReportsSnapshotConfigOptionsVersioningNewConst       = "new"
 	UpdateReportsSnapshotConfigOptionsVersioningOverwriteConst = "overwrite"
 )
 
@@ -4295,15 +4436,15 @@ const (
 // Constants associated with the ValidateReportsSnapshotConfigOptions.ReportTypes property.
 const (
 	ValidateReportsSnapshotConfigOptionsReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	ValidateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst = "account_summary"
-	ValidateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst = "enterprise_summary"
+	ValidateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst               = "account_summary"
+	ValidateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst            = "enterprise_summary"
 )
 
 // Constants associated with the ValidateReportsSnapshotConfigOptions.Versioning property.
 // A new version of report is created or the existing report version is overwritten with every update. Defaults to
 // "new".
 const (
-	ValidateReportsSnapshotConfigOptionsVersioningNewConst = "new"
+	ValidateReportsSnapshotConfigOptionsVersioningNewConst       = "new"
 	ValidateReportsSnapshotConfigOptionsVersioningOverwriteConst = "overwrite"
 )
 
@@ -4362,13 +4503,11 @@ func (options *ValidateReportsSnapshotConfigOptions) SetHeaders(param map[string
 	return options
 }
 
-//
 // GetResourceUsageAccountPager can be used to simplify the use of the "GetResourceUsageAccount" method.
-//
 type GetResourceUsageAccountPager struct {
-	hasNext bool
-	options *GetResourceUsageAccountOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetResourceUsageAccountOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
@@ -4456,13 +4595,11 @@ func (pager *GetResourceUsageAccountPager) GetAll() (allItems []InstanceUsage, e
 	return
 }
 
-//
 // GetResourceUsageResourceGroupPager can be used to simplify the use of the "GetResourceUsageResourceGroup" method.
-//
 type GetResourceUsageResourceGroupPager struct {
-	hasNext bool
-	options *GetResourceUsageResourceGroupOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetResourceUsageResourceGroupOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
@@ -4550,13 +4687,11 @@ func (pager *GetResourceUsageResourceGroupPager) GetAll() (allItems []InstanceUs
 	return
 }
 
-//
 // GetResourceUsageOrgPager can be used to simplify the use of the "GetResourceUsageOrg" method.
-//
 type GetResourceUsageOrgPager struct {
-	hasNext bool
-	options *GetResourceUsageOrgOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetResourceUsageOrgOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
@@ -4644,13 +4779,11 @@ func (pager *GetResourceUsageOrgPager) GetAll() (allItems []InstanceUsage, err e
 	return
 }
 
-//
 // GetReportsSnapshotPager can be used to simplify the use of the "GetReportsSnapshot" method.
-//
 type GetReportsSnapshotPager struct {
-	hasNext bool
-	options *GetReportsSnapshotOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetReportsSnapshotOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
