@@ -348,6 +348,9 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntryWithContext(ctx context.
 	if createCatalogEntryOptions.Active != nil {
 		body["active"] = createCatalogEntryOptions.Active
 	}
+	if createCatalogEntryOptions.URL != nil {
+		body["url"] = createCatalogEntryOptions.URL
+	}
 	if createCatalogEntryOptions.Metadata != nil {
 		body["metadata"] = createCatalogEntryOptions.Metadata
 	}
@@ -552,6 +555,9 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntryWithContext(ctx context.
 	}
 	if updateCatalogEntryOptions.Active != nil {
 		body["active"] = updateCatalogEntryOptions.Active
+	}
+	if updateCatalogEntryOptions.URL != nil {
+		body["url"] = updateCatalogEntryOptions.URL
 	}
 	if updateCatalogEntryOptions.Metadata != nil {
 		body["metadata"] = updateCatalogEntryOptions.Metadata
@@ -2026,6 +2032,9 @@ type CatalogEntry struct {
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
 
+	// URL to get details about this object.
+	URL *string `json:"url,omitempty"`
+
 	// Model used to describe metadata object returned.
 	Metadata *CatalogEntryMetadata `json:"metadata,omitempty"`
 
@@ -2034,9 +2043,6 @@ type CatalogEntry struct {
 
 	// The CRN associated with the catalog entry.
 	CatalogCRN *string `json:"catalog_crn,omitempty"`
-
-	// URL to get details about this object.
-	URL *string `json:"url,omitempty"`
 
 	// URL to get details about children of this object.
 	ChildrenURL *string `json:"children_url,omitempty"`
@@ -2116,6 +2122,11 @@ func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (er
 		err = core.SDKErrorf(err, "", "active-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalCatalogEntryMetadata)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "metadata-error", common.GetComponentInfo())
@@ -2129,11 +2140,6 @@ func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (er
 	err = core.UnmarshalPrimitive(m, "catalog_crn", &obj.CatalogCRN)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "catalog_crn-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "children_url", &obj.ChildrenURL)
@@ -2482,6 +2488,9 @@ type CreateCatalogEntryOptions struct {
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
 
+	// Url of the object.
+	URL *string `json:"url,omitempty"`
+
 	// Model used to describe metadata object that can be set.
 	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
 
@@ -2580,6 +2589,12 @@ func (_options *CreateCatalogEntryOptions) SetGroup(group bool) *CreateCatalogEn
 // SetActive : Allow user to set Active
 func (_options *CreateCatalogEntryOptions) SetActive(active bool) *CreateCatalogEntryOptions {
 	_options.Active = core.BoolPtr(active)
+	return _options
+}
+
+// SetURL : Allow user to set URL
+func (_options *CreateCatalogEntryOptions) SetURL(url string) *CreateCatalogEntryOptions {
+	_options.URL = core.StringPtr(url)
 	return _options
 }
 
@@ -4986,6 +5001,9 @@ type UpdateCatalogEntryOptions struct {
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
 
+	// Url of the object.
+	URL *string `json:"url,omitempty"`
+
 	// Model used to describe metadata object that can be set.
 	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
 
@@ -5090,6 +5108,12 @@ func (_options *UpdateCatalogEntryOptions) SetGroup(group bool) *UpdateCatalogEn
 // SetActive : Allow user to set Active
 func (_options *UpdateCatalogEntryOptions) SetActive(active bool) *UpdateCatalogEntryOptions {
 	_options.Active = core.BoolPtr(active)
+	return _options
+}
+
+// SetURL : Allow user to set URL
+func (_options *UpdateCatalogEntryOptions) SetURL(url string) *UpdateCatalogEntryOptions {
+	_options.URL = core.StringPtr(url)
 	return _options
 }
 
