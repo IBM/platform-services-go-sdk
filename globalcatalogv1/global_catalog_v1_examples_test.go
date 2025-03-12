@@ -58,6 +58,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		config               map[string]string
 		configLoaded         bool = false
 		catalogEntryID       string
+		fetchedEntry         *globalcatalogv1.CatalogEntry
 	)
 
 	var shouldSkipTest = func() {
@@ -198,6 +199,8 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
 			fmt.Println(string(b))
 
+			fetchedEntry = catalogEntry
+
 			// end-get_catalog_entry
 
 			Expect(err).To(BeNil())
@@ -256,6 +259,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			)
 			updateCatalogEntryOptions.SetActive(true)
 			updateCatalogEntryOptions.SetMetadata(metadataModel)
+			updateCatalogEntryOptions.SetURL(*fetchedEntry.URL)
 
 			catalogEntry, response, err := globalCatalogService.UpdateCatalogEntry(updateCatalogEntryOptions)
 			if err != nil {
@@ -375,7 +379,6 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			updateVisibilityOptions := globalCatalogService.NewUpdateVisibilityOptions(
 				catalogEntryID,
 			)
-			updateVisibilityOptions.SetExtendable(false)
 
 			response, err := globalCatalogService.UpdateVisibility(updateVisibilityOptions)
 			if err != nil {
@@ -385,8 +388,9 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			// end-update_visibility
 			fmt.Printf("\nUpdateVisibility() response status code: %d\n: ", response.StatusCode)
 
-			Expect(err).ToNot(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(response).ToNot(BeNil())
 		})
 		It(`GetPricing request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
