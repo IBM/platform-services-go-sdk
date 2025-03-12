@@ -1,3 +1,10 @@
+## [0.78.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.1...v0.78.2) (2025-03-12)
+
+
+### Bug Fixes
+
+* **Global Catalog:** fix price field capitalization ([#380](https://github.com/IBM/platform-services-go-sdk/issues/380)) ([528b261](https://github.com/IBM/platform-services-go-sdk/commit/528b261d4a5257b292c577b64bfcc551341a66b8))
+
 ## [0.78.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.0...v0.78.1) (2025-03-07)
 
 
