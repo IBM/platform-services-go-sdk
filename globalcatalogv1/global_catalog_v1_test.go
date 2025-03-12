@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ package globalcatalogv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -66,14 +68,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_URL":       "https://globalcatalogv1/api",
 				"GLOBAL_CATALOG_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				})
+				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{})
 				Expect(globalCatalogService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +103,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				})
+				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{})
 				err := globalCatalogService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
@@ -121,13 +121,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_URL":       "https://globalcatalogv1/api",
 				"GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-			})
+			globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(globalCatalogService).To(BeNil())
@@ -138,7 +137,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
+				"GLOBAL_CATALOG_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -181,8 +180,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["languages"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for catalog query parameter
 					// TODO: Add check for complete query parameter
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -206,8 +205,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				listCatalogEntriesOptionsModel.Languages = core.StringPtr("testString")
 				listCatalogEntriesOptionsModel.Catalog = core.BoolPtr(true)
 				listCatalogEntriesOptionsModel.Complete = core.BoolPtr(true)
-				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(200))
+				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(50))
 				listCatalogEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalCatalogService.ListCatalogEntries(listCatalogEntriesOptionsModel)
@@ -246,15 +245,15 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["languages"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for catalog query parameter
 					// TODO: Add check for complete query parameter
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogEntries successfully with retries`, func() {
@@ -276,8 +275,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				listCatalogEntriesOptionsModel.Languages = core.StringPtr("testString")
 				listCatalogEntriesOptionsModel.Catalog = core.BoolPtr(true)
 				listCatalogEntriesOptionsModel.Complete = core.BoolPtr(true)
-				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(200))
+				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(50))
 				listCatalogEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -322,12 +321,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["languages"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for catalog query parameter
 					// TODO: Add check for complete query parameter
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogEntries successfully`, func() {
@@ -354,8 +353,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				listCatalogEntriesOptionsModel.Languages = core.StringPtr("testString")
 				listCatalogEntriesOptionsModel.Catalog = core.BoolPtr(true)
 				listCatalogEntriesOptionsModel.Complete = core.BoolPtr(true)
-				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(200))
+				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(50))
 				listCatalogEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -383,8 +382,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				listCatalogEntriesOptionsModel.Languages = core.StringPtr("testString")
 				listCatalogEntriesOptionsModel.Catalog = core.BoolPtr(true)
 				listCatalogEntriesOptionsModel.Complete = core.BoolPtr(true)
-				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(200))
+				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(50))
 				listCatalogEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalCatalogService.SetServiceURL("")
@@ -426,8 +425,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				listCatalogEntriesOptionsModel.Languages = core.StringPtr("testString")
 				listCatalogEntriesOptionsModel.Catalog = core.BoolPtr(true)
 				listCatalogEntriesOptionsModel.Complete = core.BoolPtr(true)
-				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(200))
+				listCatalogEntriesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listCatalogEntriesOptionsModel.Limit = core.Int64Ptr(int64(50))
 				listCatalogEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -504,7 +503,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -516,7 +515,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -540,7 +539,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -589,7 +588,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -628,7 +627,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -692,7 +691,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				createCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				createCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -757,7 +756,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
 				}))
 			})
 			It(`Invoke CreateCatalogEntry successfully with retries`, func() {
@@ -806,7 +805,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -818,7 +817,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -842,7 +841,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -891,7 +890,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -930,7 +929,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -994,7 +993,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				createCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				createCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -1062,7 +1061,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
 				}))
 			})
 			It(`Invoke CreateCatalogEntry successfully`, func() {
@@ -1116,7 +1115,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -1128,7 +1127,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -1152,7 +1151,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -1201,7 +1200,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -1240,7 +1239,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -1304,7 +1303,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				createCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				createCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -1370,7 +1369,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -1382,7 +1381,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -1406,7 +1405,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -1455,7 +1454,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -1494,7 +1493,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -1558,7 +1557,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				createCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				createCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -1645,7 +1644,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -1657,7 +1656,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -1681,7 +1680,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -1730,7 +1729,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -1769,7 +1768,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -1833,7 +1832,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				createCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				createCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -1937,7 +1936,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
 				}))
 			})
 			It(`Invoke GetCatalogEntry successfully with retries`, func() {
@@ -2001,7 +2000,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
 				}))
 			})
 			It(`Invoke GetCatalogEntry successfully`, func() {
@@ -2174,7 +2173,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -2186,7 +2185,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -2210,7 +2209,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -2259,7 +2258,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -2298,7 +2297,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -2363,7 +2362,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				updateCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				updateCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				updateCatalogEntryOptionsModel.Images = imageModel
 				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -2429,7 +2428,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogEntry successfully with retries`, func() {
@@ -2478,7 +2477,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -2490,7 +2489,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -2514,7 +2513,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -2563,7 +2562,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -2602,7 +2601,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -2667,7 +2666,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				updateCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				updateCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				updateCatalogEntryOptionsModel.Images = imageModel
 				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -2736,7 +2735,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogEntry successfully`, func() {
@@ -2790,7 +2789,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -2802,7 +2801,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -2826,7 +2825,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -2875,7 +2874,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -2914,7 +2913,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -2979,7 +2978,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				updateCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				updateCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				updateCatalogEntryOptionsModel.Images = imageModel
 				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -3045,7 +3044,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -3057,7 +3056,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -3081,7 +3080,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -3130,7 +3129,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -3169,7 +3168,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -3234,7 +3233,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				updateCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				updateCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				updateCatalogEntryOptionsModel.Images = imageModel
 				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -3321,7 +3320,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -3333,7 +3332,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -3357,7 +3356,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -3406,7 +3405,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -3445,7 +3444,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -3510,7 +3509,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Kind = core.StringPtr("service")
-				updateCatalogEntryOptionsModel.OverviewUI = make(map[string]globalcatalogv1.Overview)
+				updateCatalogEntryOptionsModel.OverviewUI = map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				updateCatalogEntryOptionsModel.Images = imageModel
 				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
@@ -3628,8 +3627,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["descending"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["languages"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for complete query parameter
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3654,8 +3653,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getChildObjectsOptionsModel.Descending = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Languages = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Complete = core.BoolPtr(true)
-				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getChildObjectsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalCatalogService.GetChildObjects(getChildObjectsOptionsModel)
@@ -3693,15 +3692,15 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["descending"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["languages"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for complete query parameter
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
 				}))
 			})
 			It(`Invoke GetChildObjects successfully with retries`, func() {
@@ -3724,8 +3723,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getChildObjectsOptionsModel.Descending = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Languages = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Complete = core.BoolPtr(true)
-				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getChildObjectsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3769,12 +3768,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["descending"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["languages"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for complete query parameter
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": [{"type": "Type", "url": "URL"}]}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "APIURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00.000Z", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": 12, "responsiveness": 14, "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorAPI", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCRN", "service_crn": "ServiceCRN", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "GUID"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "CatalogCRN", "url": "URL", "children_url": "ChildrenURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}`)
 				}))
 			})
 			It(`Invoke GetChildObjects successfully`, func() {
@@ -3802,8 +3801,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getChildObjectsOptionsModel.Descending = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Languages = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Complete = core.BoolPtr(true)
-				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getChildObjectsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3832,8 +3831,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getChildObjectsOptionsModel.Descending = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Languages = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Complete = core.BoolPtr(true)
-				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getChildObjectsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalCatalogService.SetServiceURL("")
@@ -3883,8 +3882,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getChildObjectsOptionsModel.Descending = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Languages = core.StringPtr("testString")
 				getChildObjectsOptionsModel.Complete = core.BoolPtr(true)
-				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getChildObjectsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getChildObjectsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getChildObjectsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4311,6 +4310,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getPricingPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["deployment_region"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4328,6 +4328,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getPricingOptionsModel := new(globalcatalogv1.GetPricingOptions)
 				getPricingOptionsModel.ID = core.StringPtr("testString")
 				getPricingOptionsModel.Account = core.StringPtr("testString")
+				getPricingOptionsModel.DeploymentRegion = core.StringPtr("testString")
 				getPricingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalCatalogService.GetPricing(getPricingOptionsModel)
@@ -4359,13 +4360,14 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["deployment_region"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}`)
 				}))
 			})
 			It(`Invoke GetPricing successfully with retries`, func() {
@@ -4381,6 +4383,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getPricingOptionsModel := new(globalcatalogv1.GetPricingOptions)
 				getPricingOptionsModel.ID = core.StringPtr("testString")
 				getPricingOptionsModel.Account = core.StringPtr("testString")
+				getPricingOptionsModel.DeploymentRegion = core.StringPtr("testString")
 				getPricingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4418,10 +4421,11 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["deployment_region"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}`)
 				}))
 			})
 			It(`Invoke GetPricing successfully`, func() {
@@ -4442,6 +4446,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getPricingOptionsModel := new(globalcatalogv1.GetPricingOptions)
 				getPricingOptionsModel.ID = core.StringPtr("testString")
 				getPricingOptionsModel.Account = core.StringPtr("testString")
+				getPricingOptionsModel.DeploymentRegion = core.StringPtr("testString")
 				getPricingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4463,6 +4468,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getPricingOptionsModel := new(globalcatalogv1.GetPricingOptions)
 				getPricingOptionsModel.ID = core.StringPtr("testString")
 				getPricingOptionsModel.Account = core.StringPtr("testString")
+				getPricingOptionsModel.DeploymentRegion = core.StringPtr("testString")
 				getPricingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalCatalogService.SetServiceURL("")
@@ -4505,6 +4511,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getPricingOptionsModel := new(globalcatalogv1.GetPricingOptions)
 				getPricingOptionsModel.ID = core.StringPtr("testString")
 				getPricingOptionsModel.Account = core.StringPtr("testString")
+				getPricingOptionsModel.DeploymentRegion = core.StringPtr("testString")
 				getPricingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4585,7 +4592,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}]}`)
 				}))
 			})
 			It(`Invoke GetPricingDeployments successfully with retries`, func() {
@@ -4641,7 +4648,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"deployment_id": "DeploymentID", "deployment_location": "DeploymentLocation", "deployment_location_no_price_available": true, "type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": 18, "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00.000Z", "effective_until": "2019-01-01T12:00:00.000Z", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "price": 5}]}]}], "deployment_regions": ["DeploymentRegions"]}]}`)
 				}))
 			})
 			It(`Invoke GetPricingDeployments successfully`, func() {
@@ -4753,8 +4760,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["ascending"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["startat"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4774,8 +4781,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Account = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("false")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
-				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalCatalogService.GetAuditLogs(getAuditLogsOptionsModel)
@@ -4809,8 +4816,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["ascending"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["startat"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4835,8 +4842,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Account = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("false")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
-				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4876,8 +4883,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["ascending"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["startat"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
+					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4904,8 +4911,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Account = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("false")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
-				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4929,8 +4936,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Account = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("false")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
-				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalCatalogService.SetServiceURL("")
@@ -4975,8 +4982,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Account = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("false")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
-				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
+				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(50))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -5389,7 +5396,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
-
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
 				buffer, operationErr := io.ReadAll(result)
@@ -5631,7 +5637,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 				Expect(cfMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(cfMetaDataModel.IamCompatible).To(Equal(core.BoolPtr(true)))
 				Expect(cfMetaDataModel.UniqueAPIKey).To(Equal(core.BoolPtr(true)))
@@ -5645,7 +5651,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(cfMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
 				Expect(cfMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(cfMetaDataModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
-				Expect(cfMetaDataModel.CfGUID).To(Equal(make(map[string]string)))
+				Expect(cfMetaDataModel.CfGUID).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -5658,7 +5664,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 				Expect(planMetaDataModel.Bindable).To(Equal(core.BoolPtr(true)))
 				Expect(planMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
 				Expect(planMetaDataModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
@@ -5667,7 +5673,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(planMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(planMetaDataModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
 				Expect(planMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
-				Expect(planMetaDataModel.CfGUID).To(Equal(make(map[string]string)))
+				Expect(planMetaDataModel.CfGUID).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -5699,7 +5705,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 				Expect(templateMetaDataModel.Services).To(Equal([]string{"testString"}))
 				Expect(templateMetaDataModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(templateMetaDataModel.StartCmd).To(Equal(core.StringPtr("testString")))
@@ -5709,7 +5715,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(templateMetaDataModel.TemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(templateMetaDataModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
 				Expect(templateMetaDataModel.Buildpack).To(Equal(core.StringPtr("testString")))
-				Expect(templateMetaDataModel.EnvironmentVariables).To(Equal(make(map[string]string)))
+				Expect(templateMetaDataModel.EnvironmentVariables).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -5794,7 +5800,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
 				Expect(uiMetaDataModel).ToNot(BeNil())
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -5856,7 +5862,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 				Expect(callbacksModel.ControllerURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.BrokerURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.BrokerProxyURL).To(Equal(core.StringPtr("testString")))
@@ -5866,7 +5872,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(callbacksModel.DashboardDetailTabExtURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorAPI).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorApp).To(Equal(core.StringPtr("testString")))
-				Expect(callbacksModel.APIEndpoint).To(Equal(make(map[string]string)))
+				Expect(callbacksModel.APIEndpoint).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -5973,7 +5979,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the CreateCatalogEntryOptions model
 				createCatalogEntryOptionsName := "testString"
 				createCatalogEntryOptionsKind := "service"
-				createCatalogEntryOptionsOverviewUI := make(map[string]globalcatalogv1.Overview)
+				createCatalogEntryOptionsOverviewUI := map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				var createCatalogEntryOptionsImages *globalcatalogv1.Image = nil
 				createCatalogEntryOptionsDisabled := true
 				createCatalogEntryOptionsTags := []string{"testString"}
@@ -5982,7 +5988,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsModel := globalCatalogService.NewCreateCatalogEntryOptions(createCatalogEntryOptionsName, createCatalogEntryOptionsKind, createCatalogEntryOptionsOverviewUI, createCatalogEntryOptionsImages, createCatalogEntryOptionsDisabled, createCatalogEntryOptionsTags, createCatalogEntryOptionsProvider, createCatalogEntryOptionsID)
 				createCatalogEntryOptionsModel.SetName("testString")
 				createCatalogEntryOptionsModel.SetKind("service")
-				createCatalogEntryOptionsModel.SetOverviewUI(make(map[string]globalcatalogv1.Overview))
+				createCatalogEntryOptionsModel.SetOverviewUI(map[string]globalcatalogv1.Overview{"key1": *overviewModel})
 				createCatalogEntryOptionsModel.SetImages(imageModel)
 				createCatalogEntryOptionsModel.SetDisabled(true)
 				createCatalogEntryOptionsModel.SetTags([]string{"testString"})
@@ -5997,7 +6003,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(createCatalogEntryOptionsModel).ToNot(BeNil())
 				Expect(createCatalogEntryOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogEntryOptionsModel.Kind).To(Equal(core.StringPtr("service")))
-				Expect(createCatalogEntryOptionsModel.OverviewUI).To(Equal(make(map[string]globalcatalogv1.Overview)))
+				Expect(createCatalogEntryOptionsModel.OverviewUI).To(Equal(map[string]globalcatalogv1.Overview{"key1": *overviewModel}))
 				Expect(createCatalogEntryOptionsModel.Images).To(Equal(imageModel))
 				Expect(createCatalogEntryOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
 				Expect(createCatalogEntryOptionsModel.Tags).To(Equal([]string{"testString"}))
@@ -6064,16 +6070,16 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.SetAccount("testString")
 				getAuditLogsOptionsModel.SetAscending("false")
 				getAuditLogsOptionsModel.SetStartat("testString")
-				getAuditLogsOptionsModel.SetOffset(int64(38))
-				getAuditLogsOptionsModel.SetLimit(int64(200))
+				getAuditLogsOptionsModel.SetOffset(int64(0))
+				getAuditLogsOptionsModel.SetLimit(int64(50))
 				getAuditLogsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAuditLogsOptionsModel).ToNot(BeNil())
 				Expect(getAuditLogsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(getAuditLogsOptionsModel.Account).To(Equal(core.StringPtr("testString")))
 				Expect(getAuditLogsOptionsModel.Ascending).To(Equal(core.StringPtr("false")))
 				Expect(getAuditLogsOptionsModel.Startat).To(Equal(core.StringPtr("testString")))
-				Expect(getAuditLogsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(getAuditLogsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(200))))
+				Expect(getAuditLogsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(getAuditLogsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(50))))
 				Expect(getAuditLogsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetCatalogEntryOptions successfully`, func() {
@@ -6110,8 +6116,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getChildObjectsOptionsModel.SetDescending("testString")
 				getChildObjectsOptionsModel.SetLanguages("testString")
 				getChildObjectsOptionsModel.SetComplete(true)
-				getChildObjectsOptionsModel.SetOffset(int64(38))
-				getChildObjectsOptionsModel.SetLimit(int64(200))
+				getChildObjectsOptionsModel.SetOffset(int64(0))
+				getChildObjectsOptionsModel.SetLimit(int64(50))
 				getChildObjectsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getChildObjectsOptionsModel).ToNot(BeNil())
 				Expect(getChildObjectsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
@@ -6123,8 +6129,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(getChildObjectsOptionsModel.Descending).To(Equal(core.StringPtr("testString")))
 				Expect(getChildObjectsOptionsModel.Languages).To(Equal(core.StringPtr("testString")))
 				Expect(getChildObjectsOptionsModel.Complete).To(Equal(core.BoolPtr(true)))
-				Expect(getChildObjectsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(getChildObjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(200))))
+				Expect(getChildObjectsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(getChildObjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(50))))
 				Expect(getChildObjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetPricingDeploymentsOptions successfully`, func() {
@@ -6145,10 +6151,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getPricingOptionsModel := globalCatalogService.NewGetPricingOptions(id)
 				getPricingOptionsModel.SetID("testString")
 				getPricingOptionsModel.SetAccount("testString")
+				getPricingOptionsModel.SetDeploymentRegion("testString")
 				getPricingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getPricingOptionsModel).ToNot(BeNil())
 				Expect(getPricingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(getPricingOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getPricingOptionsModel.DeploymentRegion).To(Equal(core.StringPtr("testString")))
 				Expect(getPricingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVisibilityOptions successfully`, func() {
@@ -6192,8 +6200,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				listCatalogEntriesOptionsModel.SetLanguages("testString")
 				listCatalogEntriesOptionsModel.SetCatalog(true)
 				listCatalogEntriesOptionsModel.SetComplete(true)
-				listCatalogEntriesOptionsModel.SetOffset(int64(38))
-				listCatalogEntriesOptionsModel.SetLimit(int64(200))
+				listCatalogEntriesOptionsModel.SetOffset(int64(0))
+				listCatalogEntriesOptionsModel.SetLimit(int64(50))
 				listCatalogEntriesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listCatalogEntriesOptionsModel).ToNot(BeNil())
 				Expect(listCatalogEntriesOptionsModel.Account).To(Equal(core.StringPtr("testString")))
@@ -6204,8 +6212,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(listCatalogEntriesOptionsModel.Languages).To(Equal(core.StringPtr("testString")))
 				Expect(listCatalogEntriesOptionsModel.Catalog).To(Equal(core.BoolPtr(true)))
 				Expect(listCatalogEntriesOptionsModel.Complete).To(Equal(core.BoolPtr(true)))
-				Expect(listCatalogEntriesOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(listCatalogEntriesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(200))))
+				Expect(listCatalogEntriesOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listCatalogEntriesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(50))))
 				Expect(listCatalogEntriesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewOverview successfully`, func() {
@@ -6290,7 +6298,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
 				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
-				cfMetaDataModel.CfGUID = make(map[string]string)
+				cfMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 				Expect(cfMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(cfMetaDataModel.IamCompatible).To(Equal(core.BoolPtr(true)))
 				Expect(cfMetaDataModel.UniqueAPIKey).To(Equal(core.BoolPtr(true)))
@@ -6304,7 +6312,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(cfMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
 				Expect(cfMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(cfMetaDataModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
-				Expect(cfMetaDataModel.CfGUID).To(Equal(make(map[string]string)))
+				Expect(cfMetaDataModel.CfGUID).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the PlanMetaData model
 				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
@@ -6317,7 +6325,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
 				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
 				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
-				planMetaDataModel.CfGUID = make(map[string]string)
+				planMetaDataModel.CfGUID = map[string]string{"key1": "testString"}
 				Expect(planMetaDataModel.Bindable).To(Equal(core.BoolPtr(true)))
 				Expect(planMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
 				Expect(planMetaDataModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
@@ -6326,7 +6334,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(planMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(planMetaDataModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
 				Expect(planMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
-				Expect(planMetaDataModel.CfGUID).To(Equal(make(map[string]string)))
+				Expect(planMetaDataModel.CfGUID).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the AliasMetaData model
 				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
@@ -6358,7 +6366,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				templateMetaDataModel.TemplateID = core.StringPtr("testString")
 				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
 				templateMetaDataModel.Buildpack = core.StringPtr("testString")
-				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				templateMetaDataModel.EnvironmentVariables = map[string]string{"key1": "testString"}
 				Expect(templateMetaDataModel.Services).To(Equal([]string{"testString"}))
 				Expect(templateMetaDataModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(templateMetaDataModel.StartCmd).To(Equal(core.StringPtr("testString")))
@@ -6368,7 +6376,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(templateMetaDataModel.TemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(templateMetaDataModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
 				Expect(templateMetaDataModel.Buildpack).To(Equal(core.StringPtr("testString")))
-				Expect(templateMetaDataModel.EnvironmentVariables).To(Equal(make(map[string]string)))
+				Expect(templateMetaDataModel.EnvironmentVariables).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the Bullets model
 				bulletsModel := new(globalcatalogv1.Bullets)
@@ -6453,7 +6461,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
 				Expect(uiMetaDataModel).ToNot(BeNil())
-				uiMetaDataModel.Strings = make(map[string]globalcatalogv1.Strings)
+				uiMetaDataModel.Strings = map[string]globalcatalogv1.Strings{"key1": *stringsModel}
 				uiMetaDataModel.Urls = urlsModel
 				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
@@ -6515,7 +6523,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorAPI = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.APIEndpoint = make(map[string]string)
+				callbacksModel.APIEndpoint = map[string]string{"key1": "testString"}
 				Expect(callbacksModel.ControllerURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.BrokerURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.BrokerProxyURL).To(Equal(core.StringPtr("testString")))
@@ -6525,7 +6533,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(callbacksModel.DashboardDetailTabExtURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorAPI).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorApp).To(Equal(core.StringPtr("testString")))
-				Expect(callbacksModel.APIEndpoint).To(Equal(make(map[string]string)))
+				Expect(callbacksModel.APIEndpoint).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -6633,7 +6641,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				id := "testString"
 				updateCatalogEntryOptionsName := "testString"
 				updateCatalogEntryOptionsKind := "service"
-				updateCatalogEntryOptionsOverviewUI := make(map[string]globalcatalogv1.Overview)
+				updateCatalogEntryOptionsOverviewUI := map[string]globalcatalogv1.Overview{"key1": *overviewModel}
 				var updateCatalogEntryOptionsImages *globalcatalogv1.Image = nil
 				updateCatalogEntryOptionsDisabled := true
 				updateCatalogEntryOptionsTags := []string{"testString"}
@@ -6642,7 +6650,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsModel.SetID("testString")
 				updateCatalogEntryOptionsModel.SetName("testString")
 				updateCatalogEntryOptionsModel.SetKind("service")
-				updateCatalogEntryOptionsModel.SetOverviewUI(make(map[string]globalcatalogv1.Overview))
+				updateCatalogEntryOptionsModel.SetOverviewUI(map[string]globalcatalogv1.Overview{"key1": *overviewModel})
 				updateCatalogEntryOptionsModel.SetImages(imageModel)
 				updateCatalogEntryOptionsModel.SetDisabled(true)
 				updateCatalogEntryOptionsModel.SetTags([]string{"testString"})
@@ -6658,7 +6666,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(updateCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(updateCatalogEntryOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(updateCatalogEntryOptionsModel.Kind).To(Equal(core.StringPtr("service")))
-				Expect(updateCatalogEntryOptionsModel.OverviewUI).To(Equal(make(map[string]globalcatalogv1.Overview)))
+				Expect(updateCatalogEntryOptionsModel.OverviewUI).To(Equal(map[string]globalcatalogv1.Overview{"key1": *overviewModel}))
 				Expect(updateCatalogEntryOptionsModel.Images).To(Equal(imageModel))
 				Expect(updateCatalogEntryOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
 				Expect(updateCatalogEntryOptionsModel.Tags).To(Equal([]string{"testString"}))
@@ -6727,9 +6735,626 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAliasMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.AliasMetaData)
+			model.Type = core.StringPtr("testString")
+			model.PlanID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.AliasMetaData
+			err = globalcatalogv1.UnmarshalAliasMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAmount successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Amount)
+			model.Country = core.StringPtr("testString")
+			model.Currency = core.StringPtr("testString")
+			model.Prices = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Amount
+			err = globalcatalogv1.UnmarshalAmount(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalBroker successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Broker)
+			model.Name = core.StringPtr("testString")
+			model.GUID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Broker
+			err = globalcatalogv1.UnmarshalBroker(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalBullets successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Bullets)
+			model.Title = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Icon = core.StringPtr("testString")
+			model.Quantity = core.Int64Ptr(int64(38))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Bullets
+			err = globalcatalogv1.UnmarshalBullets(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCfMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.CfMetaData)
+			model.Type = core.StringPtr("testString")
+			model.IamCompatible = core.BoolPtr(true)
+			model.UniqueAPIKey = core.BoolPtr(true)
+			model.Provisionable = core.BoolPtr(true)
+			model.Bindable = core.BoolPtr(true)
+			model.AsyncProvisioningSupported = core.BoolPtr(true)
+			model.AsyncUnprovisioningSupported = core.BoolPtr(true)
+			model.Requires = []string{"testString"}
+			model.PlanUpdateable = core.BoolPtr(true)
+			model.State = core.StringPtr("testString")
+			model.ServiceCheckEnabled = core.BoolPtr(true)
+			model.TestCheckInterval = core.Int64Ptr(int64(38))
+			model.ServiceKeySupported = core.BoolPtr(true)
+			model.CfGUID = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.CfMetaData
+			err = globalcatalogv1.UnmarshalCfMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCallbacks successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Callbacks)
+			model.ControllerURL = core.StringPtr("testString")
+			model.BrokerURL = core.StringPtr("testString")
+			model.BrokerProxyURL = core.StringPtr("testString")
+			model.DashboardURL = core.StringPtr("testString")
+			model.DashboardDataURL = core.StringPtr("testString")
+			model.DashboardDetailTabURL = core.StringPtr("testString")
+			model.DashboardDetailTabExtURL = core.StringPtr("testString")
+			model.ServiceMonitorAPI = core.StringPtr("testString")
+			model.ServiceMonitorApp = core.StringPtr("testString")
+			model.APIEndpoint = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Callbacks
+			err = globalcatalogv1.UnmarshalCallbacks(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDrMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.DrMetaData)
+			model.Dr = core.BoolPtr(true)
+			model.Description = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.DrMetaData
+			err = globalcatalogv1.UnmarshalDrMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDeploymentBase successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.DeploymentBase)
+			model.Location = core.StringPtr("testString")
+			model.LocationURL = core.StringPtr("testString")
+			model.OriginalLocation = core.StringPtr("testString")
+			model.TargetCRN = core.StringPtr("testString")
+			model.ServiceCRN = core.StringPtr("testString")
+			model.MccpID = core.StringPtr("testString")
+			model.Broker = nil
+			model.SupportsRcMigration = core.BoolPtr(true)
+			model.TargetNetwork = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.DeploymentBase
+			err = globalcatalogv1.UnmarshalDeploymentBase(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalImage successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Image)
+			model.Image = core.StringPtr("testString")
+			model.SmallImage = core.StringPtr("testString")
+			model.MediumImage = core.StringPtr("testString")
+			model.FeatureImage = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Image
+			err = globalcatalogv1.UnmarshalImage(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalObjectMetadataSet successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.ObjectMetadataSet)
+			model.RcCompatible = core.BoolPtr(true)
+			model.Service = nil
+			model.Plan = nil
+			model.Alias = nil
+			model.Template = nil
+			model.UI = nil
+			model.Compliance = []string{"testString"}
+			model.SLA = nil
+			model.Callbacks = nil
+			model.OriginalName = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Other = map[string]interface{}{"anyKey": "anyValue"}
+			model.Pricing = nil
+			model.Deployment = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.ObjectMetadataSet
+			err = globalcatalogv1.UnmarshalObjectMetadataSet(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOverview successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Overview)
+			model.DisplayName = core.StringPtr("testString")
+			model.LongDescription = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.FeaturedDescription = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Overview
+			err = globalcatalogv1.UnmarshalOverview(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPlanMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.PlanMetaData)
+			model.Bindable = core.BoolPtr(true)
+			model.Reservable = core.BoolPtr(true)
+			model.AllowInternalUsers = core.BoolPtr(true)
+			model.AsyncProvisioningSupported = core.BoolPtr(true)
+			model.AsyncUnprovisioningSupported = core.BoolPtr(true)
+			model.TestCheckInterval = core.Int64Ptr(int64(38))
+			model.SingleScopeInstance = core.StringPtr("testString")
+			model.ServiceCheckEnabled = core.BoolPtr(true)
+			model.CfGUID = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.PlanMetaData
+			err = globalcatalogv1.UnmarshalPlanMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPrice successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Price)
+			model.QuantityTier = core.Int64Ptr(int64(38))
+			model.Price = core.Float64Ptr(float64(72.5))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Price
+			err = globalcatalogv1.UnmarshalPrice(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPricingSet successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.PricingSet)
+			model.Type = core.StringPtr("testString")
+			model.Origin = core.StringPtr("testString")
+			model.StartingPrice = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.PricingSet
+			err = globalcatalogv1.UnmarshalPricingSet(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalProvider successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Provider)
+			model.Email = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Contact = core.StringPtr("testString")
+			model.SupportEmail = core.StringPtr("testString")
+			model.Phone = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Provider
+			err = globalcatalogv1.UnmarshalProvider(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSLAMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.SLAMetaData)
+			model.Terms = core.StringPtr("testString")
+			model.Tenancy = core.StringPtr("testString")
+			model.Provisioning = core.Float64Ptr(float64(72.5))
+			model.Responsiveness = core.Float64Ptr(float64(72.5))
+			model.Dr = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.SLAMetaData
+			err = globalcatalogv1.UnmarshalSLAMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSourceMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.SourceMetaData)
+			model.Path = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.SourceMetaData
+			err = globalcatalogv1.UnmarshalSourceMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalStartingPrice successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.StartingPrice)
+			model.PlanID = core.StringPtr("testString")
+			model.DeploymentID = core.StringPtr("testString")
+			model.Unit = core.StringPtr("testString")
+			model.Amount = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.StartingPrice
+			err = globalcatalogv1.UnmarshalStartingPrice(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalStrings successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Strings)
+			model.Bullets = nil
+			model.Media = nil
+			model.NotCreatableMsg = core.StringPtr("testString")
+			model.NotCreatableRobotMsg = core.StringPtr("testString")
+			model.DeprecationWarning = core.StringPtr("testString")
+			model.PopupWarningMessage = core.StringPtr("testString")
+			model.Instruction = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Strings
+			err = globalcatalogv1.UnmarshalStrings(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.TemplateMetaData)
+			model.Services = []string{"testString"}
+			model.DefaultMemory = core.Int64Ptr(int64(38))
+			model.StartCmd = core.StringPtr("testString")
+			model.Source = nil
+			model.RuntimeCatalogID = core.StringPtr("testString")
+			model.CfRuntimeID = core.StringPtr("testString")
+			model.TemplateID = core.StringPtr("testString")
+			model.ExecutableFile = core.StringPtr("testString")
+			model.Buildpack = core.StringPtr("testString")
+			model.EnvironmentVariables = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.TemplateMetaData
+			err = globalcatalogv1.UnmarshalTemplateMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUIMediaSourceMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.UIMediaSourceMetaData)
+			model.Type = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.UIMediaSourceMetaData
+			err = globalcatalogv1.UnmarshalUIMediaSourceMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUIMetaData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.UIMetaData)
+			model.Strings = nil
+			model.Urls = nil
+			model.EmbeddableDashboard = core.StringPtr("testString")
+			model.EmbeddableDashboardFullWidth = core.BoolPtr(true)
+			model.NavigationOrder = []string{"testString"}
+			model.NotCreatable = core.BoolPtr(true)
+			model.PrimaryOfferingID = core.StringPtr("testString")
+			model.AccessibleDuringProvision = core.BoolPtr(true)
+			model.SideBySideIndex = core.Int64Ptr(int64(38))
+			model.EndOfServiceTime = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Hidden = core.BoolPtr(true)
+			model.HideLiteMetering = core.BoolPtr(true)
+			model.NoUpgradeNextStep = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.UIMetaData
+			err = globalcatalogv1.UnmarshalUIMetaData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUIMetaMedia successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.UIMetaMedia)
+			model.Caption = core.StringPtr("testString")
+			model.ThumbnailURL = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.Source = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.UIMetaMedia
+			err = globalcatalogv1.UnmarshalUIMetaMedia(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUrls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Urls)
+			model.DocURL = core.StringPtr("testString")
+			model.InstructionsURL = core.StringPtr("testString")
+			model.APIURL = core.StringPtr("testString")
+			model.CreateURL = core.StringPtr("testString")
+			model.SdkDownloadURL = core.StringPtr("testString")
+			model.TermsURL = core.StringPtr("testString")
+			model.CustomCreatePageURL = core.StringPtr("testString")
+			model.CatalogDetailsURL = core.StringPtr("testString")
+			model.DeprecationDocURL = core.StringPtr("testString")
+			model.DashboardURL = core.StringPtr("testString")
+			model.RegistrationURL = core.StringPtr("testString")
+			model.Apidocsurl = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Urls
+			err = globalcatalogv1.UnmarshalUrls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalVisibility successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.Visibility)
+			model.Restrictions = core.StringPtr("testString")
+			model.Owner = core.StringPtr("testString")
+			model.Extendable = core.BoolPtr(true)
+			model.Include = nil
+			model.Exclude = nil
+			model.Approved = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.Visibility
+			err = globalcatalogv1.UnmarshalVisibility(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalVisibilityDetail successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.VisibilityDetail)
+			model.Accounts = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.VisibilityDetail
+			err = globalcatalogv1.UnmarshalVisibilityDetail(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalVisibilityDetailAccounts successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalcatalogv1.VisibilityDetailAccounts)
+			model.Accountid = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalcatalogv1.VisibilityDetailAccounts
+			err = globalcatalogv1.UnmarshalVisibilityDetailAccounts(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -6755,9 +7380,11 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
