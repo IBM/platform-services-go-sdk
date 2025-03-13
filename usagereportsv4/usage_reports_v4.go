@@ -2393,10 +2393,10 @@ type InstanceUsage struct {
 	SubscriptionID *string `json:"subscription_id,omitempty"`
 
 	// The timestamp in RFC 3339 string format at which instance is created.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The timestamp in RFC 3339 string format at which instance is deleted.
-	DeletedAt *string `json:"deleted_at,omitempty"`
+	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
 
 	// The month.
 	Month *string `json:"month" validate:"required"`
