@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
+ * IBM OpenAPI SDK Code Generator Version: 3.102.0-615ec964-20250307-203034
  */
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
@@ -2389,6 +2389,15 @@ type InstanceUsage struct {
 	// The ID of the pricing plan used to rate the usage.
 	PricingPlanID *string `json:"pricing_plan_id,omitempty"`
 
+	// The ID of service subscription with effective from timestamp.
+	SubscriptionID *string `json:"subscription_id,omitempty"`
+
+	// The timestamp in RFC 3339 string format at which instance is created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The timestamp in RFC 3339 string format at which instance is deleted.
+	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
 	// The month.
 	Month *string `json:"month" validate:"required"`
 
@@ -2519,6 +2528,21 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "pricing_plan_id", &obj.PricingPlanID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "pricing_plan_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "subscription_id", &obj.SubscriptionID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "subscription_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "deleted_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "month", &obj.Month)
@@ -2975,6 +2999,9 @@ type Plan struct {
 	// Total pre-discounted cost incurred by the plan.
 	RatedCost *float64 `json:"rated_cost" validate:"required"`
 
+	// The ID of service subscription with effective from timestamp.
+	SubscriptionID *string `json:"subscription_id,omitempty"`
+
 	// All the metrics in the plan.
 	Usage []Metric `json:"usage" validate:"required"`
 
@@ -3021,6 +3048,11 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 	err = core.UnmarshalPrimitive(m, "rated_cost", &obj.RatedCost)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "rated_cost-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "subscription_id", &obj.SubscriptionID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "subscription_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalMetric)
