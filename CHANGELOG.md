@@ -1,3 +1,10 @@
+# [0.79.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.2...v0.79.0) (2025-03-17)
+
+
+### Features
+
+* **Usage Reports:** added subscription_id, created_at, deleted_at to InstanceUsage API response ([#379](https://github.com/IBM/platform-services-go-sdk/issues/379)) ([e225c3e](https://github.com/IBM/platform-services-go-sdk/commit/e225c3e4564a9f79abdf175ad9971ca88538c037))
+
 ## [0.78.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.1...v0.78.2) (2025-03-12)
 
 
