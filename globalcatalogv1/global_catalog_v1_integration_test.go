@@ -46,6 +46,7 @@ var _ = Describe(`GlobalCatalogV1 Integration Tests`, func() {
 		globalCatalogService *globalcatalogv1.GlobalCatalogV1
 		serviceURL           string
 		config               map[string]string
+		fetchedEntry         *globalcatalogv1.CatalogEntry
 	)
 
 	var shouldSkipTest = func() {
@@ -376,6 +377,7 @@ var _ = Describe(`GlobalCatalogV1 Integration Tests`, func() {
 			}
 
 			catalogEntry, response, err := globalCatalogService.GetCatalogEntry(getCatalogEntryOptions)
+			fetchedEntry = catalogEntry
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(catalogEntry).ToNot(BeNil())
@@ -621,6 +623,7 @@ var _ = Describe(`GlobalCatalogV1 Integration Tests`, func() {
 				Active:     core.BoolPtr(true),
 				Metadata:   objectMetadataSetModel,
 				Move:       core.StringPtr("testString"),
+				URL:        fetchedEntry.URL,
 			}
 			updateCatalogEntryOptions.OverviewUI["en"] = *overviewModel
 
