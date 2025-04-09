@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.98.0-8be2046a-20241205-162752
+ * IBM OpenAPI SDK Code Generator Version: 3.103.0-e8b84313-20250402-201816
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -233,6 +233,9 @@ func (iamIdentity *IamIdentityV1) ListAPIKeysWithContext(ctx context.Context, li
 	}
 	if listAPIKeysOptions.IncludeHistory != nil {
 		builder.AddQuery("include_history", fmt.Sprint(*listAPIKeysOptions.IncludeHistory))
+	}
+	if listAPIKeysOptions.Filter != nil {
+		builder.AddQuery("filter", fmt.Sprint(*listAPIKeysOptions.Filter))
 	}
 
 	request, err := builder.Build()
@@ -962,6 +965,9 @@ func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context,
 	if listServiceIdsOptions.IncludeHistory != nil {
 		builder.AddQuery("include_history", fmt.Sprint(*listServiceIdsOptions.IncludeHistory))
 	}
+	if listServiceIdsOptions.Filter != nil {
+		builder.AddQuery("filter", fmt.Sprint(*listServiceIdsOptions.Filter))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1574,6 +1580,9 @@ func (iamIdentity *IamIdentityV1) ListProfilesWithContext(ctx context.Context, l
 	}
 	if listProfilesOptions.Pagetoken != nil {
 		builder.AddQuery("pagetoken", fmt.Sprint(*listProfilesOptions.Pagetoken))
+	}
+	if listProfilesOptions.Filter != nil {
+		builder.AddQuery("filter", fmt.Sprint(*listProfilesOptions.Filter))
 	}
 
 	request, err := builder.Build()
@@ -2661,7 +2670,9 @@ func (iamIdentity *IamIdentityV1) SetProfileIdentitiesWithContext(ctx context.Co
 }
 
 // SetProfileIdentity : Add a specific identity that can assume the trusted profile
-// Add a specific identity that can assume the trusted profile.
+// Add a specific identity that can assume the trusted profile. This API will update the trusted profile itself, thus
+// calling it repeatedly for the same profile can lead to conflicts responded with HTTP code 409. Make sure to call this
+// API only once in a few seconds for the same trusted profile.
 func (iamIdentity *IamIdentityV1) SetProfileIdentity(setProfileIdentityOptions *SetProfileIdentityOptions) (result *ProfileIdentityResponse, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.SetProfileIdentityWithContext(context.Background(), setProfileIdentityOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -2821,7 +2832,7 @@ func (iamIdentity *IamIdentityV1) GetProfileIdentityWithContext(ctx context.Cont
 	return
 }
 
-// DeleteProfileIdentity : Delete the identity that can assume the trusted profile
+// DeleteProfileIdentity : Delete the identity that can assume the trusted profile. This API will update the trusted profile itself, thus calling it repeatedly for the same profile can lead to conflicts responded with HTTP code 409. Make sure to call this API only once in a few seconds for the same trusted profile
 // Delete the identity that can assume the trusted profile.
 func (iamIdentity *IamIdentityV1) DeleteProfileIdentity(deleteProfileIdentityOptions *DeleteProfileIdentityOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.DeleteProfileIdentityWithContext(context.Background(), deleteProfileIdentityOptions)
@@ -11073,6 +11084,10 @@ type ListAPIKeysOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
+	// An optional filter query parameter used to refine the results of the search operation. For more information see
+	// [Filtering list results](#filter-list-results) section.
+	Filter *string `json:"filter,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -11154,6 +11169,12 @@ func (_options *ListAPIKeysOptions) SetOrder(order string) *ListAPIKeysOptions {
 // SetIncludeHistory : Allow user to set IncludeHistory
 func (_options *ListAPIKeysOptions) SetIncludeHistory(includeHistory bool) *ListAPIKeysOptions {
 	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
+}
+
+// SetFilter : Allow user to set Filter
+func (_options *ListAPIKeysOptions) SetFilter(filter string) *ListAPIKeysOptions {
+	_options.Filter = core.StringPtr(filter)
 	return _options
 }
 
@@ -11329,6 +11350,10 @@ type ListProfilesOptions struct {
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
 	Pagetoken *string `json:"pagetoken,omitempty"`
 
+	// An optional filter query parameter used to refine the results of the search operation. For more information see
+	// [Filtering list results](#filter-list-results) section.
+	Filter *string `json:"filter,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -11389,6 +11414,12 @@ func (_options *ListProfilesOptions) SetPagetoken(pagetoken string) *ListProfile
 	return _options
 }
 
+// SetFilter : Allow user to set Filter
+func (_options *ListProfilesOptions) SetFilter(filter string) *ListProfilesOptions {
+	_options.Filter = core.StringPtr(filter)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ListProfilesOptions) SetHeaders(param map[string]string) *ListProfilesOptions {
 	options.Headers = param
@@ -11418,6 +11449,10 @@ type ListServiceIdsOptions struct {
 
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
+
+	// An optional filter query parameter used to refine the results of the search operation. For more information see
+	// [Filtering list results](#filter-list-results) section.
+	Filter *string `json:"filter,omitempty"`
 
 	// Allows users to set headers on API requests.
 	Headers map[string]string
@@ -11474,6 +11509,12 @@ func (_options *ListServiceIdsOptions) SetOrder(order string) *ListServiceIdsOpt
 // SetIncludeHistory : Allow user to set IncludeHistory
 func (_options *ListServiceIdsOptions) SetIncludeHistory(includeHistory bool) *ListServiceIdsOptions {
 	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
+}
+
+// SetFilter : Allow user to set Filter
+func (_options *ListServiceIdsOptions) SetFilter(filter string) *ListServiceIdsOptions {
+	_options.Filter = core.StringPtr(filter)
 	return _options
 }
 

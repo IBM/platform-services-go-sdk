@@ -107,6 +107,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		valueString         string = "/billing"
 		preferenceID1       string = "landing_page"
 		iamIDForPreferences string
+		filter              string = "name co \"Go\""
 	)
 
 	var shouldSkipTest = func() {
@@ -311,6 +312,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 					IamID:     &iamID,
 					Pagetoken: pageToken,
 					Pagesize:  core.Int64Ptr(int64(1)),
+					Filter:    &filter,
 				}
 
 				apiKeyList, response, err := iamIdentityService.ListAPIKeys(listAPIKeysOptions)
