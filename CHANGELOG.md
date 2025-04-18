@@ -1,3 +1,10 @@
+## [0.79.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.79.0...v0.79.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* **build:** bump golang.org/x/net to avoid vulnerability ([83a5c46](https://github.com/IBM/platform-services-go-sdk/commit/83a5c46914ab75ee377f4e03c48b710670e87c5a))
+
 # [0.79.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.78.2...v0.79.0) (2025-03-17)
 
 
