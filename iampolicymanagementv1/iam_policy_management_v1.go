@@ -5659,7 +5659,7 @@ type CreateRoleOptions struct {
 	// The name of the role that is used in the CRN. This must be alphanumeric and capitalized.
 	Name *string `json:"name" validate:"required"`
 
-	// The account is GUID.
+	// The account GUID.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The service name.
@@ -5878,7 +5878,7 @@ type CustomRole struct {
 	// The name of the role that is used in the CRN. This must be alphanumeric and capitalized.
 	Name *string `json:"name" validate:"required"`
 
-	// The account is GUID.
+	// The account GUID.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The service name.
@@ -6445,7 +6445,7 @@ func UnmarshalExternalAccountIdentityInteractionPatch(m map[string]json.RawMessa
 
 // First : Details with linking href to first page of requested collection.
 type First struct {
-	// The linking href to the page of requested collection.
+	// The href linking to the page of requested collection.
 	Href *string `json:"href,omitempty"`
 }
 
@@ -8107,7 +8107,7 @@ func UnmarshalNestedCondition(m map[string]json.RawMessage, result interface{}) 
 
 // Next : Details with href linking to the following page of requested collection.
 type Next struct {
-	// The linking href to the page of requested collection.
+	// The href linking to the page of requested collection.
 	Href *string `json:"href,omitempty"`
 
 	// Page token that refers to the page of the collection.
@@ -9417,7 +9417,7 @@ func (resp *PolicyTemplateVersionsCollection) GetNextStart() (*string, error) {
 
 // Previous : Details with linking href to previous page of requested collection.
 type Previous struct {
-	// The linking href to the page of requested collection.
+	// The href linking to the page of requested collection.
 	Href *string `json:"href,omitempty"`
 
 	// Page token that refers to the page of the collection.
