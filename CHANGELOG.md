@@ -1,3 +1,10 @@
+# [0.80.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.79.1...v0.80.0) (2025-04-28)
+
+
+### Features
+
+* **IAM Identity:** add filter parameter for search api ([#381](https://github.com/IBM/platform-services-go-sdk/issues/381)) ([2f922fd](https://github.com/IBM/platform-services-go-sdk/commit/2f922fdfcf5dd924af9fd1a6913bd11768eee8f8))
+
 ## [0.79.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.79.0...v0.79.1) (2025-04-18)
 
 

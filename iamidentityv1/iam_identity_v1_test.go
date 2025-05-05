@@ -68,14 +68,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-				})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
 				Expect(iamIdentityService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-				})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
 				err := iamIdentityService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-			})
+			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamIdentityService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_AUTH_TYPE":   "NOAuth",
+				"IAM_IDENTITY_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -184,6 +181,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -208,6 +206,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listAPIKeysOptionsModel.Sort = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Order = core.StringPtr("asc")
 				listAPIKeysOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAPIKeysOptionsModel.Filter = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.ListAPIKeys(listAPIKeysOptionsModel)
@@ -247,6 +246,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -276,6 +276,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listAPIKeysOptionsModel.Sort = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Order = core.StringPtr("asc")
 				listAPIKeysOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAPIKeysOptionsModel.Filter = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -321,6 +322,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -352,6 +354,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listAPIKeysOptionsModel.Sort = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Order = core.StringPtr("asc")
 				listAPIKeysOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAPIKeysOptionsModel.Filter = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -380,6 +383,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listAPIKeysOptionsModel.Sort = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Order = core.StringPtr("asc")
 				listAPIKeysOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAPIKeysOptionsModel.Filter = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -422,6 +426,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listAPIKeysOptionsModel.Sort = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Order = core.StringPtr("asc")
 				listAPIKeysOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAPIKeysOptionsModel.Filter = core.StringPtr("testString")
 				listAPIKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1817,6 +1822,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1839,6 +1845,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listServiceIdsOptionsModel.Sort = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Order = core.StringPtr("asc")
 				listServiceIdsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listServiceIdsOptionsModel.Filter = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.ListServiceIds(listServiceIdsOptionsModel)
@@ -1876,6 +1883,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1903,6 +1911,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listServiceIdsOptionsModel.Sort = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Order = core.StringPtr("asc")
 				listServiceIdsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listServiceIdsOptionsModel.Filter = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1946,6 +1955,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1975,6 +1985,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listServiceIdsOptionsModel.Sort = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Order = core.StringPtr("asc")
 				listServiceIdsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listServiceIdsOptionsModel.Filter = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2001,6 +2012,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listServiceIdsOptionsModel.Sort = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Order = core.StringPtr("asc")
 				listServiceIdsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listServiceIdsOptionsModel.Filter = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -2041,6 +2053,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listServiceIdsOptionsModel.Sort = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Order = core.StringPtr("asc")
 				listServiceIdsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listServiceIdsOptionsModel.Filter = core.StringPtr("testString")
 				listServiceIdsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3339,6 +3352,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
 					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3361,6 +3375,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listProfilesOptionsModel.Order = core.StringPtr("asc")
 				listProfilesOptionsModel.IncludeHistory = core.BoolPtr(false)
 				listProfilesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfilesOptionsModel.Filter = core.StringPtr("testString")
 				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.ListProfiles(listProfilesOptionsModel)
@@ -3398,6 +3413,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
 					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3425,6 +3441,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listProfilesOptionsModel.Order = core.StringPtr("asc")
 				listProfilesOptionsModel.IncludeHistory = core.BoolPtr(false)
 				listProfilesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfilesOptionsModel.Filter = core.StringPtr("testString")
 				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3468,6 +3485,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for include_history query parameter
 					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["filter"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3497,6 +3515,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listProfilesOptionsModel.Order = core.StringPtr("asc")
 				listProfilesOptionsModel.IncludeHistory = core.BoolPtr(false)
 				listProfilesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfilesOptionsModel.Filter = core.StringPtr("testString")
 				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3523,6 +3542,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listProfilesOptionsModel.Order = core.StringPtr("asc")
 				listProfilesOptionsModel.IncludeHistory = core.BoolPtr(false)
 				listProfilesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfilesOptionsModel.Filter = core.StringPtr("testString")
 				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -3570,6 +3590,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listProfilesOptionsModel.Order = core.StringPtr("asc")
 				listProfilesOptionsModel.IncludeHistory = core.BoolPtr(false)
 				listProfilesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfilesOptionsModel.Filter = core.StringPtr("testString")
 				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -18547,6 +18568,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listAPIKeysOptionsModel.SetSort("testString")
 				listAPIKeysOptionsModel.SetOrder("asc")
 				listAPIKeysOptionsModel.SetIncludeHistory(false)
+				listAPIKeysOptionsModel.SetFilter("testString")
 				listAPIKeysOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAPIKeysOptionsModel).ToNot(BeNil())
 				Expect(listAPIKeysOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -18558,6 +18580,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(listAPIKeysOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listAPIKeysOptionsModel.Order).To(Equal(core.StringPtr("asc")))
 				Expect(listAPIKeysOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(listAPIKeysOptionsModel.Filter).To(Equal(core.StringPtr("testString")))
 				Expect(listAPIKeysOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListClaimRulesOptions successfully`, func() {
@@ -18610,6 +18633,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listProfilesOptionsModel.SetOrder("asc")
 				listProfilesOptionsModel.SetIncludeHistory(false)
 				listProfilesOptionsModel.SetPagetoken("testString")
+				listProfilesOptionsModel.SetFilter("testString")
 				listProfilesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listProfilesOptionsModel).ToNot(BeNil())
 				Expect(listProfilesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -18619,6 +18643,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(listProfilesOptionsModel.Order).To(Equal(core.StringPtr("asc")))
 				Expect(listProfilesOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
 				Expect(listProfilesOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listProfilesOptionsModel.Filter).To(Equal(core.StringPtr("testString")))
 				Expect(listProfilesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListServiceIdsOptions successfully`, func() {
@@ -18631,6 +18656,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				listServiceIdsOptionsModel.SetSort("testString")
 				listServiceIdsOptionsModel.SetOrder("asc")
 				listServiceIdsOptionsModel.SetIncludeHistory(false)
+				listServiceIdsOptionsModel.SetFilter("testString")
 				listServiceIdsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listServiceIdsOptionsModel).ToNot(BeNil())
 				Expect(listServiceIdsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -18640,6 +18666,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(listServiceIdsOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listServiceIdsOptionsModel.Order).To(Equal(core.StringPtr("asc")))
 				Expect(listServiceIdsOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(listServiceIdsOptionsModel.Filter).To(Equal(core.StringPtr("testString")))
 				Expect(listServiceIdsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListTrustedProfileAssignmentsOptions successfully`, func() {
