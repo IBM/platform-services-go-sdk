@@ -1448,6 +1448,28 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 
+		It(`ListActionControlTemplates request example`, func() {
+			fmt.Println("\nListActionControlTemplates() result:")
+			// begin-list_action_Control_templates
+
+			listActionControlTemplatesOptions := iamPolicyManagementService.NewListActionControlTemplatesOptions(
+				exampleAccountID,
+			)
+
+			actionControlTemplateCollection, response, err := iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplateCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_action_Control_templates
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplateCollection).ToNot(BeNil())
+		})
+
 		It(`CreateActionControlAssignments request example`, func() {
 			fmt.Println("\nCreateActionControlTemplateAssignment() result:")
 			// begin-create_action_control_template_assignment

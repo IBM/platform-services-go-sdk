@@ -1617,16 +1617,17 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
-	Describe(`DeleteBasicActionControlTemplate - Delete action control template by ID`, func() {
+	Describe(`DeleteBasicActionControlTemplate - Delete an action control template by ID and version`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteActionControlTemplate(DeleteActionControlTemplateOptions *DeleteActionControlTemplateOptions)`, func() {
-			deleteActionControlTemplateOptions := &iampolicymanagementv1.DeleteActionControlTemplateOptions{
+		It(`DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptions *DeleteActionControlTemplateVersionOptions`, func() {
+			deleteActionControlTemplateOptions := &iampolicymanagementv1.DeleteActionControlTemplateVersionOptions{
 				ActionControlTemplateID: &testBasicActionControlTemplateID,
+				Version:                 &testBasicActionControlTemplateVersions,
 			}
 
-			response, err := service.DeleteActionControlTemplate(deleteActionControlTemplateOptions)
+			response, err := service.DeleteActionControlTemplateVersion(deleteActionControlTemplateOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
@@ -1750,6 +1751,43 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe(`GetActionControlTemplateVersion - Retrieve an action control template version by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetActionControlTemplateVersion(getActionControlTemplateVersionOptions *GetActionControlTemplateVersionOptions)`, func() {
+			getActionControlTemplateVersionOptions := &iampolicymanagementv1.GetActionControlTemplateVersionOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+				Version:                 &testActionControlUpdateTemplateVersion,
+			}
+
+			actionControlTemplate, response, err := service.GetActionControlTemplateVersion(getActionControlTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+
+			Expect(actionControlTemplate.Version).To(Equal(core.StringPtr("2")))
+			Expect(actionControlTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`CommitActionControlTemplate - Commit an action control template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CommitActionControlTemplate(commitActionControlTemplateOptions *CommitActionControlTemplateOptions)`, func() {
+			commitActionControlTemplateOptions := &iampolicymanagementv1.CommitActionControlTemplateOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+				Version:                 &testActionControlTemplateVersion,
+			}
+
+			response, err := service.CommitActionControlTemplate(commitActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
 	Describe(`GetActionControlTemplate - Retrieve latest action control template version by template ID`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1767,6 +1805,22 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(actionControlTemplate.Name).To(Equal(&exampleActionControlTemplateName))
 			Expect(actionControlTemplate.AccountID).To(Equal(&testAccountID))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`ListActionControlTemplateVersions - Retrieve action control template versions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions *ListActionControlTemplateVersionsOptions)`, func() {
+			listActionControlTemplateVersionsOptions := &iampolicymanagementv1.ListActionControlTemplateVersionsOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+			}
+
+			actionControlTemplateVersionsCollection, response, err := service.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplateVersionsCollection).ToNot(BeNil())
 		})
 	})
 
