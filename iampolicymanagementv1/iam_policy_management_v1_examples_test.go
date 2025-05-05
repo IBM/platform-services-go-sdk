@@ -77,7 +77,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		exampleActionControlTemplateBaseVersion string
 		exampleActionControlTemplateETag        string = ""
 		exampleActionControlTemplateVersion     string
-		exampleTargetEnterpriseID               string = ""
 		exampleActionControlTemplateName               = "ActionControlTemplateGoSDKTest"
 		exampleActionControlAssignmentETag      string = ""
 		exampleActionControlAssignmentId        string
@@ -105,7 +104,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			exampleAccountID = config["TEST_ACCOUNT_ID"]
 			exampleTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
-			exampleTargetEnterpriseID = config["TEST_TARGET_ENTERPRISE_ACCOUNT_ID"]
 
 			configLoaded = len(config) > 0
 		})
@@ -1268,7 +1266,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			createActionControlTemplateOptions := &iampolicymanagementv1.CreateActionControlTemplateOptions{
 				Name:           &exampleActionControlTemplateName,
-				AccountID:      &exampleTargetEnterpriseID,
+				AccountID:      &exampleAccountID,
 				ActionControl:  templateActionControl,
 				Description:    core.StringPtr("Test ActionControl Template from GO SDK"),
 				Committed:      core.BoolPtr(true),
@@ -1506,7 +1504,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-list_action_control_assignments
 
 			listActionControlAssignmentsOptions := iamPolicyManagementService.NewListActionControlAssignmentsOptions(
-				exampleTargetEnterpriseID,
+				exampleAccountID,
 			)
 
 			actionControlTemplateAssignmentCollection, response, err := iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptions)

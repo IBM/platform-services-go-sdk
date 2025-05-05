@@ -79,7 +79,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		TestPolicyType                              string = "TestPolicyType"
 		assignmentPolicyID                          string
 		testTargetAccountID                         string = ""
-		testTargetEnterpriseID                      string = ""
 		testPolicyAssignmentETag                    string = ""
 		testTargetType                              string = "Account"
 		testAcountSettingsETag                      string = ""
@@ -113,8 +112,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
 			testTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
-			testTargetEnterpriseID = config["TEST_TARGET_ENTERPRISE_ACCOUNT_ID"]
-			if testAccountID != "" && testTargetAccountID != "" && testTargetEnterpriseID != "" {
+			if testAccountID != "" && testTargetAccountID != "" {
 				configLoaded = true
 			}
 		}
@@ -1519,7 +1517,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		It(`CreateBasicActionControlTemplate(createActionControlTemplateOptions *CreateActionControlTemplateOptions) without action_control`, func() {
 			createActionControlTemplateOptions := &iampolicymanagementv1.CreateActionControlTemplateOptions{
 				Name:           core.StringPtr(exampleBasicActionControlTemplateName),
-				AccountID:      &testTargetEnterpriseID,
+				AccountID:      &testAccountID,
 				Description:    core.StringPtr("Test Basic ActionControl Template from GO SDK"),
 				AcceptLanguage: core.StringPtr("default"),
 			}
@@ -1529,7 +1527,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(actionControlTemplate).ToNot(BeNil())
 			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlTemplateName)))
-			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testTargetEnterpriseID)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
 
 			testBasicActionControlTemplateID = *actionControlTemplate.ID
@@ -1562,7 +1560,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			Expect(actionControlTemplate.Version).To(Equal(core.StringPtr("1")))
 			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlUpdateTemplateName)))
-			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testTargetEnterpriseID)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
 		})
 	})
@@ -1594,7 +1592,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			Expect(actionControlTemplate.Version).To(Equal(core.StringPtr("1")))
 			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlUpdateTemplateName)))
-			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testTargetEnterpriseID)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
 		})
 	})
@@ -1647,7 +1645,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			createActionControlTemplateOptions := &iampolicymanagementv1.CreateActionControlTemplateOptions{
 				Name:           &exampleActionControlTemplateName,
-				AccountID:      &testTargetEnterpriseID,
+				AccountID:      &testAccountID,
 				ActionControl:  templateActionControl,
 				Description:    core.StringPtr("Test ActionControl Template from GO SDK"),
 				Committed:      core.BoolPtr(true),
@@ -1659,7 +1657,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(actionControlTemplate).ToNot(BeNil())
 			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleActionControlTemplateName)))
-			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testTargetEnterpriseID)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
 
 			testActionControlTemplateID = *actionControlTemplate.ID
@@ -1689,7 +1687,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(actionControlTemplate).ToNot(BeNil())
-			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testTargetEnterpriseID)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleActionControlTemplateName)))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
 
@@ -1724,7 +1722,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(actionControlTemplate).ToNot(BeNil())
-			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testTargetEnterpriseID)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleActionControlTemplateName)))
 			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
 
@@ -1738,7 +1736,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`ListActionControlTemplates(listActionControlTemplatesOptions *ListActionControlTemplatesOptions)`, func() {
 			listActionControlTemplatesOptions := &iampolicymanagementv1.ListActionControlTemplatesOptions{
-				AccountID:      &testTargetEnterpriseID,
+				AccountID:      &testAccountID,
 				AcceptLanguage: core.StringPtr("default"),
 			}
 
@@ -1747,8 +1745,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(actionControlTemplateCollection).ToNot(BeNil())
 
-			// Expect(actionControlTemplateCollection.ActionControlTemplates[0].Policy.Type).ToNot(BeNil())
-			Expect(actionControlTemplateCollection.ActionControlTemplates[0].AccountID).To(Equal(&testTargetEnterpriseID))
+			Expect(actionControlTemplateCollection.ActionControlTemplates[0].AccountID).To(Equal(&testAccountID))
 			Expect(actionControlTemplateCollection.ActionControlTemplates[0].State).To(Equal(core.StringPtr("active")))
 		})
 	})
@@ -1836,7 +1833,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`ListActionControlAssignments(listActionControlAssignmentsOptions *ListActionControlAssignmentsOptions)`, func() {
 			listActionControlAssignmentsOptions := &iampolicymanagementv1.ListActionControlAssignmentsOptions{
-				AccountID:      core.StringPtr(testTargetEnterpriseID),
+				AccountID:      core.StringPtr(testAccountID),
 				AcceptLanguage: core.StringPtr("default"),
 			}
 
