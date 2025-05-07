@@ -1,3 +1,10 @@
+# [0.81.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.80.0...v0.81.0) (2025-05-07)
+
+
+### Features
+
+* **IAM Policy Management:** add support for action control templates from IAM ([#383](https://github.com/IBM/platform-services-go-sdk/issues/383)) ([d4018e4](https://github.com/IBM/platform-services-go-sdk/commit/d4018e44cd6f37a769289be673a125905c0c0faa))
+
 # [0.80.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.79.1...v0.80.0) (2025-04-28)
 
 
