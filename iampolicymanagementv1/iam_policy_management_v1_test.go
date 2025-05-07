@@ -7901,7 +7901,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully with retries`, func() {
@@ -7969,7 +7969,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully`, func() {
@@ -8116,9 +8116,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"assignments":[{"target":{"type":"Account","id":"ID"},"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","resources":[{"target":{"type":"Account","id":"ID"},"policy":{"resource_created":{"id":"ID"},"status":"Status","error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":10}}}],"subject":{"id":"ID","type":"iam_id"},"template":{"id":"ID","version":"Version"},"status":"in_progress"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"assignments":[{"target":{"type":"Account","id":"ID"},"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","resources":[{"target":{"type":"Account","id":"ID"},"policy":{"resource_created":{"id":"ID"},"status":"Status","error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":0}}}],"subject":{"id":"ID","type":"iam_id"},"template":{"id":"ID","version":"Version"},"status":"in_progress"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"assignments":[{"target":{"type":"Account","id":"ID"},"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","resources":[{"target":{"type":"Account","id":"ID"},"policy":{"resource_created":{"id":"ID"},"status":"Status","error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":10}}}],"subject":{"id":"ID","type":"iam_id"},"template":{"id":"ID","version":"Version"},"status":"in_progress"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"assignments":[{"target":{"type":"Account","id":"ID"},"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","resources":[{"target":{"type":"Account","id":"ID"},"policy":{"resource_created":{"id":"ID"},"status":"Status","error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":0}}}],"subject":{"id":"ID","type":"iam_id"},"template":{"id":"ID","version":"Version"},"status":"in_progress"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -8279,7 +8279,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateAssignment successfully with retries`, func() {
@@ -8365,7 +8365,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateAssignment successfully`, func() {
@@ -8565,7 +8565,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke GetPolicyAssignment successfully with retries`, func() {
@@ -8621,7 +8621,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke GetPolicyAssignment successfully`, func() {
@@ -8807,7 +8807,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke UpdatePolicyAssignment successfully with retries`, func() {
@@ -8883,7 +8883,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke UpdatePolicyAssignment successfully`, func() {
@@ -9625,11 +9625,3461 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`ListActionControlTemplates(listActionControlTemplatesOptions *ListActionControlTemplatesOptions) - Operation response error`, func() {
+		listActionControlTemplatesPath := "/v1/action_control_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListActionControlTemplates with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlTemplatesOptions model
+				listActionControlTemplatesOptionsModel := new(iampolicymanagementv1.ListActionControlTemplatesOptions)
+				listActionControlTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListActionControlTemplates(listActionControlTemplatesOptions *ListActionControlTemplatesOptions)`, func() {
+		listActionControlTemplatesPath := "/v1/action_control_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "action_control_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListActionControlTemplates successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListActionControlTemplatesOptions model
+				listActionControlTemplatesOptionsModel := new(iampolicymanagementv1.ListActionControlTemplatesOptions)
+				listActionControlTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListActionControlTemplatesWithContext(ctx, listActionControlTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListActionControlTemplatesWithContext(ctx, listActionControlTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "action_control_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListActionControlTemplates successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplates(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListActionControlTemplatesOptions model
+				listActionControlTemplatesOptionsModel := new(iampolicymanagementv1.ListActionControlTemplatesOptions)
+				listActionControlTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListActionControlTemplates with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlTemplatesOptions model
+				listActionControlTemplatesOptionsModel := new(iampolicymanagementv1.ListActionControlTemplatesOptions)
+				listActionControlTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListActionControlTemplatesOptions model with no property values
+				listActionControlTemplatesOptionsModelNew := new(iampolicymanagementv1.ListActionControlTemplatesOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListActionControlTemplates successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlTemplatesOptions model
+				listActionControlTemplatesOptionsModel := new(iampolicymanagementv1.ListActionControlTemplatesOptions)
+				listActionControlTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.ActionControlTemplateCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.ActionControlTemplateCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"action_control_templates":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"action_control":{"service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"action_control_templates":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"action_control":{"service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ActionControlTemplatesPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listActionControlTemplatesOptionsModel := &iampolicymanagementv1.ListActionControlTemplatesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewActionControlTemplatesPager(listActionControlTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.ActionControlTemplate
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ActionControlTemplatesPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listActionControlTemplatesOptionsModel := &iampolicymanagementv1.ListActionControlTemplatesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewActionControlTemplatesPager(listActionControlTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateActionControlTemplate(createActionControlTemplateOptions *CreateActionControlTemplateOptions) - Operation response error`, func() {
+		createActionControlTemplatePath := "/v1/action_control_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplate with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateOptions model
+				createActionControlTemplateOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateOptions)
+				createActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateActionControlTemplate(createActionControlTemplateOptions *CreateActionControlTemplateOptions)`, func() {
+		createActionControlTemplatePath := "/v1/action_control_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplate successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateOptions model
+				createActionControlTemplateOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateOptions)
+				createActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateActionControlTemplateWithContext(ctx, createActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateActionControlTemplateWithContext(ctx, createActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateOptions model
+				createActionControlTemplateOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateOptions)
+				createActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateActionControlTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateOptions model
+				createActionControlTemplateOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateOptions)
+				createActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateActionControlTemplateOptions model with no property values
+				createActionControlTemplateOptionsModelNew := new(iampolicymanagementv1.CreateActionControlTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateOptions model
+				createActionControlTemplateOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateOptions)
+				createActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetActionControlTemplate(getActionControlTemplateOptions *GetActionControlTemplateOptions) - Operation response error`, func() {
+		getActionControlTemplatePath := "/v1/action_control_templates/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetActionControlTemplate with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateOptions model
+				getActionControlTemplateOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateOptions)
+				getActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateOptionsModel.State = core.StringPtr("active")
+				getActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetActionControlTemplate(getActionControlTemplateOptions *GetActionControlTemplateOptions)`, func() {
+		getActionControlTemplatePath := "/v1/action_control_templates/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetActionControlTemplate successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetActionControlTemplateOptions model
+				getActionControlTemplateOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateOptions)
+				getActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateOptionsModel.State = core.StringPtr("active")
+				getActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetActionControlTemplateWithContext(ctx, getActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetActionControlTemplateWithContext(ctx, getActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateOptions model
+				getActionControlTemplateOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateOptions)
+				getActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateOptionsModel.State = core.StringPtr("active")
+				getActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetActionControlTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateOptions model
+				getActionControlTemplateOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateOptions)
+				getActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateOptionsModel.State = core.StringPtr("active")
+				getActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetActionControlTemplateOptions model with no property values
+				getActionControlTemplateOptionsModelNew := new(iampolicymanagementv1.GetActionControlTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateOptions model
+				getActionControlTemplateOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateOptions)
+				getActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateOptionsModel.State = core.StringPtr("active")
+				getActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteActionControlTemplate(deleteActionControlTemplateOptions *DeleteActionControlTemplateOptions)`, func() {
+		deleteActionControlTemplatePath := "/v1/action_control_templates/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteActionControlTemplatePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.DeleteActionControlTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteActionControlTemplateOptions model
+				deleteActionControlTemplateOptionsModel := new(iampolicymanagementv1.DeleteActionControlTemplateOptions)
+				deleteActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				deleteActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteActionControlTemplate(deleteActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteActionControlTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteActionControlTemplateOptions model
+				deleteActionControlTemplateOptionsModel := new(iampolicymanagementv1.DeleteActionControlTemplateOptions)
+				deleteActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				deleteActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.DeleteActionControlTemplate(deleteActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteActionControlTemplateOptions model with no property values
+				deleteActionControlTemplateOptionsModelNew := new(iampolicymanagementv1.DeleteActionControlTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.DeleteActionControlTemplate(deleteActionControlTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateActionControlTemplateVersion(createActionControlTemplateVersionOptions *CreateActionControlTemplateVersionOptions) - Operation response error`, func() {
+		createActionControlTemplateVersionPath := "/v1/action_control_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateVersion with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateVersionOptions model
+				createActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateVersionOptions)
+				createActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateActionControlTemplateVersion(createActionControlTemplateVersionOptions *CreateActionControlTemplateVersionOptions)`, func() {
+		createActionControlTemplateVersionPath := "/v1/action_control_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateVersion successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateVersionOptions model
+				createActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateVersionOptions)
+				createActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateActionControlTemplateVersionWithContext(ctx, createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateActionControlTemplateVersionWithContext(ctx, createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateVersionOptions model
+				createActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateVersionOptions)
+				createActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateActionControlTemplateVersion with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateVersionOptions model
+				createActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateVersionOptions)
+				createActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateActionControlTemplateVersionOptions model with no property values
+				createActionControlTemplateVersionOptionsModelNew := new(iampolicymanagementv1.CreateActionControlTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateActionControlTemplateVersionOptions model
+				createActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateVersionOptions)
+				createActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createActionControlTemplateVersionOptionsModel.ActionControl = templateActionControlModel
+				createActionControlTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateVersion(createActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions *ListActionControlTemplateVersionsOptions) - Operation response error`, func() {
+		listActionControlTemplateVersionsPath := "/v1/action_control_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListActionControlTemplateVersions with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlTemplateVersionsOptions model
+				listActionControlTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListActionControlTemplateVersionsOptions)
+				listActionControlTemplateVersionsOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listActionControlTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions *ListActionControlTemplateVersionsOptions)`, func() {
+		listActionControlTemplateVersionsPath := "/v1/action_control_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListActionControlTemplateVersions successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListActionControlTemplateVersionsOptions model
+				listActionControlTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListActionControlTemplateVersionsOptions)
+				listActionControlTemplateVersionsOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listActionControlTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListActionControlTemplateVersionsWithContext(ctx, listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListActionControlTemplateVersionsWithContext(ctx, listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListActionControlTemplateVersions successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplateVersions(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListActionControlTemplateVersionsOptions model
+				listActionControlTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListActionControlTemplateVersionsOptions)
+				listActionControlTemplateVersionsOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listActionControlTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListActionControlTemplateVersions with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlTemplateVersionsOptions model
+				listActionControlTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListActionControlTemplateVersionsOptions)
+				listActionControlTemplateVersionsOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listActionControlTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListActionControlTemplateVersionsOptions model with no property values
+				listActionControlTemplateVersionsOptionsModelNew := new(iampolicymanagementv1.ListActionControlTemplateVersionsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListActionControlTemplateVersions successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlTemplateVersionsOptions model
+				listActionControlTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListActionControlTemplateVersionsOptions)
+				listActionControlTemplateVersionsOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listActionControlTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.ActionControlTemplateVersionsCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.ActionControlTemplateVersionsCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"versions":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"action_control":{"service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"versions":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"action_control":{"service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ActionControlTemplateVersionsPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listActionControlTemplateVersionsOptionsModel := &iampolicymanagementv1.ListActionControlTemplateVersionsOptions{
+					ActionControlTemplateID: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewActionControlTemplateVersionsPager(listActionControlTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.ActionControlTemplate
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ActionControlTemplateVersionsPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listActionControlTemplateVersionsOptionsModel := &iampolicymanagementv1.ListActionControlTemplateVersionsOptions{
+					ActionControlTemplateID: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewActionControlTemplateVersionsPager(listActionControlTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`ReplaceActionControlTemplate(replaceActionControlTemplateOptions *ReplaceActionControlTemplateOptions) - Operation response error`, func() {
+		replaceActionControlTemplatePath := "/v1/action_control_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceActionControlTemplatePath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ReplaceActionControlTemplate with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceActionControlTemplateOptions model
+				replaceActionControlTemplateOptionsModel := new(iampolicymanagementv1.ReplaceActionControlTemplateOptions)
+				replaceActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				replaceActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceActionControlTemplate(replaceActionControlTemplateOptions *ReplaceActionControlTemplateOptions)`, func() {
+		replaceActionControlTemplatePath := "/v1/action_control_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceActionControlTemplatePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke ReplaceActionControlTemplate successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceActionControlTemplateOptions model
+				replaceActionControlTemplateOptionsModel := new(iampolicymanagementv1.ReplaceActionControlTemplateOptions)
+				replaceActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				replaceActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ReplaceActionControlTemplateWithContext(ctx, replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ReplaceActionControlTemplateWithContext(ctx, replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceActionControlTemplatePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke ReplaceActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ReplaceActionControlTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceActionControlTemplateOptions model
+				replaceActionControlTemplateOptionsModel := new(iampolicymanagementv1.ReplaceActionControlTemplateOptions)
+				replaceActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				replaceActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ReplaceActionControlTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceActionControlTemplateOptions model
+				replaceActionControlTemplateOptionsModel := new(iampolicymanagementv1.ReplaceActionControlTemplateOptions)
+				replaceActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				replaceActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ReplaceActionControlTemplateOptions model with no property values
+				replaceActionControlTemplateOptionsModelNew := new(iampolicymanagementv1.ReplaceActionControlTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceActionControlTemplateOptions model
+				replaceActionControlTemplateOptionsModel := new(iampolicymanagementv1.ReplaceActionControlTemplateOptions)
+				replaceActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceActionControlTemplateOptionsModel.ActionControl = templateActionControlModel
+				replaceActionControlTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptions *DeleteActionControlTemplateVersionOptions)`, func() {
+		deleteActionControlTemplateVersionPath := "/v1/action_control_templates/testString/versions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteActionControlTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.DeleteActionControlTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteActionControlTemplateVersionOptions model
+				deleteActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.DeleteActionControlTemplateVersionOptions)
+				deleteActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				deleteActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteActionControlTemplateVersion with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteActionControlTemplateVersionOptions model
+				deleteActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.DeleteActionControlTemplateVersionOptions)
+				deleteActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				deleteActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteActionControlTemplateVersionOptions model with no property values
+				deleteActionControlTemplateVersionOptionsModelNew := new(iampolicymanagementv1.DeleteActionControlTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetActionControlTemplateVersion(getActionControlTemplateVersionOptions *GetActionControlTemplateVersionOptions) - Operation response error`, func() {
+		getActionControlTemplateVersionPath := "/v1/action_control_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetActionControlTemplateVersion with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateVersionOptions model
+				getActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateVersionOptions)
+				getActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetActionControlTemplateVersion(getActionControlTemplateVersionOptions *GetActionControlTemplateVersionOptions)`, func() {
+		getActionControlTemplateVersionPath := "/v1/action_control_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetActionControlTemplateVersion successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetActionControlTemplateVersionOptions model
+				getActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateVersionOptions)
+				getActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetActionControlTemplateVersionWithContext(ctx, getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetActionControlTemplateVersionWithContext(ctx, getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "action_control": {"service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetActionControlTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateVersionOptions model
+				getActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateVersionOptions)
+				getActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetActionControlTemplateVersion with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateVersionOptions model
+				getActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateVersionOptions)
+				getActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetActionControlTemplateVersionOptions model with no property values
+				getActionControlTemplateVersionOptionsModelNew := new(iampolicymanagementv1.GetActionControlTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetActionControlTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlTemplateVersionOptions model
+				getActionControlTemplateVersionOptionsModel := new(iampolicymanagementv1.GetActionControlTemplateVersionOptions)
+				getActionControlTemplateVersionOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getActionControlTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CommitActionControlTemplate(commitActionControlTemplateOptions *CommitActionControlTemplateOptions)`, func() {
+		commitActionControlTemplatePath := "/v1/action_control_templates/testString/versions/testString/commit"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitActionControlTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke CommitActionControlTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.CommitActionControlTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the CommitActionControlTemplateOptions model
+				commitActionControlTemplateOptionsModel := new(iampolicymanagementv1.CommitActionControlTemplateOptions)
+				commitActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				commitActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.CommitActionControlTemplate(commitActionControlTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke CommitActionControlTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the CommitActionControlTemplateOptions model
+				commitActionControlTemplateOptionsModel := new(iampolicymanagementv1.CommitActionControlTemplateOptions)
+				commitActionControlTemplateOptionsModel.ActionControlTemplateID = core.StringPtr("testString")
+				commitActionControlTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitActionControlTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.CommitActionControlTemplate(commitActionControlTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the CommitActionControlTemplateOptions model with no property values
+				commitActionControlTemplateOptionsModelNew := new(iampolicymanagementv1.CommitActionControlTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.CommitActionControlTemplate(commitActionControlTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListActionControlAssignments(listActionControlAssignmentsOptions *ListActionControlAssignmentsOptions) - Operation response error`, func() {
+		listActionControlAssignmentsPath := "/v1/action_control_assignments"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListActionControlAssignments with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlAssignmentsOptions model
+				listActionControlAssignmentsOptionsModel := new(iampolicymanagementv1.ListActionControlAssignmentsOptions)
+				listActionControlAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListActionControlAssignments(listActionControlAssignmentsOptions *ListActionControlAssignmentsOptions)`, func() {
+		listActionControlAssignmentsPath := "/v1/action_control_assignments"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke ListActionControlAssignments successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListActionControlAssignmentsOptions model
+				listActionControlAssignmentsOptionsModel := new(iampolicymanagementv1.ListActionControlAssignmentsOptions)
+				listActionControlAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListActionControlAssignmentsWithContext(ctx, listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListActionControlAssignmentsWithContext(ctx, listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke ListActionControlAssignments successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListActionControlAssignments(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListActionControlAssignmentsOptions model
+				listActionControlAssignmentsOptionsModel := new(iampolicymanagementv1.ListActionControlAssignmentsOptions)
+				listActionControlAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListActionControlAssignments with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlAssignmentsOptions model
+				listActionControlAssignmentsOptionsModel := new(iampolicymanagementv1.ListActionControlAssignmentsOptions)
+				listActionControlAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListActionControlAssignmentsOptions model with no property values
+				listActionControlAssignmentsOptionsModelNew := new(iampolicymanagementv1.ListActionControlAssignmentsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListActionControlAssignments successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListActionControlAssignmentsOptions model
+				listActionControlAssignmentsOptionsModel := new(iampolicymanagementv1.ListActionControlAssignmentsOptions)
+				listActionControlAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listActionControlAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listActionControlAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listActionControlAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.ActionControlAssignmentCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.ActionControlAssignmentCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listActionControlAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"assignments":[{"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","operation":"create","resources":[{"target":{"type":"Account","id":"ID"},"action_control":{"resource_created":{"id":"ID"},"error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":0}}}],"template":{"id":"ID","version":"Version"},"target":{"type":"Account","id":"ID"},"status":"accepted"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"assignments":[{"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","operation":"create","resources":[{"target":{"type":"Account","id":"ID"},"action_control":{"resource_created":{"id":"ID"},"error_message":{"trace":"Trace","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}],"status_code":0}}}],"template":{"id":"ID","version":"Version"},"target":{"type":"Account","id":"ID"},"status":"accepted"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ActionControlAssignmentsPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listActionControlAssignmentsOptionsModel := &iampolicymanagementv1.ListActionControlAssignmentsOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					TemplateID: core.StringPtr("testString"),
+					TemplateVersion: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewActionControlAssignmentsPager(listActionControlAssignmentsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.ActionControlAssignment
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ActionControlAssignmentsPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listActionControlAssignmentsOptionsModel := &iampolicymanagementv1.ListActionControlAssignmentsOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					TemplateID: core.StringPtr("testString"),
+					TemplateVersion: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewActionControlAssignmentsPager(listActionControlAssignmentsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptions *CreateActionControlTemplateAssignmentOptions) - Operation response error`, func() {
+		createActionControlTemplateAssignmentPath := "/v1/action_control_assignments"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplateAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateAssignment with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ActionControlAssignmentTemplate model
+				actionControlAssignmentTemplateModel := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+				actionControlAssignmentTemplateModel.ID = core.StringPtr("testString")
+				actionControlAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateActionControlTemplateAssignmentOptions model
+				createActionControlTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions)
+				createActionControlTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createActionControlTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel}
+				createActionControlTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptions *CreateActionControlTemplateAssignmentOptions)`, func() {
+		createActionControlTemplateAssignmentPath := "/v1/action_control_assignments"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplateAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateAssignment successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ActionControlAssignmentTemplate model
+				actionControlAssignmentTemplateModel := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+				actionControlAssignmentTemplateModel.ID = core.StringPtr("testString")
+				actionControlAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateActionControlTemplateAssignmentOptions model
+				createActionControlTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions)
+				createActionControlTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createActionControlTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel}
+				createActionControlTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateActionControlTemplateAssignmentWithContext(ctx, createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateActionControlTemplateAssignmentWithContext(ctx, createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createActionControlTemplateAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ActionControlAssignmentTemplate model
+				actionControlAssignmentTemplateModel := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+				actionControlAssignmentTemplateModel.ID = core.StringPtr("testString")
+				actionControlAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateActionControlTemplateAssignmentOptions model
+				createActionControlTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions)
+				createActionControlTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createActionControlTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel}
+				createActionControlTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateActionControlTemplateAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ActionControlAssignmentTemplate model
+				actionControlAssignmentTemplateModel := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+				actionControlAssignmentTemplateModel.ID = core.StringPtr("testString")
+				actionControlAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateActionControlTemplateAssignmentOptions model
+				createActionControlTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions)
+				createActionControlTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createActionControlTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel}
+				createActionControlTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateActionControlTemplateAssignmentOptions model with no property values
+				createActionControlTemplateAssignmentOptionsModelNew := new(iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateActionControlTemplateAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ActionControlAssignmentTemplate model
+				actionControlAssignmentTemplateModel := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+				actionControlAssignmentTemplateModel.ID = core.StringPtr("testString")
+				actionControlAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateActionControlTemplateAssignmentOptions model
+				createActionControlTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions)
+				createActionControlTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createActionControlTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel}
+				createActionControlTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createActionControlTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetActionControlAssignment(getActionControlAssignmentOptions *GetActionControlAssignmentOptions) - Operation response error`, func() {
+		getActionControlAssignmentPath := "/v1/action_control_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetActionControlAssignment with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlAssignmentOptions model
+				getActionControlAssignmentOptionsModel := new(iampolicymanagementv1.GetActionControlAssignmentOptions)
+				getActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetActionControlAssignment(getActionControlAssignmentOptions *GetActionControlAssignmentOptions)`, func() {
+		getActionControlAssignmentPath := "/v1/action_control_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke GetActionControlAssignment successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetActionControlAssignmentOptions model
+				getActionControlAssignmentOptionsModel := new(iampolicymanagementv1.GetActionControlAssignmentOptions)
+				getActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetActionControlAssignmentWithContext(ctx, getActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetActionControlAssignmentWithContext(ctx, getActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke GetActionControlAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetActionControlAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetActionControlAssignmentOptions model
+				getActionControlAssignmentOptionsModel := new(iampolicymanagementv1.GetActionControlAssignmentOptions)
+				getActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetActionControlAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlAssignmentOptions model
+				getActionControlAssignmentOptionsModel := new(iampolicymanagementv1.GetActionControlAssignmentOptions)
+				getActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetActionControlAssignmentOptions model with no property values
+				getActionControlAssignmentOptionsModelNew := new(iampolicymanagementv1.GetActionControlAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetActionControlAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetActionControlAssignmentOptions model
+				getActionControlAssignmentOptionsModel := new(iampolicymanagementv1.GetActionControlAssignmentOptions)
+				getActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateActionControlAssignment(updateActionControlAssignmentOptions *UpdateActionControlAssignmentOptions) - Operation response error`, func() {
+		updateActionControlAssignmentPath := "/v1/action_control_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateActionControlAssignment with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateActionControlAssignmentOptions model
+				updateActionControlAssignmentOptionsModel := new(iampolicymanagementv1.UpdateActionControlAssignmentOptions)
+				updateActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateActionControlAssignment(updateActionControlAssignmentOptions *UpdateActionControlAssignmentOptions)`, func() {
+		updateActionControlAssignmentPath := "/v1/action_control_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke UpdateActionControlAssignment successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateActionControlAssignmentOptions model
+				updateActionControlAssignmentOptionsModel := new(iampolicymanagementv1.UpdateActionControlAssignmentOptions)
+				updateActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.UpdateActionControlAssignmentWithContext(ctx, updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.UpdateActionControlAssignmentWithContext(ctx, updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "action_control": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 0}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke UpdateActionControlAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.UpdateActionControlAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateActionControlAssignmentOptions model
+				updateActionControlAssignmentOptionsModel := new(iampolicymanagementv1.UpdateActionControlAssignmentOptions)
+				updateActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateActionControlAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateActionControlAssignmentOptions model
+				updateActionControlAssignmentOptionsModel := new(iampolicymanagementv1.UpdateActionControlAssignmentOptions)
+				updateActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateActionControlAssignmentOptions model with no property values
+				updateActionControlAssignmentOptionsModelNew := new(iampolicymanagementv1.UpdateActionControlAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateActionControlAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateActionControlAssignmentOptions model
+				updateActionControlAssignmentOptionsModel := new(iampolicymanagementv1.UpdateActionControlAssignmentOptions)
+				updateActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.UpdateActionControlAssignment(updateActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteActionControlAssignment(deleteActionControlAssignmentOptions *DeleteActionControlAssignmentOptions)`, func() {
+		deleteActionControlAssignmentPath := "/v1/action_control_assignments/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteActionControlAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteActionControlAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.DeleteActionControlAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteActionControlAssignmentOptions model
+				deleteActionControlAssignmentOptionsModel := new(iampolicymanagementv1.DeleteActionControlAssignmentOptions)
+				deleteActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteActionControlAssignment(deleteActionControlAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteActionControlAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteActionControlAssignmentOptions model
+				deleteActionControlAssignmentOptionsModel := new(iampolicymanagementv1.DeleteActionControlAssignmentOptions)
+				deleteActionControlAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteActionControlAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.DeleteActionControlAssignment(deleteActionControlAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteActionControlAssignmentOptions model with no property values
+				deleteActionControlAssignmentOptionsModelNew := new(iampolicymanagementv1.DeleteActionControlAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.DeleteActionControlAssignment(deleteActionControlAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamPolicyManagementService, _ := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 				URL:           "http://iampolicymanagementv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewActionControlAssignmentTemplate successfully`, func() {
+				id := "testString"
+				version := "testString"
+				_model, err := iamPolicyManagementService.NewActionControlAssignmentTemplate(id, version)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewAssignmentTargetDetails successfully`, func() {
+				typeVar := "Account"
+				id := "testString"
+				_model, err := iamPolicyManagementService.NewAssignmentTargetDetails(typeVar, id)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewCommitActionControlTemplateOptions successfully`, func() {
+				// Construct an instance of the CommitActionControlTemplateOptions model
+				actionControlTemplateID := "testString"
+				version := "testString"
+				commitActionControlTemplateOptionsModel := iamPolicyManagementService.NewCommitActionControlTemplateOptions(actionControlTemplateID, version)
+				commitActionControlTemplateOptionsModel.SetActionControlTemplateID("testString")
+				commitActionControlTemplateOptionsModel.SetVersion("testString")
+				commitActionControlTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(commitActionControlTemplateOptionsModel).ToNot(BeNil())
+				Expect(commitActionControlTemplateOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(commitActionControlTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(commitActionControlTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCommitPolicyTemplateOptions successfully`, func() {
 				// Construct an instance of the CommitPolicyTemplateOptions model
@@ -9648,6 +13098,96 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				var grant *iampolicymanagementv1.Grant = nil
 				_, err := iamPolicyManagementService.NewControl(grant)
 				Expect(err).ToNot(BeNil())
+			})
+			It(`Invoke NewCreateActionControlTemplateAssignmentOptions successfully`, func() {
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				Expect(assignmentTargetDetailsModel).ToNot(BeNil())
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+				Expect(assignmentTargetDetailsModel.Type).To(Equal(core.StringPtr("Account")))
+				Expect(assignmentTargetDetailsModel.ID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ActionControlAssignmentTemplate model
+				actionControlAssignmentTemplateModel := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+				Expect(actionControlAssignmentTemplateModel).ToNot(BeNil())
+				actionControlAssignmentTemplateModel.ID = core.StringPtr("testString")
+				actionControlAssignmentTemplateModel.Version = core.StringPtr("testString")
+				Expect(actionControlAssignmentTemplateModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(actionControlAssignmentTemplateModel.Version).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateActionControlTemplateAssignmentOptions model
+				var createActionControlTemplateAssignmentOptionsTarget *iampolicymanagementv1.AssignmentTargetDetails = nil
+				createActionControlTemplateAssignmentOptionsTemplates := []iampolicymanagementv1.ActionControlAssignmentTemplate{}
+				createActionControlTemplateAssignmentOptionsModel := iamPolicyManagementService.NewCreateActionControlTemplateAssignmentOptions(createActionControlTemplateAssignmentOptionsTarget, createActionControlTemplateAssignmentOptionsTemplates)
+				createActionControlTemplateAssignmentOptionsModel.SetTarget(assignmentTargetDetailsModel)
+				createActionControlTemplateAssignmentOptionsModel.SetTemplates([]iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel})
+				createActionControlTemplateAssignmentOptionsModel.SetAcceptLanguage("default")
+				createActionControlTemplateAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createActionControlTemplateAssignmentOptionsModel).ToNot(BeNil())
+				Expect(createActionControlTemplateAssignmentOptionsModel.Target).To(Equal(assignmentTargetDetailsModel))
+				Expect(createActionControlTemplateAssignmentOptionsModel.Templates).To(Equal([]iampolicymanagementv1.ActionControlAssignmentTemplate{*actionControlAssignmentTemplateModel}))
+				Expect(createActionControlTemplateAssignmentOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(createActionControlTemplateAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateActionControlTemplateOptions successfully`, func() {
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				Expect(templateActionControlModel).ToNot(BeNil())
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+				Expect(templateActionControlModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(templateActionControlModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateActionControlModel.Actions).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the CreateActionControlTemplateOptions model
+				createActionControlTemplateOptionsName := "testString"
+				createActionControlTemplateOptionsAccountID := "testString"
+				createActionControlTemplateOptionsModel := iamPolicyManagementService.NewCreateActionControlTemplateOptions(createActionControlTemplateOptionsName, createActionControlTemplateOptionsAccountID)
+				createActionControlTemplateOptionsModel.SetName("testString")
+				createActionControlTemplateOptionsModel.SetAccountID("testString")
+				createActionControlTemplateOptionsModel.SetDescription("testString")
+				createActionControlTemplateOptionsModel.SetCommitted(true)
+				createActionControlTemplateOptionsModel.SetActionControl(templateActionControlModel)
+				createActionControlTemplateOptionsModel.SetAcceptLanguage("default")
+				createActionControlTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createActionControlTemplateOptionsModel).ToNot(BeNil())
+				Expect(createActionControlTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createActionControlTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createActionControlTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createActionControlTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(createActionControlTemplateOptionsModel.ActionControl).To(Equal(templateActionControlModel))
+				Expect(createActionControlTemplateOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(createActionControlTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateActionControlTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				Expect(templateActionControlModel).ToNot(BeNil())
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+				Expect(templateActionControlModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(templateActionControlModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateActionControlModel.Actions).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the CreateActionControlTemplateVersionOptions model
+				actionControlTemplateID := "testString"
+				createActionControlTemplateVersionOptionsModel := iamPolicyManagementService.NewCreateActionControlTemplateVersionOptions(actionControlTemplateID)
+				createActionControlTemplateVersionOptionsModel.SetActionControlTemplateID("testString")
+				createActionControlTemplateVersionOptionsModel.SetName("testString")
+				createActionControlTemplateVersionOptionsModel.SetDescription("testString")
+				createActionControlTemplateVersionOptionsModel.SetActionControl(templateActionControlModel)
+				createActionControlTemplateVersionOptionsModel.SetCommitted(true)
+				createActionControlTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createActionControlTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(createActionControlTemplateVersionOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createActionControlTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createActionControlTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createActionControlTemplateVersionOptionsModel.ActionControl).To(Equal(templateActionControlModel))
+				Expect(createActionControlTemplateVersionOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(createActionControlTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreatePolicyOptions successfully`, func() {
 				// Construct an instance of the SubjectAttribute model
@@ -10098,6 +13638,39 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(createV2PolicyOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
 				Expect(createV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteActionControlAssignmentOptions successfully`, func() {
+				// Construct an instance of the DeleteActionControlAssignmentOptions model
+				assignmentID := "testString"
+				deleteActionControlAssignmentOptionsModel := iamPolicyManagementService.NewDeleteActionControlAssignmentOptions(assignmentID)
+				deleteActionControlAssignmentOptionsModel.SetAssignmentID("testString")
+				deleteActionControlAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteActionControlAssignmentOptionsModel).ToNot(BeNil())
+				Expect(deleteActionControlAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteActionControlAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteActionControlTemplateOptions successfully`, func() {
+				// Construct an instance of the DeleteActionControlTemplateOptions model
+				actionControlTemplateID := "testString"
+				deleteActionControlTemplateOptionsModel := iamPolicyManagementService.NewDeleteActionControlTemplateOptions(actionControlTemplateID)
+				deleteActionControlTemplateOptionsModel.SetActionControlTemplateID("testString")
+				deleteActionControlTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteActionControlTemplateOptionsModel).ToNot(BeNil())
+				Expect(deleteActionControlTemplateOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteActionControlTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteActionControlTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the DeleteActionControlTemplateVersionOptions model
+				actionControlTemplateID := "testString"
+				version := "testString"
+				deleteActionControlTemplateVersionOptionsModel := iamPolicyManagementService.NewDeleteActionControlTemplateVersionOptions(actionControlTemplateID, version)
+				deleteActionControlTemplateVersionOptionsModel.SetActionControlTemplateID("testString")
+				deleteActionControlTemplateVersionOptionsModel.SetVersion("testString")
+				deleteActionControlTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteActionControlTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(deleteActionControlTemplateVersionOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteActionControlTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(deleteActionControlTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeletePolicyAssignmentOptions successfully`, func() {
 				// Construct an instance of the DeletePolicyAssignmentOptions model
 				assignmentID := "testString"
@@ -10160,6 +13733,41 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(deleteV2PolicyOptionsModel).ToNot(BeNil())
 				Expect(deleteV2PolicyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetActionControlAssignmentOptions successfully`, func() {
+				// Construct an instance of the GetActionControlAssignmentOptions model
+				assignmentID := "testString"
+				getActionControlAssignmentOptionsModel := iamPolicyManagementService.NewGetActionControlAssignmentOptions(assignmentID)
+				getActionControlAssignmentOptionsModel.SetAssignmentID("testString")
+				getActionControlAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getActionControlAssignmentOptionsModel).ToNot(BeNil())
+				Expect(getActionControlAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(getActionControlAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetActionControlTemplateOptions successfully`, func() {
+				// Construct an instance of the GetActionControlTemplateOptions model
+				actionControlTemplateID := "testString"
+				getActionControlTemplateOptionsModel := iamPolicyManagementService.NewGetActionControlTemplateOptions(actionControlTemplateID)
+				getActionControlTemplateOptionsModel.SetActionControlTemplateID("testString")
+				getActionControlTemplateOptionsModel.SetState("active")
+				getActionControlTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getActionControlTemplateOptionsModel).ToNot(BeNil())
+				Expect(getActionControlTemplateOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getActionControlTemplateOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(getActionControlTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetActionControlTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetActionControlTemplateVersionOptions model
+				actionControlTemplateID := "testString"
+				version := "testString"
+				getActionControlTemplateVersionOptionsModel := iamPolicyManagementService.NewGetActionControlTemplateVersionOptions(actionControlTemplateID, version)
+				getActionControlTemplateVersionOptionsModel.SetActionControlTemplateID("testString")
+				getActionControlTemplateVersionOptionsModel.SetVersion("testString")
+				getActionControlTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getActionControlTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getActionControlTemplateVersionOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getActionControlTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(getActionControlTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetPolicyAssignmentOptions successfully`, func() {
 				// Construct an instance of the GetPolicyAssignmentOptions model
@@ -10255,6 +13863,58 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				_model, err := iamPolicyManagementService.NewIdentityTypesBase(state, externalAllowedAccounts)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewListActionControlAssignmentsOptions successfully`, func() {
+				// Construct an instance of the ListActionControlAssignmentsOptions model
+				accountID := "testString"
+				listActionControlAssignmentsOptionsModel := iamPolicyManagementService.NewListActionControlAssignmentsOptions(accountID)
+				listActionControlAssignmentsOptionsModel.SetAccountID("testString")
+				listActionControlAssignmentsOptionsModel.SetAcceptLanguage("default")
+				listActionControlAssignmentsOptionsModel.SetTemplateID("testString")
+				listActionControlAssignmentsOptionsModel.SetTemplateVersion("testString")
+				listActionControlAssignmentsOptionsModel.SetLimit(int64(10))
+				listActionControlAssignmentsOptionsModel.SetStart("testString")
+				listActionControlAssignmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listActionControlAssignmentsOptionsModel).ToNot(BeNil())
+				Expect(listActionControlAssignmentsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlAssignmentsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listActionControlAssignmentsOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlAssignmentsOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlAssignmentsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listActionControlAssignmentsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlAssignmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListActionControlTemplateVersionsOptions successfully`, func() {
+				// Construct an instance of the ListActionControlTemplateVersionsOptions model
+				actionControlTemplateID := "testString"
+				listActionControlTemplateVersionsOptionsModel := iamPolicyManagementService.NewListActionControlTemplateVersionsOptions(actionControlTemplateID)
+				listActionControlTemplateVersionsOptionsModel.SetActionControlTemplateID("testString")
+				listActionControlTemplateVersionsOptionsModel.SetState("active")
+				listActionControlTemplateVersionsOptionsModel.SetLimit(int64(10))
+				listActionControlTemplateVersionsOptionsModel.SetStart("testString")
+				listActionControlTemplateVersionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listActionControlTemplateVersionsOptionsModel).ToNot(BeNil())
+				Expect(listActionControlTemplateVersionsOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlTemplateVersionsOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listActionControlTemplateVersionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listActionControlTemplateVersionsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlTemplateVersionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListActionControlTemplatesOptions successfully`, func() {
+				// Construct an instance of the ListActionControlTemplatesOptions model
+				accountID := "testString"
+				listActionControlTemplatesOptionsModel := iamPolicyManagementService.NewListActionControlTemplatesOptions(accountID)
+				listActionControlTemplatesOptionsModel.SetAccountID("testString")
+				listActionControlTemplatesOptionsModel.SetAcceptLanguage("default")
+				listActionControlTemplatesOptionsModel.SetLimit(int64(10))
+				listActionControlTemplatesOptionsModel.SetStart("testString")
+				listActionControlTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listActionControlTemplatesOptionsModel).ToNot(BeNil())
+				Expect(listActionControlTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlTemplatesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listActionControlTemplatesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listActionControlTemplatesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listActionControlTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListPoliciesOptions successfully`, func() {
 				// Construct an instance of the ListPoliciesOptions model
@@ -10410,11 +14070,57 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listV2PoliciesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listV2PoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewPolicyResource successfully`, func() {
+				attributes := []iampolicymanagementv1.ResourceAttribute{}
+				_model, err := iamPolicyManagementService.NewPolicyResource(attributes)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewPolicyRole successfully`, func() {
 				roleID := "testString"
 				_model, err := iamPolicyManagementService.NewPolicyRole(roleID)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewPolicySubject successfully`, func() {
+				attributes := []iampolicymanagementv1.SubjectAttribute{}
+				_model, err := iamPolicyManagementService.NewPolicySubject(attributes)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewReplaceActionControlTemplateOptions successfully`, func() {
+				// Construct an instance of the TemplateActionControl model
+				templateActionControlModel := new(iampolicymanagementv1.TemplateActionControl)
+				Expect(templateActionControlModel).ToNot(BeNil())
+				templateActionControlModel.ServiceName = core.StringPtr("testString")
+				templateActionControlModel.Description = core.StringPtr("testString")
+				templateActionControlModel.Actions = []string{"testString"}
+				Expect(templateActionControlModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(templateActionControlModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateActionControlModel.Actions).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the ReplaceActionControlTemplateOptions model
+				actionControlTemplateID := "testString"
+				version := "testString"
+				ifMatch := "testString"
+				replaceActionControlTemplateOptionsModel := iamPolicyManagementService.NewReplaceActionControlTemplateOptions(actionControlTemplateID, version, ifMatch)
+				replaceActionControlTemplateOptionsModel.SetActionControlTemplateID("testString")
+				replaceActionControlTemplateOptionsModel.SetVersion("testString")
+				replaceActionControlTemplateOptionsModel.SetIfMatch("testString")
+				replaceActionControlTemplateOptionsModel.SetName("testString")
+				replaceActionControlTemplateOptionsModel.SetDescription("testString")
+				replaceActionControlTemplateOptionsModel.SetActionControl(templateActionControlModel)
+				replaceActionControlTemplateOptionsModel.SetCommitted(true)
+				replaceActionControlTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceActionControlTemplateOptionsModel).ToNot(BeNil())
+				Expect(replaceActionControlTemplateOptionsModel.ActionControlTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceActionControlTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(replaceActionControlTemplateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceActionControlTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(replaceActionControlTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replaceActionControlTemplateOptionsModel.ActionControl).To(Equal(templateActionControlModel))
+				Expect(replaceActionControlTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(replaceActionControlTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplacePolicyOptions successfully`, func() {
 				// Construct an instance of the SubjectAttribute model
@@ -10770,11 +14476,34 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewTemplateActionControl successfully`, func() {
+				serviceName := "testString"
+				actions := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewTemplateActionControl(serviceName, actions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewTemplatePolicy successfully`, func() {
 				typeVar := "access"
 				_model, err := iamPolicyManagementService.NewTemplatePolicy(typeVar)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewUpdateActionControlAssignmentOptions successfully`, func() {
+				// Construct an instance of the UpdateActionControlAssignmentOptions model
+				assignmentID := "testString"
+				ifMatch := "testString"
+				updateActionControlAssignmentOptionsTemplateVersion := "testString"
+				updateActionControlAssignmentOptionsModel := iamPolicyManagementService.NewUpdateActionControlAssignmentOptions(assignmentID, ifMatch, updateActionControlAssignmentOptionsTemplateVersion)
+				updateActionControlAssignmentOptionsModel.SetAssignmentID("testString")
+				updateActionControlAssignmentOptionsModel.SetIfMatch("testString")
+				updateActionControlAssignmentOptionsModel.SetTemplateVersion("testString")
+				updateActionControlAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateActionControlAssignmentOptionsModel).ToNot(BeNil())
+				Expect(updateActionControlAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(updateActionControlAssignmentOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateActionControlAssignmentOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(updateActionControlAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdatePolicyAssignmentOptions successfully`, func() {
 				// Construct an instance of the UpdatePolicyAssignmentOptions model
@@ -10920,6 +14649,25 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalActionControlAssignmentTemplate successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.ActionControlAssignmentTemplate)
+			model.ID = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.ActionControlAssignmentTemplate
+			err = iampolicymanagementv1.UnmarshalActionControlAssignmentTemplate(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalAssignmentTargetDetails successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.AssignmentTargetDetails)
@@ -11243,6 +14991,26 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.SubjectAttribute
 			err = iampolicymanagementv1.UnmarshalSubjectAttribute(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateActionControl successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateActionControl)
+			model.ServiceName = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Actions = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateActionControl
+			err = iampolicymanagementv1.UnmarshalTemplateActionControl(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))

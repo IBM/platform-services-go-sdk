@@ -55,24 +55,31 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		config                     map[string]string
 		configLoaded               bool = false
 
-		exampleUserID                    = "IBMid-user1"
-		exampleServiceName               = "iam-groups"
-		exampleAccountID                 string
-		examplePolicyID                  string
-		examplePolicyETag                string
-		exampleCustomRoleID              string
-		exampleCustomRoleETag            string
-		examplePolicyTemplateName        = "PolicySampleTemplateTest"
-		examplePolicyTemplateID          string
-		examplePolicyTemplateETag        string
-		examplePolicyTemplateBaseVersion string
-		examplePolicyTemplateVersion     string
-		testPolicyAssignmentId           string
-		exampleAssignmentPolicyID        string
-		exampleTargetAccountID           string = ""
-		examplePolicyAssignmentETag      string = ""
-		exampleAccountSettingsETag       string
-		exampleETagHeader                string = "ETag"
+		exampleUserID                           = "IBMid-user1"
+		exampleServiceName                      = "iam-groups"
+		exampleAccountID                        string
+		examplePolicyID                         string
+		examplePolicyETag                       string
+		exampleCustomRoleID                     string
+		exampleCustomRoleETag                   string
+		examplePolicyTemplateName               = "PolicySampleTemplateTest"
+		examplePolicyTemplateID                 string
+		examplePolicyTemplateETag               string
+		examplePolicyTemplateBaseVersion        string
+		examplePolicyTemplateVersion            string
+		testPolicyAssignmentId                  string
+		exampleAssignmentPolicyID               string
+		exampleTargetAccountID                  string = ""
+		examplePolicyAssignmentETag             string = ""
+		exampleAccountSettingsETag              string
+		exampleETagHeader                       string = "ETag"
+		exampleActionControlTemplateID          string
+		exampleActionControlTemplateBaseVersion string
+		exampleActionControlTemplateETag        string = ""
+		exampleActionControlTemplateVersion     string
+		exampleActionControlTemplateName               = "ActionControlTemplateGoSDKTest"
+		exampleActionControlAssignmentETag      string = ""
+		exampleActionControlAssignmentId        string
 	)
 
 	var shouldSkipTest = func() {
@@ -989,7 +996,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				ID:      &examplePolicyTemplateID,
 				Version: &examplePolicyTemplateBaseVersion,
 			}
-			
 			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
 				template,
 			}
@@ -1246,6 +1252,396 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettingsAccessManagement).ToNot(BeNil())
+		})
+
+		It(`CreateActionControlTemplate request example`, func() {
+			fmt.Println("\nCreateActionControlTemplate() result:")
+			// begin-create_action_control_template
+
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.create"},
+			}
+
+			createActionControlTemplateOptions := &iampolicymanagementv1.CreateActionControlTemplateOptions{
+				Name:           &exampleActionControlTemplateName,
+				AccountID:      &exampleAccountID,
+				ActionControl:  templateActionControl,
+				Description:    core.StringPtr("Test ActionControl Template from GO SDK"),
+				Committed:      core.BoolPtr(true),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			actionControlTemplate, response, err := iamPolicyManagementService.CreateActionControlTemplate(createActionControlTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplate, "", "  ")
+			exampleActionControlTemplateID = *actionControlTemplate.ID
+			exampleActionControlTemplateBaseVersion = *actionControlTemplate.Version
+			exampleActionControlTemplateETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-create_action_control_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(actionControlTemplate).ToNot(BeNil())
+		})
+
+		It(`GetActionControlTemplate request example`, func() {
+			fmt.Println("\nGetActionControlTemplate() result:")
+			// begin-get_action_control_template
+
+			getActionControlTemplateOptions := iamPolicyManagementService.NewGetActionControlTemplateOptions(
+				exampleActionControlTemplateID,
+			)
+
+			actionControlTemplate, response, err := iamPolicyManagementService.GetActionControlTemplate(getActionControlTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_action_control_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate.AccountID).ToNot(BeNil())
+			Expect(actionControlTemplate.Version).ToNot(BeNil())
+			Expect(actionControlTemplate.Name).ToNot(BeNil())
+			Expect(actionControlTemplate.ActionControl).ToNot(BeNil())
+		})
+
+		It(`CreateActionControlTemplateVersion request example`, func() {
+			fmt.Println("\nCreateActionControlTemplateVersion() result:")
+			// begin-create_action_control_template_version
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.delete"},
+			}
+
+			updateActionControlTemplateVersionOptions := &iampolicymanagementv1.CreateActionControlTemplateVersionOptions{
+				ActionControl:           templateActionControl,
+				Description:             core.StringPtr("Test of ActionControl Template version from GO SDK"),
+				ActionControlTemplateID: &exampleActionControlTemplateID,
+			}
+
+			actionControlTemplate, response, err := iamPolicyManagementService.CreateActionControlTemplateVersion(updateActionControlTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplate, "", "  ")
+			exampleActionControlTemplateVersion = *actionControlTemplate.Version
+			exampleActionControlTemplateETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-create_action_control_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(actionControlTemplate).ToNot(BeNil())
+		})
+
+		It(`ListActionControlTemplateVersions request example`, func() {
+			fmt.Println("\nListActionControlTemplateVersions() result:")
+			// begin-list_action_control_templates
+
+			listActionControlTemplateVersionsOptions := iamPolicyManagementService.NewListActionControlTemplateVersionsOptions(
+				exampleActionControlTemplateID,
+			)
+
+			actionControlTemplateVersionsCollection, response, err := iamPolicyManagementService.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplateVersionsCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_action_control_templates
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplateVersionsCollection).ToNot(BeNil())
+		})
+
+		It(`ReplaceActionControlTemplate request example`, func() {
+			fmt.Println("\nReplaceActionControlTemplate() result:")
+			// begin-replace_action_control_template
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.delete", "am-test-service.test.create"},
+			}
+
+			replaceActionControlTemplateVersionOptions := &iampolicymanagementv1.ReplaceActionControlTemplateOptions{
+				ActionControl:           templateActionControl,
+				Description:             core.StringPtr("Test update of ActionControl Template from GO SDK"),
+				Committed:               core.BoolPtr(true),
+				IfMatch:                 core.StringPtr(exampleActionControlTemplateETag),
+				Version:                 core.StringPtr(exampleActionControlTemplateVersion),
+				ActionControlTemplateID: &exampleActionControlTemplateID,
+			}
+
+			actionControlTemplate, response, err := iamPolicyManagementService.ReplaceActionControlTemplate(replaceActionControlTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplate, "", "  ")
+			exampleActionControlTemplateVersion = *actionControlTemplate.Version
+			exampleActionControlTemplateETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-replace_action_control_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+		})
+
+		It(`GetActionControlTemplateVersion request example`, func() {
+			fmt.Println("\nGetActionControlTemplateVersion() result:")
+			// begin-get_action_control_template_version
+
+			getActionControlTemplateVersionOptions := iamPolicyManagementService.NewGetActionControlTemplateVersionOptions(
+				exampleActionControlTemplateID,
+				exampleActionControlTemplateVersion,
+			)
+
+			actionControlTemplate, response, err := iamPolicyManagementService.GetActionControlTemplateVersion(getActionControlTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_action_control_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+		})
+
+		It(`CommitActionControlTemplate request example`, func() {
+			fmt.Println("\nCommitActionControlTemplate() result:")
+			// begin-commit_action_control_template
+
+			commitActionControlTemplateOptions := iamPolicyManagementService.NewCommitActionControlTemplateOptions(
+				exampleActionControlTemplateID,
+				exampleActionControlTemplateBaseVersion,
+			)
+
+			response, err := iamPolicyManagementService.CommitActionControlTemplate(commitActionControlTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from CommitActionControlTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-commit_action_control_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`ListActionControlTemplates request example`, func() {
+			fmt.Println("\nListActionControlTemplates() result:")
+			// begin-list_action_Control_templates
+
+			listActionControlTemplatesOptions := iamPolicyManagementService.NewListActionControlTemplatesOptions(
+				exampleAccountID,
+			)
+
+			actionControlTemplateCollection, response, err := iamPolicyManagementService.ListActionControlTemplates(listActionControlTemplatesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplateCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_action_Control_templates
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplateCollection).ToNot(BeNil())
+		})
+
+		It(`CreateActionControlAssignments request example`, func() {
+			fmt.Println("\nCreateActionControlTemplateAssignment() result:")
+			// begin-create_action_control_template_assignment
+			template := iampolicymanagementv1.ActionControlAssignmentTemplate{
+				ID:      &exampleActionControlTemplateID,
+				Version: &exampleActionControlTemplateVersion,
+			}
+			templates := []iampolicymanagementv1.ActionControlAssignmentTemplate{
+				template,
+			}
+
+			target := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: core.StringPtr("Account"),
+				ID:   &exampleTargetAccountID,
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions{
+				Target:    target,
+				Templates: templates,
+			}
+
+			actionControlAssignment, response, err := iamPolicyManagementService.CreateActionControlTemplateAssignment(createPolicyTemplateVersionOptions)
+
+			b, _ := json.MarshalIndent(actionControlAssignment, "", "  ")
+			fmt.Println(string(b))
+
+			var assignmentDetails = actionControlAssignment.Assignments[0]
+			// end-create_action_control_template_assignment
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			exampleActionControlAssignmentETag = response.GetHeaders().Get(exampleETagHeader)
+			exampleActionControlAssignmentId = *assignmentDetails.ID
+		})
+
+		It(`UpdateActionControlAssignment request example))`, func() {
+			// begin-update_action_control_assignment
+			updatePolicyAssignmentOptions := iamPolicyManagementService.NewUpdateActionControlAssignmentOptions(
+				exampleActionControlAssignmentId,
+				exampleActionControlAssignmentETag,
+				exampleActionControlTemplateBaseVersion,
+			)
+
+			actionControlAssignment, response, err := iamPolicyManagementService.UpdateActionControlAssignment(updatePolicyAssignmentOptions)
+			b, _ := json.MarshalIndent(actionControlAssignment, "", "  ")
+			fmt.Println(string(b))
+			// end-update_action_control_assignment
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			exampleActionControlAssignmentId = *actionControlAssignment.ID
+		})
+
+		It(`ListActionControlAssignments request example`, func() {
+			fmt.Println("\nListActionControlAssignments() result:")
+			// begin-list_action_control_assignments
+
+			listActionControlAssignmentsOptions := iamPolicyManagementService.NewListActionControlAssignmentsOptions(
+				exampleAccountID,
+			)
+
+			actionControlTemplateAssignmentCollection, response, err := iamPolicyManagementService.ListActionControlAssignments(listActionControlAssignmentsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(actionControlTemplateAssignmentCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_action_control_assignments
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			var assignmentDetails = actionControlTemplateAssignmentCollection.Assignments[0]
+			Expect(assignmentDetails).ToNot(BeNil())
+			Expect(assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Status).ToNot(BeNil())
+			Expect(assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.Resources).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(assignmentDetails.Href).ToNot(BeNil())
+		})
+
+		It(`GetActionControlAssignment request example`, func() {
+			fmt.Println("\nGetActionControlAssignment() result:")
+			// begin-get_action_control_assignment
+
+			getActionControlAssignmentOptions := iamPolicyManagementService.NewGetActionControlAssignmentOptions(
+				exampleActionControlAssignmentId,
+			)
+
+			assignmentDetails, response, err := iamPolicyManagementService.GetActionControlAssignment(getActionControlAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(assignmentDetails, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_action_control_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(assignmentDetails).ToNot(BeNil())
+			Expect(assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Status).ToNot(BeNil())
+			Expect(assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(assignmentDetails.Href).ToNot(BeNil())
+		})
+
+		It(`DeleteActionControlAssignment request example)`, func() {
+			// begin-delete_action_control_assignment
+			deleteActionControlAssignmentOptions := iamPolicyManagementService.NewDeleteActionControlAssignmentOptions(
+				exampleActionControlAssignmentId,
+			)
+
+			response, err := iamPolicyManagementService.DeleteActionControlAssignment(deleteActionControlAssignmentOptions)
+			// end-delete_action_control_assignment
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`DeleteActionControlTemplateVersion request example`, func() {
+			// begin-delete_action_control_template_version
+
+			deleteActionControlTemplateVersionOptions := iamPolicyManagementService.NewDeleteActionControlTemplateVersionOptions(
+				exampleActionControlTemplateID,
+				exampleActionControlTemplateVersion,
+			)
+
+			response, err := iamPolicyManagementService.DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteActionControlTemplateVersion(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_action_control_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`DeleteActionControlTemplate request example`, func() {
+			// begin-delete_action_control_template
+
+			deleteActionControlTemplateOptions := iamPolicyManagementService.NewDeleteActionControlTemplateOptions(
+				exampleActionControlTemplateID,
+			)
+
+			response, err := iamPolicyManagementService.DeleteActionControlTemplate(deleteActionControlTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeletePolicyTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_action_control_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })

@@ -66,23 +66,34 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testPolicyS2STemplateID         string = ""
 		testPolicyS2SOnlyTypeTemplateID string = ""
 
-		testPolicyS2STemplateVersion          string = ""
-		testPolicyS2SOnlyTypeTemplateVersions string = ""
-		testPolicyS2SUpdateTemplateVersion    string = ""
-		testPolicyTemplateETag                string = ""
-		testPolicyOnlyPolicyTemplateETag      string = ""
-		testPolicyTemplatePolicyTypeETag      string = ""
-		testPolicyTemplateVersion             string = ""
-		testPolicyTemplatePolicyTypeVersion   string = ""
-		testPolicyAssignmentId                string = ""
-		examplePolicyTemplateName             string = "PolicySampleTemplateTestV1"
-		TestPolicyType                        string = "TestPolicyType"
-		assignmentPolicyID                    string
-		testTargetAccountID                   string = ""
-		testTargetEnterpriseID                string = ""
-		testPolicyAssignmentETag              string = ""
-		testTargetType                        string = "Account"
-		testAcountSettingsETag                string = ""
+		testPolicyS2STemplateVersion                string = ""
+		testPolicyS2SOnlyTypeTemplateVersions       string = ""
+		testPolicyS2SUpdateTemplateVersion          string = ""
+		testPolicyTemplateETag                      string = ""
+		testPolicyOnlyPolicyTemplateETag            string = ""
+		testPolicyTemplatePolicyTypeETag            string = ""
+		testPolicyTemplateVersion                   string = ""
+		testPolicyTemplatePolicyTypeVersion         string = ""
+		testPolicyAssignmentId                      string = ""
+		examplePolicyTemplateName                   string = "PolicySampleTemplateTestV1"
+		TestPolicyType                              string = "TestPolicyType"
+		assignmentPolicyID                          string
+		testTargetAccountID                         string = ""
+		testPolicyAssignmentETag                    string = ""
+		testTargetType                              string = "Account"
+		testAcountSettingsETag                      string = ""
+		exampleActionControlTemplateName            string = "ActionControlTemplateGoSDK"
+		exampleBasicActionControlTemplateName       string = "BasicActionControlTemplateGoSDK"
+		exampleBasicActionControlUpdateTemplateName string = "BasicActionControlTemplateUpdateGoSDK"
+		testActionControlTemplateID                 string = ""
+		testBasicActionControlTemplateID            string = ""
+		testActionControlTemplateVersion            string = ""
+		testBasicActionControlTemplateETag          string = ""
+		testBasicActionControlTemplateVersions      string = ""
+		testActionControlUpdateTemplateVersion      string = ""
+		testActionControlTemplateVersionETag        string = ""
+		testActionControlAssignmentETag             string = ""
+		testActionControlAssignmentId               string = ""
 	)
 
 	var shouldSkipTest = func() {
@@ -101,8 +112,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
 			testTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
-			testTargetEnterpriseID = config["TEST_TARGET_ENTERPRISE_ACCOUNT_ID"]
-			if testAccountID != "" && testTargetAccountID != "" && testTargetEnterpriseID != "" {
+			if testAccountID != "" && testTargetAccountID != "" {
 				configLoaded = true
 			}
 		}
@@ -1497,6 +1507,465 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettingsAccessManagement).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateBasicActionControlTemplate - Create a basic action template version without action_control`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateBasicActionControlTemplate(createActionControlTemplateOptions *CreateActionControlTemplateOptions) without action_control`, func() {
+			createActionControlTemplateOptions := &iampolicymanagementv1.CreateActionControlTemplateOptions{
+				Name:           core.StringPtr(exampleBasicActionControlTemplateName),
+				AccountID:      &testAccountID,
+				Description:    core.StringPtr("Test Basic ActionControl Template from GO SDK"),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			actionControlTemplate, response, err := service.CreateActionControlTemplate(createActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(actionControlTemplate).ToNot(BeNil())
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlTemplateName)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testBasicActionControlTemplateID = *actionControlTemplate.ID
+			testBasicActionControlTemplateETag = response.GetHeaders().Get(etagHeader)
+			testBasicActionControlTemplateVersions = *actionControlTemplate.Version
+		})
+	})
+
+	Describe(`ReplaceBasicActionControlTemplate - Update a basic action control template version without action_control`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceActionControlTemplate(replaceActionControlTemplateOptions *ReplaceActionControlTemplateOptions)`, func() {
+			replaceActionControlTemplateOptions := &iampolicymanagementv1.ReplaceActionControlTemplateOptions{
+				Description:             core.StringPtr("Test ActionControl Template from GO SDK"),
+				Name:                    core.StringPtr(exampleBasicActionControlUpdateTemplateName),
+				ActionControlTemplateID: core.StringPtr(testBasicActionControlTemplateID),
+				IfMatch:                 core.StringPtr(testBasicActionControlTemplateETag),
+				Version:                 core.StringPtr(testBasicActionControlTemplateVersions),
+			}
+
+			actionControlTemplate, response, err := service.ReplaceActionControlTemplate(replaceActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+			testPolicyOnlyPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
+			testBasicActionControlTemplateID = *actionControlTemplate.ID
+			testBasicActionControlTemplateETag = response.GetHeaders().Get(etagHeader)
+			testBasicActionControlTemplateVersions = *actionControlTemplate.Version
+
+			Expect(actionControlTemplate.Version).To(Equal(core.StringPtr("1")))
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlUpdateTemplateName)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`ReplaceBasicActionControlTemplate - Update a basic action control template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceActionControlTemplate(replaceActionControlTemplateOptions *ReplaceActionControlTemplateOptions)`, func() {
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.delete"},
+			}
+
+			replaceActionControlTemplateOptions := &iampolicymanagementv1.ReplaceActionControlTemplateOptions{
+				ActionControl:           templateActionControl,
+				Description:             core.StringPtr("Test ActionControl Template from GO SDK"),
+				Committed:               core.BoolPtr(true),
+				ActionControlTemplateID: core.StringPtr(testBasicActionControlTemplateID),
+				IfMatch:                 core.StringPtr(testBasicActionControlTemplateETag),
+				Version:                 core.StringPtr(testBasicActionControlTemplateVersions),
+			}
+
+			actionControlTemplate, response, err := service.ReplaceActionControlTemplate(replaceActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+
+			Expect(actionControlTemplate.Version).To(Equal(core.StringPtr("1")))
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlUpdateTemplateName)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`GetBasicActionControlTemplate - Retrieve action control template version by template ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetActionControlTemplate(getActionControlTemplateOptions *GetActionControlTemplateOptions)`, func() {
+			getActionControlTemplateOptions := &iampolicymanagementv1.GetActionControlTemplateOptions{
+				ActionControlTemplateID: &testBasicActionControlTemplateID,
+			}
+
+			actionControlTemplate, response, err := service.GetActionControlTemplate(getActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleBasicActionControlUpdateTemplateName)))
+			Expect(actionControlTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`DeleteBasicActionControlTemplate - Delete an action control template by ID and version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteActionControlTemplateVersion(deleteActionControlTemplateVersionOptions *DeleteActionControlTemplateVersionOptions`, func() {
+			deleteActionControlTemplateOptions := &iampolicymanagementv1.DeleteActionControlTemplateVersionOptions{
+				ActionControlTemplateID: &testBasicActionControlTemplateID,
+				Version:                 &testBasicActionControlTemplateVersions,
+			}
+
+			response, err := service.DeleteActionControlTemplateVersion(deleteActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`CreateTestActionControlTemplate - Create an action control template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateTestActionControlTemplate(createActionControlTemplateOptions *CreateActionControlTemplateOptions)`, func() {
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.create"},
+			}
+
+			createActionControlTemplateOptions := &iampolicymanagementv1.CreateActionControlTemplateOptions{
+				Name:           &exampleActionControlTemplateName,
+				AccountID:      &testAccountID,
+				ActionControl:  templateActionControl,
+				Description:    core.StringPtr("Test ActionControl Template from GO SDK"),
+				Committed:      core.BoolPtr(true),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			actionControlTemplate, response, err := service.CreateActionControlTemplate(createActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(actionControlTemplate).ToNot(BeNil())
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleActionControlTemplateName)))
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testActionControlTemplateID = *actionControlTemplate.ID
+			testActionControlTemplateVersion = *actionControlTemplate.Version
+		})
+	})
+
+	Describe(`CreateTestActionControlTemplateVersion - Create a new action control template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+
+		It(`CreateTestActionControlTemplateVersion(createActionControlTemplateVersionOptions *CreateActionControlTemplateVersionOptions)`, func() {
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.delete"},
+			}
+
+			updateActionControlTemplateVersionOptions := &iampolicymanagementv1.CreateActionControlTemplateVersionOptions{
+				ActionControl:           templateActionControl,
+				Description:             core.StringPtr("Test of ActionControl Template version from GO SDK"),
+				ActionControlTemplateID: &testActionControlTemplateID,
+			}
+
+			actionControlTemplate, response, err := service.CreateActionControlTemplateVersion(updateActionControlTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(actionControlTemplate).ToNot(BeNil())
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleActionControlTemplateName)))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testActionControlUpdateTemplateVersion = *actionControlTemplate.Version
+			testActionControlTemplateVersionETag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`ReplaceTestActionControlTemplateVersion - Update an action control template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+
+		It(`ReplaceTestActionControlTemplate(replaceActionControlTemplateOptions *ReplaceActionControlTemplateOptions)`, func() {
+
+			templateActionControl := &iampolicymanagementv1.TemplateActionControl{
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service actionControl"),
+				Actions:     []string{"am-test-service.test.delete", "am-test-service.test.create"},
+			}
+
+			replaceActionControlTemplateVersionOptions := &iampolicymanagementv1.ReplaceActionControlTemplateOptions{
+				ActionControl:           templateActionControl,
+				Description:             core.StringPtr("Test update of ActionControl Template from GO SDK"),
+				Committed:               core.BoolPtr(true),
+				IfMatch:                 core.StringPtr(testActionControlTemplateVersionETag),
+				Version:                 core.StringPtr(testActionControlUpdateTemplateVersion),
+				ActionControlTemplateID: &testActionControlTemplateID,
+			}
+
+			actionControlTemplate, response, err := service.ReplaceActionControlTemplate(replaceActionControlTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+			Expect(actionControlTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(actionControlTemplate.Name).To(Equal(core.StringPtr(exampleActionControlTemplateName)))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testActionControlUpdateTemplateVersion = *actionControlTemplate.Version
+		})
+	})
+
+	Describe(`ListActionControlTemplates - Get action control templates by attributes`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListActionControlTemplates(listActionControlTemplatesOptions *ListActionControlTemplatesOptions)`, func() {
+			listActionControlTemplatesOptions := &iampolicymanagementv1.ListActionControlTemplatesOptions{
+				AccountID:      &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			actionControlTemplateCollection, response, err := service.ListActionControlTemplates(listActionControlTemplatesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplateCollection).ToNot(BeNil())
+
+			Expect(actionControlTemplateCollection.ActionControlTemplates[0].AccountID).To(Equal(&testAccountID))
+			Expect(actionControlTemplateCollection.ActionControlTemplates[0].State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`GetActionControlTemplateVersion - Retrieve an action control template version by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetActionControlTemplateVersion(getActionControlTemplateVersionOptions *GetActionControlTemplateVersionOptions)`, func() {
+			getActionControlTemplateVersionOptions := &iampolicymanagementv1.GetActionControlTemplateVersionOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+				Version:                 &testActionControlUpdateTemplateVersion,
+			}
+
+			actionControlTemplate, response, err := service.GetActionControlTemplateVersion(getActionControlTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+
+			Expect(actionControlTemplate.Version).To(Equal(core.StringPtr("2")))
+			Expect(actionControlTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`CommitActionControlTemplate - Commit an action control template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CommitActionControlTemplate(commitActionControlTemplateOptions *CommitActionControlTemplateOptions)`, func() {
+			commitActionControlTemplateOptions := &iampolicymanagementv1.CommitActionControlTemplateOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+				Version:                 &testActionControlTemplateVersion,
+			}
+
+			response, err := service.CommitActionControlTemplate(commitActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`GetActionControlTemplate - Retrieve latest action control template version by template ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetActionControlTemplate(getActionControlTemplateOptions *GetActionControlTemplateOptions)`, func() {
+			getActionControlTemplateOptions := &iampolicymanagementv1.GetActionControlTemplateOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+			}
+
+			actionControlTemplate, response, err := service.GetActionControlTemplate(getActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplate).ToNot(BeNil())
+
+			Expect(actionControlTemplate.Name).To(Equal(&exampleActionControlTemplateName))
+			Expect(actionControlTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(actionControlTemplate.State).To(Equal(core.StringPtr("active")))
+		})
+	})
+
+	Describe(`ListActionControlTemplateVersions - Retrieve action control template versions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions *ListActionControlTemplateVersionsOptions)`, func() {
+			listActionControlTemplateVersionsOptions := &iampolicymanagementv1.ListActionControlTemplateVersionsOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+			}
+
+			actionControlTemplateVersionsCollection, response, err := service.ListActionControlTemplateVersions(listActionControlTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(actionControlTemplateVersionsCollection).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateActionControlAssignments - Create action control assignments by action template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateActionControlTemplateAssignment(createActionControlTemplateAssignmentOptions *CreateActionControlTemplateAssignmentOptions)`, func() {
+			template := iampolicymanagementv1.ActionControlAssignmentTemplate{
+				ID:      &testActionControlTemplateID,
+				Version: &testActionControlTemplateVersion,
+			}
+			templates := []iampolicymanagementv1.ActionControlAssignmentTemplate{
+				template,
+			}
+
+			target := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: &testTargetType,
+				ID:   &testTargetAccountID,
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreateActionControlTemplateAssignmentOptions{
+				Target:    target,
+				Templates: templates,
+			}
+
+			actionControlAssignment, response, err := service.CreateActionControlTemplateAssignment(createPolicyTemplateVersionOptions)
+			var assignmentDetails = actionControlAssignment.Assignments[0]
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(*assignmentDetails.Resources[0].ActionControl.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.ID).To(Equal(testTargetAccountID))
+			Expect(*assignmentDetails.Resources[0].Target.Type).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.Type).To(Equal(testTargetType))
+			testActionControlAssignmentETag = response.GetHeaders().Get(etagHeader)
+			testActionControlAssignmentId = *assignmentDetails.ID
+		})
+	})
+
+	Describe(`UpdateActionControlAssignment - update an action control assignment by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		Expect(testActionControlAssignmentETag).To(Not(BeNil()))
+		It(`UpdateActionControlAssignment(updateActionControlAssignmentOptions *UpdateActionControlAssignmentOptions))`, func() {
+			updatePolicyAssignmentOptions := &iampolicymanagementv1.UpdateActionControlAssignmentOptions{
+				AssignmentID:    core.StringPtr(testActionControlAssignmentId),
+				TemplateVersion: core.StringPtr(testActionControlUpdateTemplateVersion),
+				IfMatch:         core.StringPtr(testActionControlAssignmentETag),
+			}
+
+			actionControlAssignment, response, err := service.UpdateActionControlAssignment(updatePolicyAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(*actionControlAssignment.Resources[0].ActionControl.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*actionControlAssignment.ID).To(Equal(testActionControlAssignmentId))
+		})
+	})
+
+	Describe(`ListActionControlAssignments - Get action control template assignments by attributes`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListActionControlAssignments(listActionControlAssignmentsOptions *ListActionControlAssignmentsOptions)`, func() {
+			listActionControlAssignmentsOptions := &iampolicymanagementv1.ListActionControlAssignmentsOptions{
+				AccountID:      core.StringPtr(testAccountID),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			templateAssignmentCollection, response, err := service.ListActionControlAssignments(listActionControlAssignmentsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(templateAssignmentCollection).ToNot(BeNil())
+			var assignmentDetails = templateAssignmentCollection.Assignments[0]
+
+			Expect(assignmentDetails).ToNot(BeNil())
+			Expect(assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Status).ToNot(BeNil())
+			Expect(assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.Resources).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(assignmentDetails.Href).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetActionControlAssignment - Retrieve an action control assignment by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetActionControlAssignment(getActionControlAssignmentOptions *GetActionControlAssignmentOptions)`, func() {
+			getActionControlAssignmentOptions := &iampolicymanagementv1.GetActionControlAssignmentOptions{
+				AssignmentID: core.StringPtr(testActionControlAssignmentId),
+			}
+
+			assignmentDetails, response, err := service.GetActionControlAssignment(getActionControlAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(assignmentDetails).ToNot(BeNil())
+			Expect(assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Status).ToNot(BeNil())
+			Expect(assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(assignmentDetails.Href).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteActionControlAssignment - Delete an action control assignment by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteActionControlAssignment(deleteActionControlAssignmentOptions *DeleteActionControlAssignmentOptions)`, func() {
+			deleteActionControlAssignmentOptions := &iampolicymanagementv1.DeleteActionControlAssignmentOptions{
+				AssignmentID: core.StringPtr(testActionControlAssignmentId),
+			}
+
+			response, err := service.DeleteActionControlAssignment(deleteActionControlAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteTestActionControlTemplate - Delete an action control template by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTestActionControlTemplate(deleteActionControlTemplateOptions *DeleteActionControlTemplateOptions)`, func() {
+			deleteActionControlTemplateOptions := &iampolicymanagementv1.DeleteActionControlTemplateOptions{
+				ActionControlTemplateID: &testActionControlTemplateID,
+			}
+
+			response, err := service.DeleteActionControlTemplate(deleteActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
