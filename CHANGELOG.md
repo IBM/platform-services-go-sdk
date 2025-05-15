@@ -1,3 +1,10 @@
+## [0.81.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.81.0...v0.81.1) (2025-05-15)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** relax restrictions on catalog product media item fields ([#385](https://github.com/IBM/platform-services-go-sdk/issues/385)) ([b449fea](https://github.com/IBM/platform-services-go-sdk/commit/b449feaa863152872e7dd19afb78c0895be2eeee))
+
 # [0.81.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.80.0...v0.81.0) (2025-05-07)
 
 
