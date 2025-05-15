@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.101.0-62624c1e-20250225-192301
+ * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -3093,16 +3093,16 @@ func (catalogHighlightItem *CatalogHighlightItem) asPatch() (_patch map[string]i
 // CatalogProductMediaItem : CatalogProductMediaItem struct
 type CatalogProductMediaItem struct {
 	// Provide a descriptive caption that indicates what the media illustrates. This caption is displayed in the catalog.
-	Caption *string `json:"caption" validate:"required"`
+	Caption *string `json:"caption,omitempty"`
 
 	// The reduced-size version of your images and videos.
 	Thumbnail *string `json:"thumbnail,omitempty"`
 
 	// The type of the media.
-	Type *string `json:"type" validate:"required"`
+	Type *string `json:"type,omitempty"`
 
 	// The URL that links to the media that shows off the product.
-	URL *string `json:"url" validate:"required"`
+	URL *string `json:"url,omitempty"`
 }
 
 // Constants associated with the CatalogProductMediaItem.Type property.
@@ -3113,20 +3113,6 @@ const (
 	CatalogProductMediaItem_Type_VideoWebm = "video_webm"
 	CatalogProductMediaItem_Type_Youtube   = "youtube"
 )
-
-// NewCatalogProductMediaItem : Instantiate CatalogProductMediaItem (Generic Model Constructor)
-func (*PartnerCenterSellV1) NewCatalogProductMediaItem(caption string, typeVar string, url string) (_model *CatalogProductMediaItem, err error) {
-	_model = &CatalogProductMediaItem{
-		Caption: core.StringPtr(caption),
-		Type:    core.StringPtr(typeVar),
-		URL:     core.StringPtr(url),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
-	return
-}
 
 // UnmarshalCatalogProductMediaItem unmarshals an instance of CatalogProductMediaItem from the specified map of raw messages.
 func UnmarshalCatalogProductMediaItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -5314,7 +5300,7 @@ func (globalCatalogDeploymentPatch *GlobalCatalogDeploymentPatch) AsPatch() (_pa
 
 // GlobalCatalogMetadataDeployment : The global catalog metadata of the deployment.
 type GlobalCatalogMetadataDeployment struct {
-	// The global catalog metadata of the deployment.
+	// The broker data connected to the deployment.
 	Broker *GlobalCatalogMetadataDeploymentBroker `json:"broker,omitempty"`
 
 	// The global catalog deployment location.
@@ -5373,7 +5359,7 @@ func (globalCatalogMetadataDeployment *GlobalCatalogMetadataDeployment) asPatch(
 	return
 }
 
-// GlobalCatalogMetadataDeploymentBroker : The global catalog metadata of the deployment.
+// GlobalCatalogMetadataDeploymentBroker : The broker data connected to the deployment.
 type GlobalCatalogMetadataDeploymentBroker struct {
 	// The name of the resource broker.
 	Name *string `json:"name,omitempty"`

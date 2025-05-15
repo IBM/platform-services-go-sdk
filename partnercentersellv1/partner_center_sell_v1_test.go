@@ -12477,14 +12477,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				URL:           "http://partnercentersellv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It(`Invoke NewCatalogProductMediaItem successfully`, func() {
-				caption := "testString"
-				typeVar := "image"
-				url := "testString"
-				_model, err := partnerCenterSellService.NewCatalogProductMediaItem(caption, typeVar, url)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewCreateCatalogDeploymentOptions successfully`, func() {
 				// Construct an instance of the CatalogProductProvider model
 				catalogProductProviderModel := new(partnercentersellv1.CatalogProductProvider)
