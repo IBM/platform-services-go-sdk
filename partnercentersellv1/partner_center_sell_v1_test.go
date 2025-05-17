@@ -68,14 +68,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-				})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 				Expect(partnerCenterSellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-				})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 				err := partnerCenterSellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerCenterSellService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-			})
+			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerCenterSellService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_AUTH_TYPE":   "NOAuth",
+				"PARTNER_CENTER_SELL_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2176,6 +2173,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -2184,7 +2202,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -2344,7 +2362,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2447,6 +2465,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -2455,7 +2494,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -2618,7 +2657,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2726,6 +2765,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -2734,7 +2794,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -2949,6 +3009,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -2957,7 +3038,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -3193,6 +3274,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -3201,7 +3303,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -3389,7 +3491,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3446,7 +3548,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3663,6 +3765,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -3671,7 +3794,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -3834,7 +3957,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -3937,6 +4060,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -3945,7 +4089,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -4111,7 +4255,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -4219,6 +4363,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -4227,7 +4392,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -4445,6 +4610,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -4453,7 +4639,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -4692,6 +4878,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -4700,7 +4907,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -6875,6 +7082,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -6883,7 +7111,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -6989,7 +7217,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully with retries`, func() {
@@ -7040,6 +7268,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -7048,7 +7297,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -7157,7 +7406,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully`, func() {
@@ -7213,6 +7462,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -7221,7 +7491,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -7330,6 +7600,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -7338,7 +7629,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -7468,6 +7759,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -7476,7 +7788,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -7612,7 +7924,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully with retries`, func() {
@@ -7671,7 +7983,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully`, func() {
@@ -7842,6 +8154,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -7850,7 +8183,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -7959,7 +8292,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully with retries`, func() {
@@ -8010,6 +8343,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -8018,7 +8372,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -8130,7 +8484,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"anyKey": "anyValue"}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully`, func() {
@@ -8186,6 +8540,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -8194,7 +8569,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -8306,6 +8681,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -8314,7 +8710,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -8447,6 +8843,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersOptionsModel.Value = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersOptionsModel.I18n = globalCatalogMetadataServiceCustomParametersI18nModel
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				globalCatalogMetadataServiceCustomParametersModel.Displayname = core.StringPtr("testString")
@@ -8455,7 +8872,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -12544,6 +12961,40 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataServiceCustomParametersOptionsModel.Value).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataServiceCustomParametersOptionsModel.I18n).To(Equal(globalCatalogMetadataServiceCustomParametersI18nModel))
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor).To(Equal([]string{"testString"}))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor).To(Equal([]string{"testString"}))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsLocationModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan).To(Equal(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel.Location).To(Equal(globalCatalogMetadataServiceCustomParametersAssociationsLocationModel))
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				Expect(globalCatalogMetadataServiceCustomParametersModel).ToNot(BeNil())
@@ -12553,7 +13004,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -12570,7 +13021,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Options).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Value).To(Equal([]string{"testString"}))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Layout).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataServiceCustomParametersModel.Associations).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(globalCatalogMetadataServiceCustomParametersModel.Associations).To(Equal(globalCatalogMetadataServiceCustomParametersAssociationsModel))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.ValidationURL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.OptionsURL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Invalidmessage).To(Equal(core.StringPtr("testString")))
@@ -13025,6 +13476,40 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataServiceCustomParametersOptionsModel.Value).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataServiceCustomParametersOptionsModel.I18n).To(Equal(globalCatalogMetadataServiceCustomParametersI18nModel))
 
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan model
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh = core.BoolPtr(true)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.ShowFor).To(Equal([]string{"testString"}))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel.OptionsRefresh).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem model
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name = core.StringPtr("testString")
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor = []string{"testString"}
+				globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh = core.BoolPtr(true)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.ShowFor).To(Equal([]string{"testString"}))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel.OptionsRefresh).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation model
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsLocationModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor = []string{"testString"}
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsLocationModel.ShowFor).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the GlobalCatalogMetadataServiceCustomParametersAssociations model
+				globalCatalogMetadataServiceCustomParametersAssociationsModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel).ToNot(BeNil())
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan = globalCatalogMetadataServiceCustomParametersAssociationsPlanModel
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}
+				globalCatalogMetadataServiceCustomParametersAssociationsModel.Location = globalCatalogMetadataServiceCustomParametersAssociationsLocationModel
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel.Plan).To(Equal(globalCatalogMetadataServiceCustomParametersAssociationsPlanModel))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel}))
+				Expect(globalCatalogMetadataServiceCustomParametersAssociationsModel.Location).To(Equal(globalCatalogMetadataServiceCustomParametersAssociationsLocationModel))
+
 				// Construct an instance of the GlobalCatalogMetadataServiceCustomParameters model
 				globalCatalogMetadataServiceCustomParametersModel := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters)
 				Expect(globalCatalogMetadataServiceCustomParametersModel).ToNot(BeNil())
@@ -13034,7 +13519,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataServiceCustomParametersModel.Options = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}
 				globalCatalogMetadataServiceCustomParametersModel.Value = []string{"testString"}
 				globalCatalogMetadataServiceCustomParametersModel.Layout = core.StringPtr("testString")
-				globalCatalogMetadataServiceCustomParametersModel.Associations = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogMetadataServiceCustomParametersModel.Associations = globalCatalogMetadataServiceCustomParametersAssociationsModel
 				globalCatalogMetadataServiceCustomParametersModel.ValidationURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.OptionsURL = core.StringPtr("testString")
 				globalCatalogMetadataServiceCustomParametersModel.Invalidmessage = core.StringPtr("testString")
@@ -13051,7 +13536,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Options).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel}))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Value).To(Equal([]string{"testString"}))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Layout).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogMetadataServiceCustomParametersModel.Associations).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(globalCatalogMetadataServiceCustomParametersModel.Associations).To(Equal(globalCatalogMetadataServiceCustomParametersAssociationsModel))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.ValidationURL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.OptionsURL).To(Equal(core.StringPtr("testString")))
 				Expect(globalCatalogMetadataServiceCustomParametersModel.Invalidmessage).To(Equal(core.StringPtr("testString")))
@@ -14277,7 +14762,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.Options = nil
 			model.Value = []string{"testString"}
 			model.Layout = core.StringPtr("testString")
-			model.Associations = map[string]interface{}{"anyKey": "anyValue"}
+			model.Associations = nil
 			model.ValidationURL = core.StringPtr("testString")
 			model.OptionsURL = core.StringPtr("testString")
 			model.Invalidmessage = core.StringPtr("testString")
@@ -14298,6 +14783,83 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters
 			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataServiceCustomParameters(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociations successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations)
+			model.Plan = nil
+			model.Parameters = nil
+			model.Location = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations
+			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociations(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsLocation successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+			model.ShowFor = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation
+			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsLocation(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+			model.Name = core.StringPtr("testString")
+			model.ShowFor = []string{"testString"}
+			model.OptionsRefresh = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem
+			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsPlan successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+			model.ShowFor = []string{"testString"}
+			model.OptionsRefresh = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan
+			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsPlan(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))

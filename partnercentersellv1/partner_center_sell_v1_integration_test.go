@@ -349,6 +349,27 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:        globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
+			globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan{
+				ShowFor:        []string{"fake-plan-id"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{
+				Name:           core.StringPtr("fake-parameter"),
+				ShowFor:        []string{"1"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation{
+				ShowFor: []string{"eu-gb"},
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations{
+				Plan:       globalCatalogMetadataServiceCustomParametersAssociationsPlanModel,
+				Parameters: []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel},
+				Location:   globalCatalogMetadataServiceCustomParametersAssociationsLocationModel,
+			}
+
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
 				Displayname:    core.StringPtr("Display_name"),
 				Name:           core.StringPtr("Sample_name"),
@@ -356,7 +377,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
 				Value:          []string{"sample_value"},
 				Layout:         core.StringPtr("sample_layout"),
-				Associations:   map[string]interface{}{"anyKey": "anyValue"},
+				Associations:   globalCatalogMetadataServiceCustomParametersAssociationsModel,
 				ValidationURL:  core.StringPtr("https://http.cat/valid"),
 				OptionsURL:     core.StringPtr("https://http.cat/option"),
 				Invalidmessage: core.StringPtr("Invalid message"),
@@ -574,6 +595,27 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:        globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
+			globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan{
+				ShowFor:        []string{"fake-plan-i-2"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{
+				Name:           core.StringPtr("fake-parameter-2"),
+				ShowFor:        []string{"2"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation{
+				ShowFor: []string{"us-east"},
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations{
+				Plan:       globalCatalogMetadataServiceCustomParametersAssociationsPlanModel,
+				Parameters: []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel},
+				Location:   globalCatalogMetadataServiceCustomParametersAssociationsLocationModel,
+			}
+
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
 				Displayname:    core.StringPtr("Display_name"),
 				Name:           core.StringPtr("Sample_name"),
@@ -581,7 +623,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
 				Value:          []string{"sample_value"},
 				Layout:         core.StringPtr("sample_layout"),
-				Associations:   map[string]interface{}{"anyKey": "anyValue"},
+				Associations:   globalCatalogMetadataServiceCustomParametersAssociationsModel,
 				ValidationURL:  core.StringPtr("https://http.cat/valid"),
 				OptionsURL:     core.StringPtr("https://http.cat/option"),
 				Invalidmessage: core.StringPtr("Invalid message"),
@@ -1010,6 +1052,27 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:        globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
+			globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan{
+				ShowFor:        []string{"fake-id"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{
+				Name:           core.StringPtr("fake-parameter"),
+				ShowFor:        []string{"1"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation{
+				ShowFor: []string{"eu-gb"},
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations{
+				Plan:       globalCatalogMetadataServiceCustomParametersAssociationsPlanModel,
+				Parameters: []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel},
+				Location:   globalCatalogMetadataServiceCustomParametersAssociationsLocationModel,
+			}
+
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
 				Displayname:    core.StringPtr("Display_name"),
 				Name:           core.StringPtr("Sample_name"),
@@ -1017,7 +1080,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
 				Value:          []string{"sample_value"},
 				Layout:         core.StringPtr("sample_layout"),
-				Associations:   map[string]interface{}{"anyKey": "anyValue"},
+				Associations:   globalCatalogMetadataServiceCustomParametersAssociationsModel,
 				ValidationURL:  core.StringPtr("https://http.cat/valid"),
 				OptionsURL:     core.StringPtr("https://http.cat/option"),
 				Invalidmessage: core.StringPtr("Invalid message"),
@@ -1128,6 +1191,27 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				I18n:        globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
+			globalCatalogMetadataServiceCustomParametersAssociationsPlanModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsPlan{
+				ShowFor:        []string{"fake-id-2"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{
+				Name:           core.StringPtr("parameter-2"),
+				ShowFor:        []string{"2"},
+				OptionsRefresh: core.BoolPtr(true),
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsLocationModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsLocation{
+				ShowFor: []string{"us-east"},
+			}
+
+			globalCatalogMetadataServiceCustomParametersAssociationsModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociations{
+				Plan:       globalCatalogMetadataServiceCustomParametersAssociationsPlanModel,
+				Parameters: []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem{*globalCatalogMetadataServiceCustomParametersAssociationsParametersItemModel},
+				Location:   globalCatalogMetadataServiceCustomParametersAssociationsLocationModel,
+			}
+
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
 				Displayname:    core.StringPtr("Display_name"),
 				Name:           core.StringPtr("Sample_name"),
@@ -1135,7 +1219,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
 				Value:          []string{"sample_value"},
 				Layout:         core.StringPtr("sample_layout"),
-				Associations:   map[string]interface{}{"anyKey": "anyValue"},
+				Associations:   globalCatalogMetadataServiceCustomParametersAssociationsModel,
 				ValidationURL:  core.StringPtr("https://http.cat/valid"),
 				OptionsURL:     core.StringPtr("https://http.cat/option"),
 				Invalidmessage: core.StringPtr("Invalid message"),
