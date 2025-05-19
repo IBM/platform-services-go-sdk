@@ -704,10 +704,11 @@ var _ = Describe(`GlobalCatalogV1 Integration Tests`, func() {
 			}
 
 			updateVisibilityOptions := &globalcatalogv1.UpdateVisibilityOptions{
-				ID:         core.StringPtr("testString"),
-				Extendable: core.BoolPtr(true),
-				Include:    visibilityDetailModel,
-				Exclude:    visibilityDetailModel,
+				ID:           core.StringPtr("testString"),
+				Restrictions: core.StringPtr("private"),
+				Extendable:   core.BoolPtr(true),
+				Include:      visibilityDetailModel,
+				Exclude:      visibilityDetailModel,
 			}
 
 			response, err := globalCatalogService.UpdateVisibility(updateVisibilityOptions)

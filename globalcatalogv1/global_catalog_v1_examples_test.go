@@ -379,6 +379,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			updateVisibilityOptions := globalCatalogService.NewUpdateVisibilityOptions(
 				catalogEntryID,
 			)
+			updateVisibilityOptions.SetRestrictions("private")
 
 			response, err := globalCatalogService.UpdateVisibility(updateVisibilityOptions)
 			if err != nil {
