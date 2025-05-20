@@ -1,3 +1,10 @@
+## [0.81.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.81.1...v0.81.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** properly map associations field ([#386](https://github.com/IBM/platform-services-go-sdk/issues/386)) ([8e89870](https://github.com/IBM/platform-services-go-sdk/commit/8e89870432e51ff2e09b341e1754ae26d41690b7))
+
 ## [0.81.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.81.0...v0.81.1) (2025-05-15)
 
 
