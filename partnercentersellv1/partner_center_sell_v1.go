@@ -5489,8 +5489,8 @@ type GlobalCatalogMetadataServiceCustomParameters struct {
 	// Specifies the layout of check box or radio input types. When unspecified, the default layout is horizontal.
 	Layout *string `json:"layout,omitempty"`
 
-	// A JSON structure to describe the interactions with pricing plans and/or other custom parameters.
-	Associations map[string]interface{} `json:"associations,omitempty"`
+	// A JSON to describe other parameters or plan that are associated to this parameter.
+	Associations *GlobalCatalogMetadataServiceCustomParametersAssociations `json:"associations,omitempty"`
 
 	// The validation URL for custom service parameters.
 	ValidationURL *string `json:"validation_url,omitempty"`
@@ -5576,7 +5576,7 @@ func UnmarshalGlobalCatalogMetadataServiceCustomParameters(m map[string]json.Raw
 		err = core.SDKErrorf(err, "", "layout-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "associations", &obj.Associations)
+	err = core.UnmarshalModel(m, "associations", &obj.Associations, UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociations)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "associations-error", common.GetComponentInfo())
 		return
@@ -5661,7 +5661,7 @@ func (globalCatalogMetadataServiceCustomParameters *GlobalCatalogMetadataService
 		_patch["layout"] = globalCatalogMetadataServiceCustomParameters.Layout
 	}
 	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Associations) {
-		_patch["associations"] = globalCatalogMetadataServiceCustomParameters.Associations
+		_patch["associations"] = globalCatalogMetadataServiceCustomParameters.Associations.asPatch()
 	}
 	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.ValidationURL) {
 		_patch["validation_url"] = globalCatalogMetadataServiceCustomParameters.ValidationURL
@@ -5692,6 +5692,175 @@ func (globalCatalogMetadataServiceCustomParameters *GlobalCatalogMetadataService
 	}
 	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.I18n) {
 		_patch["i18n"] = globalCatalogMetadataServiceCustomParameters.I18n.asPatch()
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersAssociations : A JSON to describe other parameters or plan that are associated to this parameter.
+type GlobalCatalogMetadataServiceCustomParametersAssociations struct {
+	Plan *GlobalCatalogMetadataServiceCustomParametersAssociationsPlan `json:"plan,omitempty"`
+
+	// Indicate this parameter is associated to some other parameters.
+	Parameters []GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem `json:"parameters,omitempty"`
+
+	Location *GlobalCatalogMetadataServiceCustomParametersAssociationsLocation `json:"location,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociations unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersAssociations from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociations(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersAssociations)
+	err = core.UnmarshalModel(m, "plan", &obj.Plan, UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "parameters", &obj.Parameters, UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "location", &obj.Location, UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "location-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersAssociations
+func (globalCatalogMetadataServiceCustomParametersAssociations *GlobalCatalogMetadataServiceCustomParametersAssociations) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociations.Plan) {
+		_patch["plan"] = globalCatalogMetadataServiceCustomParametersAssociations.Plan.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociations.Parameters) {
+		var parametersPatches []map[string]interface{}
+		for _, parameters := range globalCatalogMetadataServiceCustomParametersAssociations.Parameters {
+			parametersPatches = append(parametersPatches, parameters.asPatch())
+		}
+		_patch["parameters"] = parametersPatches
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociations.Location) {
+		_patch["location"] = globalCatalogMetadataServiceCustomParametersAssociations.Location.asPatch()
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersAssociationsLocation : GlobalCatalogMetadataServiceCustomParametersAssociationsLocation struct
+type GlobalCatalogMetadataServiceCustomParametersAssociationsLocation struct {
+	// An array of pricing plan IDs, or parameters or locations depending on parent.
+	ShowFor []string `json:"show_for,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsLocation unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersAssociationsLocation from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsLocation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersAssociationsLocation)
+	err = core.UnmarshalPrimitive(m, "show_for", &obj.ShowFor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "show_for-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersAssociationsLocation
+func (globalCatalogMetadataServiceCustomParametersAssociationsLocation *GlobalCatalogMetadataServiceCustomParametersAssociationsLocation) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociationsLocation.ShowFor) {
+		_patch["show_for"] = globalCatalogMetadataServiceCustomParametersAssociationsLocation.ShowFor
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem : GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem struct
+type GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem struct {
+	// Indicate this parameter is associated to some other parameters.
+	Name *string `json:"name,omitempty"`
+
+	// An array of pricing plan IDs, or parameters or locations depending on parent.
+	ShowFor []string `json:"show_for,omitempty"`
+
+	// Indicate if re-fetching the options is needed when the plan changed.
+	OptionsRefresh *bool `json:"options_refresh,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "show_for", &obj.ShowFor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "show_for-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "options_refresh", &obj.OptionsRefresh)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "options_refresh-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem
+func (globalCatalogMetadataServiceCustomParametersAssociationsParametersItem *GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociationsParametersItem.Name) {
+		_patch["name"] = globalCatalogMetadataServiceCustomParametersAssociationsParametersItem.Name
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociationsParametersItem.ShowFor) {
+		_patch["show_for"] = globalCatalogMetadataServiceCustomParametersAssociationsParametersItem.ShowFor
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociationsParametersItem.OptionsRefresh) {
+		_patch["options_refresh"] = globalCatalogMetadataServiceCustomParametersAssociationsParametersItem.OptionsRefresh
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersAssociationsPlan : GlobalCatalogMetadataServiceCustomParametersAssociationsPlan struct
+type GlobalCatalogMetadataServiceCustomParametersAssociationsPlan struct {
+	// An array of pricing plan IDs, or parameters or locations depending on parent.
+	ShowFor []string `json:"show_for,omitempty"`
+
+	// Indicate if re-fetching the options is needed when the plan changed.
+	OptionsRefresh *bool `json:"options_refresh,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsPlan unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersAssociationsPlan from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersAssociationsPlan(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersAssociationsPlan)
+	err = core.UnmarshalPrimitive(m, "show_for", &obj.ShowFor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "show_for-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "options_refresh", &obj.OptionsRefresh)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "options_refresh-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersAssociationsPlan
+func (globalCatalogMetadataServiceCustomParametersAssociationsPlan *GlobalCatalogMetadataServiceCustomParametersAssociationsPlan) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociationsPlan.ShowFor) {
+		_patch["show_for"] = globalCatalogMetadataServiceCustomParametersAssociationsPlan.ShowFor
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersAssociationsPlan.OptionsRefresh) {
+		_patch["options_refresh"] = globalCatalogMetadataServiceCustomParametersAssociationsPlan.OptionsRefresh
 	}
 
 	return
