@@ -1,3 +1,10 @@
+# [0.82.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.81.2...v0.82.0) (2025-05-20)
+
+
+### Features
+
+* **Global Catalog:** support non ibm only visibility ([#387](https://github.com/IBM/platform-services-go-sdk/issues/387)) ([1270a0e](https://github.com/IBM/platform-services-go-sdk/commit/1270a0e1ab0c0ae8227a4cacdef03c65e620a247))
+
 ## [0.81.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.81.1...v0.81.2) (2025-05-20)
 
 
