@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.99.1-daeb6e46-20250131-173156
+ * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -4677,6 +4677,65 @@ func (catalogManagement *CatalogManagementV1) PrereleaseVersionWithContext(ctx c
 	return
 }
 
+// TestVersion : Make version test
+// Set the version as test.
+func (catalogManagement *CatalogManagementV1) TestVersion(testVersionOptions *TestVersionOptions) (response *core.DetailedResponse, err error) {
+	response, err = catalogManagement.TestVersionWithContext(context.Background(), testVersionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// TestVersionWithContext is an alternate form of the TestVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) TestVersionWithContext(ctx context.Context, testVersionOptions *TestVersionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(testVersionOptions, "testVersionOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(testVersionOptions, "testVersionOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *testVersionOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/test-publish`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range testVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "TestVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "test_version", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // SuspendVersion : Suspend a version
 // Limits the visibility of a version by moving a version state from consumable back to validated.
 func (catalogManagement *CatalogManagementV1) SuspendVersion(suspendVersionOptions *SuspendVersionOptions) (response *core.DetailedResponse, err error) {
@@ -9129,6 +9188,10 @@ type Access struct {
 
 	// Approval state for access. If this field is an empty string, then it means that it's approved.
 	ApprovalState *string `json:"approval_state,omitempty"`
+
+	// List of additional version states that this account can see. The default visible states are consumable and
+	// prerelease.
+	VisibleStates []string `json:"visible_states,omitempty"`
 }
 
 // UnmarshalAccess unmarshals an instance of Access from the specified map of raw messages.
@@ -9177,6 +9240,11 @@ func UnmarshalAccess(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "approval_state", &obj.ApprovalState)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "approval_state-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "visible_states", &obj.VisibleStates)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "visible_states-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -19371,8 +19439,20 @@ type OfferingReference struct {
 	// Required - Semver value or range.
 	Version *string `json:"version,omitempty"`
 
+	// Reason why the user might want to include this dependency.
+	Description *string `json:"description,omitempty"`
+
+	// The default selected flavor of this dependency.
+	DefaultFlavor *string `json:"default_flavor,omitempty"`
+
 	// Optional - List of dependent flavors in the specified range.
 	Flavors []string `json:"flavors,omitempty"`
+
+	// Is this dependency optional.
+	Optional *bool `json:"optional,omitempty"`
+
+	// Is this dependency on by default.
+	OnByDefault *bool `json:"on_by_default,omitempty"`
 }
 
 // UnmarshalOfferingReference unmarshals an instance of OfferingReference from the specified map of raw messages.
@@ -19403,9 +19483,29 @@ func UnmarshalOfferingReference(m map[string]json.RawMessage, result interface{}
 		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "default_flavor", &obj.DefaultFlavor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "default_flavor-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "flavors", &obj.Flavors)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "flavors-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "optional", &obj.Optional)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "optional-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "on_by_default", &obj.OnByDefault)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "on_by_default-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -23742,6 +23842,34 @@ func UnmarshalTargetAccountContext(m map[string]json.RawMessage, result interfac
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// TestVersionOptions : The TestVersion options.
+type TestVersionOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewTestVersionOptions : Instantiate TestVersionOptions
+func (*CatalogManagementV1) NewTestVersionOptions(versionLocID string) *TestVersionOptions {
+	return &TestVersionOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *TestVersionOptions) SetVersionLocID(versionLocID string) *TestVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *TestVersionOptions) SetHeaders(param map[string]string) *TestVersionOptions {
+	options.Headers = param
+	return options
 }
 
 // TrustedProfileInfo : Trusted profile info.

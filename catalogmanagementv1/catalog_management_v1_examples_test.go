@@ -927,6 +927,16 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			updateVersionOptions.CRN = offeringVersion.CRN
 			updateVersionOptions.Label = offeringVersion.Label
 			updateVersionOptions.Kinds = offeringVersion.Kinds
+			updateVersionOptions.Kinds[0].Versions[0].SolutionInfo.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{
+				{
+					Diagram: &catalogmanagementv1.MediaItem{
+						URL:     core.StringPtr("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0icmVkIiAvPgo8L3N2Zz4="),
+						Type:    core.StringPtr("image/svg+xml"),
+						Caption: core.StringPtr("caption"),
+					},
+					Description: core.StringPtr("Simple red circle diagram"),
+				},
+			}
 
 			offering, response, err := catalogManagementService.UpdateVersion(updateVersionOptions)
 			if err != nil {
@@ -1261,8 +1271,26 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(imageManifest).ToNot(BeNil())
 		})
 
+		It(`TestVersion request example`, func() {
+			// begin-test_version
+
+			testVersionOptions := catalogManagementService.NewTestVersionOptions(
+				versionLocatorID,
+			)
+
+			response, err := catalogManagementService.TestVersion(testVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-test_version
+			fmt.Printf("\nTestVersion() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+
 		It(`DeprecateVersion request example`, func() {
-			Skip("Skipped by design.")
 			// begin-deprecate_version
 
 			deprecateVersionOptions := catalogManagementService.NewDeprecateVersionOptions(

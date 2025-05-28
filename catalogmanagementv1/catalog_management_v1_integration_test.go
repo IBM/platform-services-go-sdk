@@ -568,11 +568,15 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			dependencyModel := &catalogmanagementv1.OfferingReference{
-				CatalogID: core.StringPtr("testString"),
-				ID:        core.StringPtr("testString"),
-				Name:      core.StringPtr("testString"),
-				Version:   core.StringPtr("testString"),
-				Flavors:   []string{"testString"},
+				CatalogID:     core.StringPtr("testString"),
+				ID:            core.StringPtr("testString"),
+				Name:          core.StringPtr("testString"),
+				Version:       core.StringPtr("testString"),
+				Flavors:       []string{"testString"},
+				Optional:      core.BoolPtr(false),
+				OnByDefault:   core.BoolPtr(false),
+				DefaultFlavor: core.StringPtr("testString"),
+				Description:   core.StringPtr("testString"),
 			}
 
 			solutionInfoModel := &catalogmanagementv1.SolutionInfo{
@@ -1694,11 +1698,15 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			dependencyModel := &catalogmanagementv1.OfferingReference{
-				CatalogID: core.StringPtr("testString"),
-				ID:        core.StringPtr("testString"),
-				Name:      core.StringPtr("testString"),
-				Version:   core.StringPtr("testString"),
-				Flavors:   []string{"testString"},
+				CatalogID:     core.StringPtr("testString"),
+				ID:            core.StringPtr("testString"),
+				Name:          core.StringPtr("testString"),
+				Version:       core.StringPtr("testString"),
+				Flavors:       []string{"testString"},
+				Optional:      core.BoolPtr(false),
+				OnByDefault:   core.BoolPtr(false),
+				DefaultFlavor: core.StringPtr("testString"),
+				Description:   core.StringPtr("testString"),
 			}
 
 			solutionInfoModel := &catalogmanagementv1.SolutionInfo{
@@ -2764,6 +2772,22 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			response, err := catalogManagementService.ConsumableVersion(consumableVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`TestVersion - Mark version as a test version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`TestVersion(testVersionOptions *TestVersionOptions)`, func() {
+			Skip("Not testing")
+			testVersionOptions := &catalogmanagementv1.TestVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			response, err := catalogManagementService.TestVersion(testVersionOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
