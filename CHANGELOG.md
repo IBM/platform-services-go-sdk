@@ -1,3 +1,10 @@
+# [0.83.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.82.0...v0.83.0) (2025-05-28)
+
+
+### Features
+
+* **Catalog Management:** add test_version operation, dependency enhancements [#388](https://github.com/IBM/platform-services-go-sdk/issues/388)  ([ac25585](https://github.com/IBM/platform-services-go-sdk/commit/ac255853007a8182f8e14b25b22ca35141f9e076))
+
 # [0.82.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.81.2...v0.82.0) (2025-05-20)
 
 
