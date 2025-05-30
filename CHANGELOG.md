@@ -1,3 +1,10 @@
+## [0.83.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.83.0...v0.83.1) (2025-05-30)
+
+
+### Bug Fixes
+
+* **build:** bump go core to 5.20.0 ([f56b90a](https://github.com/IBM/platform-services-go-sdk/commit/f56b90a7a011e67ade4c35de9c117bfbfd9dbef3))
+
 # [0.83.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.82.0...v0.83.0) (2025-05-28)
 
 
