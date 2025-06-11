@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	github.com/IBM/go-sdk-core/v5 v5.20.0
+	github.com/IBM/go-sdk-core/v5 v5.20.1
 	github.com/go-openapi/strfmt v0.23.0
 	github.com/google/uuid v1.6.0
 	github.com/onsi/ginkgo v1.16.5
