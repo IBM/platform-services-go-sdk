@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
+ * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
  */
 
 // Package metricsrouterv3 : Operations and models for the MetricsRouterV3 service
@@ -63,22 +63,26 @@ func NewMetricsRouterV3UsingExternalConfig(options *MetricsRouterV3Options) (met
 	if options.Authenticator == nil {
 		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	metricsRouter, err = NewMetricsRouterV3(options)
+	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
 	err = metricsRouter.Service.ConfigureService(options.ServiceName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = metricsRouter.Service.SetServiceURL(options.URL)
+		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
@@ -92,12 +96,14 @@ func NewMetricsRouterV3(options *MetricsRouterV3Options) (service *MetricsRouter
 
 	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
 			return
 		}
 	}
@@ -139,7 +145,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 	if url, ok := endpoints[region]; ok {
 		return url, nil
 	}
-	return "", fmt.Errorf("service URL for region '%s' not found", region)
+	return "", core.SDKErrorf(nil, fmt.Sprintf("service URL for region '%s' not found", region), "invalid-region", common.GetComponentInfo())
 }
 
 // Clone makes a copy of "metricsRouter" suitable for processing requests.
@@ -154,7 +160,11 @@ func (metricsRouter *MetricsRouterV3) Clone() *MetricsRouterV3 {
 
 // SetServiceURL sets the service URL
 func (metricsRouter *MetricsRouterV3) SetServiceURL(url string) error {
-	return metricsRouter.Service.SetServiceURL(url)
+	err := metricsRouter.Service.SetServiceURL(url)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
+	}
+	return err
 }
 
 // GetServiceURL returns the service URL
@@ -193,17 +203,21 @@ func (metricsRouter *MetricsRouterV3) DisableRetries() {
 // You can send your platform metrics from all regions to a single target, different targets or multiple targets. One
 // target per region is not required. You can define up to 16 targets per account.
 func (metricsRouter *MetricsRouterV3) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return metricsRouter.CreateTargetWithContext(context.Background(), createTargetOptions)
+	result, response, err = metricsRouter.CreateTargetWithContext(context.Background(), createTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateTargetWithContext is an alternate form of the CreateTarget method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Context, createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createTargetOptions, "createTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createTargetOptions, "createTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -212,6 +226,7 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/targets`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -238,22 +253,27 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -265,13 +285,16 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 // ListTargets : List targets
 // List all targets that are defined for your account.
 func (metricsRouter *MetricsRouterV3) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetCollection, response *core.DetailedResponse, err error) {
-	return metricsRouter.ListTargetsWithContext(context.Background(), listTargetsOptions)
+	result, response, err = metricsRouter.ListTargetsWithContext(context.Background(), listTargetsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListTargetsWithContext is an alternate form of the ListTargets method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context, listTargetsOptions *ListTargetsOptions) (result *TargetCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listTargetsOptions, "listTargetsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -280,6 +303,7 @@ func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/targets`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -295,17 +319,21 @@ func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_targets", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTargetCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -317,17 +345,21 @@ func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context
 // GetTarget : Get details of a target
 // Retrieve the configuration details of a target.
 func (metricsRouter *MetricsRouterV3) GetTarget(getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return metricsRouter.GetTargetWithContext(context.Background(), getTargetOptions)
+	result, response, err = metricsRouter.GetTargetWithContext(context.Background(), getTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetTargetWithContext is an alternate form of the GetTarget method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTargetOptions, "getTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getTargetOptions, "getTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -340,6 +372,7 @@ func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, 
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/targets/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -355,17 +388,21 @@ func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, 
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -377,17 +414,21 @@ func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, 
 // UpdateTarget : Update a target
 // Update the configuration details of a target.
 func (metricsRouter *MetricsRouterV3) UpdateTarget(updateTargetOptions *UpdateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
-	return metricsRouter.UpdateTargetWithContext(context.Background(), updateTargetOptions)
+	result, response, err = metricsRouter.UpdateTargetWithContext(context.Background(), updateTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateTargetWithContext is an alternate form of the UpdateTarget method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) UpdateTargetWithContext(ctx context.Context, updateTargetOptions *UpdateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateTargetOptions, "updateTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateTargetOptions, "updateTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -400,6 +441,7 @@ func (metricsRouter *MetricsRouterV3) UpdateTargetWithContext(ctx context.Contex
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/targets/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -423,22 +465,27 @@ func (metricsRouter *MetricsRouterV3) UpdateTargetWithContext(ctx context.Contex
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -450,17 +497,21 @@ func (metricsRouter *MetricsRouterV3) UpdateTargetWithContext(ctx context.Contex
 // DeleteTarget : Delete a target
 // Delete a target.
 func (metricsRouter *MetricsRouterV3) DeleteTarget(deleteTargetOptions *DeleteTargetOptions) (response *core.DetailedResponse, err error) {
-	return metricsRouter.DeleteTargetWithContext(context.Background(), deleteTargetOptions)
+	response, err = metricsRouter.DeleteTargetWithContext(context.Background(), deleteTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteTargetWithContext is an alternate form of the DeleteTarget method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Context, deleteTargetOptions *DeleteTargetOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTargetOptions, "deleteTargetOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteTargetOptions, "deleteTargetOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -473,6 +524,7 @@ func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Contex
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/targets/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -487,10 +539,16 @@ func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Contex
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = metricsRouter.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -498,17 +556,21 @@ func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Contex
 // CreateRoute : Create a route
 // Create a route with rules that specify how to manage platform metrics routing.
 func (metricsRouter *MetricsRouterV3) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
-	return metricsRouter.CreateRouteWithContext(context.Background(), createRouteOptions)
+	result, response, err = metricsRouter.CreateRouteWithContext(context.Background(), createRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateRouteWithContext is an alternate form of the CreateRoute method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context, createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createRouteOptions, "createRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createRouteOptions, "createRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -517,6 +579,7 @@ func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/routes`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -540,22 +603,27 @@ func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -567,13 +635,16 @@ func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context
 // ListRoutes : List routes
 // List the routes that are configured for an account.
 func (metricsRouter *MetricsRouterV3) ListRoutes(listRoutesOptions *ListRoutesOptions) (result *RouteCollection, response *core.DetailedResponse, err error) {
-	return metricsRouter.ListRoutesWithContext(context.Background(), listRoutesOptions)
+	result, response, err = metricsRouter.ListRoutesWithContext(context.Background(), listRoutesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListRoutesWithContext is an alternate form of the ListRoutes method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context, listRoutesOptions *ListRoutesOptions) (result *RouteCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listRoutesOptions, "listRoutesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -582,6 +653,7 @@ func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context,
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/routes`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -597,17 +669,21 @@ func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context,
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_routes", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRouteCollection)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -619,17 +695,21 @@ func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context,
 // GetRoute : Get details of a route
 // Get the configuration details of a route.
 func (metricsRouter *MetricsRouterV3) GetRoute(getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
-	return metricsRouter.GetRouteWithContext(context.Background(), getRouteOptions)
+	result, response, err = metricsRouter.GetRouteWithContext(context.Background(), getRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetRouteWithContext is an alternate form of the GetRoute method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRouteOptions, "getRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getRouteOptions, "getRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -642,6 +722,7 @@ func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, g
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/routes/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -657,17 +738,21 @@ func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, g
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -679,17 +764,21 @@ func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, g
 // UpdateRoute : Update a route
 // Update the configuration details of a route.
 func (metricsRouter *MetricsRouterV3) UpdateRoute(updateRouteOptions *UpdateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
-	return metricsRouter.UpdateRouteWithContext(context.Background(), updateRouteOptions)
+	result, response, err = metricsRouter.UpdateRouteWithContext(context.Background(), updateRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateRouteWithContext is an alternate form of the UpdateRoute method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) UpdateRouteWithContext(ctx context.Context, updateRouteOptions *UpdateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateRouteOptions, "updateRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateRouteOptions, "updateRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -702,6 +791,7 @@ func (metricsRouter *MetricsRouterV3) UpdateRouteWithContext(ctx context.Context
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/routes/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -725,22 +815,27 @@ func (metricsRouter *MetricsRouterV3) UpdateRouteWithContext(ctx context.Context
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -752,17 +847,21 @@ func (metricsRouter *MetricsRouterV3) UpdateRouteWithContext(ctx context.Context
 // DeleteRoute : Delete a route
 // Deletes a route.
 func (metricsRouter *MetricsRouterV3) DeleteRoute(deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
-	return metricsRouter.DeleteRouteWithContext(context.Background(), deleteRouteOptions)
+	response, err = metricsRouter.DeleteRouteWithContext(context.Background(), deleteRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteRouteWithContext is an alternate form of the DeleteRoute method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) DeleteRouteWithContext(ctx context.Context, deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteRouteOptions, "deleteRouteOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteRouteOptions, "deleteRouteOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -775,6 +874,7 @@ func (metricsRouter *MetricsRouterV3) DeleteRouteWithContext(ctx context.Context
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/routes/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -789,10 +889,16 @@ func (metricsRouter *MetricsRouterV3) DeleteRouteWithContext(ctx context.Context
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = metricsRouter.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -800,13 +906,16 @@ func (metricsRouter *MetricsRouterV3) DeleteRouteWithContext(ctx context.Context
 // GetSettings : Get settings
 // Get information about the current account level settings for Metrics Routing service.
 func (metricsRouter *MetricsRouterV3) GetSettings(getSettingsOptions *GetSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
-	return metricsRouter.GetSettingsWithContext(context.Background(), getSettingsOptions)
+	result, response, err = metricsRouter.GetSettingsWithContext(context.Background(), getSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetSettingsWithContext is an alternate form of the GetSettings method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context, getSettingsOptions *GetSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getSettingsOptions, "getSettingsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -815,6 +924,7 @@ func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/settings`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -830,17 +940,21 @@ func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSetting)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -853,17 +967,21 @@ func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context
 // Modify the current account level settings such as default targets, permitted target regions, metadata region primary
 // and secondary.
 func (metricsRouter *MetricsRouterV3) UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
-	return metricsRouter.UpdateSettingsWithContext(context.Background(), updateSettingsOptions)
+	result, response, err = metricsRouter.UpdateSettingsWithContext(context.Background(), updateSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateSettingsWithContext is an alternate form of the UpdateSettings method which supports a Context parameter
 func (metricsRouter *MetricsRouterV3) UpdateSettingsWithContext(ctx context.Context, updateSettingsOptions *UpdateSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateSettingsOptions, "updateSettingsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateSettingsOptions, "updateSettingsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -872,6 +990,7 @@ func (metricsRouter *MetricsRouterV3) UpdateSettingsWithContext(ctx context.Cont
 	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/settings`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -904,28 +1023,36 @@ func (metricsRouter *MetricsRouterV3) UpdateSettingsWithContext(ctx context.Cont
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = metricsRouter.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSetting)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
 	}
 
 	return
+}
+func getServiceComponentInfo() *core.ProblemComponent {
+	return core.NewProblemComponent(DefaultServiceName, "3.0.0")
 }
 
 // CreateRouteOptions : The CreateRoute options.
@@ -937,7 +1064,7 @@ type CreateRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -983,7 +1110,7 @@ type CreateTargetOptions struct {
 	// connected.
 	Region *string `json:"region,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1024,7 +1151,7 @@ type DeleteRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1052,7 +1179,7 @@ type DeleteTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1080,7 +1207,7 @@ type GetRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1106,7 +1233,7 @@ func (options *GetRouteOptions) SetHeaders(param map[string]string) *GetRouteOpt
 // GetSettingsOptions : The GetSettings options.
 type GetSettingsOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1126,7 +1253,7 @@ type GetTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1185,14 +1312,17 @@ func UnmarshalInclusionFilter(m map[string]json.RawMessage, result interface{}) 
 	obj := new(InclusionFilter)
 	err = core.UnmarshalPrimitive(m, "operand", &obj.Operand)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "operand-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "values", &obj.Values)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "values-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1238,6 +1368,9 @@ func (*MetricsRouterV3) NewInclusionFilterPrototype(operand string, operator str
 		Values:   values,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1246,14 +1379,17 @@ func UnmarshalInclusionFilterPrototype(m map[string]json.RawMessage, result inte
 	obj := new(InclusionFilterPrototype)
 	err = core.UnmarshalPrimitive(m, "operand", &obj.Operand)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "operand-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "values", &obj.Values)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "values-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1263,7 +1399,7 @@ func UnmarshalInclusionFilterPrototype(m map[string]json.RawMessage, result inte
 // ListRoutesOptions : The ListRoutes options.
 type ListRoutesOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1281,7 +1417,7 @@ func (options *ListRoutesOptions) SetHeaders(param map[string]string) *ListRoute
 // ListTargetsOptions : The ListTargets options.
 type ListTargetsOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1324,26 +1460,32 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 	obj := new(Route)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalRule)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "rules-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1361,6 +1503,7 @@ func UnmarshalRouteCollection(m map[string]json.RawMessage, result interface{}) 
 	obj := new(RouteCollection)
 	err = core.UnmarshalModel(m, "routes", &obj.Routes, UnmarshalRoute)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "routes-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1392,14 +1535,17 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 	obj := new(Rule)
 	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "action-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTargetReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "inclusion_filters", &obj.InclusionFilters, UnmarshalInclusionFilter)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "inclusion_filters-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1432,6 +1578,9 @@ func (*MetricsRouterV3) NewRulePrototype(targets []TargetIdentity, inclusionFilt
 		InclusionFilters: inclusionFilters,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1440,14 +1589,17 @@ func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(RulePrototype)
 	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "action-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTargetIdentity)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "inclusion_filters", &obj.InclusionFilters, UnmarshalInclusionFilterPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "inclusion_filters-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1477,22 +1629,27 @@ func UnmarshalSetting(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(Setting)
 	err = core.UnmarshalModel(m, "default_targets", &obj.DefaultTargets, UnmarshalTargetReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "default_targets-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "permitted_target_regions", &obj.PermittedTargetRegions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "permitted_target_regions-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "primary_metadata_region", &obj.PrimaryMetadataRegion)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "primary_metadata_region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "backup_metadata_region", &obj.BackupMetadataRegion)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "backup_metadata_region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "private_api_endpoint_only", &obj.PrivateAPIEndpointOnly)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "private_api_endpoint_only-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1541,34 +1698,42 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	obj := new(Target)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "destination_crn", &obj.DestinationCRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "destination_crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1586,6 +1751,7 @@ func UnmarshalTargetCollection(m map[string]json.RawMessage, result interface{})
 	obj := new(TargetCollection)
 	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTarget)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1604,6 +1770,9 @@ func (*MetricsRouterV3) NewTargetIdentity(id string) (_model *TargetIdentity, er
 		ID: core.StringPtr(id),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -1612,6 +1781,7 @@ func UnmarshalTargetIdentity(m map[string]json.RawMessage, result interface{}) (
 	obj := new(TargetIdentity)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1644,18 +1814,22 @@ func UnmarshalTargetReference(m map[string]json.RawMessage, result interface{}) 
 	obj := new(TargetReference)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1674,7 +1848,7 @@ type UpdateRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1726,7 +1900,7 @@ type UpdateSettingsOptions struct {
 	// If you set this true then you cannot access api through public network.
 	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1786,7 +1960,7 @@ type UpdateTargetOptions struct {
 	// for details.
 	DestinationCRN *string `json:"destination_crn,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
