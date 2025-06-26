@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,9 +42,6 @@ import (
 // RESOURCE_CONTROLLER_RESOURCE_GROUP=<Short ID of the user's resource group>
 // RESOURCE_CONTROLLER_PLAN_ID=<Unique ID of the plan associated with the offering>
 // RESOURCE_CONTROLLER_ACCOUNT_ID=<User's account ID>
-// RESOURCE_CONTROLLER_ALIAS_TARGET_CRN=<The CRN of target name(space) in a specific environment>
-// RESOURCE_CONTROLLER_BINDING_TARGET_CRN=<The CRN of application to bind to in a specific environment>
-//
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
@@ -59,21 +56,13 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		configLoaded              bool = false
 
 		instanceGUID               string
-		aliasGUID                  string
-		bindingGUID                string
 		instanceKeyGUID            string
 		resourceGroup              string
 		resourcePlanID             string
 		accountID                  string
-		aliasTargetCRN             string
-		bindingTargetCRN           string
 		reclamationID              string
 		resourceInstanceName       string = "RcSdkInstance1Go"
 		resourceInstanceUpdateName string = "RcSdkInstanceUpdate1Go"
-		aliasName                  string = "RcSdkAlias1Go"
-		aliasUpdateName            string = "RcSdkAliasUpdate1Go"
-		bindingName                string = "RcSdkBinding1Go"
-		bindingUpdateName          string = "RcSdkBindingUpdate1Go"
 		keyName                    string = "RcSdkKey1Go"
 		keyUpdateName              string = "RcSdkKeyUpdate1Go"
 		targetRegion               string = "global"
@@ -110,11 +99,6 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			accountID = config["ACCOUNT_ID"]
 			Expect(accountID).ToNot(BeEmpty())
 
-			aliasTargetCRN = config["ALIAS_TARGET_CRN"]
-			Expect(aliasTargetCRN).ToNot(BeEmpty())
-
-			bindingTargetCRN = config["BINDING_TARGET_CRN"]
-			Expect(bindingTargetCRN).ToNot(BeEmpty())
 		})
 	})
 
@@ -241,246 +225,6 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceInstance).ToNot(BeNil())
 		})
-		It(`CreateResourceAlias request example`, func() {
-			fmt.Println("\nCreateResourceAlias() result:")
-			// begin-create_resource_alias
-
-			createResourceAliasOptions := resourceControllerService.NewCreateResourceAliasOptions(
-				aliasName,
-				instanceGUID,
-				aliasTargetCRN,
-			)
-
-			resourceAlias, response, err := resourceControllerService.CreateResourceAlias(createResourceAliasOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_resource_alias
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(resourceAlias).ToNot(BeNil())
-
-			aliasGUID = *resourceAlias.GUID
-		})
-		It(`GetResourceAlias request example`, func() {
-			fmt.Println("\nGetResourceAlias() result:")
-			// begin-get_resource_alias
-
-			getResourceAliasOptions := resourceControllerService.NewGetResourceAliasOptions(
-				aliasGUID,
-			)
-
-			resourceAlias, response, err := resourceControllerService.GetResourceAlias(getResourceAliasOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_resource_alias
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceAlias).ToNot(BeNil())
-		})
-		It(`ListResourceAliases request example`, func() {
-			fmt.Println("\nListResourceAliases() result:")
-			// begin-list_resource_aliases
-			listResourceAliasesOptions := &resourcecontrollerv2.ListResourceAliasesOptions{
-				Name: &aliasName,
-			}
-
-			pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []resourcecontrollerv2.ResourceAlias
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_resource_aliases
-		})
-		It(`UpdateResourceAlias request example`, func() {
-			fmt.Println("\nUpdateResourceAlias() result:")
-			// begin-update_resource_alias
-
-			updateResourceAliasOptions := resourceControllerService.NewUpdateResourceAliasOptions(
-				aliasGUID,
-				aliasUpdateName,
-			)
-
-			resourceAlias, response, err := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Println(string(b))
-
-			// end-update_resource_alias
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceAlias).ToNot(BeNil())
-		})
-		It(`ListResourceAliasesForInstance request example`, func() {
-			fmt.Println("\nListResourceAliasesForInstance() result:")
-			// begin-list_resource_aliases_for_instance
-			listResourceAliasesForInstanceOptions := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-				ID: &instanceGUID,
-			}
-
-			pager, err := resourceControllerService.NewResourceAliasesForInstancePager(listResourceAliasesForInstanceOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []resourcecontrollerv2.ResourceAlias
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_resource_aliases_for_instance
-		})
-		It(`CreateResourceBinding request example`, func() {
-			fmt.Println("\nCreateResourceBinding() result:")
-			// begin-create_resource_binding
-
-			createResourceBindingOptions := resourceControllerService.NewCreateResourceBindingOptions(
-				aliasGUID,
-				bindingTargetCRN,
-			)
-			createResourceBindingOptions = createResourceBindingOptions.SetName(bindingName)
-
-			parameters := &resourcecontrollerv2.ResourceBindingPostParameters{}
-			parameters.SetProperty("exampleParameter", "exampleValue")
-			createResourceBindingOptions.SetParameters(parameters)
-
-			resourceBinding, response, err := resourceControllerService.CreateResourceBinding(createResourceBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_resource_binding
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(resourceBinding).ToNot(BeNil())
-
-			bindingGUID = *resourceBinding.GUID
-		})
-		It(`GetResourceBinding request example`, func() {
-			fmt.Println("\nGetResourceBinding() result:")
-			// begin-get_resource_binding
-
-			getResourceBindingOptions := resourceControllerService.NewGetResourceBindingOptions(
-				bindingGUID,
-			)
-
-			resourceBinding, response, err := resourceControllerService.GetResourceBinding(getResourceBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Println(string(b))
-
-			if resourceBinding.Credentials.Redacted != nil && (*resourceBinding.Credentials.Redacted == "REDACTED" || *resourceBinding.Credentials.Redacted == "REDACTED_EXPLICIT") {
-				fmt.Println("Credentials are redacted with code:", *resourceBinding.Credentials.Redacted, ".The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
-			}
-
-			// end-get_resource_binding
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceBinding).ToNot(BeNil())
-		})
-		It(`ListResourceBindings request example`, func() {
-			fmt.Println("\nListResourceBindings() result:")
-			// begin-list_resource_bindings
-			listResourceBindingsOptions := &resourcecontrollerv2.ListResourceBindingsOptions{
-				Name: &bindingName,
-			}
-
-			pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []resourcecontrollerv2.ResourceBinding
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_resource_bindings
-		})
-		It(`UpdateResourceBinding request example`, func() {
-			fmt.Println("\nUpdateResourceBinding() result:")
-			// begin-update_resource_binding
-
-			updateResourceBindingOptions := resourceControllerService.NewUpdateResourceBindingOptions(
-				bindingGUID,
-				bindingUpdateName,
-			)
-
-			resourceBinding, response, err := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Println(string(b))
-
-			// end-update_resource_binding
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceBinding).ToNot(BeNil())
-		})
-		It(`ListResourceBindingsForAlias request example`, func() {
-			fmt.Println("\nListResourceBindingsForAlias() result:")
-			// begin-list_resource_bindings_for_alias
-			listResourceBindingsForAliasOptions := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-				ID: &aliasGUID,
-			}
-
-			pager, err := resourceControllerService.NewResourceBindingsForAliasPager(listResourceBindingsForAliasOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []resourcecontrollerv2.ResourceBinding
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_resource_bindings_for_alias
-		})
 		It(`CreateResourceKey request example`, func() {
 			fmt.Println("\nCreateResourceKey() result:")
 			// begin-create_resource_key
@@ -603,24 +347,6 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			fmt.Println(string(b))
 			// end-list_resource_keys_for_instance
 		})
-		It(`DeleteResourceBinding request example`, func() {
-			// begin-delete_resource_binding
-
-			deleteResourceBindingOptions := resourceControllerService.NewDeleteResourceBindingOptions(
-				bindingGUID,
-			)
-
-			response, err := resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_resource_binding
-			fmt.Printf("\nDeleteResourceBinding() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
 		It(`DeleteResourceKey request example`, func() {
 			// begin-delete_resource_key
 
@@ -635,24 +361,6 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			// end-delete_resource_key
 			fmt.Printf("\nDeleteResourceKey() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-		It(`DeleteResourceAlias request example`, func() {
-			// begin-delete_resource_alias
-
-			deleteResourceAliasOptions := resourceControllerService.NewDeleteResourceAliasOptions(
-				aliasGUID,
-			)
-
-			response, err := resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_resource_alias
-			fmt.Printf("\nDeleteResourceAlias() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
