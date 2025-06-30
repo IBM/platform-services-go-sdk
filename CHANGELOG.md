@@ -1,3 +1,10 @@
+## [0.83.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.83.2...v0.83.3) (2025-06-30)
+
+
+### Bug Fixes
+
+* **Metrics Router:** update SDK with new Error formatting ([#391](https://github.com/IBM/platform-services-go-sdk/issues/391)) ([d4b86a7](https://github.com/IBM/platform-services-go-sdk/commit/d4b86a7639754fe312acb242c18fe06b0b9e02a6))
+
 ## [0.83.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.83.1...v0.83.2) (2025-06-11)
 
 
