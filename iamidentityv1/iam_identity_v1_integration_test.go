@@ -47,16 +47,17 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 	const externalConfigFile = "../iam_identity.env"
 
 	var (
-		apikeyName    string = "Go-SDK-IT-APIKey"
-		serviceIDName string = "Go-SDK-IT-ServiceId"
-		profileName1  string = "Go-SDK-IT-Profile-1"
-		profileName2  string = "Go-SDK-IT-Profile-2"
-		accountID     string
-		iamID         string
-		iamIDMember   string
-		iamAPIKey     string
-		claimRuleType string = "Profile-SAML"
-		realmName     string = "https://sdk.test.realm/1234"
+		apikeyName         string = "Go-SDK-IT-APIKey"
+		serviceIDName      string = "Go-SDK-IT-ServiceId"
+		profileName1       string = "Go-SDK-IT-Profile-1"
+		profileName2       string = "Go-SDK-IT-Profile-2"
+		accountID          string
+		iamID              string
+		iamIDMember        string
+		iamAPIKey          string
+		claimRuleType      string = "Profile-SAML"
+		realmName          string = "https://sdk.test.realm/1234"
+		serviceIdGroupName string = "Go-SDK-IT-ServiceId-Group"
 
 		iamIdentityService *iamidentityv1.IamIdentityV1
 		err                error
@@ -67,9 +68,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		apikeyId2   string
 		apikeyEtag1 string
 
-		serviceId1     string
-		serviceIdEtag1 string
-		newDescription string = "This is an updated description"
+		serviceId1         string
+		serviceIdEtag1     string
+		newDescription     string = "This is an updated description"
+		serviceIdGroupId   string
+		serviceIdGroupEtag string
 
 		profileId1   string
 		profileId2   string
@@ -660,6 +663,119 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			serviceID := getServiceID(iamIdentityService, serviceId1)
 			Expect(serviceID).To(BeNil())
+		})
+	})
+
+	Describe(`CreateServiceIDGroup - Create a serviceId Group`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateServiceIDGroup(createServiceIDGroupOptions *CreateServiceIDGroupOptions)`, func() {
+
+			createServiceIDGroupOptions := &iamidentityv1.CreateServiceIDGroupOptions{
+				AccountID:   &accountID,
+				Name:        &serviceIdGroupName,
+				Description: core.StringPtr("GoSDK test serviceId"),
+			}
+
+			serviceIdGroup, response, err := iamIdentityService.CreateServiceIDGroup(createServiceIDGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(serviceIdGroup).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateServiceIdGroup response:\n%s\n", common.ToJSON(serviceIdGroup))
+
+			serviceIdGroupId = *serviceIdGroup.ID
+			Expect(serviceIdGroupId).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetServiceIDGroup - Get a serviceId Group`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetServiceIDGroup(getServiceIDGroupOptions *getServiceIDGroupOptions)`, func() {
+
+			getServiceIDGroupOptions := &iamidentityv1.GetServiceIDGroupOptions{
+				ID: &serviceIdGroupId,
+			}
+
+			serviceIdGroup, response, err := iamIdentityService.GetServiceIDGroup(getServiceIDGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceIdGroup).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetServiceIDGroup response:\n%s\n", common.ToJSON(serviceIdGroup))
+
+			serviceIdGroupId = *serviceIdGroup.ID
+			Expect(serviceIdGroupId).ToNot(BeNil())
+
+			serviceIdGroupEtag = response.GetHeaders().Get("Etag")
+			Expect(serviceIdGroupEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`ListServiceIDGroup - List serviceId Group`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListServiceIDGroup(listServiceIDGroupOptions *listServiceIDGroupOptions)`, func() {
+
+			listServiceIDGroupOptions := &iamidentityv1.ListServiceIDGroupOptions{
+				AccountID: &accountID,
+			}
+
+			serviceIdGroupList, response, err := iamIdentityService.ListServiceIDGroup(listServiceIDGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceIdGroupList).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListServiceIdGroup response:\n%s\n", common.ToJSON(serviceIdGroupList))
+		})
+	})
+
+	Describe(`UpdateServiceIDGroup - Update a serviceId Group`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateServiceIDGroup(updateServiceIDGroupOptions *UpdateServiceIDGroupOptions)`, func() {
+
+			Expect(serviceIdGroupId).ToNot(BeEmpty())
+			Expect(serviceIdGroupEtag).ToNot(BeEmpty())
+
+			updateServiceIDGroupOptions := &iamidentityv1.UpdateServiceIDGroupOptions{
+				ID:          &serviceIdGroupId,
+				Name:        &serviceIdGroupName,
+				IfMatch:     &serviceIdGroupEtag,
+				Description: core.StringPtr("updated new description"),
+			}
+
+			serviceIdGroup, response, err := iamIdentityService.UpdateServiceIDGroup(updateServiceIDGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceIdGroup).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateServiceIdGroup response:\n%s\n", common.ToJSON(serviceIdGroup))
+
+			serviceIdGroupId = *serviceIdGroup.ID
+			Expect(serviceIdGroupId).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteServiceIDGroup - Delete a serviceId Group`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteServiceIDGroup(deleteServiceIDGroupOptions *deleteServiceIDGroupOptions)`, func() {
+
+			deleteServiceIDGroupOptions := &iamidentityv1.DeleteServiceIDGroupOptions{
+				ID: &serviceIdGroupId,
+			}
+
+			response, err := iamIdentityService.DeleteServiceIDGroup(deleteServiceIDGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 

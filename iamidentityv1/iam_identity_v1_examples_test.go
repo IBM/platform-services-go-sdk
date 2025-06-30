@@ -73,6 +73,10 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		svcID     string
 		svcIDEtag string
 
+		serviceIDGroupId   string
+		serviceIDGroupName string = "Go-SDK-IT-ServiceId-Group"
+		serviceIDGroupEtag string
+
 		profileId     string
 		profileEtag   string
 		claimRuleId   string
@@ -503,6 +507,112 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 
 			// end-delete_service_id
+			fmt.Printf("\nDeleteServiceID() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`CreateServiceIDGroup request example`, func() {
+			fmt.Println("\nCreateServiceIDGroup() result:")
+			// begin-create_service_id_group
+
+			createServiceIDGroupOptions := iamIdentityService.NewCreateServiceIDGroupOptions(accountID, serviceIDGroupName)
+			createServiceIDGroupOptions.SetDescription("Example ServiceIDGroup")
+
+			serviceIDGroup, response, err := iamIdentityService.CreateServiceIDGroup(createServiceIDGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			serviceIDGroupId = *serviceIDGroup.ID
+			b, _ := json.MarshalIndent(serviceIDGroup, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_service_id_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(serviceIDGroup).ToNot(BeNil())
+			Expect(serviceIDGroupId).ToNot(BeEmpty())
+		})
+		It(`GetServiceIDGroup request example`, func() {
+			fmt.Println("\nGetServiceIDGroup() result:")
+			// begin-get_service_id_group
+
+			getServiceIDGroupOptions := iamIdentityService.NewGetServiceIDGroupOptions(serviceIDGroupId)
+
+			serviceIDGroup, response, err := iamIdentityService.GetServiceIDGroup(getServiceIDGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			serviceIDGroupId = *serviceIDGroup.ID
+			b, _ := json.MarshalIndent(serviceIDGroup, "", "  ")
+			fmt.Println(string(b))
+
+			serviceIDGroupEtag = response.GetHeaders().Get("Etag")
+			c, _ := json.MarshalIndent(serviceIDGroup, "", "  ")
+			fmt.Println(string(c))
+
+			// end-get_service_id_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceIDGroup).ToNot(BeNil())
+			Expect(serviceIDGroupId).ToNot(BeEmpty())
+			Expect(serviceIDGroupEtag).ToNot(BeEmpty())
+		})
+		It(`ListServiceIDGroup request example`, func() {
+			fmt.Println("\nListServiceIDGroup() result:")
+			// begin-list_service_id_group
+
+			listServiceIDGroupOptions := iamIdentityService.NewListServiceIDGroupOptions()
+			listServiceIDGroupOptions.SetAccountID(accountID)
+
+			serviceIDGroupList, response, err := iamIdentityService.ListServiceIDGroup(listServiceIDGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-list_service_id_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			fmt.Printf("\nListServiceIDGroup() response: %d\n", serviceIDGroupList)
+
+		})
+		It(`UpdateServiceIDGroup request example`, func() {
+			fmt.Println("\nUpdateServiceIDGroup() result:")
+			// begin-update_service_id_group
+
+			updateServiceIDGroupOptions := iamIdentityService.NewUpdateServiceIDGroupOptions(serviceIDGroupId, serviceIDGroupEtag, serviceIDGroupName)
+			updateServiceIDGroupOptions.SetDescription("Example ServiceIDGroup - updated")
+
+			serviceIDGroup, response, err := iamIdentityService.UpdateServiceIDGroup(updateServiceIDGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			serviceIDGroupId = *serviceIDGroup.ID
+			b, _ := json.MarshalIndent(serviceIDGroup, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_service_id_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceIDGroup).ToNot(BeNil())
+			Expect(serviceIDGroupId).ToNot(BeEmpty())
+		})
+		It(`DeleteServiceIDGroup request example`, func() {
+			// begin-delete_service_id_group
+
+			deleteServiceIDGroupOptions := iamIdentityService.NewDeleteServiceIDGroupOptions(serviceIDGroupId)
+
+			response, err := iamIdentityService.DeleteServiceIDGroup(deleteServiceIDGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_service_id_group
 			fmt.Printf("\nDeleteServiceID() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
