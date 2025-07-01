@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package globaltaggingv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -1282,11 +1283,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the AttachTagOptions model
 				attachTagOptionsModel := new(globaltaggingv1.AttachTagOptions)
-				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				attachTagOptionsModel.Query = queryStringModel
 				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1370,11 +1376,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the AttachTagOptions model
 				attachTagOptionsModel := new(globaltaggingv1.AttachTagOptions)
-				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				attachTagOptionsModel.Query = queryStringModel
 				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1466,11 +1477,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the AttachTagOptions model
 				attachTagOptionsModel := new(globaltaggingv1.AttachTagOptions)
-				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				attachTagOptionsModel.Query = queryStringModel
 				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1486,7 +1502,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke AttachTag with error: Operation validation and request error`, func() {
+			It(`Invoke AttachTag with error: Operation request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1499,11 +1515,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the AttachTagOptions model
 				attachTagOptionsModel := new(globaltaggingv1.AttachTagOptions)
-				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				attachTagOptionsModel.Query = queryStringModel
 				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1517,13 +1538,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				result, response, operationErr := globalTaggingService.AttachTag(attachTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the AttachTagOptions model with no property values
-				attachTagOptionsModelNew := new(globaltaggingv1.AttachTagOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = globalTaggingService.AttachTag(attachTagOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -1553,11 +1567,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the AttachTagOptions model
 				attachTagOptionsModel := new(globaltaggingv1.AttachTagOptions)
-				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				attachTagOptionsModel.Query = queryStringModel
 				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1613,11 +1632,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the DetachTagOptions model
 				detachTagOptionsModel := new(globaltaggingv1.DetachTagOptions)
-				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				detachTagOptionsModel.Query = queryStringModel
 				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1697,11 +1721,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the DetachTagOptions model
 				detachTagOptionsModel := new(globaltaggingv1.DetachTagOptions)
-				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				detachTagOptionsModel.Query = queryStringModel
 				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1789,11 +1818,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the DetachTagOptions model
 				detachTagOptionsModel := new(globaltaggingv1.DetachTagOptions)
-				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				detachTagOptionsModel.Query = queryStringModel
 				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1807,7 +1841,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke DetachTag with error: Operation validation and request error`, func() {
+			It(`Invoke DetachTag with error: Operation request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1820,11 +1854,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the DetachTagOptions model
 				detachTagOptionsModel := new(globaltaggingv1.DetachTagOptions)
-				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				detachTagOptionsModel.Query = queryStringModel
 				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1836,13 +1875,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				result, response, operationErr := globalTaggingService.DetachTag(detachTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the DetachTagOptions model with no property values
-				detachTagOptionsModelNew := new(globaltaggingv1.DetachTagOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = globalTaggingService.DetachTag(detachTagOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -1872,11 +1904,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				resourceModel.ResourceID = core.StringPtr("testString")
 				resourceModel.ResourceType = core.StringPtr("testString")
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				queryStringModel.QueryString = core.StringPtr("testString")
+
 				// Construct an instance of the DetachTagOptions model
 				detachTagOptionsModel := new(globaltaggingv1.DetachTagOptions)
-				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				detachTagOptionsModel.Query = queryStringModel
 				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
 				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1911,12 +1948,18 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(resourceModel.ResourceID).To(Equal(core.StringPtr("testString")))
 				Expect(resourceModel.ResourceType).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				Expect(queryStringModel).ToNot(BeNil())
+				queryStringModel.QueryString = core.StringPtr("testString")
+				Expect(queryStringModel.QueryString).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the AttachTagOptions model
-				attachTagOptionsResources := []globaltaggingv1.Resource{}
-				attachTagOptionsModel := globalTaggingService.NewAttachTagOptions(attachTagOptionsResources)
-				attachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
+				attachTagOptionsModel := globalTaggingService.NewAttachTagOptions()
 				attachTagOptionsModel.SetTagName("testString")
 				attachTagOptionsModel.SetTagNames([]string{"testString"})
+				attachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
+				attachTagOptionsModel.SetQuery(queryStringModel)
 				attachTagOptionsModel.SetXRequestID("testString")
 				attachTagOptionsModel.SetXCorrelationID("testString")
 				attachTagOptionsModel.SetAccountID("testString")
@@ -1925,9 +1968,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.SetUpdate(false)
 				attachTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(attachTagOptionsModel).ToNot(BeNil())
-				Expect(attachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
 				Expect(attachTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
+				Expect(attachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
+				Expect(attachTagOptionsModel.Query).To(Equal(queryStringModel))
 				Expect(attachTagOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -2000,21 +2044,28 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(resourceModel.ResourceID).To(Equal(core.StringPtr("testString")))
 				Expect(resourceModel.ResourceType).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the QueryString model
+				queryStringModel := new(globaltaggingv1.QueryString)
+				Expect(queryStringModel).ToNot(BeNil())
+				queryStringModel.QueryString = core.StringPtr("testString")
+				Expect(queryStringModel.QueryString).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the DetachTagOptions model
-				detachTagOptionsResources := []globaltaggingv1.Resource{}
-				detachTagOptionsModel := globalTaggingService.NewDetachTagOptions(detachTagOptionsResources)
-				detachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
+				detachTagOptionsModel := globalTaggingService.NewDetachTagOptions()
 				detachTagOptionsModel.SetTagName("testString")
 				detachTagOptionsModel.SetTagNames([]string{"testString"})
+				detachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
+				detachTagOptionsModel.SetQuery(queryStringModel)
 				detachTagOptionsModel.SetXRequestID("testString")
 				detachTagOptionsModel.SetXCorrelationID("testString")
 				detachTagOptionsModel.SetAccountID("testString")
 				detachTagOptionsModel.SetTagType("user")
 				detachTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(detachTagOptionsModel).ToNot(BeNil())
-				Expect(detachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
 				Expect(detachTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
+				Expect(detachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
+				Expect(detachTagOptionsModel.Query).To(Equal(queryStringModel))
 				Expect(detachTagOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -2052,6 +2103,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(listTagsOptionsModel.AttachedOnly).To(Equal(core.BoolPtr(false)))
 				Expect(listTagsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewQueryString successfully`, func() {
+				queryString := "testString"
+				_model, err := globalTaggingService.NewQueryString(queryString)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewResource successfully`, func() {
 				resourceID := "testString"
 				_model, err := globalTaggingService.NewResource(resourceID)
@@ -2061,6 +2118,24 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalQueryString successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globaltaggingv1.QueryString)
+			model.QueryString = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globaltaggingv1.QueryString
+			err = globaltaggingv1.UnmarshalQueryString(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalResource successfully`, func() {
 			// Construct an instance of the model.
 			model := new(globaltaggingv1.Resource)
@@ -2081,10 +2156,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -2110,8 +2184,11 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
