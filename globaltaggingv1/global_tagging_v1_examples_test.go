@@ -51,7 +51,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 	var (
 		globalTaggingService *globaltaggingv1.GlobalTaggingV1
 		config               map[string]string
-		configLoaded         bool = false
+		configLoaded         bool
 
 		resourceCRN string
 	)
@@ -162,13 +162,9 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			fmt.Println("\nAttachTag() result:")
 			// begin-attach_tag
 
-			resourceModel := &globaltaggingv1.Resource{
-				ResourceID: &resourceCRN,
-			}
 
-			attachTagOptions := globalTaggingService.NewAttachTagOptions(
-				[]globaltaggingv1.Resource{*resourceModel},
-			)
+
+			attachTagOptions := globalTaggingService.NewAttachTagOptions()
 			attachTagOptions.SetTagNames([]string{"tag_test_1", "tag_test_2"})
 			attachTagOptions.SetTagType("user")
 
@@ -190,13 +186,8 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			fmt.Println("\nDetachTag() result:")
 			// begin-detach_tag
 
-			resourceModel := &globaltaggingv1.Resource{
-				ResourceID: &resourceCRN,
-			}
 
-			detachTagOptions := globalTaggingService.NewDetachTagOptions(
-				[]globaltaggingv1.Resource{*resourceModel},
-			)
+			detachTagOptions := globalTaggingService.NewDetachTagOptions()
 			detachTagOptions.SetTagNames([]string{"tag_test_1", "tag_test_2"})
 			detachTagOptions.SetTagType("user")
 
