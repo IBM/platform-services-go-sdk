@@ -68,14 +68,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_URL": "https://globaltaggingv1/api",
+				"GLOBAL_TAGGING_URL":       "https://globaltaggingv1/api",
 				"GLOBAL_TAGGING_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
-				})
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{})
 				Expect(globalTaggingService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
-				})
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{})
 				err := globalTaggingService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_URL": "https://globaltaggingv1/api",
+				"GLOBAL_TAGGING_URL":       "https://globaltaggingv1/api",
 				"GLOBAL_TAGGING_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
-			})
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(globalTaggingService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_AUTH_TYPE":   "NOAuth",
+				"GLOBAL_TAGGING_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
