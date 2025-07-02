@@ -122,6 +122,8 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.au-syd":   "https://private.au-syd.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the au-syd region.
 		"br-sao":           "https://br-sao.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the br-sao region.
 		"private.br-sao":   "https://private.br-sao.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the br-sao region.
+		"ca-mon":           "https://ca-mon.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the ca-mon region.
+		"private.ca-mon":   "https://private.ca-mon.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the ca-mon region.
 		"ca-tor":           "https://ca-tor.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the ca-tor region.
 		"private.ca-tor":   "https://private.ca-tor.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the ca-tor region.
 		"eu-de":            "https://eu-de.metrics-router.cloud.ibm.com/api/v3",            // The server for IBM Cloud Metrics Routing Service in the eu-de region.
