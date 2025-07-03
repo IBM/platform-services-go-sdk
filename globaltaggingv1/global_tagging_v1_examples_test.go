@@ -162,8 +162,6 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			fmt.Println("\nAttachTag() result:")
 			// begin-attach_tag
 
-
-
 			attachTagOptions := globalTaggingService.NewAttachTagOptions()
 			attachTagOptions.SetTagNames([]string{"tag_test_1", "tag_test_2"})
 			attachTagOptions.SetTagType("user")
@@ -185,7 +183,6 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 		It(`DetachTag request example`, func() {
 			fmt.Println("\nDetachTag() result:")
 			// begin-detach_tag
-
 
 			detachTagOptions := globalTaggingService.NewDetachTagOptions()
 			detachTagOptions.SetTagNames([]string{"tag_test_1", "tag_test_2"})
