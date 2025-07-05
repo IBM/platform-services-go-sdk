@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
+ * IBM OpenAPI SDK Code Generator Version: 3.105.1-067d600b-20250616-154447
  */
 
 // Package metricsrouterv3 : Operations and models for the MetricsRouterV3 service
@@ -118,28 +118,30 @@ func NewMetricsRouterV3(options *MetricsRouterV3Options) (service *MetricsRouter
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"au-syd":           "https://au-syd.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the au-syd region.
-		"private.au-syd":   "https://private.au-syd.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the au-syd region.
-		"br-sao":           "https://br-sao.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the br-sao region.
-		"private.br-sao":   "https://private.br-sao.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the br-sao region.
-		"ca-tor":           "https://ca-tor.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the ca-tor region.
-		"private.ca-tor":   "https://private.ca-tor.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the ca-tor region.
-		"eu-de":            "https://eu-de.metrics-router.cloud.ibm.com/api/v3",            // The server for IBM Cloud Metrics Routing Service in the eu-de region.
-		"private.eu-de":    "https://private.eu-de.metrics-router.cloud.ibm.com/api/v3",    // The server for IBM Cloud Metrics Routing Service in the eu-de region.
-		"eu-gb":            "https://eu-gb.metrics-router.cloud.ibm.com/api/v3",            // The server for IBM Cloud Metrics Routing Service in the eu-gb region.
-		"private.eu-gb":    "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3",    // The server for IBM Cloud Metrics Routing Service in the eu-gb region.
-		"eu-es":            "https://eu-es.metrics-router.cloud.ibm.com/api/v3",            // The server for IBM Cloud Metrics Routing Service in the eu-es region.
-		"private.eu-es":    "https://private.eu-es.metrics-router.cloud.ibm.com/api/v3",    // The server for IBM Cloud Metrics Routing Service in the eu-es region.
-		"eu-fr2":           "https://eu-fr2.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the eu-fr2 region.
-		"private.eu-fr2":   "https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the eu-fr2 region.
-		"jp-osa":           "https://jp-osa.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the jp-osa region.
-		"private.jp-osa":   "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the jp-osa region.
-		"jp-tok":           "https://jp-tok.metrics-router.cloud.ibm.com/api/v3",           // The server for IBM Cloud Metrics Routing Service in the jp-tok region.
-		"private.jp-tok":   "https://private.jp-tok.metrics-router.cloud.ibm.com/api/v3",   // The server for IBM Cloud Metrics Routing Service in the jp-tok region.
-		"us-east":          "https://us-east.metrics-router.cloud.ibm.com/api/v3",          // The server for IBM Cloud Metrics Routing Service in the us-east region.
-		"private.us-east":  "https://private.us-east.metrics-router.cloud.ibm.com/api/v3",  // The server for IBM Cloud Metrics Routing Service in the us-east region.
-		"us-south":         "https://us-south.metrics-router.cloud.ibm.com/api/v3",         // The server for IBM Cloud Metrics Routing Service in the us-south region.
-		"private.us-south": "https://private.us-south.metrics-router.cloud.ibm.com/api/v3", // The server for IBM Cloud Metrics Routing Service in the us-south region.
+		"au-syd": "https://au-syd.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the au-syd region.
+		"private.au-syd": "https://private.au-syd.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the au-syd region.
+		"br-sao": "https://br-sao.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the br-sao region.
+		"private.br-sao": "https://private.br-sao.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the br-sao region.
+		"ca-mon": "https://ca-mon.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the ca-mon region.
+		"private.ca-mon": "https://private.ca-mon.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the ca-mon region.
+		"ca-tor": "https://ca-tor.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the ca-tor region.
+		"private.ca-tor": "https://private.ca-tor.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the ca-tor region.
+		"eu-de": "https://eu-de.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-de region.
+		"private.eu-de": "https://private.eu-de.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-de region.
+		"eu-es": "https://eu-es.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
+		"private.eu-es": "https://private.eu-es.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
+		"eu-fr2": "https://eu-fr2.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.
+		"private.eu-fr2": "https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.s
+		"eu-gb": "https://eu-gb.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
+		"private.eu-gb": "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
+		"jp-osa": "https://jp-osa.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
+		"private.jp-osa": "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
+		"jp-tok": "https://jp-tok.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
+		"private.jp-tok": "https://private.jp-tok.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
+		"us-east": "https://us-east.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the us-east region.
+		"private.us-east": "https://private.us-east.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the us-east region.
+		"us-south": "https://us-south.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the us-south region.
+		"private.us-south": "https://private.us-south.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the us-south region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -230,12 +232,12 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 		return
 	}
 
-	for headerName, headerValue := range createTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "CreateTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "CreateTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -307,12 +309,12 @@ func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range listTargetsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "ListTargets")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "ListTargets")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTargetsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -376,12 +378,12 @@ func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, 
 		return
 	}
 
-	for headerName, headerValue := range getTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "GetTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "GetTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -445,12 +447,12 @@ func (metricsRouter *MetricsRouterV3) UpdateTargetWithContext(ctx context.Contex
 		return
 	}
 
-	for headerName, headerValue := range updateTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "UpdateTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "UpdateTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -528,12 +530,12 @@ func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Contex
 		return
 	}
 
-	for headerName, headerValue := range deleteTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "DeleteTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "DeleteTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -583,12 +585,12 @@ func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range createRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "CreateRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "CreateRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -657,12 +659,12 @@ func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context,
 		return
 	}
 
-	for headerName, headerValue := range listRoutesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "ListRoutes")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "ListRoutes")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listRoutesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -726,12 +728,12 @@ func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, g
 		return
 	}
 
-	for headerName, headerValue := range getRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "GetRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "GetRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -795,12 +797,12 @@ func (metricsRouter *MetricsRouterV3) UpdateRouteWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range updateRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "UpdateRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "UpdateRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -878,12 +880,12 @@ func (metricsRouter *MetricsRouterV3) DeleteRouteWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range deleteRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "DeleteRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "DeleteRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -928,12 +930,12 @@ func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range getSettingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "GetSettings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "GetSettings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -994,12 +996,12 @@ func (metricsRouter *MetricsRouterV3) UpdateSettingsWithContext(ctx context.Cont
 		return
 	}
 
-	for headerName, headerValue := range updateSettingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "UpdateSettings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "UpdateSettings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1071,7 +1073,7 @@ type CreateRouteOptions struct {
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*MetricsRouterV3) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
 	return &CreateRouteOptions{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -1117,7 +1119,7 @@ type CreateTargetOptions struct {
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
 func (*MetricsRouterV3) NewCreateTargetOptions(name string, destinationCRN string) *CreateTargetOptions {
 	return &CreateTargetOptions{
-		Name:           core.StringPtr(name),
+		Name: core.StringPtr(name),
 		DestinationCRN: core.StringPtr(destinationCRN),
 	}
 }
@@ -1292,11 +1294,11 @@ type InclusionFilter struct {
 // Constants associated with the InclusionFilter.Operand property.
 // Part of CRN that can be compared with values.
 const (
-	InclusionFilterOperandLocationConst        = "location"
-	InclusionFilterOperandResourceConst        = "resource"
-	InclusionFilterOperandResourceTypeConst    = "resource_type"
+	InclusionFilterOperandLocationConst = "location"
+	InclusionFilterOperandResourceConst = "resource"
+	InclusionFilterOperandResourceTypeConst = "resource_type"
 	InclusionFilterOperandServiceInstanceConst = "service_instance"
-	InclusionFilterOperandServiceNameConst     = "service_name"
+	InclusionFilterOperandServiceNameConst = "service_name"
 )
 
 // Constants associated with the InclusionFilter.Operator property.
@@ -1345,11 +1347,11 @@ type InclusionFilterPrototype struct {
 // Constants associated with the InclusionFilterPrototype.Operand property.
 // Part of CRN that can be compared with values.
 const (
-	InclusionFilterPrototypeOperandLocationConst        = "location"
-	InclusionFilterPrototypeOperandResourceConst        = "resource"
-	InclusionFilterPrototypeOperandResourceTypeConst    = "resource_type"
+	InclusionFilterPrototypeOperandLocationConst = "location"
+	InclusionFilterPrototypeOperandResourceConst = "resource"
+	InclusionFilterPrototypeOperandResourceTypeConst = "resource_type"
 	InclusionFilterPrototypeOperandServiceInstanceConst = "service_instance"
-	InclusionFilterPrototypeOperandServiceNameConst     = "service_name"
+	InclusionFilterPrototypeOperandServiceNameConst = "service_name"
 )
 
 // Constants associated with the InclusionFilterPrototype.Operator property.
@@ -1363,9 +1365,9 @@ const (
 // NewInclusionFilterPrototype : Instantiate InclusionFilterPrototype (Generic Model Constructor)
 func (*MetricsRouterV3) NewInclusionFilterPrototype(operand string, operator string, values []string) (_model *InclusionFilterPrototype, err error) {
 	_model = &InclusionFilterPrototype{
-		Operand:  core.StringPtr(operand),
+		Operand: core.StringPtr(operand),
 		Operator: core.StringPtr(operator),
-		Values:   values,
+		Values: values,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -1513,7 +1515,7 @@ func UnmarshalRouteCollection(m map[string]json.RawMessage, result interface{}) 
 // Rule : A configuration to route metrics to pre-defined target.
 type Rule struct {
 	// The action if the inclusion_filters matches, default is `send` action.
-	Action *string `json:"action,omitempty"`
+	Action *string `json:"action" validate:"required"`
 
 	// The target ID List. All the metrics will be sent to all targets listed in the rule. You can include targets from
 	// other regions.
@@ -1555,7 +1557,7 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 // RulePrototype : A configuration to route metrics to pre-defined target.
 type RulePrototype struct {
 	// The action if the inclusion_filters matches, default is `send` action.
-	Action *string `json:"action,omitempty"`
+	Action *string `json:"action" validate:"required"`
 
 	// A collection of targets with ID in the request.
 	Targets []TargetIdentity `json:"targets" validate:"required"`
@@ -1572,9 +1574,10 @@ const (
 )
 
 // NewRulePrototype : Instantiate RulePrototype (Generic Model Constructor)
-func (*MetricsRouterV3) NewRulePrototype(targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
+func (*MetricsRouterV3) NewRulePrototype(action string, targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
 	_model = &RulePrototype{
-		Targets:          targets,
+		Action: core.StringPtr(action),
+		Targets: targets,
 		InclusionFilters: inclusionFilters,
 	}
 	err = core.ValidateStruct(_model, "required parameters")

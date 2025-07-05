@@ -68,13 +68,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"METRICS_ROUTER_URL":       "https://metricsrouterv3/api",
+				"METRICS_ROUTER_URL": "https://metricsrouterv3/api",
 				"METRICS_ROUTER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{})
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{
+				})
 				Expect(metricsRouterService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{})
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{
+				})
 				err := metricsRouterService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"METRICS_ROUTER_URL":       "https://metricsrouterv3/api",
+				"METRICS_ROUTER_URL": "https://metricsrouterv3/api",
 				"METRICS_ROUTER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{})
+			metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(metricsRouterService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"METRICS_ROUTER_AUTH_TYPE": "NOAuth",
+				"METRICS_ROUTER_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -172,6 +175,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			Expect(url).To(Equal("https://private.br-sao.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
+			url, err = metricsrouterv3.GetServiceURLForRegion("ca-mon")
+			Expect(url).To(Equal("https://ca-mon.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.ca-mon")
+			Expect(url).To(Equal("https://private.ca-mon.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
 			url, err = metricsrouterv3.GetServiceURLForRegion("ca-tor")
 			Expect(url).To(Equal("https://ca-tor.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
@@ -188,14 +199,6 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			Expect(url).To(Equal("https://private.eu-de.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
-			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
-			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com/api/v3"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-gb")
-			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3"))
-			Expect(err).To(BeNil())
-
 			url, err = metricsrouterv3.GetServiceURLForRegion("eu-es")
 			Expect(url).To(Equal("https://eu-es.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
@@ -210,6 +213,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-fr2")
 			Expect(url).To(Equal("https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
+			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-gb")
+			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("jp-osa")
@@ -2988,9 +2999,10 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(listTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRulePrototype successfully`, func() {
+				action := "send"
 				targets := []metricsrouterv3.TargetIdentity{}
 				inclusionFilters := []metricsrouterv3.InclusionFilterPrototype{}
-				_model, err := metricsRouterService.NewRulePrototype(targets, inclusionFilters)
+				_model, err := metricsRouterService.NewRulePrototype(action, targets, inclusionFilters)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
