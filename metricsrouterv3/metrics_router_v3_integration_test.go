@@ -40,15 +40,19 @@ import (
 
 var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 	const externalConfigFile = "../metrics_router_v3.env"
+	const notFoundTargetID = "ffffffff-1111-1111-1111-111111111111"
+	const notFoundRouteID = "ffffffff-2222-2222-2222-222222222222"
 
 	var (
-		err                  error
-		metricsRouterService *metricsrouterv3.MetricsRouterV3
-		serviceURL           string
-		config               map[string]string
+		err                               error
+		metricsRouterService              *metricsrouterv3.MetricsRouterV3
+		metricsrouterServiceNotAuthorized *metricsrouterv3.MetricsRouterV3
+		serviceURL                        string
+		config                            map[string]string
 
 		// Variables to hold link values
 		routeIDLink  string
+		routeIDLink1 string
 		targetIDLink string
 	)
 
@@ -714,6 +718,12 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 				BackupMetadataRegion:   core.StringPtr("us-east"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
 			}
+
+			setting, response, err := metricsRouterService.UpdateSettings(updateSettingsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(setting).ToNot(BeNil())
 		})
 	})
 
