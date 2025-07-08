@@ -2999,10 +2999,9 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(listTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRulePrototype successfully`, func() {
-				action := "send"
 				targets := []metricsrouterv3.TargetIdentity{}
 				inclusionFilters := []metricsrouterv3.InclusionFilterPrototype{}
-				_model, err := metricsRouterService.NewRulePrototype(action, targets, inclusionFilters)
+				_model, err := metricsRouterService.NewRulePrototype(targets, inclusionFilters)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

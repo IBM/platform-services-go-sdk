@@ -1557,7 +1557,7 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 // RulePrototype : A configuration to route metrics to pre-defined target.
 type RulePrototype struct {
 	// The action if the inclusion_filters matches, default is `send` action.
-	Action *string `json:"action" validate:"required"`
+	Action *string `json:"action,omitempty"`
 
 	// A collection of targets with ID in the request.
 	Targets []TargetIdentity `json:"targets" validate:"required"`
@@ -1574,9 +1574,8 @@ const (
 )
 
 // NewRulePrototype : Instantiate RulePrototype (Generic Model Constructor)
-func (*MetricsRouterV3) NewRulePrototype(action string, targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
+func (*MetricsRouterV3) NewRulePrototype(targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
 	_model = &RulePrototype{
-		Action: core.StringPtr(action),
 		Targets: targets,
 		InclusionFilters: inclusionFilters,
 	}

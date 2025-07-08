@@ -146,7 +146,6 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			}
 
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				Action: core.StringPtr("send"),
 				Targets: []metricsrouterv3.TargetIdentity{*targetIdentityModel},
 				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
