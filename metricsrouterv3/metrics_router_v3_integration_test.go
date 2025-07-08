@@ -694,7 +694,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 
 			updateSettingsOptions := &metricsrouterv3.UpdateSettingsOptions{
 				DefaultTargets:         []metricsrouterv3.TargetIdentity{*targetIdentityModel},
-				DefaultTargets:         []metricsrouterv3.TargetIdentity{*targetIdentityModel},
 				PermittedTargetRegions: []string{"us-south"},
 				PrimaryMetadataRegion:  core.StringPtr("us-south"),
 				BackupMetadataRegion:   core.StringPtr("us-east"),
@@ -711,8 +710,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			updateSettingsOptions := &metricsrouterv3.UpdateSettingsOptions{
 				DefaultTargets:         []metricsrouterv3.TargetIdentity{},
 				PermittedTargetRegions: []string{"us-south"},
-				PrimaryMetadataRegion:  core.StringPtr("us-south"),
-				BackupMetadataRegion:   core.StringPtr("us-east"),
 				PrimaryMetadataRegion:  core.StringPtr("us-south"),
 				BackupMetadataRegion:   core.StringPtr("us-east"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
