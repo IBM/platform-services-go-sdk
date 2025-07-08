@@ -118,29 +118,29 @@ func NewMetricsRouterV3(options *MetricsRouterV3Options) (service *MetricsRouter
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"au-syd": "https://au-syd.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the au-syd region.
-		"private.au-syd": "https://private.au-syd.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the au-syd region.
-		"br-sao": "https://br-sao.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the br-sao region.
-		"private.br-sao": "https://private.br-sao.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the br-sao region.
-		"ca-mon": "https://ca-mon.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the ca-mon region.
-		"private.ca-mon": "https://private.ca-mon.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the ca-mon region.
-		"ca-tor": "https://ca-tor.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the ca-tor region.
-		"private.ca-tor": "https://private.ca-tor.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the ca-tor region.
-		"eu-de": "https://eu-de.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-de region.
-		"private.eu-de": "https://private.eu-de.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-de region.
-		"eu-es": "https://eu-es.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
-		"private.eu-es": "https://private.eu-es.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
-		"eu-fr2": "https://eu-fr2.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.
-		"private.eu-fr2": "https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.s
-		"eu-gb": "https://eu-gb.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
-		"private.eu-gb": "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
-		"jp-osa": "https://jp-osa.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
-		"private.jp-osa": "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
-		"jp-tok": "https://jp-tok.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
-		"private.jp-tok": "https://private.jp-tok.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
-		"us-east": "https://us-east.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the us-east region.
-		"private.us-east": "https://private.us-east.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the us-east region.
-		"us-south": "https://us-south.metrics-router.cloud.ibm.com/api/v3", // The public endpoint for IBM Cloud Metrics Routing Service in the us-south region.
+		"au-syd":           "https://au-syd.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the au-syd region.
+		"private.au-syd":   "https://private.au-syd.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the au-syd region.
+		"br-sao":           "https://br-sao.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the br-sao region.
+		"private.br-sao":   "https://private.br-sao.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the br-sao region.
+		"ca-mon":           "https://ca-mon.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the ca-mon region.
+		"private.ca-mon":   "https://private.ca-mon.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the ca-mon region.
+		"ca-tor":           "https://ca-tor.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the ca-tor region.
+		"private.ca-tor":   "https://private.ca-tor.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the ca-tor region.
+		"eu-de":            "https://eu-de.metrics-router.cloud.ibm.com/api/v3",            // The public endpoint for IBM Cloud Metrics Routing Service in the eu-de region.
+		"private.eu-de":    "https://private.eu-de.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-de region.
+		"eu-es":            "https://eu-es.metrics-router.cloud.ibm.com/api/v3",            // The public endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
+		"private.eu-es":    "https://private.eu-es.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
+		"eu-fr2":           "https://eu-fr2.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.
+		"private.eu-fr2":   "https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.s
+		"eu-gb":            "https://eu-gb.metrics-router.cloud.ibm.com/api/v3",            // The public endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
+		"private.eu-gb":    "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
+		"jp-osa":           "https://jp-osa.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
+		"private.jp-osa":   "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
+		"jp-tok":           "https://jp-tok.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
+		"private.jp-tok":   "https://private.jp-tok.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
+		"us-east":          "https://us-east.metrics-router.cloud.ibm.com/api/v3",          // The public endpoint for IBM Cloud Metrics Routing Service in the us-east region.
+		"private.us-east":  "https://private.us-east.metrics-router.cloud.ibm.com/api/v3",  // The private endpoint for IBM Cloud Metrics Routing Service in the us-east region.
+		"us-south":         "https://us-south.metrics-router.cloud.ibm.com/api/v3",         // The public endpoint for IBM Cloud Metrics Routing Service in the us-south region.
 		"private.us-south": "https://private.us-south.metrics-router.cloud.ibm.com/api/v3", // The private endpoint for IBM Cloud Metrics Routing Service in the us-south region.
 	}
 
@@ -1073,7 +1073,7 @@ type CreateRouteOptions struct {
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*MetricsRouterV3) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
 	return &CreateRouteOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -1119,7 +1119,7 @@ type CreateTargetOptions struct {
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
 func (*MetricsRouterV3) NewCreateTargetOptions(name string, destinationCRN string) *CreateTargetOptions {
 	return &CreateTargetOptions{
-		Name: core.StringPtr(name),
+		Name:           core.StringPtr(name),
 		DestinationCRN: core.StringPtr(destinationCRN),
 	}
 }
@@ -1294,11 +1294,11 @@ type InclusionFilter struct {
 // Constants associated with the InclusionFilter.Operand property.
 // Part of CRN that can be compared with values.
 const (
-	InclusionFilterOperandLocationConst = "location"
-	InclusionFilterOperandResourceConst = "resource"
-	InclusionFilterOperandResourceTypeConst = "resource_type"
+	InclusionFilterOperandLocationConst        = "location"
+	InclusionFilterOperandResourceConst        = "resource"
+	InclusionFilterOperandResourceTypeConst    = "resource_type"
 	InclusionFilterOperandServiceInstanceConst = "service_instance"
-	InclusionFilterOperandServiceNameConst = "service_name"
+	InclusionFilterOperandServiceNameConst     = "service_name"
 )
 
 // Constants associated with the InclusionFilter.Operator property.
@@ -1347,11 +1347,11 @@ type InclusionFilterPrototype struct {
 // Constants associated with the InclusionFilterPrototype.Operand property.
 // Part of CRN that can be compared with values.
 const (
-	InclusionFilterPrototypeOperandLocationConst = "location"
-	InclusionFilterPrototypeOperandResourceConst = "resource"
-	InclusionFilterPrototypeOperandResourceTypeConst = "resource_type"
+	InclusionFilterPrototypeOperandLocationConst        = "location"
+	InclusionFilterPrototypeOperandResourceConst        = "resource"
+	InclusionFilterPrototypeOperandResourceTypeConst    = "resource_type"
 	InclusionFilterPrototypeOperandServiceInstanceConst = "service_instance"
-	InclusionFilterPrototypeOperandServiceNameConst = "service_name"
+	InclusionFilterPrototypeOperandServiceNameConst     = "service_name"
 )
 
 // Constants associated with the InclusionFilterPrototype.Operator property.
@@ -1365,9 +1365,9 @@ const (
 // NewInclusionFilterPrototype : Instantiate InclusionFilterPrototype (Generic Model Constructor)
 func (*MetricsRouterV3) NewInclusionFilterPrototype(operand string, operator string, values []string) (_model *InclusionFilterPrototype, err error) {
 	_model = &InclusionFilterPrototype{
-		Operand: core.StringPtr(operand),
+		Operand:  core.StringPtr(operand),
 		Operator: core.StringPtr(operator),
-		Values: values,
+		Values:   values,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -1576,7 +1576,7 @@ const (
 // NewRulePrototype : Instantiate RulePrototype (Generic Model Constructor)
 func (*MetricsRouterV3) NewRulePrototype(targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
 	_model = &RulePrototype{
-		Targets: targets,
+		Targets:          targets,
 		InclusionFilters: inclusionFilters,
 	}
 	err = core.ValidateStruct(_model, "required parameters")

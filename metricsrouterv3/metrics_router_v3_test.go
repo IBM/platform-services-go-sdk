@@ -68,14 +68,13 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"METRICS_ROUTER_URL": "https://metricsrouterv3/api",
+				"METRICS_ROUTER_URL":       "https://metricsrouterv3/api",
 				"METRICS_ROUTER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{
-				})
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{})
 				Expect(metricsRouterService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{
-				})
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{})
 				err := metricsRouterService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"METRICS_ROUTER_URL": "https://metricsrouterv3/api",
+				"METRICS_ROUTER_URL":       "https://metricsrouterv3/api",
 				"METRICS_ROUTER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{
-			})
+			metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3UsingExternalConfig(&metricsrouterv3.MetricsRouterV3Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(metricsRouterService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"METRICS_ROUTER_AUTH_TYPE":   "NOAuth",
+				"METRICS_ROUTER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
