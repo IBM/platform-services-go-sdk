@@ -1515,7 +1515,7 @@ func UnmarshalRouteCollection(m map[string]json.RawMessage, result interface{}) 
 // Rule : A configuration to route metrics to pre-defined target.
 type Rule struct {
 	// The action if the inclusion_filters matches, default is `send` action.
-	Action *string `json:"action" validate:"required"`
+	Action *string `json:"action,omitempty"`
 
 	// The target ID List. All the metrics will be sent to all targets listed in the rule. You can include targets from
 	// other regions.
