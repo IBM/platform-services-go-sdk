@@ -1,3 +1,10 @@
+## [0.84.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.1...v0.84.2) (2025-07-10)
+
+
+### Bug Fixes
+
+* **Metrics Router:** regenerate Metrics Router SDK with the latest apidoc definition ([#396](https://github.com/IBM/platform-services-go-sdk/issues/396)) ([b988e97](https://github.com/IBM/platform-services-go-sdk/commit/b988e974f7bd790da59fec45fb24732876b152a0))
+
 ## [0.84.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.0...v0.84.1) (2025-07-10)
 
 
