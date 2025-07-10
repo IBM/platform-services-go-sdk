@@ -61,6 +61,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		routeIDLink   string
 		targetIDLink  string
 		targetIDLink3 string
+		targetIDLink4 string
 	)
 
 	var shouldSkipTest = func() {
@@ -125,7 +126,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
+		It(`CreateTarget(createTargetOptions *CreateTargetOptions) for COS destination`, func() {
 
 			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
 				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
@@ -152,7 +153,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved cos targetIDLink value: %v\n", targetIDLink)
 		})
 
-		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
+		It(`CreateTarget(createTargetOptions *CreateTargetOptions) for IES destination`, func() {
 
 			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
 				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
@@ -175,7 +176,29 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(target).ToNot(BeNil())
 
 			targetIDLink3 = *target.ID
-			fmt.Fprintf(GinkgoWriter, "Saved event streams targetIDLink value: %v\n", targetIDLink)
+			fmt.Fprintf(GinkgoWriter, "Saved event streams targetIDLink3 value: %v\n", targetIDLink3)
+		})
+
+		It(`CreateTarget(createTargetOptions *CreateTargetOptions) for ICL destination`, func() {
+
+			cloudLogsEndpointPrototypeModel := &atrackerv2.CloudLogsEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+			}
+
+			createTargetOptions := &atrackerv2.CreateTargetOptions{
+				Name:              core.StringPtr("my-icl-target"),
+				TargetType:        core.StringPtr("cloud_logs"),
+				CloudlogsEndpoint: cloudLogsEndpointPrototypeModel,
+				Region:            core.StringPtr("us-south"),
+			}
+
+			target, response, err := atrackerService.CreateTarget(createTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(target).ToNot(BeNil())
+			targetIDLink4 = *target.ID
+			fmt.Fprintf(GinkgoWriter, "Saved cloud logs targetIDLink4 value: %v\n", targetIDLink4)
 		})
 
 		It(`Returns 400 when backend input validation fails`, func() {
@@ -313,10 +336,36 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
+		It(`GetTarget(getTargetOptions *GetTargetOptions) for COS target`, func() {
 
 			getTargetOptions := &atrackerv2.GetTargetOptions{
 				ID: &targetIDLink,
+			}
+
+			target, response, err := atrackerService.GetTarget(getTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`GetTarget(getTargetOptions *GetTargetOptions) for IES target`, func() {
+
+			getTargetOptions := &atrackerv2.GetTargetOptions{
+				ID: &targetIDLink3,
+			}
+
+			target, response, err := atrackerService.GetTarget(getTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`GetTarget(getTargetOptions *GetTargetOptions) for ICL target`, func() {
+
+			getTargetOptions := &atrackerv2.GetTargetOptions{
+				ID: &targetIDLink4,
 			}
 
 			target, response, err := atrackerService.GetTarget(getTargetOptions)
@@ -355,7 +404,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for cos type of target`, func() {
+		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for COS target`, func() {
 
 			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
 				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
@@ -376,7 +425,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(target).ToNot(BeNil())
 		})
 
-		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for event streams type of target`, func() {
+		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for IES target`, func() {
 
 			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
 				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
@@ -390,6 +439,24 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				ID:                   &targetIDLink3,
 				Name:                 core.StringPtr("my-ies-target-modified"),
 				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
+			}
+
+			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for ICL target`, func() {
+
+			cloudLogsEndpointPrototypeModel := &atrackerv2.CloudLogsEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+			}
+
+			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
+				ID:                &targetIDLink4,
+				Name:              core.StringPtr("my-icl-target-modified"),
+				CloudlogsEndpoint: cloudLogsEndpointPrototypeModel,
 			}
 
 			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
@@ -424,10 +491,36 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions)`, func() {
+		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions) for COS target`, func() {
 
 			validateTargetOptions := &atrackerv2.ValidateTargetOptions{
 				ID: &targetIDLink,
+			}
+
+			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions) for IES target`, func() {
+
+			validateTargetOptions := &atrackerv2.ValidateTargetOptions{
+				ID: &targetIDLink3,
+			}
+
+			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions) for ICL target`, func() {
+
+			validateTargetOptions := &atrackerv2.ValidateTargetOptions{
+				ID: &targetIDLink4,
 			}
 
 			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
@@ -537,7 +630,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		It(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions)`, func() {
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{targetIDLink},
+				TargetIds: []string{targetIDLink3, targetIDLink4},
 				Locations: []string{"us-south"},
 			}
 
@@ -724,7 +817,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
 		})
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions) COS target`, func() {
 
 			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
 				ID: &targetIDLink,
@@ -735,7 +828,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions) IES target`, func() {
 
 			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
 				ID: &targetIDLink3,
@@ -743,7 +836,17 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions) ICL target`, func() {
+
+			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
+				ID: &targetIDLink4,
+			}
+
+			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
