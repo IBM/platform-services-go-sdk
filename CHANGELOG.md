@@ -1,3 +1,10 @@
+## [0.84.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.0...v0.84.1) (2025-07-10)
+
+
+### Bug Fixes
+
+* **ATracker:** regenerate SDK with latest API definition ([#395](https://github.com/IBM/platform-services-go-sdk/issues/395)) ([24b6b80](https://github.com/IBM/platform-services-go-sdk/commit/24b6b80e0fbc6b4a6d8f6b4c5d8dd53becb76728))
+
 # [0.84.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.83.3...v0.84.0) (2025-07-09)
 
 
