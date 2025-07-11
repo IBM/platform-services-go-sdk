@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the metrics-router service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,17 +40,16 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 
 	const externalConfigFile = "../metrics_router_v3.env"
 
 	var (
 		metricsRouterService *metricsrouterv3.MetricsRouterV3
-		config       map[string]string
+		config               map[string]string
 
 		// Variables to hold link values
-		routeIDLink string
+		routeIDLink  string
 		targetIDLink string
 	)
 
@@ -140,13 +138,13 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			}
 
 			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
-				Operand: core.StringPtr("location"),
+				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Values: []string{"us-south"},
+				Values:   []string{"us-south"},
 			}
 
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				Targets: []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
 				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.101.0-62624c1e-20250225-192301
+ * IBM OpenAPI SDK Code Generator Version: 3.105.1-067d600b-20250616-154447
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -131,18 +131,20 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-es": "https://private.eu-es.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-es region.
 		"au-syd": "https://au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
 		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
-		"ca-tor": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
-		"private.ca-tor": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
-		"br-sao": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"private.br-sao": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"eu-fr2": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
-		"private.eu-fr2": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
-		"jp-tok": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
-		"private.jp-tok": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
-		"jp-osa": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
-		"private.jp-osa": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
-		"in-che": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
-		"private.in-che": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
+		"ca-mon": "https://ca-mon.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-mon region.
+		"private.ca-mon": "https://private.ca-mon.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-mon region.
+		"ca-tor": "https://ca-tor.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
+		"private.ca-tor": "https://private.ca-tor.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
+		"br-sao": "https://br-sao.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the br-sao region.
+		"private.br-sao": "https://private.br-sao.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the br-sao region.
+		"eu-fr2": "https://eu-fr2.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
+		"private.eu-fr2": "https://private.eu-fr2.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
+		"jp-tok": "https://jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
+		"private.jp-tok": "https://private.jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
+		"jp-osa": "https://jp-osa.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
+		"private.jp-osa": "https://private.jp-osa.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
+		"in-che": "https://in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the in-che region.
+		"private.in-che": "https://private.in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the in-che region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -233,12 +235,12 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 		return
 	}
 
-	for headerName, headerValue := range createTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "CreateTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "CreateTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -319,12 +321,12 @@ func (atracker *AtrackerV2) ListTargetsWithContext(ctx context.Context, listTarg
 		return
 	}
 
-	for headerName, headerValue := range listTargetsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ListTargets")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ListTargets")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTargetsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -392,12 +394,12 @@ func (atracker *AtrackerV2) GetTargetWithContext(ctx context.Context, getTargetO
 		return
 	}
 
-	for headerName, headerValue := range getTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "GetTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "GetTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -461,12 +463,12 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 		return
 	}
 
-	for headerName, headerValue := range replaceTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ReplaceTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ReplaceTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -550,12 +552,12 @@ func (atracker *AtrackerV2) DeleteTargetWithContext(ctx context.Context, deleteT
 		return
 	}
 
-	for headerName, headerValue := range deleteTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "DeleteTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "DeleteTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -620,12 +622,12 @@ func (atracker *AtrackerV2) ValidateTargetWithContext(ctx context.Context, valid
 		return
 	}
 
-	for headerName, headerValue := range validateTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ValidateTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ValidateTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range validateTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -685,12 +687,12 @@ func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRo
 		return
 	}
 
-	for headerName, headerValue := range createRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "CreateRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "CreateRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -759,12 +761,12 @@ func (atracker *AtrackerV2) ListRoutesWithContext(ctx context.Context, listRoute
 		return
 	}
 
-	for headerName, headerValue := range listRoutesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ListRoutes")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ListRoutes")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listRoutesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -828,12 +830,12 @@ func (atracker *AtrackerV2) GetRouteWithContext(ctx context.Context, getRouteOpt
 		return
 	}
 
-	for headerName, headerValue := range getRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "GetRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "GetRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -897,12 +899,12 @@ func (atracker *AtrackerV2) ReplaceRouteWithContext(ctx context.Context, replace
 		return
 	}
 
-	for headerName, headerValue := range replaceRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ReplaceRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "ReplaceRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -980,12 +982,12 @@ func (atracker *AtrackerV2) DeleteRouteWithContext(ctx context.Context, deleteRo
 		return
 	}
 
-	for headerName, headerValue := range deleteRouteOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "DeleteRoute")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "DeleteRoute")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteRouteOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1030,12 +1032,12 @@ func (atracker *AtrackerV2) GetSettingsWithContext(ctx context.Context, getSetti
 		return
 	}
 
-	for headerName, headerValue := range getSettingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "GetSettings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "GetSettings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1095,12 +1097,12 @@ func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSetti
 		return
 	}
 
-	for headerName, headerValue := range putSettingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "PutSettings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("atracker", "V2", "PutSettings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range putSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")

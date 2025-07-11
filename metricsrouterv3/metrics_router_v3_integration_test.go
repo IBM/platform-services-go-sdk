@@ -557,21 +557,25 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			targetIdentityModel := &metricsrouterv3.TargetIdentity{
 				ID: &targetIDLink,
 			}
+
 			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
 				Values:   []string{"us-south"},
 			}
+
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
 				Action:           core.StringPtr("send"),
 				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
 				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
+
 			updateRouteOptions := &metricsrouterv3.UpdateRouteOptions{
 				ID:    &routeIDLink,
 				Name:  core.StringPtr("my-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
+
 			route, response, err := metricsRouterService.UpdateRoute(updateRouteOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -721,7 +725,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(setting).ToNot(BeNil())
 		})
-
 	})
 
 	Describe(`DeleteRoute - Delete a route`, func() {
