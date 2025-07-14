@@ -1,3 +1,10 @@
+## [0.84.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.2...v0.84.3) (2025-07-14)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** Policy and ActionControl assignment error responses ([#397](https://github.com/IBM/platform-services-go-sdk/issues/397)) ([61acf7c](https://github.com/IBM/platform-services-go-sdk/commit/61acf7c90cfefcfbb6d1c38aa9fe62d411d37fa9))
+
 ## [0.84.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.1...v0.84.2) (2025-07-10)
 
 
