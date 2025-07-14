@@ -4899,6 +4899,9 @@ type AssignmentResourceError struct {
 
 	// Internal status code for the error.
 	Code *string `json:"code,omitempty"`
+
+	// The errors encountered during the response.
+	Errors []ErrorObject `json:"errors,omitempty"`
 }
 
 // UnmarshalAssignmentResourceError unmarshals an instance of AssignmentResourceError from the specified map of raw messages.
@@ -4922,6 +4925,11 @@ func UnmarshalAssignmentResourceError(m map[string]json.RawMessage, result inter
 	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "code-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalErrorObject)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "errors-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5073,6 +5081,40 @@ func (_options *CommitPolicyTemplateOptions) SetVersion(version string) *CommitP
 func (options *CommitPolicyTemplateOptions) SetHeaders(param map[string]string) *CommitPolicyTemplateOptions {
 	options.Headers = param
 	return options
+}
+
+// ConflictsWith : Details of conflicting resource.
+type ConflictsWith struct {
+	// The revision number of the resource.
+	Etag *string `json:"etag,omitempty"`
+
+	// The conflicting role of ID.
+	Role *string `json:"role,omitempty"`
+
+	// The conflicting policy ID.
+	Policy *string `json:"policy,omitempty"`
+}
+
+// UnmarshalConflictsWith unmarshals an instance of ConflictsWith from the specified map of raw messages.
+func UnmarshalConflictsWith(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConflictsWith)
+	err = core.UnmarshalPrimitive(m, "etag", &obj.Etag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "etag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "role-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "policy", &obj.Policy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "policy-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // Control : Specifies the type of access that is granted by the policy.
@@ -6290,6 +6332,91 @@ func UnmarshalEnrichedRoles(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalRoleAction)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "actions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ErrorDetails : Additional error details.
+type ErrorDetails struct {
+	// Details of conflicting resource.
+	ConflictsWith *ConflictsWith `json:"conflicts_with,omitempty"`
+}
+
+// UnmarshalErrorDetails unmarshals an instance of ErrorDetails from the specified map of raw messages.
+func UnmarshalErrorDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ErrorDetails)
+	err = core.UnmarshalModel(m, "conflicts_with", &obj.ConflictsWith, UnmarshalConflictsWith)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "conflicts_with-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ErrorObject : ErrorObject struct
+type ErrorObject struct {
+	// The API error code for the error.
+	Code *string `json:"code" validate:"required"`
+
+	// The error message returned by the API.
+	Message *string `json:"message" validate:"required"`
+
+	// Additional error details.
+	Details *ErrorDetails `json:"details,omitempty"`
+
+	// Additional info for error.
+	MoreInfo *string `json:"more_info,omitempty"`
+}
+
+// Constants associated with the ErrorObject.Code property.
+// The API error code for the error.
+const (
+	ErrorObjectCodeActionControlAssignmentNotFoundConst = "action_control_assignment_not_found"
+	ErrorObjectCodeActionControlTemplateNotFoundConst = "action_control_template_not_found"
+	ErrorObjectCodeInsufficentPermissionsConst = "insufficent_permissions"
+	ErrorObjectCodeInvalidBodyConst = "invalid_body"
+	ErrorObjectCodeInvalidTokenConst = "invalid_token"
+	ErrorObjectCodeMissingRequiredQueryParameterConst = "missing_required_query_parameter"
+	ErrorObjectCodeNotFoundConst = "not_found"
+	ErrorObjectCodePolicyAssignmentConflictErrorConst = "policy_assignment_conflict_error"
+	ErrorObjectCodePolicyAssignmentNotFoundConst = "policy_assignment_not_found"
+	ErrorObjectCodePolicyConflictErrorConst = "policy_conflict_error"
+	ErrorObjectCodePolicyNotFoundConst = "policy_not_found"
+	ErrorObjectCodePolicyTemplateConflictErrorConst = "policy_template_conflict_error"
+	ErrorObjectCodePolicyTemplateNotFoundConst = "policy_template_not_found"
+	ErrorObjectCodeRequestNotProcessedConst = "request_not_processed"
+	ErrorObjectCodeResourceNotFoundConst = "resource_not_found"
+	ErrorObjectCodeRoleConflictErrorConst = "role_conflict_error"
+	ErrorObjectCodeRoleNotFoundConst = "role_not_found"
+	ErrorObjectCodeTooManyRequestsConst = "too_many_requests"
+	ErrorObjectCodeUnableToProcessConst = "unable_to_process"
+	ErrorObjectCodeUnsupportedContentTypeConst = "unsupported_content_type"
+)
+
+// UnmarshalErrorObject unmarshals an instance of ErrorObject from the specified map of raw messages.
+func UnmarshalErrorObject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ErrorObject)
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "code-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "details", &obj.Details, UnmarshalErrorDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "details-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "more_info", &obj.MoreInfo)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "more_info-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
