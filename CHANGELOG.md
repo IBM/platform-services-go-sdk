@@ -1,3 +1,10 @@
+## [0.84.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.3...v0.84.4) (2025-07-17)
+
+
+### Bug Fixes
+
+* **Global Catalog:** remove bad metadata fields ([#398](https://github.com/IBM/platform-services-go-sdk/issues/398)) ([a9792f5](https://github.com/IBM/platform-services-go-sdk/commit/a9792f5241510d7c6e03a05e9d6c681b9ef54bf4))
+
 ## [0.84.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.2...v0.84.3) (2025-07-14)
 
 
