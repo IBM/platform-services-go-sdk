@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
+ * IBM OpenAPI SDK Code Generator Version: 3.106.0-09823488-20250707-071701
  */
 
 // Package globalcatalogv1 : Operations and models for the GlobalCatalogV1 service
@@ -201,12 +201,12 @@ func (globalCatalog *GlobalCatalogV1) ListCatalogEntriesWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range listCatalogEntriesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "ListCatalogEntries")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "ListCatalogEntries")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listCatalogEntriesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -299,12 +299,12 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntryWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range createCatalogEntryOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "CreateCatalogEntry")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "CreateCatalogEntry")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createCatalogEntryOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -421,12 +421,12 @@ func (globalCatalog *GlobalCatalogV1) GetCatalogEntryWithContext(ctx context.Con
 		return
 	}
 
-	for headerName, headerValue := range getCatalogEntryOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetCatalogEntry")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetCatalogEntry")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogEntryOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -507,12 +507,12 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntryWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range updateCatalogEntryOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "UpdateCatalogEntry")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "UpdateCatalogEntry")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateCatalogEntryOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -629,12 +629,12 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntryWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range deleteCatalogEntryOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "DeleteCatalogEntry")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "DeleteCatalogEntry")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteCatalogEntryOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -697,12 +697,12 @@ func (globalCatalog *GlobalCatalogV1) GetChildObjectsWithContext(ctx context.Con
 		return
 	}
 
-	for headerName, headerValue := range getChildObjectsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetChildObjects")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetChildObjects")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getChildObjectsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -794,12 +794,12 @@ func (globalCatalog *GlobalCatalogV1) RestoreCatalogEntryWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range restoreCatalogEntryOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "RestoreCatalogEntry")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "RestoreCatalogEntry")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range restoreCatalogEntryOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -859,12 +859,12 @@ func (globalCatalog *GlobalCatalogV1) GetVisibilityWithContext(ctx context.Conte
 		return
 	}
 
-	for headerName, headerValue := range getVisibilityOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetVisibility")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetVisibility")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getVisibilityOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -933,12 +933,12 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibilityWithContext(ctx context.Co
 		return
 	}
 
-	for headerName, headerValue := range updateVisibilityOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "UpdateVisibility")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "UpdateVisibility")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateVisibilityOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -1017,12 +1017,12 @@ func (globalCatalog *GlobalCatalogV1) GetPricingWithContext(ctx context.Context,
 		return
 	}
 
-	for headerName, headerValue := range getPricingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetPricing")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetPricing")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getPricingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1095,12 +1095,12 @@ func (globalCatalog *GlobalCatalogV1) GetPricingDeploymentsWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range getPricingDeploymentsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetPricingDeployments")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetPricingDeployments")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getPricingDeploymentsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1168,12 +1168,12 @@ func (globalCatalog *GlobalCatalogV1) GetAuditLogsWithContext(ctx context.Contex
 		return
 	}
 
-	for headerName, headerValue := range getAuditLogsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetAuditLogs")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetAuditLogs")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getAuditLogsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1253,12 +1253,12 @@ func (globalCatalog *GlobalCatalogV1) ListArtifactsWithContext(ctx context.Conte
 		return
 	}
 
-	for headerName, headerValue := range listArtifactsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "ListArtifacts")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "ListArtifacts")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listArtifactsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1327,12 +1327,12 @@ func (globalCatalog *GlobalCatalogV1) GetArtifactWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range getArtifactOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetArtifact")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "GetArtifact")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getArtifactOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "*/*")
@@ -1395,12 +1395,12 @@ func (globalCatalog *GlobalCatalogV1) UploadArtifactWithContext(ctx context.Cont
 		return
 	}
 
-	for headerName, headerValue := range uploadArtifactOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "UploadArtifact")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "UploadArtifact")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range uploadArtifactOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	if uploadArtifactOptions.ContentType != nil {
@@ -1468,12 +1468,12 @@ func (globalCatalog *GlobalCatalogV1) DeleteArtifactWithContext(ctx context.Cont
 		return
 	}
 
-	for headerName, headerValue := range deleteArtifactOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "DeleteArtifact")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_catalog", "V1", "DeleteArtifact")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteArtifactOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1851,18 +1851,6 @@ type CfMetaData struct {
 	// Cloud resource name identifying the environment containing this service.
 	CRNMask *string `json:"crn_mask,omitempty"`
 
-	// Service specific parameters needed to configure the service on provisioning. Each parameter must be a map with
-	// string keys containing a 'name' key.
-	Parameters map[string]interface{} `json:"parameters,omitempty"`
-
-	// An extended set of metadata fields that pertain to user-defined services.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	UserDefinedService map[string]interface{} `json:"user_defined_service,omitempty"`
-
-	// A property-bag like extension to service metadata.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	Extension map[string]interface{} `json:"extension,omitempty"`
-
 	// Boolean flag indicating if this service only offers paid pricing plans rather than the default paygo.
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	PaidOnly *bool `json:"paid_only,omitempty"`
@@ -1947,21 +1935,6 @@ func UnmarshalCfMetaData(m map[string]json.RawMessage, result interface{}) (err 
 	err = core.UnmarshalPrimitive(m, "crn_mask", &obj.CRNMask)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "crn_mask-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "user_defined_service", &obj.UserDefinedService)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "user_defined_service-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "extension", &obj.Extension)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "extension-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "paid_only", &obj.PaidOnly)
