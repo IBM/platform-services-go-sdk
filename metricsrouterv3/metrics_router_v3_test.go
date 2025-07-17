@@ -172,6 +172,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			Expect(url).To(Equal("https://private.br-sao.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
+			url, err = metricsrouterv3.GetServiceURLForRegion("ca-mon")
+			Expect(url).To(Equal("https://ca-mon.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.ca-mon")
+			Expect(url).To(Equal("https://private.ca-mon.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
 			url, err = metricsrouterv3.GetServiceURLForRegion("ca-tor")
 			Expect(url).To(Equal("https://ca-tor.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
@@ -188,14 +196,6 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			Expect(url).To(Equal("https://private.eu-de.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
-			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
-			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com/api/v3"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-gb")
-			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3"))
-			Expect(err).To(BeNil())
-
 			url, err = metricsrouterv3.GetServiceURLForRegion("eu-es")
 			Expect(url).To(Equal("https://eu-es.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
@@ -210,6 +210,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-fr2")
 			Expect(url).To(Equal("https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
+			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-gb")
+			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("jp-osa")

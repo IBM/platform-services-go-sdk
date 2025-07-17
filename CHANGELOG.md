@@ -1,3 +1,31 @@
+## [0.84.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.3...v0.84.4) (2025-07-17)
+
+
+### Bug Fixes
+
+* **Global Catalog:** remove bad metadata fields ([#398](https://github.com/IBM/platform-services-go-sdk/issues/398)) ([a9792f5](https://github.com/IBM/platform-services-go-sdk/commit/a9792f5241510d7c6e03a05e9d6c681b9ef54bf4))
+
+## [0.84.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.2...v0.84.3) (2025-07-14)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** Policy and ActionControl assignment error responses ([#397](https://github.com/IBM/platform-services-go-sdk/issues/397)) ([61acf7c](https://github.com/IBM/platform-services-go-sdk/commit/61acf7c90cfefcfbb6d1c38aa9fe62d411d37fa9))
+
+## [0.84.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.1...v0.84.2) (2025-07-10)
+
+
+### Bug Fixes
+
+* **Metrics Router:** regenerate Metrics Router SDK with the latest apidoc definition ([#396](https://github.com/IBM/platform-services-go-sdk/issues/396)) ([b988e97](https://github.com/IBM/platform-services-go-sdk/commit/b988e974f7bd790da59fec45fb24732876b152a0))
+
+## [0.84.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.0...v0.84.1) (2025-07-10)
+
+
+### Bug Fixes
+
+* **ATracker:** regenerate SDK with latest API definition ([#395](https://github.com/IBM/platform-services-go-sdk/issues/395)) ([24b6b80](https://github.com/IBM/platform-services-go-sdk/commit/24b6b80e0fbc6b4a6d8f6b4c5d8dd53becb76728))
+
 # [0.84.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.83.3...v0.84.0) (2025-07-09)
 
 

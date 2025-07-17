@@ -207,52 +207,60 @@ var _ = Describe(`AtrackerV2`, func() {
 			Expect(url).To(Equal("https://private.au-syd.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
+			url, err = atrackerv2.GetServiceURLForRegion("ca-mon")
+			Expect(url).To(Equal("https://ca-mon.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.ca-mon")
+			Expect(url).To(Equal("https://private.ca-mon.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
 			url, err = atrackerv2.GetServiceURLForRegion("ca-tor")
-			Expect(url).To(Equal("https://us-east.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://ca-tor.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.ca-tor")
-			Expect(url).To(Equal("https://private.us-east.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.ca-tor.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("br-sao")
-			Expect(url).To(Equal("https://us-south.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://br-sao.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.br-sao")
-			Expect(url).To(Equal("https://private.us-south.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.br-sao.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("eu-fr2")
-			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://eu-fr2.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.eu-fr2")
-			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.eu-fr2.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("jp-tok")
-			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://jp-tok.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.jp-tok")
-			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.jp-tok.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("jp-osa")
-			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://jp-osa.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.jp-osa")
-			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.jp-osa.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("in-che")
-			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://in-che.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.in-che")
-			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.in-che.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("INVALID_REGION")
@@ -1476,7 +1484,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"status_code": 10, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"status_code": 100, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DeleteTarget successfully with retries`, func() {
@@ -1530,7 +1538,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"status_code": 10, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"status_code": 100, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DeleteTarget successfully`, func() {
