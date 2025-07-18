@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.105.1-067d600b-20250616-154447
+ * IBM OpenAPI SDK Code Generator Version: 3.106.0-09823488-20250707-071701
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -14042,7 +14042,7 @@ type TemplateAssignmentResponseResource struct {
 	AccountSettings *TemplateAssignmentResponseResourceDetail `json:"account_settings,omitempty"`
 
 	// Policy resource(s) included only for trusted profile assignments with policy references.
-	PolicyTemplateRefs []TemplateAssignmentResponseResourceDetail `json:"policy_template_refs,omitempty"`
+	PolicyTemplateReferences []TemplateAssignmentResponseResourceDetail `json:"policy_template_references,omitempty"`
 }
 
 // UnmarshalTemplateAssignmentResponseResource unmarshals an instance of TemplateAssignmentResponseResource from the specified map of raw messages.
@@ -14063,9 +14063,9 @@ func UnmarshalTemplateAssignmentResponseResource(m map[string]json.RawMessage, r
 		err = core.SDKErrorf(err, "", "account_settings-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "policy_template_refs", &obj.PolicyTemplateRefs, UnmarshalTemplateAssignmentResponseResourceDetail)
+	err = core.UnmarshalModel(m, "policy_template_references", &obj.PolicyTemplateReferences, UnmarshalTemplateAssignmentResponseResourceDetail)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy_template_refs-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "policy_template_references-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
