@@ -1,3 +1,10 @@
+# [0.85.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.4...v0.85.0) (2025-07-18)
+
+
+### Features
+
+* **IAM Identity:** adding serviceId Groups API ([#392](https://github.com/IBM/platform-services-go-sdk/issues/392)) ([0cff6c5](https://github.com/IBM/platform-services-go-sdk/commit/0cff6c5558d86592670c170043020e07dcbedeeb))
+
 ## [0.84.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.3...v0.84.4) (2025-07-17)
 
 
