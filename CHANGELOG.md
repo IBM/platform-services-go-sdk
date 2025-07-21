@@ -1,3 +1,10 @@
+## [0.85.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.85.0...v0.85.1) (2025-07-21)
+
+
+### Bug Fixes
+
+* **IAM Identity:** fix incorrect mapping of policy references in IAM Identity templates ([#399](https://github.com/IBM/platform-services-go-sdk/issues/399)) ([7082a4a](https://github.com/IBM/platform-services-go-sdk/commit/7082a4a87e078c9c3c66455c32053ff52ff8bebf))
+
 # [0.85.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.84.4...v0.85.0) (2025-07-18)
 
 
