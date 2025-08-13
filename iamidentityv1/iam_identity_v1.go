@@ -2776,6 +2776,82 @@ func (iamIdentity *IamIdentityV1) ListLinksWithContext(ctx context.Context, list
 	return
 }
 
+// DeleteLinkByParameters : Delete compute resource link to profile by given parameters
+// Deletes compute resource link of a Trusted Profile matching the given parameters.
+func (iamIdentity *IamIdentityV1) DeleteLinkByParameters(deleteLinkByParametersOptions *DeleteLinkByParametersOptions) (response *core.DetailedResponse, err error) {
+	response, err = iamIdentity.DeleteLinkByParametersWithContext(context.Background(), deleteLinkByParametersOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteLinkByParametersWithContext is an alternate form of the DeleteLinkByParameters method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteLinkByParametersWithContext(ctx context.Context, deleteLinkByParametersOptions *DeleteLinkByParametersOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteLinkByParametersOptions, "deleteLinkByParametersOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteLinkByParametersOptions, "deleteLinkByParametersOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *deleteLinkByParametersOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/links`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteLinkByParameters")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range deleteLinkByParametersOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	builder.AddQuery("type", fmt.Sprint(*deleteLinkByParametersOptions.Type))
+	if deleteLinkByParametersOptions.CRN != nil {
+		builder.AddQuery("crn", fmt.Sprint(*deleteLinkByParametersOptions.CRN))
+	}
+	if deleteLinkByParametersOptions.Namespace != nil {
+		builder.AddQuery("namespace", fmt.Sprint(*deleteLinkByParametersOptions.Namespace))
+	}
+	if deleteLinkByParametersOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*deleteLinkByParametersOptions.Name))
+	}
+	if deleteLinkByParametersOptions.ComponentType != nil {
+		builder.AddQuery("component_type", fmt.Sprint(*deleteLinkByParametersOptions.ComponentType))
+	}
+	if deleteLinkByParametersOptions.ComponentName != nil {
+		builder.AddQuery("component_name", fmt.Sprint(*deleteLinkByParametersOptions.ComponentName))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_link_by_parameters", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetLink : Get link to a trusted profile
 // Get a specific link to a trusted profile by `link_id`.
 func (iamIdentity *IamIdentityV1) GetLink(getLinkOptions *GetLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
@@ -8929,17 +9005,22 @@ type CreateProfileLinkRequestLink struct {
 	CRN *string `json:"crn" validate:"required"`
 
 	// The compute resource namespace, only required if cr_type is IKS_SA or ROKS_SA.
-	Namespace *string `json:"namespace" validate:"required"`
+	Namespace *string `json:"namespace,omitempty"`
 
 	// Name of the compute resource, only required if cr_type is IKS_SA or ROKS_SA.
 	Name *string `json:"name,omitempty"`
+
+	// Component type of the compute resource, only required if cr_type is CE.
+	ComponentType *string `json:"component_type,omitempty"`
+
+	// Component name of the compute resource, only required if cr_type is CE.
+	ComponentName *string `json:"component_name,omitempty"`
 }
 
 // NewCreateProfileLinkRequestLink : Instantiate CreateProfileLinkRequestLink (Generic Model Constructor)
-func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string, namespace string) (_model *CreateProfileLinkRequestLink, err error) {
+func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string) (_model *CreateProfileLinkRequestLink, err error) {
 	_model = &CreateProfileLinkRequestLink{
 		CRN: core.StringPtr(crn),
-		Namespace: core.StringPtr(namespace),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -8964,6 +9045,16 @@ func UnmarshalCreateProfileLinkRequestLink(m map[string]json.RawMessage, result 
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "component_type", &obj.ComponentType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "component_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "component_name", &obj.ComponentName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "component_name-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9621,6 +9712,89 @@ func (_options *DeleteClaimRuleOptions) SetRuleID(ruleID string) *DeleteClaimRul
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteClaimRuleOptions) SetHeaders(param map[string]string) *DeleteClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteLinkByParametersOptions : The DeleteLinkByParameters options.
+type DeleteLinkByParametersOptions struct {
+	// The unique ID of the Trusted Profile.
+	ProfileID *string `json:"profile-id" validate:"required,ne="`
+
+	// The compute resource type. Valid values are VSI, BMS, IKS_SA, ROKS_SA, CE.
+	Type *string `json:"type" validate:"required"`
+
+	// CRN of the compute resource (IKS/ROKS/VSI/BMS).
+	CRN *string `json:"crn,omitempty"`
+
+	// Namespace of the compute resource (IKS/ROKS).
+	Namespace *string `json:"namespace,omitempty"`
+
+	// Name of the compute resource (IKS/ROKS).
+	Name *string `json:"name,omitempty"`
+
+	// Component type of the compute resource, only required if type is CE.
+	ComponentType *string `json:"component_type,omitempty"`
+
+	// Component name of the compute resource, only required if type is CE.
+	ComponentName *string `json:"component_name,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewDeleteLinkByParametersOptions : Instantiate DeleteLinkByParametersOptions
+func (*IamIdentityV1) NewDeleteLinkByParametersOptions(profileID string, typeVar string) *DeleteLinkByParametersOptions {
+	return &DeleteLinkByParametersOptions{
+		ProfileID: core.StringPtr(profileID),
+		Type: core.StringPtr(typeVar),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *DeleteLinkByParametersOptions) SetProfileID(profileID string) *DeleteLinkByParametersOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *DeleteLinkByParametersOptions) SetType(typeVar string) *DeleteLinkByParametersOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetCRN : Allow user to set CRN
+func (_options *DeleteLinkByParametersOptions) SetCRN(crn string) *DeleteLinkByParametersOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
+}
+
+// SetNamespace : Allow user to set Namespace
+func (_options *DeleteLinkByParametersOptions) SetNamespace(namespace string) *DeleteLinkByParametersOptions {
+	_options.Namespace = core.StringPtr(namespace)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *DeleteLinkByParametersOptions) SetName(name string) *DeleteLinkByParametersOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetComponentType : Allow user to set ComponentType
+func (_options *DeleteLinkByParametersOptions) SetComponentType(componentType string) *DeleteLinkByParametersOptions {
+	_options.ComponentType = core.StringPtr(componentType)
+	return _options
+}
+
+// SetComponentName : Allow user to set ComponentName
+func (_options *DeleteLinkByParametersOptions) SetComponentName(componentName string) *DeleteLinkByParametersOptions {
+	_options.ComponentName = core.StringPtr(componentName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteLinkByParametersOptions) SetHeaders(param map[string]string) *DeleteLinkByParametersOptions {
 	options.Headers = param
 	return options
 }
@@ -12953,7 +13127,7 @@ type ProfileLink struct {
 	// Optional name of the Link.
 	Name *string `json:"name,omitempty"`
 
-	// The compute resource type. Valid values are VSI, IKS_SA, ROKS_SA.
+	// The compute resource type. Valid values are VSI, BMS, IKS_SA, ROKS_SA, CE.
 	CrType *string `json:"cr_type" validate:"required"`
 
 	Link *ProfileLinkLink `json:"link" validate:"required"`
@@ -13011,6 +13185,12 @@ type ProfileLinkLink struct {
 
 	// Name of the compute resource, only required if cr_type is IKS_SA or ROKS_SA.
 	Name *string `json:"name,omitempty"`
+
+	// Component type of the compute resource, only required if cr_type is CE.
+	ComponentType *string `json:"component_type,omitempty"`
+
+	// Component name of the compute resource, only required if cr_type is CE.
+	ComponentName *string `json:"component_name,omitempty"`
 }
 
 // UnmarshalProfileLinkLink unmarshals an instance of ProfileLinkLink from the specified map of raw messages.
@@ -13029,6 +13209,16 @@ func UnmarshalProfileLinkLink(m map[string]json.RawMessage, result interface{}) 
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "component_type", &obj.ComponentType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "component_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "component_name", &obj.ComponentName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "component_name-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
