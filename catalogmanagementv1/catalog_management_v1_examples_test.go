@@ -647,6 +647,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
 			includeAllFilter := &catalogmanagementv1.Filters{
 				IncludeAll: core.BoolPtr(true),
 			}
