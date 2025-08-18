@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
+ * IBM OpenAPI SDK Code Generator Version: 3.106.0-09823488-20250707-071701
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -199,12 +199,12 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getCatalogAccountOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccount")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccount")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogAccountOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -259,12 +259,12 @@ func (catalogManagement *CatalogManagementV1) UpdateCatalogAccountWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range updateCatalogAccountOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateCatalogAccount")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateCatalogAccount")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateCatalogAccountOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -285,6 +285,9 @@ func (catalogManagement *CatalogManagementV1) UpdateCatalogAccountWithContext(ct
 	}
 	if updateCatalogAccountOptions.RegionFilter != nil {
 		body["region_filter"] = updateCatalogAccountOptions.RegionFilter
+	}
+	if updateCatalogAccountOptions.TerraformEngines != nil {
+		body["terraform_engines"] = updateCatalogAccountOptions.TerraformEngines
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -342,12 +345,12 @@ func (catalogManagement *CatalogManagementV1) ListCatalogAccountAuditsWithContex
 		return
 	}
 
-	for headerName, headerValue := range listCatalogAccountAuditsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListCatalogAccountAudits")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListCatalogAccountAudits")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listCatalogAccountAuditsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -421,12 +424,12 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountAuditWithContext(
 		return
 	}
 
-	for headerName, headerValue := range getCatalogAccountAuditOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccountAudit")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccountAudit")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogAccountAuditOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -485,12 +488,12 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountFiltersWithContex
 		return
 	}
 
-	for headerName, headerValue := range getCatalogAccountFiltersOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccountFilters")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccountFilters")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogAccountFiltersOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -558,12 +561,12 @@ func (catalogManagement *CatalogManagementV1) GetShareApprovalListWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range getShareApprovalListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetShareApprovalList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetShareApprovalList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getShareApprovalListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -634,12 +637,12 @@ func (catalogManagement *CatalogManagementV1) DeleteShareApprovalListWithContext
 		return
 	}
 
-	for headerName, headerValue := range deleteShareApprovalListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteShareApprovalList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteShareApprovalList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteShareApprovalListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -710,12 +713,12 @@ func (catalogManagement *CatalogManagementV1) AddShareApprovalListWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range addShareApprovalListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AddShareApprovalList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AddShareApprovalList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range addShareApprovalListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -788,12 +791,12 @@ func (catalogManagement *CatalogManagementV1) GetShareApprovalListAsSourceWithCo
 		return
 	}
 
-	for headerName, headerValue := range getShareApprovalListAsSourceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetShareApprovalListAsSource")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetShareApprovalListAsSource")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getShareApprovalListAsSourceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -869,12 +872,12 @@ func (catalogManagement *CatalogManagementV1) UpdateShareApprovalListAsSourceWit
 		return
 	}
 
-	for headerName, headerValue := range updateShareApprovalListAsSourceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateShareApprovalListAsSource")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateShareApprovalListAsSource")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateShareApprovalListAsSourceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -941,12 +944,12 @@ func (catalogManagement *CatalogManagementV1) ListCatalogsWithContext(ctx contex
 		return
 	}
 
-	for headerName, headerValue := range listCatalogsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListCatalogs")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListCatalogs")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listCatalogsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1001,12 +1004,12 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range createCatalogOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateCatalog")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateCatalog")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createCatalogOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1123,12 +1126,12 @@ func (catalogManagement *CatalogManagementV1) GetCatalogWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range getCatalogOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalog")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalog")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1192,12 +1195,12 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range replaceCatalogOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceCatalog")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceCatalog")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceCatalogOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1320,12 +1323,12 @@ func (catalogManagement *CatalogManagementV1) DeleteCatalogWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range deleteCatalogOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteCatalog")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteCatalog")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteCatalogOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1379,12 +1382,12 @@ func (catalogManagement *CatalogManagementV1) ListCatalogAuditsWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range listCatalogAuditsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListCatalogAudits")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListCatalogAudits")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listCatalogAuditsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1459,12 +1462,12 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAuditWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range getCatalogAuditOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAudit")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAudit")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogAuditOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1532,12 +1535,12 @@ func (catalogManagement *CatalogManagementV1) ListEnterpriseAuditsWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range listEnterpriseAuditsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListEnterpriseAudits")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListEnterpriseAudits")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listEnterpriseAuditsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1612,12 +1615,12 @@ func (catalogManagement *CatalogManagementV1) GetEnterpriseAuditWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range getEnterpriseAuditOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetEnterpriseAudit")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetEnterpriseAudit")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getEnterpriseAuditOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1678,12 +1681,12 @@ func (catalogManagement *CatalogManagementV1) GetConsumptionOfferingsWithContext
 		return
 	}
 
-	for headerName, headerValue := range getConsumptionOfferingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetConsumptionOfferings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetConsumptionOfferings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getConsumptionOfferingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1767,12 +1770,12 @@ func (catalogManagement *CatalogManagementV1) ListOfferingsWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range listOfferingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOfferings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOfferings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listOfferingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1855,12 +1858,12 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range createOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2065,12 +2068,12 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range importOfferingVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ImportOfferingVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ImportOfferingVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range importOfferingVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2209,12 +2212,12 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range importOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ImportOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ImportOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range importOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2357,12 +2360,12 @@ func (catalogManagement *CatalogManagementV1) ReloadOfferingWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range reloadOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReloadOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReloadOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range reloadOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2464,12 +2467,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range getOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2541,12 +2544,12 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range replaceOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2757,12 +2760,12 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range updateOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2837,12 +2840,12 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range deleteOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	if deleteOfferingOptions.XApproverToken != nil {
@@ -2900,12 +2903,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingStatsWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range getOfferingStatsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingStats")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingStats")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingStatsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2970,12 +2973,12 @@ func (catalogManagement *CatalogManagementV1) ListOfferingAuditsWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range listOfferingAuditsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOfferingAudits")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOfferingAudits")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listOfferingAuditsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3051,12 +3054,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAuditWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range getOfferingAuditOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAudit")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAudit")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingAuditOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3129,12 +3132,12 @@ func (catalogManagement *CatalogManagementV1) SetOfferingPublishWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range setOfferingPublishOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetOfferingPublish")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetOfferingPublish")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range setOfferingPublishOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3213,12 +3216,12 @@ func (catalogManagement *CatalogManagementV1) DeprecateOfferingWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range deprecateOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deprecateOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -3287,12 +3290,12 @@ func (catalogManagement *CatalogManagementV1) ShareOfferingWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range shareOfferingOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ShareOffering")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ShareOffering")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range shareOfferingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3375,12 +3378,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAccessWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getOfferingAccessOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAccess")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAccess")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingAccessOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3395,6 +3398,118 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAccessWithContext(ctx c
 	response, err = catalogManagement.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "get_offering_access", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccess)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateOfferingAccess : Update the access list entry for a specific account
+// Update an access list entry for a specific account.
+func (catalogManagement *CatalogManagementV1) UpdateOfferingAccess(updateOfferingAccessOptions *UpdateOfferingAccessOptions) (result *Access, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.UpdateOfferingAccessWithContext(context.Background(), updateOfferingAccessOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateOfferingAccessWithContext is an alternate form of the UpdateOfferingAccess method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) UpdateOfferingAccessWithContext(ctx context.Context, updateOfferingAccessOptions *UpdateOfferingAccessOptions) (result *Access, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateOfferingAccessOptions, "updateOfferingAccessOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateOfferingAccessOptions, "updateOfferingAccessOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *updateOfferingAccessOptions.CatalogIdentifier,
+		"offering_id":        *updateOfferingAccessOptions.OfferingID,
+		"access_identifier":  *updateOfferingAccessOptions.AccessIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/access/{access_identifier}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateOfferingAccess")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateOfferingAccessOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateOfferingAccessOptions.ID != nil {
+		body["id"] = updateOfferingAccessOptions.ID
+	}
+	if updateOfferingAccessOptions.Rev != nil {
+		body["_rev"] = updateOfferingAccessOptions.Rev
+	}
+	if updateOfferingAccessOptions.Account != nil {
+		body["account"] = updateOfferingAccessOptions.Account
+	}
+	if updateOfferingAccessOptions.AccountType != nil {
+		body["account_type"] = updateOfferingAccessOptions.AccountType
+	}
+	if updateOfferingAccessOptions.CatalogID != nil {
+		body["catalog_id"] = updateOfferingAccessOptions.CatalogID
+	}
+	if updateOfferingAccessOptions.TargetID != nil {
+		body["target_id"] = updateOfferingAccessOptions.TargetID
+	}
+	if updateOfferingAccessOptions.TargetAccount != nil {
+		body["target_account"] = updateOfferingAccessOptions.TargetAccount
+	}
+	if updateOfferingAccessOptions.TargetKind != nil {
+		body["target_kind"] = updateOfferingAccessOptions.TargetKind
+	}
+	if updateOfferingAccessOptions.Created != nil {
+		body["created"] = updateOfferingAccessOptions.Created
+	}
+	if updateOfferingAccessOptions.ApprovalState != nil {
+		body["approval_state"] = updateOfferingAccessOptions.ApprovalState
+	}
+	if updateOfferingAccessOptions.VisibleStates != nil {
+		body["visible_states"] = updateOfferingAccessOptions.VisibleStates
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_offering_access", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -3445,12 +3560,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAccessListWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range getOfferingAccessListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAccessList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAccessList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingAccessListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3522,12 +3637,12 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingAccessListWithContex
 		return
 	}
 
-	for headerName, headerValue := range deleteOfferingAccessListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOfferingAccessList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOfferingAccessList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteOfferingAccessListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3599,12 +3714,12 @@ func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range addOfferingAccessListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AddOfferingAccessList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AddOfferingAccessList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range addOfferingAccessListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3676,12 +3791,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range getOfferingUpdatesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingUpdates")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingUpdates")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingUpdatesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3787,12 +3902,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingChangeNoticesWithContex
 		return
 	}
 
-	for headerName, headerValue := range getOfferingChangeNoticesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingChangeNotices")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingChangeNotices")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingChangeNoticesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3866,12 +3981,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getOfferingSourceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSource")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSource")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingSourceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/yaml")
@@ -3953,12 +4068,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceArchiveWithContex
 		return
 	}
 
-	for headerName, headerValue := range getOfferingSourceArchiveOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSourceArchive")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSourceArchive")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingSourceArchiveOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/yaml")
@@ -4042,12 +4157,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceURLWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range getOfferingSourceURLOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSourceURL")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSourceURL")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingSourceURLOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/yaml")
@@ -4118,12 +4233,12 @@ func (catalogManagement *CatalogManagementV1) GetVersionsWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range getVersionsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersions")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersions")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getVersionsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -4200,12 +4315,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAboutWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range getOfferingAboutOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAbout")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAbout")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingAboutOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "text/markdown")
@@ -4260,12 +4375,12 @@ func (catalogManagement *CatalogManagementV1) GetIamPermissionsWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getIamPermissionsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetIamPermissions")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetIamPermissions")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getIamPermissionsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -4330,12 +4445,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingLicenseWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range getOfferingLicenseOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingLicense")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingLicense")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingLicenseOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "text/plain")
@@ -4391,12 +4506,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingContainerImagesWithCont
 		return
 	}
 
-	for headerName, headerValue := range getOfferingContainerImagesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingContainerImages")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingContainerImages")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingContainerImagesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -4460,12 +4575,12 @@ func (catalogManagement *CatalogManagementV1) ArchiveVersionWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range archiveVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ArchiveVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ArchiveVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range archiveVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -4520,12 +4635,12 @@ func (catalogManagement *CatalogManagementV1) SetDeprecateVersionWithContext(ctx
 		return
 	}
 
-	for headerName, headerValue := range setDeprecateVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetDeprecateVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetDeprecateVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range setDeprecateVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -4593,12 +4708,12 @@ func (catalogManagement *CatalogManagementV1) ConsumableVersionWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range consumableVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ConsumableVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ConsumableVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range consumableVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -4652,12 +4767,12 @@ func (catalogManagement *CatalogManagementV1) PrereleaseVersionWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range prereleaseVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PrereleaseVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PrereleaseVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range prereleaseVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -4711,12 +4826,12 @@ func (catalogManagement *CatalogManagementV1) TestVersionWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range testVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "TestVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "TestVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range testVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -4770,12 +4885,12 @@ func (catalogManagement *CatalogManagementV1) SuspendVersionWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range suspendVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SuspendVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SuspendVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range suspendVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -4829,12 +4944,12 @@ func (catalogManagement *CatalogManagementV1) CommitVersionWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range commitVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CommitVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CommitVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range commitVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -4888,12 +5003,12 @@ func (catalogManagement *CatalogManagementV1) CopyVersionWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range copyVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CopyVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CopyVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range copyVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -4976,12 +5091,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingWorkingCopyWithContext(
 		return
 	}
 
-	for headerName, headerValue := range getOfferingWorkingCopyOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingWorkingCopy")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingWorkingCopy")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingWorkingCopyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5047,12 +5162,12 @@ func (catalogManagement *CatalogManagementV1) CopyFromPreviousVersionWithContext
 		return
 	}
 
-	for headerName, headerValue := range copyFromPreviousVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CopyFromPreviousVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CopyFromPreviousVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range copyFromPreviousVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -5106,12 +5221,12 @@ func (catalogManagement *CatalogManagementV1) ValidateInputsWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range validateInputsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ValidateInputs")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ValidateInputs")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range validateInputsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5189,12 +5304,12 @@ func (catalogManagement *CatalogManagementV1) GetVersionWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range getVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5259,12 +5374,12 @@ func (catalogManagement *CatalogManagementV1) UpdateVersionWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range updateVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5475,12 +5590,12 @@ func (catalogManagement *CatalogManagementV1) PatchUpdateVersionWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range patchUpdateVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PatchUpdateVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PatchUpdateVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range patchUpdateVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5555,12 +5670,12 @@ func (catalogManagement *CatalogManagementV1) DeleteVersionWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range deleteVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -5614,12 +5729,12 @@ func (catalogManagement *CatalogManagementV1) GetVersionDependenciesWithContext(
 		return
 	}
 
-	for headerName, headerValue := range getVersionDependenciesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionDependencies")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionDependencies")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getVersionDependenciesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5686,12 +5801,12 @@ func (catalogManagement *CatalogManagementV1) DeprecateVersionWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range deprecateVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deprecateVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -5745,12 +5860,12 @@ func (catalogManagement *CatalogManagementV1) GetClusterWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range getClusterOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCluster")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCluster")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getClusterOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5819,12 +5934,12 @@ func (catalogManagement *CatalogManagementV1) GetNamespacesWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range getNamespacesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetNamespaces")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetNamespaces")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getNamespacesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5895,12 +6010,12 @@ func (catalogManagement *CatalogManagementV1) DeployOperatorsWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range deployOperatorsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeployOperators")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeployOperators")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deployOperatorsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -5992,12 +6107,12 @@ func (catalogManagement *CatalogManagementV1) ListOperatorsWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range listOperatorsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOperators")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOperators")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listOperatorsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -6064,12 +6179,12 @@ func (catalogManagement *CatalogManagementV1) ReplaceOperatorsWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range replaceOperatorsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceOperators")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceOperators")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceOperatorsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -6161,12 +6276,12 @@ func (catalogManagement *CatalogManagementV1) DeleteOperatorsWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range deleteOperatorsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOperators")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOperators")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteOperatorsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	if deleteOperatorsOptions.XAuthRefreshToken != nil {
@@ -6227,12 +6342,12 @@ func (catalogManagement *CatalogManagementV1) InstallVersionWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range installVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "InstallVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "InstallVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range installVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -6360,12 +6475,12 @@ func (catalogManagement *CatalogManagementV1) PreinstallVersionWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range preinstallVersionOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PreinstallVersion")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PreinstallVersion")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range preinstallVersionOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -6493,12 +6608,12 @@ func (catalogManagement *CatalogManagementV1) GetPreinstallWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range getPreinstallOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetPreinstall")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetPreinstall")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getPreinstallOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -6575,12 +6690,12 @@ func (catalogManagement *CatalogManagementV1) ValidateInstallWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range validateInstallOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ValidateInstall")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ValidateInstall")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range validateInstallOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -6712,12 +6827,12 @@ func (catalogManagement *CatalogManagementV1) GetValidationStatusWithContext(ctx
 		return
 	}
 
-	for headerName, headerValue := range getValidationStatusOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetValidationStatus")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetValidationStatus")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getValidationStatusOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -6785,12 +6900,12 @@ func (catalogManagement *CatalogManagementV1) SearchObjectsWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range searchObjectsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SearchObjects")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SearchObjects")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range searchObjectsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -6871,12 +6986,12 @@ func (catalogManagement *CatalogManagementV1) ListObjectsWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range listObjectsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListObjects")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListObjects")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listObjectsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -6953,12 +7068,12 @@ func (catalogManagement *CatalogManagementV1) CreateObjectWithContext(ctx contex
 		return
 	}
 
-	for headerName, headerValue := range createObjectOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateObject")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateObject")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createObjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7082,12 +7197,12 @@ func (catalogManagement *CatalogManagementV1) GetObjectWithContext(ctx context.C
 		return
 	}
 
-	for headerName, headerValue := range getObjectOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObject")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObject")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getObjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7152,12 +7267,12 @@ func (catalogManagement *CatalogManagementV1) ReplaceObjectWithContext(ctx conte
 		return
 	}
 
-	for headerName, headerValue := range replaceObjectOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceObject")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceObject")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceObjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7287,12 +7402,12 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectWithContext(ctx contex
 		return
 	}
 
-	for headerName, headerValue := range deleteObjectOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObject")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObject")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteObjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -7347,12 +7462,12 @@ func (catalogManagement *CatalogManagementV1) ListObjectAuditsWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range listObjectAuditsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListObjectAudits")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListObjectAudits")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listObjectAuditsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7428,12 +7543,12 @@ func (catalogManagement *CatalogManagementV1) GetObjectAuditWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range getObjectAuditOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAudit")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAudit")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getObjectAuditOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7502,12 +7617,12 @@ func (catalogManagement *CatalogManagementV1) ConsumableShareObjectWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range consumableShareObjectOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ConsumableShareObject")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ConsumableShareObject")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range consumableShareObjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -7562,12 +7677,12 @@ func (catalogManagement *CatalogManagementV1) ShareObjectWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range shareObjectOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ShareObject")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ShareObject")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range shareObjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7649,12 +7764,12 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessListWithContext(ctx
 		return
 	}
 
-	for headerName, headerValue := range getObjectAccessListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAccessList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAccessList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getObjectAccessListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7727,12 +7842,12 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range getObjectAccessOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAccess")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAccess")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getObjectAccessOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -7801,12 +7916,12 @@ func (catalogManagement *CatalogManagementV1) CreateObjectAccessWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range createObjectAccessOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateObjectAccess")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateObjectAccess")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createObjectAccessOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -7865,12 +7980,12 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range deleteObjectAccessOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObjectAccess")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObjectAccess")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteObjectAccessOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -7928,12 +8043,12 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessListDeprecatedWithC
 		return
 	}
 
-	for headerName, headerValue := range getObjectAccessListDeprecatedOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAccessListDeprecated")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAccessListDeprecated")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getObjectAccessListDeprecatedOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8005,12 +8120,12 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessListWithContext(
 		return
 	}
 
-	for headerName, headerValue := range deleteObjectAccessListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObjectAccessList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObjectAccessList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteObjectAccessListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8082,12 +8197,12 @@ func (catalogManagement *CatalogManagementV1) AddObjectAccessListWithContext(ctx
 		return
 	}
 
-	for headerName, headerValue := range addObjectAccessListOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AddObjectAccessList")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AddObjectAccessList")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range addObjectAccessListOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8154,12 +8269,12 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 		return
 	}
 
-	for headerName, headerValue := range createOfferingInstanceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateOfferingInstance")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateOfferingInstance")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8327,12 +8442,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingInstanceWithContext(ctx
 		return
 	}
 
-	for headerName, headerValue := range getOfferingInstanceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingInstance")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingInstance")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8396,12 +8511,12 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 		return
 	}
 
-	for headerName, headerValue := range putOfferingInstanceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PutOfferingInstance")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PutOfferingInstance")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range putOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8569,12 +8684,12 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingInstanceWithContext(
 		return
 	}
 
-	for headerName, headerValue := range deleteOfferingInstanceOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOfferingInstance")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOfferingInstance")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	if deleteOfferingInstanceOptions.XAuthRefreshToken != nil {
@@ -8631,12 +8746,12 @@ func (catalogManagement *CatalogManagementV1) ListOfferingInstanceAuditsWithCont
 		return
 	}
 
-	for headerName, headerValue := range listOfferingInstanceAuditsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOfferingInstanceAudits")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListOfferingInstanceAudits")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listOfferingInstanceAuditsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8711,12 +8826,12 @@ func (catalogManagement *CatalogManagementV1) GetOfferingInstanceAuditWithContex
 		return
 	}
 
-	for headerName, headerValue := range getOfferingInstanceAuditOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingInstanceAudit")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingInstanceAudit")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOfferingInstanceAuditOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8784,12 +8899,12 @@ func (catalogManagement *CatalogManagementV1) GetPlanWithContext(ctx context.Con
 		return
 	}
 
-	for headerName, headerValue := range getPlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetPlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetPlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getPlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -8853,12 +8968,12 @@ func (catalogManagement *CatalogManagementV1) DeletePlanWithContext(ctx context.
 		return
 	}
 
-	for headerName, headerValue := range deletePlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeletePlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeletePlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deletePlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -8912,12 +9027,12 @@ func (catalogManagement *CatalogManagementV1) ConsumablePlanWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range consumablePlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ConsumablePlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ConsumablePlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range consumablePlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -8972,12 +9087,12 @@ func (catalogManagement *CatalogManagementV1) SetDeprecatePlanWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range setDeprecatePlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetDeprecatePlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetDeprecatePlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range setDeprecatePlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
@@ -9036,12 +9151,12 @@ func (catalogManagement *CatalogManagementV1) PreviewRegionsWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range previewRegionsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PreviewRegions")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PreviewRegions")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range previewRegionsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -9109,12 +9224,12 @@ func (catalogManagement *CatalogManagementV1) ListRegionsWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range listRegionsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListRegions")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListRegions")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listRegionsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -9165,6 +9280,9 @@ type Access struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
 	// account id.
 	Account *string `json:"account,omitempty"`
 
@@ -9200,6 +9318,11 @@ func UnmarshalAccess(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "_rev", &obj.Rev)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "_rev-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account", &obj.Account)
@@ -9375,6 +9498,9 @@ type Account struct {
 
 	// Region filter string.
 	RegionFilter *string `json:"region_filter,omitempty"`
+
+	// List of terraform engines configured for this account.
+	TerraformEngines []TerraformEngines `json:"terraform_engines,omitempty"`
 }
 
 // UnmarshalAccount unmarshals an instance of Account from the specified map of raw messages.
@@ -9403,6 +9529,11 @@ func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err err
 	err = core.UnmarshalPrimitive(m, "region_filter", &obj.RegionFilter)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "region_filter-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "terraform_engines", &obj.TerraformEngines, UnmarshalTerraformEngines)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "terraform_engines-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11014,8 +11145,11 @@ type Configuration struct {
 	// Display name for configuration type.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Constraint associated with value, e.g., for string type - regx:[a-z].
+	// Deprecated - Constraint associated with value, e.g., for string type - regx:[a-z].
 	ValueConstraint *string `json:"value_constraint,omitempty"`
+
+	// Validation rules for this input value.
+	ValueConstraints []ValueConstraint `json:"value_constraints,omitempty"`
 
 	// Key description.
 	Description *string `json:"description,omitempty"`
@@ -11062,6 +11196,11 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "value_constraint", &obj.ValueConstraint)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "value_constraint-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "value_constraints", &obj.ValueConstraints, UnmarshalValueConstraint)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value_constraints-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
@@ -12786,6 +12925,40 @@ func (_options *CreateOfferingOptions) SetPlans(plans []Plan) *CreateOfferingOpt
 func (options *CreateOfferingOptions) SetHeaders(param map[string]string) *CreateOfferingOptions {
 	options.Headers = param
 	return options
+}
+
+// DaCreation : The settings that determines how deployable architectures are auto-created from workspaces in the terraform engine.
+type DaCreation struct {
+	// Determines whether deployable architectures are auto-created from workspaces in the engine.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// Default private catalog to create the deployable architectures in.
+	DefaultPrivateCatalogID *string `json:"default_private_catalog_id,omitempty"`
+
+	// Determines which workspace scope to query to auto-create deployable architectures from.
+	PollingInfo *PollingInfo `json:"polling_info,omitempty"`
+}
+
+// UnmarshalDaCreation unmarshals an instance of DaCreation from the specified map of raw messages.
+func UnmarshalDaCreation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DaCreation)
+	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "enabled-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "default_private_catalog_id", &obj.DefaultPrivateCatalogID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "default_private_catalog_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "polling_info", &obj.PollingInfo, UnmarshalPollingInfo)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "polling_info-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // DeleteCatalogOptions : The DeleteCatalog options.
@@ -19969,6 +20142,58 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
+// PollingInfo : Determines which workspace scope to query to auto-create deployable architectures from.
+type PollingInfo struct {
+	// List of scopes to auto-create deployable architectures from workspaces in the engine.
+	Scopes []TerraformEngineScope `json:"scopes,omitempty"`
+
+	// Last polling status of the engine scope.
+	LastPollingStatus *PollingInfoLastPollingStatus `json:"last_polling_status,omitempty"`
+}
+
+// UnmarshalPollingInfo unmarshals an instance of PollingInfo from the specified map of raw messages.
+func UnmarshalPollingInfo(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PollingInfo)
+	err = core.UnmarshalModel(m, "scopes", &obj.Scopes, UnmarshalTerraformEngineScope)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "scopes-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last_polling_status", &obj.LastPollingStatus, UnmarshalPollingInfoLastPollingStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_polling_status-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PollingInfoLastPollingStatus : Last polling status of the engine scope.
+type PollingInfoLastPollingStatus struct {
+	// Status code of the last polling attempt.
+	Code *int64 `json:"code,omitempty"`
+
+	// Status message from the last polling attempt.
+	Message *string `json:"message,omitempty"`
+}
+
+// UnmarshalPollingInfoLastPollingStatus unmarshals an instance of PollingInfoLastPollingStatus from the specified map of raw messages.
+func UnmarshalPollingInfoLastPollingStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PollingInfoLastPollingStatus)
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "code-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PreinstallVersionOptions : The PreinstallVersion options.
 type PreinstallVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
@@ -23844,6 +24069,91 @@ func UnmarshalTargetAccountContext(m map[string]json.RawMessage, result interfac
 	return
 }
 
+// TerraformEngineScope : Properties of the engine scope.
+type TerraformEngineScope struct {
+	// Identifier for the specified type in the scope.
+	Name *string `json:"name,omitempty"`
+
+	// Scope to auto-create deployable architectures from. The supported scopes today are workspace, org, and project.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalTerraformEngineScope unmarshals an instance of TerraformEngineScope from the specified map of raw messages.
+func UnmarshalTerraformEngineScope(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TerraformEngineScope)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TerraformEngines : The properties of the engine that is used to deploy terraform and auto-create deployable architectures on this
+// account based on workspaces in the engine instance.
+type TerraformEngines struct {
+	// User provided name for the specified engine.
+	Name *string `json:"name,omitempty"`
+
+	// The terraform engine type. The only one supported at the moment is terraform-enterprise.
+	Type *string `json:"type,omitempty"`
+
+	// The public endpoint for the engine instance.
+	PublicEndpoint *string `json:"public_endpoint,omitempty"`
+
+	// The private endpoint for the engine instance.
+	PrivateEndpoint *string `json:"private_endpoint,omitempty"`
+
+	// The api key used to access the engine instance.
+	APIToken *string `json:"api_token,omitempty"`
+
+	// The settings that determines how deployable architectures are auto-created from workspaces in the terraform engine.
+	DaCreation *DaCreation `json:"da_creation,omitempty"`
+}
+
+// UnmarshalTerraformEngines unmarshals an instance of TerraformEngines from the specified map of raw messages.
+func UnmarshalTerraformEngines(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TerraformEngines)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "public_endpoint", &obj.PublicEndpoint)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "public_endpoint-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_endpoint", &obj.PrivateEndpoint)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_endpoint-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "api_token", &obj.APIToken)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "api_token-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "da_creation", &obj.DaCreation, UnmarshalDaCreation)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "da_creation-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // TestVersionOptions : The TestVersion options.
 type TestVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
@@ -23957,6 +24267,9 @@ type UpdateCatalogAccountOptions struct {
 	// Region filter string.
 	RegionFilter *string `json:"region_filter,omitempty"`
 
+	// List of terraform engines configured for this account.
+	TerraformEngines []TerraformEngines `json:"terraform_engines,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -23996,8 +24309,163 @@ func (_options *UpdateCatalogAccountOptions) SetRegionFilter(regionFilter string
 	return _options
 }
 
+// SetTerraformEngines : Allow user to set TerraformEngines
+func (_options *UpdateCatalogAccountOptions) SetTerraformEngines(terraformEngines []TerraformEngines) *UpdateCatalogAccountOptions {
+	_options.TerraformEngines = terraformEngines
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *UpdateCatalogAccountOptions) SetHeaders(param map[string]string) *UpdateCatalogAccountOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateOfferingAccessOptions : The UpdateOfferingAccess options.
+type UpdateOfferingAccessOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Offering identification.
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Identifier for access. Use 'accountId' or '-acct-accountId' for an account, '-ent-enterpriseid' for an enterprise,
+	// and '-entgrp-enterprisegroupid' for an enterprise group.
+	AccessIdentifier *string `json:"access_identifier" validate:"required,ne="`
+
+	// unique id.
+	ID *string `json:"id,omitempty"`
+
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
+	// account id.
+	Account *string `json:"account,omitempty"`
+
+	// Normal account or enterprise.
+	AccountType *int64 `json:"account_type,omitempty"`
+
+	// unique id.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// object ID.
+	TargetID *string `json:"target_id,omitempty"`
+
+	// object's owner's account.
+	TargetAccount *string `json:"target_account,omitempty"`
+
+	// entity type.
+	TargetKind *string `json:"target_kind,omitempty"`
+
+	// date and time create.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// Approval state for access. If this field is an empty string, then it means that it's approved.
+	ApprovalState *string `json:"approval_state,omitempty"`
+
+	// List of additional version states that this account can see. The default visible states are consumable and
+	// prerelease.
+	VisibleStates []string `json:"visible_states,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateOfferingAccessOptions : Instantiate UpdateOfferingAccessOptions
+func (*CatalogManagementV1) NewUpdateOfferingAccessOptions(catalogIdentifier string, offeringID string, accessIdentifier string) *UpdateOfferingAccessOptions {
+	return &UpdateOfferingAccessOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID:        core.StringPtr(offeringID),
+		AccessIdentifier:  core.StringPtr(accessIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (_options *UpdateOfferingAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *UpdateOfferingAccessOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *UpdateOfferingAccessOptions) SetOfferingID(offeringID string) *UpdateOfferingAccessOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetAccessIdentifier : Allow user to set AccessIdentifier
+func (_options *UpdateOfferingAccessOptions) SetAccessIdentifier(accessIdentifier string) *UpdateOfferingAccessOptions {
+	_options.AccessIdentifier = core.StringPtr(accessIdentifier)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *UpdateOfferingAccessOptions) SetID(id string) *UpdateOfferingAccessOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetRev : Allow user to set Rev
+func (_options *UpdateOfferingAccessOptions) SetRev(rev string) *UpdateOfferingAccessOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
+}
+
+// SetAccount : Allow user to set Account
+func (_options *UpdateOfferingAccessOptions) SetAccount(account string) *UpdateOfferingAccessOptions {
+	_options.Account = core.StringPtr(account)
+	return _options
+}
+
+// SetAccountType : Allow user to set AccountType
+func (_options *UpdateOfferingAccessOptions) SetAccountType(accountType int64) *UpdateOfferingAccessOptions {
+	_options.AccountType = core.Int64Ptr(accountType)
+	return _options
+}
+
+// SetCatalogID : Allow user to set CatalogID
+func (_options *UpdateOfferingAccessOptions) SetCatalogID(catalogID string) *UpdateOfferingAccessOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
+}
+
+// SetTargetID : Allow user to set TargetID
+func (_options *UpdateOfferingAccessOptions) SetTargetID(targetID string) *UpdateOfferingAccessOptions {
+	_options.TargetID = core.StringPtr(targetID)
+	return _options
+}
+
+// SetTargetAccount : Allow user to set TargetAccount
+func (_options *UpdateOfferingAccessOptions) SetTargetAccount(targetAccount string) *UpdateOfferingAccessOptions {
+	_options.TargetAccount = core.StringPtr(targetAccount)
+	return _options
+}
+
+// SetTargetKind : Allow user to set TargetKind
+func (_options *UpdateOfferingAccessOptions) SetTargetKind(targetKind string) *UpdateOfferingAccessOptions {
+	_options.TargetKind = core.StringPtr(targetKind)
+	return _options
+}
+
+// SetCreated : Allow user to set Created
+func (_options *UpdateOfferingAccessOptions) SetCreated(created *strfmt.DateTime) *UpdateOfferingAccessOptions {
+	_options.Created = created
+	return _options
+}
+
+// SetApprovalState : Allow user to set ApprovalState
+func (_options *UpdateOfferingAccessOptions) SetApprovalState(approvalState string) *UpdateOfferingAccessOptions {
+	_options.ApprovalState = core.StringPtr(approvalState)
+	return _options
+}
+
+// SetVisibleStates : Allow user to set VisibleStates
+func (_options *UpdateOfferingAccessOptions) SetVisibleStates(visibleStates []string) *UpdateOfferingAccessOptions {
+	_options.VisibleStates = visibleStates
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateOfferingAccessOptions) SetHeaders(param map[string]string) *UpdateOfferingAccessOptions {
 	options.Headers = param
 	return options
 }
@@ -24913,6 +25381,46 @@ func UnmarshalValidation(m map[string]json.RawMessage, result interface{}) (err 
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ValueConstraint : Constraint associated with value.
+type ValueConstraint struct {
+	// Type of constraint.
+	Type *string `json:"type,omitempty"`
+
+	// Contstraint value.  For type regex, this is a regular expression in Javascript notation.
+	Value *string `json:"value,omitempty"`
+
+	// The value to display if the inptu value does not match the specified constraint.
+	Description *string `json:"description,omitempty"`
+}
+
+// Constants associated with the ValueConstraint.Type property.
+// Type of constraint.
+const (
+	ValueConstraintTypeRegexConst = "regex"
+)
+
+// UnmarshalValueConstraint unmarshals an instance of ValueConstraint from the specified map of raw messages.
+func UnmarshalValueConstraint(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ValueConstraint)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))

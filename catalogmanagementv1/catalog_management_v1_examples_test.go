@@ -72,6 +72,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		approverToken                 string
 		offeringVersion               *catalogmanagementv1.Offering
 		catalogAccount                *catalogmanagementv1.Account
+		offeringAccessRev             string
 	)
 
 	var shouldSkipTest = func() {
@@ -590,11 +591,19 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			includeAllFilter := &catalogmanagementv1.Filters{
 				IncludeAll: core.BoolPtr(true),
 			}
+			tfEngine := catalogmanagementv1.TerraformEngines{
+				Name:            core.StringPtr("testString"),
+				Type:            core.StringPtr("terraform-enterprise"),
+				PublicEndpoint:  core.StringPtr("testString"),
+				PrivateEndpoint: core.StringPtr("testString"),
+				APIToken:        core.StringPtr("testString"),
+			}
 			updateCatalogAccountOptions := catalogManagementService.NewUpdateCatalogAccountOptions()
 			updateCatalogAccountOptions.Rev = catalogAccount.Rev
 			updateCatalogAccountOptions.AccountFilters = includeAllFilter
 			updateCatalogAccountOptions.ID = &accountID
 			updateCatalogAccountOptions.RegionFilter = core.StringPtr("geo:na")
+			updateCatalogAccountOptions.TerraformEngines = []catalogmanagementv1.TerraformEngines{tfEngine}
 
 			_, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
 			if err != nil {
@@ -626,6 +635,38 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accumulatedFilters).ToNot(BeNil())
+		})
+
+		It(`UpdateCatalogAccount request example - clear filters`, func() {
+			// begin-update_catalog_account_clear
+
+			getCatalogAccountOptions := catalogManagementService.NewGetCatalogAccountOptions()
+
+			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			includeAllFilter := &catalogmanagementv1.Filters{
+				IncludeAll: core.BoolPtr(true),
+			}
+			updateCatalogAccountOptions := catalogManagementService.NewUpdateCatalogAccountOptions()
+			updateCatalogAccountOptions.Rev = account.Rev
+			updateCatalogAccountOptions.AccountFilters = includeAllFilter
+			updateCatalogAccountOptions.ID = &accountID
+			updateCatalogAccountOptions.RegionFilter = core.StringPtr("")
+			updateCatalogAccountOptions.TerraformEngines = []catalogmanagementv1.TerraformEngines{}
+
+			_, response, err = catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-update_catalog_account_clear
+			fmt.Printf("\nUpdateCatalogAccount() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
 		})
 
 		It(`AddShareApprovalList request example`, func() {
@@ -937,6 +978,22 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 					Description: core.StringPtr("Simple red circle diagram"),
 				},
 			}
+			updateVersionOptions.Kinds[0].Versions[0].Configuration = []catalogmanagementv1.Configuration{
+				{
+					Key:          core.StringPtr("name"),
+					Type:         core.StringPtr("string"),
+					DefaultValue: core.StringPtr("testString"),
+					DisplayName:  core.StringPtr("Name"),
+					Description:  core.StringPtr("testString"),
+					ValueConstraints: []catalogmanagementv1.ValueConstraint{
+						{
+							Type:        core.StringPtr("regex"),
+							Value:       core.StringPtr("*"),
+							Description: core.StringPtr("invalid value"),
+						},
+					},
+				},
+			}
 
 			offering, response, err := catalogManagementService.UpdateVersion(updateVersionOptions)
 			if err != nil {
@@ -1199,6 +1256,85 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
+		})
+
+		It(`AddOfferingAccessList request example`, func() {
+			fmt.Println("\nAddOfferingAccessList() result:")
+			// begin-add_offering_access_list
+
+			addOfferingAccessListOptions := catalogManagementService.NewAddOfferingAccessListOptions(
+				catalogID,
+				offeringID,
+				[]string{accountID},
+			)
+
+			accessListResponse, response, err := catalogManagementService.AddOfferingAccessList(addOfferingAccessListOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accessListResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-add_offering_access_list
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(accessListResponse).ToNot(BeNil())
+		})
+
+		It(`GetOfferingAccess request example`, func() {
+			fmt.Println("\nGetOfferingAccess() result:")
+			// begin-get_offering_access
+
+			getOfferingAccessOptions := catalogManagementService.NewGetOfferingAccessOptions(
+				catalogID,
+				offeringID,
+				accountID,
+			)
+
+			accessResponse, response, err := catalogManagementService.GetOfferingAccess(getOfferingAccessOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accessResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_offering_access
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accessResponse).ToNot(BeNil())
+
+			offeringAccessRev = *accessResponse.Rev
+		})
+
+		It(`UpdateOfferingAccess request example`, func() {
+			fmt.Println("\nUpdateOfferingAccess() result:")
+			// begin-update_offering_access
+
+			updateOfferingAccessOptions := &catalogmanagementv1.UpdateOfferingAccessOptions{
+				CatalogIdentifier: &catalogID,
+				OfferingID:        &offeringID,
+				AccessIdentifier:  core.StringPtr(accountID),
+				ID:                core.StringPtr(accountID),
+				Account:           core.StringPtr(accountID),
+				Rev:               &offeringAccessRev,
+			}
+
+			accessResponse, response, err := catalogManagementService.UpdateOfferingAccess(updateOfferingAccessOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accessResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_offering_access
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(accessResponse).ToNot(BeNil())
+
+			offeringAccessRev = *accessResponse.Rev
 		})
 
 		It(`GetIamPermissions request example`, func() {
