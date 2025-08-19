@@ -585,7 +585,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`UpdateCatalogAccount request example`, func() {
-			// Skip("Skipped bby design.")
 			// begin-update_catalog_account
 
 			includeAllFilter := &catalogmanagementv1.Filters{
@@ -605,7 +604,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			updateCatalogAccountOptions.RegionFilter = core.StringPtr("geo:na")
 			updateCatalogAccountOptions.TerraformEngines = []catalogmanagementv1.TerraformEngines{tfEngine}
 
-			_, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+			account, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -615,6 +614,19 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
+
+			// Clear account filters
+			updateCatalogAccountOptions = catalogManagementService.NewUpdateCatalogAccountOptions()
+			updateCatalogAccountOptions.Rev = account.Rev
+			updateCatalogAccountOptions.AccountFilters = includeAllFilter
+			updateCatalogAccountOptions.ID = &accountID
+			updateCatalogAccountOptions.RegionFilter = core.StringPtr("")
+			updateCatalogAccountOptions.TerraformEngines = []catalogmanagementv1.TerraformEngines{}
+
+			_, _, err = catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+			if err != nil {
+				panic(err)
+			}
 		})
 
 		It(`GetCatalogAccountFilters request example`, func() {
@@ -635,41 +647,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accumulatedFilters).ToNot(BeNil())
-		})
-
-		It(`UpdateCatalogAccount request example - clear filters`, func() {
-			// begin-update_catalog_account_clear
-
-			getCatalogAccountOptions := catalogManagementService.NewGetCatalogAccountOptions()
-
-			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-
-			includeAllFilter := &catalogmanagementv1.Filters{
-				IncludeAll: core.BoolPtr(true),
-			}
-			updateCatalogAccountOptions := catalogManagementService.NewUpdateCatalogAccountOptions()
-			updateCatalogAccountOptions.Rev = account.Rev
-			updateCatalogAccountOptions.AccountFilters = includeAllFilter
-			updateCatalogAccountOptions.ID = &accountID
-			updateCatalogAccountOptions.RegionFilter = core.StringPtr("")
-			updateCatalogAccountOptions.TerraformEngines = []catalogmanagementv1.TerraformEngines{}
-
-			_, response, err = catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-update_catalog_account_clear
-			fmt.Printf("\nUpdateCatalogAccount() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
 		})
 
 		It(`AddShareApprovalList request example`, func() {
