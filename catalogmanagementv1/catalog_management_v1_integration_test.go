@@ -70,6 +70,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		versionRevLink     string
 		planIDLink         string
 		offeringVersion    *catalogmanagementv1.Offering
+		accessRevLink      string
 	)
 
 	var shouldSkipTest = func() {
@@ -200,6 +201,14 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Exclude: filterTermsModel,
 			}
 
+			tfEngineModel := catalogmanagementv1.TerraformEngines{
+				Name:            core.StringPtr("testString"),
+				Type:            core.StringPtr("terraform-enterprise"),
+				PublicEndpoint:  core.StringPtr("testString"),
+				PrivateEndpoint: core.StringPtr("testString"),
+				APIToken:        core.StringPtr("testString"),
+			}
+
 			filtersModel := &catalogmanagementv1.Filters{
 				IncludeAll:      core.BoolPtr(true),
 				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
@@ -213,6 +222,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				HideIBMCloudCatalog: core.BoolPtr(true),
 				AccountFilters:      filtersModel,
 				RegionFilter:        core.StringPtr("geo:na"),
+				TerraformEngines:    []catalogmanagementv1.TerraformEngines{tfEngineModel},
 			}
 
 			account, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
@@ -222,6 +232,24 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			accountRevLink = *account.Rev
 			fmt.Fprintf(GinkgoWriter, "Saved accountRevLink value: %v\n", accountRevLink)
+
+			// Clear filters on account
+			updateCatalogAccountOptions = &catalogmanagementv1.UpdateCatalogAccountOptions{
+				ID:                  core.StringPtr(accountID),
+				Rev:                 &accountRevLink,
+				HideIBMCloudCatalog: core.BoolPtr(false),
+				AccountFilters: &catalogmanagementv1.Filters{
+					IncludeAll: core.BoolPtr(true),
+					IDFilters:  &catalogmanagementv1.IDFilter{},
+				},
+				RegionFilter: core.StringPtr(""),
+			}
+
+			account, response, err = catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(account).ToNot(BeNil())
+			accountRevLink = *account.Rev
 		})
 	})
 
@@ -988,6 +1016,23 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				versionLocatorLink,
 			)
 
+			newConfiguration := []catalogmanagementv1.Configuration{
+				{
+					Key:          core.StringPtr("name"),
+					Type:         core.StringPtr("string"),
+					DefaultValue: core.StringPtr("testString"),
+					DisplayName:  core.StringPtr("Name"),
+					Description:  core.StringPtr("testString"),
+					ValueConstraints: []catalogmanagementv1.ValueConstraint{
+						{
+							Type:        core.StringPtr("regex"),
+							Value:       core.StringPtr("*"),
+							Description: core.StringPtr("invalid value"),
+						},
+					},
+				},
+			}
+
 			updateVersionOptions.ID = offeringVersion.ID
 			updateVersionOptions.CatalogID = offeringVersion.CatalogID
 			updateVersionOptions.Rev = offeringVersion.Rev
@@ -995,6 +1040,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			updateVersionOptions.CRN = offeringVersion.CRN
 			updateVersionOptions.Label = offeringVersion.Label
 			updateVersionOptions.Kinds = offeringVersion.Kinds
+			updateVersionOptions.Kinds[0].Versions[0].Configuration = newConfiguration
 
 			offering, response, err := catalogManagementService.UpdateVersion(updateVersionOptions)
 			Expect(err).To(BeNil())
@@ -2480,24 +2526,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetOfferingAccess - Check for account ID in offering access list`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetOfferingAccess(getOfferingAccessOptions *GetOfferingAccessOptions)`, func() {
-			getOfferingAccessOptions := &catalogmanagementv1.GetOfferingAccessOptions{
-				CatalogIdentifier: &catalogIDLink,
-				OfferingID:        &offeringIDLink,
-				AccessIdentifier:  core.StringPtr(accountID),
-			}
-
-			access, response, err := catalogManagementService.GetOfferingAccess(getOfferingAccessOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(access).ToNot(BeNil())
-		})
-	})
-
 	Describe(`GetOfferingAccessList - Get offering access list`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -2581,6 +2609,46 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(accessListResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetOfferingAccess - Check for account ID in offering access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingAccess(getOfferingAccessOptions *GetOfferingAccessOptions)`, func() {
+			getOfferingAccessOptions := &catalogmanagementv1.GetOfferingAccessOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				AccessIdentifier:  core.StringPtr(accountID),
+			}
+
+			access, response, err := catalogManagementService.GetOfferingAccess(getOfferingAccessOptions)
+			accessRevLink = *access.Rev
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(access).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateOfferingAccess - Update account ID in offering access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateOfferingAccess(updateOfferingAccessOptions *UpdateOfferingAccessOptions)`, func() {
+			updateOfferingAccessOptions := &catalogmanagementv1.UpdateOfferingAccessOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				AccessIdentifier:  core.StringPtr(accountID),
+				ID:                core.StringPtr(accountID),
+				Account:           core.StringPtr(accountID),
+				Rev:               &accessRevLink,
+			}
+
+			access, response, err := catalogManagementService.UpdateOfferingAccess(updateOfferingAccessOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(access).ToNot(BeNil())
 		})
 	})
 
