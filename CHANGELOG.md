@@ -1,3 +1,10 @@
+# [0.86.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.85.1...v0.86.0) (2025-08-21)
+
+
+### Features
+
+* **Catalog Management:** regen after recent api changes ([#402](https://github.com/IBM/platform-services-go-sdk/issues/402)) ([269310b](https://github.com/IBM/platform-services-go-sdk/commit/269310bc641f601dc6ee098219539486ab07159b))
+
 ## [0.85.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.85.0...v0.85.1) (2025-07-21)
 
 
