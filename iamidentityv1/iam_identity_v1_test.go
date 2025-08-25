@@ -6533,6 +6533,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileLinkRequestLinkModel.CRN = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Namespace = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Name = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentType = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentName = core.StringPtr("testString")
 
 				// Construct an instance of the CreateLinkOptions model
 				createLinkOptionsModel := new(iamidentityv1.CreateLinkOptions)
@@ -6592,7 +6594,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke CreateLink successfully with retries`, func() {
@@ -6609,6 +6611,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileLinkRequestLinkModel.CRN = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Namespace = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Name = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentType = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentName = core.StringPtr("testString")
 
 				// Construct an instance of the CreateLinkOptions model
 				createLinkOptionsModel := new(iamidentityv1.CreateLinkOptions)
@@ -6671,7 +6675,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke CreateLink successfully`, func() {
@@ -6693,6 +6697,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileLinkRequestLinkModel.CRN = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Namespace = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Name = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentType = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentName = core.StringPtr("testString")
 
 				// Construct an instance of the CreateLinkOptions model
 				createLinkOptionsModel := new(iamidentityv1.CreateLinkOptions)
@@ -6722,6 +6728,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileLinkRequestLinkModel.CRN = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Namespace = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Name = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentType = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentName = core.StringPtr("testString")
 
 				// Construct an instance of the CreateLinkOptions model
 				createLinkOptionsModel := new(iamidentityv1.CreateLinkOptions)
@@ -6772,6 +6780,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileLinkRequestLinkModel.CRN = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Namespace = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Name = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentType = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentName = core.StringPtr("testString")
 
 				// Construct an instance of the CreateLinkOptions model
 				createLinkOptionsModel := new(iamidentityv1.CreateLinkOptions)
@@ -6856,7 +6866,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name"}}]}`)
+					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}]}`)
 				}))
 			})
 			It(`Invoke ListLinks successfully with retries`, func() {
@@ -6910,7 +6920,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name"}}]}`)
+					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}]}`)
 				}))
 			})
 			It(`Invoke ListLinks successfully`, func() {
@@ -7006,6 +7016,92 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`DeleteLinkByParameters(deleteLinkByParametersOptions *DeleteLinkByParametersOptions)`, func() {
+		deleteLinkByParametersPath := "/v1/profiles/testString/links"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteLinkByParametersPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["crn"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["namespace"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["component_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["component_name"]).To(Equal([]string{"testString"}))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteLinkByParameters successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeleteLinkByParameters(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteLinkByParametersOptions model
+				deleteLinkByParametersOptionsModel := new(iamidentityv1.DeleteLinkByParametersOptions)
+				deleteLinkByParametersOptionsModel.ProfileID = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Type = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.CRN = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Namespace = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Name = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.ComponentType = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.ComponentName = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteLinkByParameters(deleteLinkByParametersOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteLinkByParameters with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteLinkByParametersOptions model
+				deleteLinkByParametersOptionsModel := new(iamidentityv1.DeleteLinkByParametersOptions)
+				deleteLinkByParametersOptionsModel.ProfileID = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Type = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.CRN = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Namespace = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Name = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.ComponentType = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.ComponentName = core.StringPtr("testString")
+				deleteLinkByParametersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeleteLinkByParameters(deleteLinkByParametersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteLinkByParametersOptions model with no property values
+				deleteLinkByParametersOptionsModelNew := new(iamidentityv1.DeleteLinkByParametersOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeleteLinkByParameters(deleteLinkByParametersOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetLink(getLinkOptions *GetLinkOptions) - Operation response error`, func() {
 		getLinkPath := "/v1/profiles/testString/links/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -7069,7 +7165,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke GetLink successfully with retries`, func() {
@@ -7124,7 +7220,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke GetLink successfully`, func() {
@@ -18801,9 +18897,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileLinkRequestLinkModel.CRN = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Namespace = core.StringPtr("testString")
 				createProfileLinkRequestLinkModel.Name = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentType = core.StringPtr("testString")
+				createProfileLinkRequestLinkModel.ComponentName = core.StringPtr("testString")
 				Expect(createProfileLinkRequestLinkModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(createProfileLinkRequestLinkModel.Namespace).To(Equal(core.StringPtr("testString")))
 				Expect(createProfileLinkRequestLinkModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileLinkRequestLinkModel.ComponentType).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileLinkRequestLinkModel.ComponentName).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateLinkOptions model
 				profileID := "testString"
@@ -18836,8 +18936,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Invoke NewCreateProfileLinkRequestLink successfully`, func() {
 				crn := "testString"
-				namespace := "testString"
-				_model, err := iamIdentityService.NewCreateProfileLinkRequestLink(crn, namespace)
+				_model, err := iamIdentityService.NewCreateProfileLinkRequestLink(crn)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -19233,6 +19332,29 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(deleteClaimRuleOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteClaimRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteLinkByParametersOptions successfully`, func() {
+				// Construct an instance of the DeleteLinkByParametersOptions model
+				profileID := "testString"
+				typeVar := "testString"
+				deleteLinkByParametersOptionsModel := iamIdentityService.NewDeleteLinkByParametersOptions(profileID, typeVar)
+				deleteLinkByParametersOptionsModel.SetProfileID("testString")
+				deleteLinkByParametersOptionsModel.SetType("testString")
+				deleteLinkByParametersOptionsModel.SetCRN("testString")
+				deleteLinkByParametersOptionsModel.SetNamespace("testString")
+				deleteLinkByParametersOptionsModel.SetName("testString")
+				deleteLinkByParametersOptionsModel.SetComponentType("testString")
+				deleteLinkByParametersOptionsModel.SetComponentName("testString")
+				deleteLinkByParametersOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteLinkByParametersOptionsModel).ToNot(BeNil())
+				Expect(deleteLinkByParametersOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.ComponentType).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.ComponentName).To(Equal(core.StringPtr("testString")))
+				Expect(deleteLinkByParametersOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteLinkOptions successfully`, func() {
 				// Construct an instance of the DeleteLinkOptions model
@@ -20584,6 +20706,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 			model.CRN = core.StringPtr("testString")
 			model.Namespace = core.StringPtr("testString")
 			model.Name = core.StringPtr("testString")
+			model.ComponentType = core.StringPtr("testString")
+			model.ComponentName = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())

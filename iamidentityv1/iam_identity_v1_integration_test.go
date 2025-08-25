@@ -1228,6 +1228,49 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`DeleteLinkByParam - delete link with parameters`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteLinkByParameters(deleteLinkByParametersOptions *DeleteLinkByParametersOptions)`, func() {
+
+			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.ComponentName = core.StringPtr("test_component_name")
+			createProfileLinkRequestLink.ComponentType = core.StringPtr("test_component_type")
+
+			createLinkOptions := &iamidentityv1.CreateLinkOptions{
+				ProfileID: &profileId2,
+				Name:      core.StringPtr("Great link"),
+				CrType:    core.StringPtr("CE"),
+				Link:      createProfileLinkRequestLink,
+			}
+
+			link, response, err := iamIdentityService.CreateLink(createLinkOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(link).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateLink #1 response:\n%s\n", common.ToJSON(link))
+
+			deleteLinkByParametersOptions := &iamidentityv1.DeleteLinkByParametersOptions{
+				ProfileID:     &profileId2,
+				Type:          core.StringPtr("CE"),
+				CRN:           core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource"),
+				ComponentName: core.StringPtr("test_component_name"),
+				ComponentType: core.StringPtr("test_component_type"),
+			}
+
+			response, err = iamIdentityService.DeleteLinkByParameters(deleteLinkByParametersOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			link = getLink(iamIdentityService, profileId2, linkId)
+			Expect(link).To(BeNil())
+		})
+	})
+
 	Describe(`SetProfileIdentities - Set Profile Identities`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()

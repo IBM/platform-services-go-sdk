@@ -893,6 +893,51 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
+		It(`DeleteLinkByParameters request example`, func() {
+			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.ComponentName = core.StringPtr("test_component_name")
+			createProfileLinkRequestLink.ComponentType = core.StringPtr("test_component_type")
+
+			createLinkOptions := &iamidentityv1.CreateLinkOptions{
+				ProfileID: &profileId,
+				Name:      core.StringPtr("Great link"),
+				CrType:    core.StringPtr("CE"),
+				Link:      createProfileLinkRequestLink,
+			}
+
+			link, response, err := iamIdentityService.CreateLink(createLinkOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(link, "", "  ")
+			fmt.Println(string(b))
+			linkId = *link.ID
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+
+			// begin-delete_link_by_parameters
+
+			deleteLinkByParametersOptions := &iamidentityv1.DeleteLinkByParametersOptions{
+				ProfileID:     &profileId,
+				Type:          core.StringPtr("CE"),
+				CRN:           core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource"),
+				ComponentName: core.StringPtr("test_component_name"),
+				ComponentType: core.StringPtr("test_component_type"),
+			}
+
+			response, err = iamIdentityService.DeleteLinkByParameters(deleteLinkByParametersOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_link_by_parameters
+			fmt.Printf("\nDeleteLinkByParameters() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`GetProfileIdentities request example`, func() {
 			fmt.Println("\nGetProfileIdentities() result:")
 			// begin-get_profile_identities
