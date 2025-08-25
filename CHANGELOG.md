@@ -1,3 +1,10 @@
+## [0.86.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.86.0...v0.86.1) (2025-08-25)
+
+
+### Bug Fixes
+
+* **IAM Identity:** add delete link with parameter api ([#401](https://github.com/IBM/platform-services-go-sdk/issues/401)) ([9c30473](https://github.com/IBM/platform-services-go-sdk/commit/9c3047386af88b3a891491398a0ec834571bb25c))
+
 # [0.86.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.85.1...v0.86.0) (2025-08-21)
 
 
