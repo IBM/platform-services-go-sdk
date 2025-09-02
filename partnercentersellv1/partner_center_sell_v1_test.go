@@ -5295,7 +5295,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}, "target_plans": [{"id": "ID", "name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully with retries`, func() {
@@ -5476,7 +5476,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}, "target_plans": [{"id": "ID", "name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully`, func() {
@@ -5969,7 +5969,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}, "target_plans": [{"id": "ID", "name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully with retries`, func() {
@@ -6027,7 +6027,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}, "target_plans": [{"id": "ID", "name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully`, func() {
@@ -6325,7 +6325,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}, "target_plans": [{"id": "ID", "name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully with retries`, func() {
@@ -6509,7 +6509,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true}, "pricing": {"type": "free", "origin": "global_catalog", "sales_avenue": ["seller"]}, "plan": {"allow_internal_users": true, "bindable": true, "provision_type": "ibm_cloud", "reservable": true}, "other": {"resource_controller": {"subscription_provider_id": "SubscriptionProviderID"}, "target_plans": [{"id": "ID", "name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully`, func() {
@@ -9083,6 +9083,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -9195,9 +9196,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
@@ -9215,6 +9237,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				createIamRegistrationOptionsModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				createIamRegistrationOptionsModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				createIamRegistrationOptionsModel.SupportedActionControl = []string{"testString"}
 				createIamRegistrationOptionsModel.Env = core.StringPtr("testString")
 				createIamRegistrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -9269,7 +9292,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully with retries`, func() {
@@ -9320,6 +9343,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -9432,9 +9456,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
@@ -9452,6 +9497,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				createIamRegistrationOptionsModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				createIamRegistrationOptionsModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				createIamRegistrationOptionsModel.SupportedActionControl = []string{"testString"}
 				createIamRegistrationOptionsModel.Env = core.StringPtr("testString")
 				createIamRegistrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9509,7 +9555,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully`, func() {
@@ -9565,6 +9611,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -9677,9 +9724,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
@@ -9697,6 +9765,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				createIamRegistrationOptionsModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				createIamRegistrationOptionsModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				createIamRegistrationOptionsModel.SupportedActionControl = []string{"testString"}
 				createIamRegistrationOptionsModel.Env = core.StringPtr("testString")
 				createIamRegistrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9754,6 +9823,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -9866,9 +9936,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
@@ -9886,6 +9977,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				createIamRegistrationOptionsModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				createIamRegistrationOptionsModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				createIamRegistrationOptionsModel.SupportedActionControl = []string{"testString"}
 				createIamRegistrationOptionsModel.Env = core.StringPtr("testString")
 				createIamRegistrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -9964,6 +10056,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -10076,9 +10169,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
@@ -10096,6 +10210,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				createIamRegistrationOptionsModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				createIamRegistrationOptionsModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				createIamRegistrationOptionsModel.SupportedActionControl = []string{"testString"}
 				createIamRegistrationOptionsModel.Env = core.StringPtr("testString")
 				createIamRegistrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -10175,6 +10290,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -10287,9 +10403,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the IamServiceRegistrationPatch model
 				iamServiceRegistrationPatchModel := new(partnercentersellv1.IamServiceRegistrationPatch)
@@ -10305,6 +10442,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				iamServiceRegistrationPatchModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				iamServiceRegistrationPatchModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				iamServiceRegistrationPatchModel.SupportedActionControl = []string{"testString"}
 				iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -10367,7 +10505,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully with retries`, func() {
@@ -10418,6 +10556,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -10530,9 +10669,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the IamServiceRegistrationPatch model
 				iamServiceRegistrationPatchModel := new(partnercentersellv1.IamServiceRegistrationPatch)
@@ -10548,6 +10708,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				iamServiceRegistrationPatchModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				iamServiceRegistrationPatchModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				iamServiceRegistrationPatchModel.SupportedActionControl = []string{"testString"}
 				iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -10613,7 +10774,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully`, func() {
@@ -10669,6 +10830,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -10781,9 +10943,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the IamServiceRegistrationPatch model
 				iamServiceRegistrationPatchModel := new(partnercentersellv1.IamServiceRegistrationPatch)
@@ -10799,6 +10982,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				iamServiceRegistrationPatchModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				iamServiceRegistrationPatchModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				iamServiceRegistrationPatchModel.SupportedActionControl = []string{"testString"}
 				iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -10864,6 +11048,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -10976,9 +11161,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the IamServiceRegistrationPatch model
 				iamServiceRegistrationPatchModel := new(partnercentersellv1.IamServiceRegistrationPatch)
@@ -10994,6 +11200,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				iamServiceRegistrationPatchModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				iamServiceRegistrationPatchModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				iamServiceRegistrationPatchModel.SupportedActionControl = []string{"testString"}
 				iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -11080,6 +11287,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -11192,9 +11400,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 
 				// Construct an instance of the IamServiceRegistrationPatch model
 				iamServiceRegistrationPatchModel := new(partnercentersellv1.IamServiceRegistrationPatch)
@@ -11210,6 +11439,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.SupportedAuthorizationSubjects = []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}
 				iamServiceRegistrationPatchModel.SupportedRoles = []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}
 				iamServiceRegistrationPatchModel.SupportedNetwork = iamServiceRegistrationSupportedNetworkModel
+				iamServiceRegistrationPatchModel.SupportedActionControl = []string{"testString"}
 				iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
 
@@ -11373,7 +11603,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully with retries`, func() {
@@ -11430,7 +11660,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully`, func() {
@@ -13790,11 +14020,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
+				iamServiceRegistrationActionModel.ApiTypes = []string{"testString"}
 				Expect(iamServiceRegistrationActionModel.ID).To(Equal(core.StringPtr("pet-store.dashboard.view")))
 				Expect(iamServiceRegistrationActionModel.Roles).To(Equal([]string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}))
 				Expect(iamServiceRegistrationActionModel.Description).To(Equal(iamServiceRegistrationDescriptionObjectModel))
 				Expect(iamServiceRegistrationActionModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
 				Expect(iamServiceRegistrationActionModel.Options).To(Equal(iamServiceRegistrationActionOptionsModel))
+				Expect(iamServiceRegistrationActionModel.ApiTypes).To(Equal([]string{"testString"}))
 
 				// Construct an instance of the IamServiceRegistrationResourceHierarchyAttribute model
 				iamServiceRegistrationResourceHierarchyAttributeModel := new(partnercentersellv1.IamServiceRegistrationResourceHierarchyAttribute)
@@ -13980,11 +14212,45 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(environmentAttributeModel.Values).To(Equal([]string{"public"}))
 				Expect(environmentAttributeModel.Options).To(Equal(environmentAttributeOptionsModel))
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel).ToNot(BeNil())
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod).To(Equal([]string{"testString"}))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description).To(Equal(iamServiceRegistrationDescriptionObjectModel))
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
+				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+				Expect(iamServiceRegistrationSupportedNetworkOperationsModel).ToNot(BeNil())
+				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				Expect(iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes).To(Equal([]partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}))
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+				Expect(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel).ToNot(BeNil())
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes = []string{"testString"}
+				Expect(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel.ApiTypes).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement model
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+				Expect(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel).ToNot(BeNil())
+				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel
+				Expect(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel.EventPublishing).To(Equal(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel))
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
 				iamServiceRegistrationSupportedNetworkModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 				Expect(iamServiceRegistrationSupportedNetworkModel).ToNot(BeNil())
 				iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes = []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}
+				iamServiceRegistrationSupportedNetworkModel.Operations = iamServiceRegistrationSupportedNetworkOperationsModel
+				iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel
 				Expect(iamServiceRegistrationSupportedNetworkModel.EnvironmentAttributes).To(Equal([]partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel}))
+				Expect(iamServiceRegistrationSupportedNetworkModel.Operations).To(Equal(iamServiceRegistrationSupportedNetworkOperationsModel))
+				Expect(iamServiceRegistrationSupportedNetworkModel.SelfManagedAllowlistEnforcement).To(Equal(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel))
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				productID := "testString"
@@ -14004,6 +14270,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SetSupportedAuthorizationSubjects([]partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel})
 				createIamRegistrationOptionsModel.SetSupportedRoles([]partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel})
 				createIamRegistrationOptionsModel.SetSupportedNetwork(iamServiceRegistrationSupportedNetworkModel)
+				createIamRegistrationOptionsModel.SetSupportedActionControl([]string{"testString"})
 				createIamRegistrationOptionsModel.SetEnv("testString")
 				createIamRegistrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createIamRegistrationOptionsModel).ToNot(BeNil())
@@ -14021,6 +14288,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createIamRegistrationOptionsModel.SupportedAuthorizationSubjects).To(Equal([]partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel}))
 				Expect(createIamRegistrationOptionsModel.SupportedRoles).To(Equal([]partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel}))
 				Expect(createIamRegistrationOptionsModel.SupportedNetwork).To(Equal(iamServiceRegistrationSupportedNetworkModel))
+				Expect(createIamRegistrationOptionsModel.SupportedActionControl).To(Equal([]string{"testString"}))
 				Expect(createIamRegistrationOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(createIamRegistrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -15054,6 +15322,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.GlobalCatalogPlanMetadataOther)
 			model.ResourceController = nil
+			model.TargetPlans = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -15082,6 +15351,25 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.GlobalCatalogPlanMetadataOtherResourceController
 			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataOtherResourceController(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogPlanMetadataOtherTargetPlansItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogPlanMetadataOtherTargetPlansItem)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogPlanMetadataOtherTargetPlansItem
+			err = partnercentersellv1.UnmarshalGlobalCatalogPlanMetadataOtherTargetPlansItem(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -15419,6 +15707,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.Description = nil
 			model.DisplayName = nil
 			model.Options = nil
+			model.ApiTypes = []string{"testString"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -15522,6 +15811,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.SupportedAuthorizationSubjects = nil
 			model.SupportedRoles = nil
 			model.SupportedNetwork = nil
+			model.SupportedActionControl = []string{"testString"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -15639,6 +15929,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetwork)
 			model.EnvironmentAttributes = nil
+			model.Operations = nil
+			model.SelfManagedAllowlistEnforcement = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -15649,6 +15941,81 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.IamServiceRegistrationSupportedNetwork
 			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetwork(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamServiceRegistrationSupportedNetworkOperations successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
+			model.ApiTypes = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations
+			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkOperations(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+			model.Name = core.StringPtr("testString")
+			model.EnforcementMethod = []string{"testString"}
+			model.DisplayName = nil
+			model.Description = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems
+			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+			model.EventPublishing = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement
+			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+			model.ApiTypes = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing
+			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
