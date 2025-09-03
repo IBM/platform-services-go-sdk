@@ -1291,12 +1291,13 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		var randomInteger = strconv.Itoa(rand.Intn(1000))
-		roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
-		apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
-		apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", programmaticNameLink)
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
+			apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
+			apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", iamServiceRegistrationId)
+
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
 				Default: core.StringPtr("View dashboard"),
 				En:      core.StringPtr("View dashboard"),
@@ -1436,8 +1437,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
-				Name:        core.StringPtr(apiTypeCrn),
-				Description: iamServiceRegistrationDescriptionObjectModel,
+				Name:              core.StringPtr(apiTypeCrn),
+				EnforcementMethod: []string{"authz-network"},
+				Description:       iamServiceRegistrationDescriptionObjectModel,
 			}
 			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
 				Name:        core.StringPtr(apiTypeCrnCustom),
@@ -1449,18 +1451,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ApiTypes: []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel, *iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom},
 			}
 
-			iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing{
-				ApiTypes: []string{apiTypeCrnCustom},
-			}
-
-			iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement{
-				EventPublishing: iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel,
-			}
-
 			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{
-				EnvironmentAttributes:           []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel},
-				Operations:                      iamServiceRegistrationSupportedNetworkOperationsModel,
-				SelfManagedAllowlistEnforcement: iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementModel,
+				EnvironmentAttributes: []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel},
+				Operations:            iamServiceRegistrationSupportedNetworkOperationsModel,
 			}
 
 			createIamRegistrationOptions := &partnercentersellv1.CreateIamRegistrationOptions{
@@ -1476,8 +1469,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				SupportedAuthorizationSubjects: []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel},
 				SupportedRoles:                 []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel},
 				SupportedNetwork:               iamServiceRegistrationSupportedNetworkModel,
-				SupportedActionControl:         []string{"testString"},
-				Env:                            core.StringPtr("testString"),
+				SupportedActionControl:         []string{fmt.Sprintf("%s.dashboard.view", iamServiceRegistrationId)},
+				Env:                            core.StringPtr(env),
 			}
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
@@ -1497,6 +1490,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		It(`UpdateIamRegistration(updateIamRegistrationOptions *UpdateIamRegistrationOptions)`, func() {
 			var randomInteger = strconv.Itoa(rand.Intn(10000))
 			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
+			apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
+			apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", iamServiceRegistrationId)
 
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
 				Default: core.StringPtr("View dashboard"),
@@ -1639,7 +1634,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
 				Name:              core.StringPtr(apiTypeCrn),
 				EnforcementMethod: []string{"authz-network"},
-				DisplayName:       iamServiceRegistrationDisplayNameObjectModel,
 				Description:       iamServiceRegistrationDescriptionObjectModel,
 			}
 
@@ -1671,7 +1665,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				SupportedAuthorizationSubjects: []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel},
 				SupportedRoles:                 []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel},
 				SupportedNetwork:               iamServiceRegistrationSupportedNetworkModel,
-				SupportedActionControl:         []string{"testString"},
+				SupportedActionControl:         []string{fmt.Sprintf("%s.dashboard.view", iamServiceRegistrationId)},
 			}
 			iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
