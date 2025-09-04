@@ -24,6 +24,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
@@ -69,6 +70,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		productIdLink                         string
 		programmaticNameLink                  string
 		registrationIdLink                    string
+		iamServiceRegistrationId              string
 	)
 
 	var shouldSkipTest = func() {
@@ -99,6 +101,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			badgeId = config["BADGE_ID"]
 			Expect(badgeId).ToNot(BeEmpty())
+
+			iamServiceRegistrationId = config["IAM_REGISTRATION_ID"]
+			Expect(iamServiceRegistrationId).ToNot(BeEmpty())
 
 			shouldSkipTest = func() {}
 		})
@@ -562,7 +567,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				"pet-store",
+				iamServiceRegistrationId,
 			)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
@@ -584,14 +589,14 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`UpdateIamRegistration request example`, func() {
 			fmt.Println("\nUpdateIamRegistration() result:")
 			// begin-update_iam_registration
-
+			time.Sleep(25 * time.Second)
 			iamServiceRegistrationPatchModel := &partnercentersellv1.IamServiceRegistrationPatch{}
 			iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
 			updateIamRegistrationOptions := partnerCenterSellService.NewUpdateIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				programmaticNameLink,
+				iamServiceRegistrationId,
 				iamServiceRegistrationPatchModelAsPatch,
 			)
 
@@ -799,10 +804,11 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`GetIamRegistration request example`, func() {
 			fmt.Println("\nGetIamRegistration() result:")
 			// begin-get_iam_registration
+			time.Sleep(20 * time.Second)
 
 			getIamRegistrationOptions := partnerCenterSellService.NewGetIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				programmaticNameLink,
+				iamServiceRegistrationId,
 			)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.GetIamRegistration(getIamRegistrationOptions)
