@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2020, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,14 +57,14 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		config             map[string]string
 		configLoaded       bool = false
 
+		now        string = fmt.Sprint(time.Now().UnixNano() / int64(time.Millisecond))
 		serviceURL string
 
-		apikeyName    string = "Example-ApiKey"
-		serviceIDName string = "Example-ServiceId"
-		profileName   string = "Example-Profile"
+		apikeyName    string = "Go-SDK-Example-ApiKey-" + now
+		serviceIDName string = "Go-SDK-Example-ServiceId-" + now
+		profileName   string = "Go-SDK-Example-Profile-" + now
 		accountID     string
 		iamID         string
-		iamIDMember   string
 		iamAPIKey     string
 
 		apikeyID   string
@@ -74,7 +74,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		svcIDEtag string
 
 		serviceIDGroupId   string
-		serviceIDGroupName string = "Go-SDK-IT-ServiceId-Group"
+		serviceIDGroupName string = "Go-SDK-IT-ServiceId-Group-" + now
 		serviceIDGroupEtag string
 
 		profileId     string
@@ -89,14 +89,14 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 		enterpriseAccountID                   string
 		enterpriseSubAccountID                string
-		profileTemplateName                   string = "Example-Profile-Template"
-		profileTemplateProfileName            string = "Example-Profile-From-Template"
+		profileTemplateName                   string = "Go-SDK-Example-Profile-Template-" + now
+		profileTemplateProfileName            string = "Go-SDK-Example-Profile-From-Template-" + now
 		profileTemplateId                     string
 		profileTemplateVersion                int64
 		profileTemplateEtag                   string
 		profileTemplateAssignmentId           string
 		profileTemplateAssignmentEtag         string
-		accountSettingsTemplateName           string = "Example-AccountSettings-Template"
+		accountSettingsTemplateName           string = "Go-SDK-Example-AccountSettings-Template-" + now
 		accountSettingsTemplateId             string
 		accountSettingsTemplateVersion        int64
 		accountSettingsTemplateEtag           string
@@ -141,9 +141,6 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
 
-			iamIDMember = config["IAM_ID_MEMBER"]
-			Expect(iamIDMember).ToNot(BeEmpty())
-
 			iamAPIKey = config["APIKEY"]
 			Expect(iamAPIKey).ToNot(BeEmpty())
 
@@ -151,9 +148,6 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(enterpriseAccountID).ToNot(BeEmpty())
 
 			enterpriseSubAccountID = config["ENTERPRISE_SUBACCOUNT_ID"]
-			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
-
-			iamIDForPreferences = config["IAM_ID_FOR_PREFERENCES"]
 			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
 
 			fmt.Printf("Service URL: %s\n", serviceURL)
@@ -631,9 +625,11 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(profile, "", "  ")
 			fmt.Println(string(b))
-			profileId = *profile.ID
 
 			// end-create_profile
+
+			profileId = *profile.ID
+			iamIDForPreferences = *profile.IamID // to use later for preferences
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -981,12 +977,12 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				IfMatch:    &profileEtag,
 			}
 
-			profileIdnetities, response, err := iamIdentityService.SetProfileIdentities(&setProfileIdentitiesOptions)
+			profileIdentities, response, err := iamIdentityService.SetProfileIdentities(&setProfileIdentitiesOptions)
 
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(profileIdnetities, "", "  ")
+			b, _ := json.MarshalIndent(profileIdentities, "", "  ")
 			fmt.Println(string(b))
 
 			// end-set_profile_identities
@@ -994,7 +990,22 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(profileIdnetities).ToNot(BeNil())
+			Expect(profileIdentities).ToNot(BeNil())
+
+			// remove identity so it can be added again in the next test
+			deleteProfileIdentityOptions := iamidentityv1.DeleteProfileIdentityOptions{
+				ProfileID:    &profileId,
+				IdentityType: core.StringPtr("user"),
+				IdentifierID: &iamID,
+			}
+
+			deleteResponse, delErr := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
+
+			if delErr != nil {
+				panic(delErr)
+			}
+			Expect(delErr).To(BeNil())
+			Expect(deleteResponse.StatusCode).To(Equal(204))
 		})
 		It(`SetProfileIdentity request example`, func() {
 			fmt.Println("\nSetProfileIdentity() result:")
@@ -1004,18 +1015,18 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			setProfileIdentityOptions := iamidentityv1.SetProfileIdentityOptions{
 				ProfileID:    &profileId,
 				IdentityType: core.StringPtr("user"),
-				Identifier:   &iamIDMember,
+				Identifier:   &iamID,
 				Accounts:     accounts,
 				Type:         core.StringPtr("user"),
 				Description:  core.StringPtr("Identity description"),
 			}
 
-			profileIdnetity, response, err := iamIdentityService.SetProfileIdentity(&setProfileIdentityOptions)
+			profileIdentity, response, err := iamIdentityService.SetProfileIdentity(&setProfileIdentityOptions)
 
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(profileIdnetity, "", "  ")
+			b, _ := json.MarshalIndent(profileIdentity, "", "  ")
 			fmt.Println(string(b))
 
 			// end-set_profile_identity
@@ -1023,7 +1034,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(profileIdnetity).ToNot(BeNil())
+			Expect(profileIdentity).ToNot(BeNil())
 		})
 		It(`GetProfileIdentity request example`, func() {
 			fmt.Println("\nGetProfileIdentity() result:")
@@ -1032,15 +1043,15 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			getProfileIdentityOptions := iamidentityv1.GetProfileIdentityOptions{
 				ProfileID:    &profileId,
 				IdentityType: core.StringPtr("user"),
-				IdentifierID: &iamIDMember,
+				IdentifierID: &iamID,
 			}
 
-			profileIdnetity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
+			profileIdentity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
 
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(profileIdnetity, "", "  ")
+			b, _ := json.MarshalIndent(profileIdentity, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_profile_identity
@@ -1048,7 +1059,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(profileIdnetity).ToNot(BeNil())
+			Expect(profileIdentity).ToNot(BeNil())
 		})
 		It(`DeleteProfileIdentity request example`, func() {
 			fmt.Println("\nDeleteProfileIdentity() result:")
@@ -1057,7 +1068,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			deleteProfileIdentityOptions := iamidentityv1.DeleteProfileIdentityOptions{
 				ProfileID:    &profileId,
 				IdentityType: core.StringPtr("user"),
-				IdentifierID: &iamIDMember,
+				IdentifierID: &iamID,
 			}
 
 			response, err := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
@@ -1067,23 +1078,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 
 			// end-delete_profile_identity
-			fmt.Printf("\nGetProfileIdentity() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-		It(`DeleteProfile request example`, func() {
-			// begin-delete_profile
-
-			deleteProfileOptions := iamIdentityService.NewDeleteProfileOptions(profileId)
-
-			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_profile
-			fmt.Printf("\nDeleteProfile() response status code: %d\n", response.StatusCode)
+			fmt.Printf("\nDeleteProfileIdentity() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -1114,9 +1109,14 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateAccountSettings() result:")
 			// begin-updateAccountSettings
 
-			accountSettingsUserMFA := new(iamidentityv1.AccountSettingsUserMfa)
-			accountSettingsUserMFA.IamID = core.StringPtr(iamIDMember)
+			accountSettingsUserMFA := new(iamidentityv1.UserMfa)
+			accountSettingsUserMFA.IamID = core.StringPtr(iamID)
 			accountSettingsUserMFA.Mfa = core.StringPtr("NONE")
+
+			userDomainRestriction := new(iamidentityv1.AccountSettingsUserDomainRestriction)
+			userDomainRestriction.RealmID = core.StringPtr("IBMid")
+			userDomainRestriction.RestrictInvitation = core.BoolPtr(false)
+			userDomainRestriction.InvitationEmailAllowPatterns = []string{"**@**ibm.com"}
 
 			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
 				accountSettingEtag,
@@ -1125,7 +1125,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")
 			updateAccountSettingsOptions.SetSessionInvalidationInSeconds("7200")
 			updateAccountSettingsOptions.SetMfa("NONE")
-			updateAccountSettingsOptions.SetUserMfa([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMFA})
+			updateAccountSettingsOptions.SetUserMfa([]iamidentityv1.UserMfa{*accountSettingsUserMFA})
+			updateAccountSettingsOptions.SetRestrictUserListVisibility("NOT_RESTRICTED")
+			updateAccountSettingsOptions.SetRestrictUserDomains([]iamidentityv1.AccountSettingsUserDomainRestriction{*userDomainRestriction})
 			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
 			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
 			updateAccountSettingsOptions.SetSystemAccessTokenExpirationInSeconds("3600")
@@ -1559,10 +1561,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(updateResponse, "", "  ")
 			fmt.Println(string(b))
 
-			// Grab the Etag and id for use by other test methods.
-			profileTemplateAssignmentEtag = response.GetHeaders().Get("Etag")
-
 			// end-update_trusted_profile_assignment
+
+			profileTemplateAssignmentEtag = response.GetHeaders().Get("Etag")
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
@@ -1587,6 +1588,10 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(excResponse).To(BeNil())
 		})
 		It(`DeleteProfileTemplateVersion request example`, func() {
+			// we must wait for the assignment update to complete successfully. If it were to fail then there
+			// would be no way to roll back to the previous version if we allow that version to be deleted
+			waitUntilTrustedProfileAssignmentFinished(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+
 			fmt.Println("\nDeleteProfileTemplateVersion() result:")
 			// begin-delete_profile_template_version
 
@@ -1603,7 +1608,6 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteProfileTemplateAllVersions request example`, func() {
-			waitUntilTrustedProfileAssignmentFinished(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
 
 			fmt.Println("\nDeleteProfileTemplateAllVersions() result:")
 			// begin-delete_all_versions_of_profile_template
@@ -1949,6 +1953,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`deleteAccountSettingsTemplateVersion request example`, func() {
 
+			waitUntilAccountSettingsAssignmentFinished(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+
 			fmt.Println("\ndeleteAccountSettingsTemplateVersion() result:")
 			// begin-delete_account_settings_template_version
 
@@ -1966,8 +1972,6 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`deleteAllVersionsOfAccountSettingsTemplate request example`, func() {
 
-			waitUntilAccountSettingsAssignmentFinished(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
-
 			fmt.Println("\ndeleteAllVersionsOfAccountSettingsTemplate() result:")
 			// begin-delete_all_versions_of_account_settings_template
 
@@ -1983,6 +1987,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`UpdatePreferenceOnScopeAccount request example`, func() {
+			fmt.Println("\nUpdatePreferenceOnScopeAccount() result:")
 
 			// begin-update_preference_on_scope_account
 
@@ -1995,6 +2000,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 
 			preference, response, err := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptions)
+			b, _ := json.MarshalIndent(preference, "", "  ")
+			fmt.Println(string(b))
 
 			// end-update_preference_on_scope_account
 
@@ -2003,7 +2010,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(preference).ToNot(BeNil())
 		})
 		It(`GetPreferencesOnScopeAccount request example`, func() {
-
+			fmt.Println("\nGetPreferencesOnScopeAccount() result:")
 			// begin-get_preferences_on_scope_account
 
 			getPreferencesOnScopeAccountOptions := &iamidentityv1.GetPreferencesOnScopeAccountOptions{
@@ -2014,14 +2021,18 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 
 			preference, response, err := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptions)
+
+			b, _ := json.MarshalIndent(preference, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_preferences_on_scope_account
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(preference).ToNot(BeNil())
-
-			// end-get_preferences_on_scope_account
 		})
 		It(`GetAllPreferencesOnScopeAccount request example`, func() {
-
+			fmt.Println("\nGetAllPreferencesOnScopeAccount() result:")
 			// begin-get_all_preferences_on_scope_account
 
 			getAllPreferencesOnScopeAccountOptions := &iamidentityv1.GetAllPreferencesOnScopeAccountOptions{
@@ -2030,14 +2041,17 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 
 			preference, response, err := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptions)
+
+			b, _ := json.MarshalIndent(preference, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_all_preferences_on_scope_account
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(preference).ToNot(BeNil())
-
-			// end-get_all_preferences_on_scope_account
 		})
 		It(`DeletePreferencesOnScopeAccount request example`, func() {
-
+			fmt.Println("\nDeletePreferencesOnScopeAccount() result:")
 			// begin-delete_preferences_on_scope_account
 
 			deletePreferencesOnScopeAccountOptions := &iamidentityv1.DeletePreferencesOnScopeAccountOptions{
@@ -2049,10 +2063,28 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			response, err := iamIdentityService.DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptions)
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			fmt.Printf("\nDeletePreferencesOnScopeAccount() response status code: %d\n", response.StatusCode)
 
 			// end-delete_preferences_on_scope_account
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteProfile request example`, func() {
+			// begin-delete_profile
+
+			deleteProfileOptions := iamIdentityService.NewDeleteProfileOptions(profileId)
+
+			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_profile
+			fmt.Printf("\nDeleteProfile() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
