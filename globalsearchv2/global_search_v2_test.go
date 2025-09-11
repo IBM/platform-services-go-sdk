@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ package globalsearchv2_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -182,7 +184,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["is_reclaimed"]).To(Equal([]string{"false"}))
-					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["is_project_resource"]).To(Equal([]string{"false"}))
@@ -199,11 +200,14 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService).ToNot(BeNil())
 
+				// Construct an instance of the SearchRequestFirstCall model
+				searchRequestModel := new(globalsearchv2.SearchRequestFirstCall)
+				searchRequestModel.Query = core.StringPtr("testString")
+				searchRequestModel.Fields = []string{"testString"}
+
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(globalsearchv2.SearchOptions)
-				searchOptionsModel.Query = core.StringPtr("testString")
-				searchOptionsModel.Fields = []string{"testString"}
-				searchOptionsModel.SearchCursor = core.StringPtr("testString")
+				searchOptionsModel.Body = searchRequestModel
 				searchOptionsModel.XRequestID = core.StringPtr("testString")
 				searchOptionsModel.XCorrelationID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
@@ -212,7 +216,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.IsDeleted = core.StringPtr("false")
 				searchOptionsModel.IsReclaimed = core.StringPtr("false")
-				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
 				searchOptionsModel.IsProjectResource = core.StringPtr("false")
@@ -271,7 +274,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["is_reclaimed"]).To(Equal([]string{"false"}))
-					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["is_project_resource"]).To(Equal([]string{"false"}))
@@ -293,11 +295,14 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(globalSearchService).ToNot(BeNil())
 				globalSearchService.EnableRetries(0, 0)
 
+				// Construct an instance of the SearchRequestFirstCall model
+				searchRequestModel := new(globalsearchv2.SearchRequestFirstCall)
+				searchRequestModel.Query = core.StringPtr("testString")
+				searchRequestModel.Fields = []string{"testString"}
+
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(globalsearchv2.SearchOptions)
-				searchOptionsModel.Query = core.StringPtr("testString")
-				searchOptionsModel.Fields = []string{"testString"}
-				searchOptionsModel.SearchCursor = core.StringPtr("testString")
+				searchOptionsModel.Body = searchRequestModel
 				searchOptionsModel.XRequestID = core.StringPtr("testString")
 				searchOptionsModel.XCorrelationID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
@@ -306,7 +311,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.IsDeleted = core.StringPtr("false")
 				searchOptionsModel.IsReclaimed = core.StringPtr("false")
-				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
 				searchOptionsModel.IsProjectResource = core.StringPtr("false")
@@ -371,7 +375,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["is_reclaimed"]).To(Equal([]string{"false"}))
-					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["is_project_resource"]).To(Equal([]string{"false"}))
@@ -395,11 +398,14 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the SearchRequestFirstCall model
+				searchRequestModel := new(globalsearchv2.SearchRequestFirstCall)
+				searchRequestModel.Query = core.StringPtr("testString")
+				searchRequestModel.Fields = []string{"testString"}
+
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(globalsearchv2.SearchOptions)
-				searchOptionsModel.Query = core.StringPtr("testString")
-				searchOptionsModel.Fields = []string{"testString"}
-				searchOptionsModel.SearchCursor = core.StringPtr("testString")
+				searchOptionsModel.Body = searchRequestModel
 				searchOptionsModel.XRequestID = core.StringPtr("testString")
 				searchOptionsModel.XCorrelationID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
@@ -408,7 +414,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.IsDeleted = core.StringPtr("false")
 				searchOptionsModel.IsReclaimed = core.StringPtr("false")
-				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
 				searchOptionsModel.IsProjectResource = core.StringPtr("false")
@@ -421,7 +426,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke Search with error: Operation request error`, func() {
+			It(`Invoke Search with error: Operation validation and request error`, func() {
 				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -429,11 +434,14 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService).ToNot(BeNil())
 
+				// Construct an instance of the SearchRequestFirstCall model
+				searchRequestModel := new(globalsearchv2.SearchRequestFirstCall)
+				searchRequestModel.Query = core.StringPtr("testString")
+				searchRequestModel.Fields = []string{"testString"}
+
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(globalsearchv2.SearchOptions)
-				searchOptionsModel.Query = core.StringPtr("testString")
-				searchOptionsModel.Fields = []string{"testString"}
-				searchOptionsModel.SearchCursor = core.StringPtr("testString")
+				searchOptionsModel.Body = searchRequestModel
 				searchOptionsModel.XRequestID = core.StringPtr("testString")
 				searchOptionsModel.XCorrelationID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
@@ -442,7 +450,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.IsDeleted = core.StringPtr("false")
 				searchOptionsModel.IsReclaimed = core.StringPtr("false")
-				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
 				searchOptionsModel.IsProjectResource = core.StringPtr("false")
@@ -453,6 +460,13 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				result, response, operationErr := globalSearchService.Search(searchOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the SearchOptions model with no property values
+				searchOptionsModelNew := new(globalsearchv2.SearchOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = globalSearchService.Search(searchOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -477,11 +491,14 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService).ToNot(BeNil())
 
+				// Construct an instance of the SearchRequestFirstCall model
+				searchRequestModel := new(globalsearchv2.SearchRequestFirstCall)
+				searchRequestModel.Query = core.StringPtr("testString")
+				searchRequestModel.Fields = []string{"testString"}
+
 				// Construct an instance of the SearchOptions model
 				searchOptionsModel := new(globalsearchv2.SearchOptions)
-				searchOptionsModel.Query = core.StringPtr("testString")
-				searchOptionsModel.Fields = []string{"testString"}
-				searchOptionsModel.SearchCursor = core.StringPtr("testString")
+				searchOptionsModel.Body = searchRequestModel
 				searchOptionsModel.XRequestID = core.StringPtr("testString")
 				searchOptionsModel.XCorrelationID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
@@ -490,7 +507,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.IsDeleted = core.StringPtr("false")
 				searchOptionsModel.IsReclaimed = core.StringPtr("false")
-				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
 				searchOptionsModel.IsProjectResource = core.StringPtr("false")
@@ -516,11 +532,18 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewSearchOptions successfully`, func() {
+				// Construct an instance of the SearchRequestFirstCall model
+				searchRequestModel := new(globalsearchv2.SearchRequestFirstCall)
+				Expect(searchRequestModel).ToNot(BeNil())
+				searchRequestModel.Query = core.StringPtr("testString")
+				searchRequestModel.Fields = []string{"testString"}
+				Expect(searchRequestModel.Query).To(Equal(core.StringPtr("testString")))
+				Expect(searchRequestModel.Fields).To(Equal([]string{"testString"}))
+
 				// Construct an instance of the SearchOptions model
-				searchOptionsModel := globalSearchService.NewSearchOptions()
-				searchOptionsModel.SetQuery("testString")
-				searchOptionsModel.SetFields([]string{"testString"})
-				searchOptionsModel.SetSearchCursor("testString")
+				var body globalsearchv2.SearchRequestIntf = nil
+				searchOptionsModel := globalSearchService.NewSearchOptions(body)
+				searchOptionsModel.SetBody(searchRequestModel)
 				searchOptionsModel.SetXRequestID("testString")
 				searchOptionsModel.SetXCorrelationID("testString")
 				searchOptionsModel.SetAccountID("testString")
@@ -529,15 +552,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SetSort([]string{"testString"})
 				searchOptionsModel.SetIsDeleted("false")
 				searchOptionsModel.SetIsReclaimed("false")
-				searchOptionsModel.SetIsPublic("false")
 				searchOptionsModel.SetImpersonateUser("testString")
 				searchOptionsModel.SetCanTag("false")
 				searchOptionsModel.SetIsProjectResource("false")
 				searchOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(searchOptionsModel).ToNot(BeNil())
-				Expect(searchOptionsModel.Query).To(Equal(core.StringPtr("testString")))
-				Expect(searchOptionsModel.Fields).To(Equal([]string{"testString"}))
-				Expect(searchOptionsModel.SearchCursor).To(Equal(core.StringPtr("testString")))
+				Expect(searchOptionsModel.Body).To(Equal(searchRequestModel))
 				Expect(searchOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -546,18 +566,89 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(searchOptionsModel.Sort).To(Equal([]string{"testString"}))
 				Expect(searchOptionsModel.IsDeleted).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.IsReclaimed).To(Equal(core.StringPtr("false")))
-				Expect(searchOptionsModel.IsPublic).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.CanTag).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.IsProjectResource).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewSearchRequestFirstCall successfully`, func() {
+				query := "testString"
+				_model, err := globalSearchService.NewSearchRequestFirstCall(query)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSearchRequestNextCall successfully`, func() {
+				searchCursor := "testString"
+				_model, err := globalSearchService.NewSearchRequestNextCall(searchCursor)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalSearchRequest successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalsearchv2.SearchRequest)
+			model.Query = core.StringPtr("testString")
+			model.Fields = []string{"testString"}
+			model.SearchCursor = core.StringPtr("testString")
 
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalsearchv2.SearchRequest
+			err = globalsearchv2.UnmarshalSearchRequest(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSearchRequestFirstCall successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalsearchv2.SearchRequestFirstCall)
+			model.Query = core.StringPtr("testString")
+			model.Fields = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalsearchv2.SearchRequestFirstCall
+			err = globalsearchv2.UnmarshalSearchRequestFirstCall(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSearchRequestNextCall successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globalsearchv2.SearchRequestNextCall)
+			model.SearchCursor = core.StringPtr("testString")
+			model.Query = core.StringPtr("testString")
+			model.Fields = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globalsearchv2.SearchRequestNextCall
+			err = globalsearchv2.UnmarshalSearchRequestNextCall(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -583,8 +674,11 @@ var _ = Describe(`GlobalSearchV2`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 

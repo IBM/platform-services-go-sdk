@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.87.0-91c7c775-20240320-213027
+ * IBM OpenAPI SDK Code Generator Version: 3.100.0-2ad7a784-20250212-162551
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -178,21 +178,18 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 
 // Search : Find instances of resources (v3)
 // Find IAM-enabled resources or storage and network resources that run on classic infrastructure in a specific account
-// ID. You can apply query strings if necessary.
-//
-// To filter results, you can insert a string by using the Lucene syntax and the query string is parsed into a series of
-// terms and operators. A term can be a single word or a phrase, in which case the search is performed for all the
-// words, in the same order. To filter for a specific value regardless of the property that contains it, type the search
-// term without specifying a field. Only resources that belong to the account ID and that are accessible by the client
-// are returned.
+// ID.
 //
 // You must use `/v3/resources/search` when you need to fetch more than `10000` resource items. On the first call, the
 // operation returns a live cursor on the data that you must use on all the subsequent calls to get the next batch of
 // results until you get the empty result set.
 //
-// By default, the fields that are returned for every resource are `crn`, `name`,
-// `family`, `type`, and `account_id`. You can specify the subset of the fields you want in your request using the
-// `fields` request body attribute. Set `"fields": ["*"]` to discover the set of fields which are available to request.
+// To filter results, you can apply query strings following the *Lucene* query syntax.
+//
+// By default, the fields that are returned for every resource are **crn**, **name**,
+// **family**, **type**, and **account_id**. You can specify the subset of the fields you want in your request using the
+// `fields` request body attribute. Set `"fields": ["*"]` to discover the complete set of fields which are available to
+// request.
 func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
 	result, response, err = globalSearch.SearchWithContext(context.Background(), searchOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -256,9 +253,6 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	if searchOptions.IsReclaimed != nil {
 		builder.AddQuery("is_reclaimed", fmt.Sprint(*searchOptions.IsReclaimed))
 	}
-	if searchOptions.IsPublic != nil {
-		builder.AddQuery("is_public", fmt.Sprint(*searchOptions.IsPublic))
-	}
 	if searchOptions.ImpersonateUser != nil {
 		builder.AddQuery("impersonate_user", fmt.Sprint(*searchOptions.ImpersonateUser))
 	}
@@ -269,17 +263,7 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 		builder.AddQuery("is_project_resource", fmt.Sprint(*searchOptions.IsProjectResource))
 	}
 
-	body := make(map[string]interface{})
-	if searchOptions.Query != nil {
-		body["query"] = searchOptions.Query
-	}
-	if searchOptions.Fields != nil {
-		body["fields"] = searchOptions.Fields
-	}
-	if searchOptions.SearchCursor != nil {
-		body["search_cursor"] = searchOptions.SearchCursor
-	}
-	_, err = builder.SetBodyContentJSON(body)
+	_, err = builder.SetBodyContentJSON(searchOptions.Body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
@@ -315,15 +299,16 @@ func getServiceComponentInfo() *core.ProblemComponent {
 
 // ResultItem : A resource returned in a search result, which is identified by its `crn`. It contains other properties that depend on
 // the resource type.
+// This type supports additional properties of type interface{}.
 type ResultItem struct {
 	// Resource identifier in CRN format.
 	CRN *string `json:"crn" validate:"required"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type interface{}.
 	additionalProperties map[string]interface{}
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of ResultItem
+// SetProperty allows the user to set an arbitrary property on an instance of ResultItem.
 func (o *ResultItem) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
@@ -331,7 +316,7 @@ func (o *ResultItem) SetProperty(key string, value interface{}) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of ResultItem
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResultItem.
 func (o *ResultItem) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
@@ -339,12 +324,12 @@ func (o *ResultItem) SetProperties(m map[string]interface{}) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of ResultItem
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResultItem.
 func (o *ResultItem) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResultItem
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResultItem.
 func (o *ResultItem) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
@@ -427,17 +412,11 @@ func UnmarshalScanResult(m map[string]json.RawMessage, result interface{}) (err 
 
 // SearchOptions : The Search options.
 type SearchOptions struct {
-	// The Lucene-formatted query string. Default to '*' if not set.
-	Query *string `json:"query,omitempty"`
-
-	// The list of the fields returned by the search. By default, the returned fields are the `account_id`, `name`, `type`,
-	// `family`, and `crn`. For all queries, `crn` is always returned. You may set `"fields": ["*"]` to discover the set of
-	// fields available to request.
-	Fields []string `json:"fields,omitempty"`
-
-	// An opaque cursor that is returned on each call and that must be set on the subsequent call to get the next batch of
-	// items. If the search returns no items, then the search_cursor is not present in the response.
-	SearchCursor *string `json:"search_cursor,omitempty"`
+	// It contains the query filters on the first operation call, or the search_cursor on next calls. On subsequent calls,
+	// set the `search_cursor` to the value returned by the previous call. After the first, you must set only the
+	// `search_cursor`. Any other parameter but the `search_cursor` are ignored. The `search_cursor` encodes all the
+	// information that needs to get the next batch of `limit` data.
+	Body SearchRequestIntf `json:"body" validate:"required"`
 
 	// An alphanumeric string that is used to trace the request. The value  may include ASCII alphanumerics and any of
 	// following segment separators: space ( ), comma (,), hyphen, (-), and underscore (_) and may have a length up to 1024
@@ -477,11 +456,6 @@ type SearchOptions struct {
 	// both reclaimed and not reclaimed documents are returned.
 	IsReclaimed *string `json:"is_reclaimed,omitempty"`
 
-	// Determines if public resources should be included in result set or not. Possible values are false (default), true or
-	// any. If false, do not search public resources; if true, search only public resources; If any, search also public
-	// resources.
-	IsPublic *string `json:"is_public,omitempty"`
-
 	// The user on whose behalf the search must be performed. Only a GhoST admin can impersonate a user, so be sure you set
 	// a GhoST admin IAM token in the Authorization header if you set this parameter. (_for administrators only_).
 	ImpersonateUser *string `json:"impersonate_user,omitempty"`
@@ -497,7 +471,7 @@ type SearchOptions struct {
 	// authorized ServiceIds can use this query parameter.
 	IsProjectResource *string `json:"is_project_resource,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -521,16 +495,6 @@ const (
 	SearchOptionsIsReclaimedTrueConst = "true"
 )
 
-// Constants associated with the SearchOptions.IsPublic property.
-// Determines if public resources should be included in result set or not. Possible values are false (default), true or
-// any. If false, do not search public resources; if true, search only public resources; If any, search also public
-// resources.
-const (
-	SearchOptionsIsPublicAnyConst = "any"
-	SearchOptionsIsPublicFalseConst = "false"
-	SearchOptionsIsPublicTrueConst = "true"
-)
-
 // Constants associated with the SearchOptions.CanTag property.
 // Determines if the result set must return the resources that the user can tag or the resources that the user can view
 // (only a GhoST admin can use this parameter). If false (default), only resources user can view are returned; if true,
@@ -552,25 +516,15 @@ const (
 )
 
 // NewSearchOptions : Instantiate SearchOptions
-func (*GlobalSearchV2) NewSearchOptions() *SearchOptions {
-	return &SearchOptions{}
+func (*GlobalSearchV2) NewSearchOptions(body SearchRequestIntf) *SearchOptions {
+	return &SearchOptions{
+		Body: body,
+	}
 }
 
-// SetQuery : Allow user to set Query
-func (_options *SearchOptions) SetQuery(query string) *SearchOptions {
-	_options.Query = core.StringPtr(query)
-	return _options
-}
-
-// SetFields : Allow user to set Fields
-func (_options *SearchOptions) SetFields(fields []string) *SearchOptions {
-	_options.Fields = fields
-	return _options
-}
-
-// SetSearchCursor : Allow user to set SearchCursor
-func (_options *SearchOptions) SetSearchCursor(searchCursor string) *SearchOptions {
-	_options.SearchCursor = core.StringPtr(searchCursor)
+// SetBody : Allow user to set Body
+func (_options *SearchOptions) SetBody(body SearchRequestIntf) *SearchOptions {
+	_options.Body = body
 	return _options
 }
 
@@ -622,12 +576,6 @@ func (_options *SearchOptions) SetIsReclaimed(isReclaimed string) *SearchOptions
 	return _options
 }
 
-// SetIsPublic : Allow user to set IsPublic
-func (_options *SearchOptions) SetIsPublic(isPublic string) *SearchOptions {
-	_options.IsPublic = core.StringPtr(isPublic)
-	return _options
-}
-
 // SetImpersonateUser : Allow user to set ImpersonateUser
 func (_options *SearchOptions) SetImpersonateUser(impersonateUser string) *SearchOptions {
 	_options.ImpersonateUser = core.StringPtr(impersonateUser)
@@ -650,4 +598,152 @@ func (_options *SearchOptions) SetIsProjectResource(isProjectResource string) *S
 func (options *SearchOptions) SetHeaders(param map[string]string) *SearchOptions {
 	options.Headers = param
 	return options
+}
+
+// SearchRequest : SearchRequest struct
+// Models which "extend" this model:
+// - SearchRequestFirstCall
+// - SearchRequestNextCall
+type SearchRequest struct {
+	// The Lucene-formatted query string. Default to '*' if not set.
+	Query *string `json:"query,omitempty"`
+
+	// The list of the fields returned by the search. By default, the returned fields are the `account_id`, `name`, `type`,
+	// `family`, and `crn`. For all queries, `crn` is always returned. You may set `"fields": ["*"]` to discover the set of
+	// fields available to request.
+	Fields []string `json:"fields,omitempty"`
+
+	// An opaque cursor that is returned on each call and that must be set on the subsequent call to get the next batch of
+	// items. If the search returns no items, then the search_cursor is not present in the response. NOTE: any other
+	// properties present in the body will be ignored.
+	SearchCursor *string `json:"search_cursor,omitempty"`
+}
+func (*SearchRequest) isaSearchRequest() bool {
+	return true
+}
+
+type SearchRequestIntf interface {
+	isaSearchRequest() bool
+}
+
+// UnmarshalSearchRequest unmarshals an instance of SearchRequest from the specified map of raw messages.
+func UnmarshalSearchRequest(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SearchRequest)
+	err = core.UnmarshalPrimitive(m, "query", &obj.Query)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "query-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "fields", &obj.Fields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "fields-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "search_cursor", &obj.SearchCursor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "search_cursor-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SearchRequestFirstCall : The request body when calling the first time the v3 search.
+// This model "extends" SearchRequest
+type SearchRequestFirstCall struct {
+	// The Lucene-formatted query string. Default to '*' if not set.
+	Query *string `json:"query" validate:"required"`
+
+	// The list of the fields returned by the search. By default, the returned fields are the `account_id`, `name`, `type`,
+	// `family`, and `crn`. For all queries, `crn` is always returned. You may set `"fields": ["*"]` to discover the set of
+	// fields available to request.
+	Fields []string `json:"fields,omitempty"`
+}
+
+// NewSearchRequestFirstCall : Instantiate SearchRequestFirstCall (Generic Model Constructor)
+func (*GlobalSearchV2) NewSearchRequestFirstCall(query string) (_model *SearchRequestFirstCall, err error) {
+	_model = &SearchRequestFirstCall{
+		Query: core.StringPtr(query),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*SearchRequestFirstCall) isaSearchRequest() bool {
+	return true
+}
+
+// UnmarshalSearchRequestFirstCall unmarshals an instance of SearchRequestFirstCall from the specified map of raw messages.
+func UnmarshalSearchRequestFirstCall(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SearchRequestFirstCall)
+	err = core.UnmarshalPrimitive(m, "query", &obj.Query)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "query-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "fields", &obj.Fields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "fields-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SearchRequestNextCall : The request body when calling the v3 search as second or next time, in order to retrieve further items.
+// This model "extends" SearchRequest
+type SearchRequestNextCall struct {
+	// An opaque cursor that is returned on each call and that must be set on the subsequent call to get the next batch of
+	// items. If the search returns no items, then the search_cursor is not present in the response. NOTE: any other
+	// properties present in the body will be ignored.
+	SearchCursor *string `json:"search_cursor" validate:"required"`
+
+	// The Lucene-formatted query string. Default to '*' if not set.
+	Query *string `json:"query,omitempty"`
+
+	// The list of the fields returned by the search. By default, the returned fields are the `account_id`, `name`, `type`,
+	// `family`, and `crn`. For all queries, `crn` is always returned. You may set `"fields": ["*"]` to discover the set of
+	// fields available to request.
+	Fields []string `json:"fields,omitempty"`
+}
+
+// NewSearchRequestNextCall : Instantiate SearchRequestNextCall (Generic Model Constructor)
+func (*GlobalSearchV2) NewSearchRequestNextCall(searchCursor string) (_model *SearchRequestNextCall, err error) {
+	_model = &SearchRequestNextCall{
+		SearchCursor: core.StringPtr(searchCursor),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*SearchRequestNextCall) isaSearchRequest() bool {
+	return true
+}
+
+// UnmarshalSearchRequestNextCall unmarshals an instance of SearchRequestNextCall from the specified map of raw messages.
+func UnmarshalSearchRequestNextCall(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SearchRequestNextCall)
+	err = core.UnmarshalPrimitive(m, "search_cursor", &obj.SearchCursor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "search_cursor-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "query", &obj.Query)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "query-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "fields", &obj.Fields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "fields-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
