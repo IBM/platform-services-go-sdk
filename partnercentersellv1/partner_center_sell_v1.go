@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.104.0-b4a47c49-20250418-184351
+ * IBM OpenAPI SDK Code Generator Version: 3.107.1-41b0fbd0-20250825-080732
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -200,12 +200,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateRegistrationWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range createRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -292,12 +292,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetRegistrationWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range getRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -361,12 +361,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateRegistrationWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range updateRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -437,12 +437,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteRegistrationWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range deleteRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -493,12 +493,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateOnboardingProductWithContext
 		return
 	}
 
-	for headerName, headerValue := range createOnboardingProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateOnboardingProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateOnboardingProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createOnboardingProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -591,12 +591,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetOnboardingProductWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range getOnboardingProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetOnboardingProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetOnboardingProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getOnboardingProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -660,12 +660,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateOnboardingProductWithContext
 		return
 	}
 
-	for headerName, headerValue := range updateOnboardingProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateOnboardingProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateOnboardingProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateOnboardingProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -736,12 +736,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteOnboardingProductWithContext
 		return
 	}
 
-	for headerName, headerValue := range deleteOnboardingProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteOnboardingProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteOnboardingProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteOnboardingProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -796,12 +796,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogProductWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range createCatalogProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateCatalogProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateCatalogProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createCatalogProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -911,12 +911,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetCatalogProductWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getCatalogProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetCatalogProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetCatalogProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -985,12 +985,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateCatalogProductWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range updateCatalogProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateCatalogProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateCatalogProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateCatalogProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1066,12 +1066,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteCatalogProductWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range deleteCatalogProductOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteCatalogProduct")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteCatalogProduct")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteCatalogProductOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1130,12 +1130,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogPlanWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range createCatalogPlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateCatalogPlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateCatalogPlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createCatalogPlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1246,12 +1246,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetCatalogPlanWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range getCatalogPlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetCatalogPlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetCatalogPlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogPlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1321,12 +1321,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateCatalogPlanWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range updateCatalogPlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateCatalogPlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateCatalogPlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateCatalogPlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1403,12 +1403,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteCatalogPlanWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range deleteCatalogPlanOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteCatalogPlan")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteCatalogPlan")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteCatalogPlanOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1469,12 +1469,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogDeploymentWithContext
 		return
 	}
 
-	for headerName, headerValue := range createCatalogDeploymentOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateCatalogDeployment")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateCatalogDeployment")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createCatalogDeploymentOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1583,12 +1583,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetCatalogDeploymentWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range getCatalogDeploymentOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetCatalogDeployment")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetCatalogDeployment")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getCatalogDeploymentOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1659,12 +1659,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateCatalogDeploymentWithContext
 		return
 	}
 
-	for headerName, headerValue := range updateCatalogDeploymentOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateCatalogDeployment")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateCatalogDeployment")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateCatalogDeploymentOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1742,12 +1742,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteCatalogDeploymentWithContext
 		return
 	}
 
-	for headerName, headerValue := range deleteCatalogDeploymentOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteCatalogDeployment")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteCatalogDeployment")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteCatalogDeploymentOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1805,12 +1805,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateIamRegistrationWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range createIamRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateIamRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateIamRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createIamRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1859,6 +1859,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateIamRegistrationWithContext(c
 	}
 	if createIamRegistrationOptions.SupportedNetwork != nil {
 		body["supported_network"] = createIamRegistrationOptions.SupportedNetwork
+	}
+	if createIamRegistrationOptions.SupportedActionControl != nil {
+		body["supported_action_control"] = createIamRegistrationOptions.SupportedActionControl
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1926,12 +1929,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateIamRegistrationWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range updateIamRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateIamRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateIamRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateIamRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2007,12 +2010,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteIamRegistrationWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range deleteIamRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteIamRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteIamRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteIamRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -2071,12 +2074,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetIamRegistrationWithContext(ctx 
 		return
 	}
 
-	for headerName, headerValue := range getIamRegistrationOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetIamRegistration")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetIamRegistration")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getIamRegistrationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2140,12 +2143,12 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateResourceBrokerWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range createResourceBrokerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateResourceBroker")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "CreateResourceBroker")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createResourceBrokerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2254,12 +2257,12 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateResourceBrokerWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range updateResourceBrokerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateResourceBroker")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "UpdateResourceBroker")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range updateResourceBrokerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2334,12 +2337,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetResourceBrokerWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getResourceBrokerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetResourceBroker")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetResourceBroker")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getResourceBrokerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2407,12 +2410,12 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteResourceBrokerWithContext(ct
 		return
 	}
 
-	for headerName, headerValue := range deleteResourceBrokerOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteResourceBroker")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "DeleteResourceBroker")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteResourceBrokerOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -2464,12 +2467,12 @@ func (partnerCenterSell *PartnerCenterSellV1) ListProductBadgesWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range listProductBadgesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "ListProductBadges")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "ListProductBadges")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listProductBadgesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -2540,12 +2543,12 @@ func (partnerCenterSell *PartnerCenterSellV1) GetProductBadgeWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range getProductBadgeOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetProductBadge")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "GetProductBadge")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getProductBadgeOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -3201,7 +3204,7 @@ func (catalogProductProvider *CatalogProductProvider) asPatch() (_patch map[stri
 
 // CreateCatalogDeploymentOptions : The CreateCatalogDeployment options.
 type CreateCatalogDeploymentOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -3361,7 +3364,7 @@ func (options *CreateCatalogDeploymentOptions) SetHeaders(param map[string]strin
 
 // CreateCatalogPlanOptions : The CreateCatalogPlan options.
 type CreateCatalogPlanOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -3520,7 +3523,7 @@ func (options *CreateCatalogPlanOptions) SetHeaders(param map[string]string) *Cr
 
 // CreateCatalogProductOptions : The CreateCatalogProduct options.
 type CreateCatalogProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The programmatic name of this product.
@@ -3673,7 +3676,7 @@ func (options *CreateCatalogProductOptions) SetHeaders(param map[string]string) 
 
 // CreateIamRegistrationOptions : The CreateIamRegistration options.
 type CreateIamRegistrationOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The IAM registration name, which must be the programmatic name of the product.
@@ -3716,6 +3719,9 @@ type CreateIamRegistrationOptions struct {
 	// attribute. This constrains the context-based restriction rules specific to the service such that they describe
 	// access restrictions on only this set of endpoints.
 	SupportedNetwork *IamServiceRegistrationSupportedNetwork `json:"supported_network,omitempty"`
+
+	// The list that indicates which actions are part of the service restrictions.
+	SupportedActionControl []string `json:"supported_action_control,omitempty"`
 
 	// The environment to fetch this object from.
 	Env *string `json:"env,omitempty"`
@@ -3820,6 +3826,12 @@ func (_options *CreateIamRegistrationOptions) SetSupportedRoles(supportedRoles [
 // SetSupportedNetwork : Allow user to set SupportedNetwork
 func (_options *CreateIamRegistrationOptions) SetSupportedNetwork(supportedNetwork *IamServiceRegistrationSupportedNetwork) *CreateIamRegistrationOptions {
 	_options.SupportedNetwork = supportedNetwork
+	return _options
+}
+
+// SetSupportedActionControl : Allow user to set SupportedActionControl
+func (_options *CreateIamRegistrationOptions) SetSupportedActionControl(supportedActionControl []string) *CreateIamRegistrationOptions {
+	_options.SupportedActionControl = supportedActionControl
 	return _options
 }
 
@@ -4152,7 +4164,7 @@ func (options *CreateResourceBrokerOptions) SetHeaders(param map[string]string) 
 
 // DeleteCatalogDeploymentOptions : The DeleteCatalogDeployment options.
 type DeleteCatalogDeploymentOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -4219,7 +4231,7 @@ func (options *DeleteCatalogDeploymentOptions) SetHeaders(param map[string]strin
 
 // DeleteCatalogPlanOptions : The DeleteCatalogPlan options.
 type DeleteCatalogPlanOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -4276,7 +4288,7 @@ func (options *DeleteCatalogPlanOptions) SetHeaders(param map[string]string) *De
 
 // DeleteCatalogProductOptions : The DeleteCatalogProduct options.
 type DeleteCatalogProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -4323,7 +4335,7 @@ func (options *DeleteCatalogProductOptions) SetHeaders(param map[string]string) 
 
 // DeleteIamRegistrationOptions : The DeleteIamRegistration options.
 type DeleteIamRegistrationOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The approved programmatic name of the product.
@@ -4370,7 +4382,7 @@ func (options *DeleteIamRegistrationOptions) SetHeaders(param map[string]string)
 
 // DeleteOnboardingProductOptions : The DeleteOnboardingProduct options.
 type DeleteOnboardingProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests.
@@ -4550,7 +4562,7 @@ func (environmentAttributeOptions *EnvironmentAttributeOptions) asPatch() (_patc
 
 // GetCatalogDeploymentOptions : The GetCatalogDeployment options.
 type GetCatalogDeploymentOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -4617,7 +4629,7 @@ func (options *GetCatalogDeploymentOptions) SetHeaders(param map[string]string) 
 
 // GetCatalogPlanOptions : The GetCatalogPlan options.
 type GetCatalogPlanOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -4674,7 +4686,7 @@ func (options *GetCatalogPlanOptions) SetHeaders(param map[string]string) *GetCa
 
 // GetCatalogProductOptions : The GetCatalogProduct options.
 type GetCatalogProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -4721,7 +4733,7 @@ func (options *GetCatalogProductOptions) SetHeaders(param map[string]string) *Ge
 
 // GetIamRegistrationOptions : The GetIamRegistration options.
 type GetIamRegistrationOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The approved programmatic name of the product.
@@ -4768,7 +4780,7 @@ func (options *GetIamRegistrationOptions) SetHeaders(param map[string]string) *G
 
 // GetOnboardingProductOptions : The GetOnboardingProduct options.
 type GetOnboardingProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests.
@@ -5489,7 +5501,7 @@ type GlobalCatalogMetadataServiceCustomParameters struct {
 	// Specifies the layout of check box or radio input types. When unspecified, the default layout is horizontal.
 	Layout *string `json:"layout,omitempty"`
 
-	// A JSON to describe other parameters or plan that are associated to this parameter.
+	// A JSON to describe other parameters or plans associated with this parameter.
 	Associations *GlobalCatalogMetadataServiceCustomParametersAssociations `json:"associations,omitempty"`
 
 	// The validation URL for custom service parameters.
@@ -5697,11 +5709,11 @@ func (globalCatalogMetadataServiceCustomParameters *GlobalCatalogMetadataService
 	return
 }
 
-// GlobalCatalogMetadataServiceCustomParametersAssociations : A JSON to describe other parameters or plan that are associated to this parameter.
+// GlobalCatalogMetadataServiceCustomParametersAssociations : A JSON to describe other parameters or plans associated with this parameter.
 type GlobalCatalogMetadataServiceCustomParametersAssociations struct {
 	Plan *GlobalCatalogMetadataServiceCustomParametersAssociationsPlan `json:"plan,omitempty"`
 
-	// Indicate this parameter is associated to some other parameters.
+	// Indicates whether this parameter is associated with any other parameters.
 	Parameters []GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem `json:"parameters,omitempty"`
 
 	Location *GlobalCatalogMetadataServiceCustomParametersAssociationsLocation `json:"location,omitempty"`
@@ -5751,7 +5763,7 @@ func (globalCatalogMetadataServiceCustomParametersAssociations *GlobalCatalogMet
 
 // GlobalCatalogMetadataServiceCustomParametersAssociationsLocation : GlobalCatalogMetadataServiceCustomParametersAssociationsLocation struct
 type GlobalCatalogMetadataServiceCustomParametersAssociationsLocation struct {
-	// An array of pricing plan IDs, or parameters or locations depending on parent.
+	// An array of pricing plan IDs, parameters or locations depending on parent.
 	ShowFor []string `json:"show_for,omitempty"`
 }
 
@@ -5779,13 +5791,13 @@ func (globalCatalogMetadataServiceCustomParametersAssociationsLocation *GlobalCa
 
 // GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem : GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem struct
 type GlobalCatalogMetadataServiceCustomParametersAssociationsParametersItem struct {
-	// Indicate this parameter is associated to some other parameters.
+	// Indicates whether this parameter is associated with any other parameters.
 	Name *string `json:"name,omitempty"`
 
-	// An array of pricing plan IDs, or parameters or locations depending on parent.
+	// An array of pricing plan IDs, parameters or locations depending on parent.
 	ShowFor []string `json:"show_for,omitempty"`
 
-	// Indicate if re-fetching the options is needed when the plan changed.
+	// Indicates whether re-fetching the options is needed when the plan changes.
 	OptionsRefresh *bool `json:"options_refresh,omitempty"`
 }
 
@@ -5829,10 +5841,10 @@ func (globalCatalogMetadataServiceCustomParametersAssociationsParametersItem *Gl
 
 // GlobalCatalogMetadataServiceCustomParametersAssociationsPlan : GlobalCatalogMetadataServiceCustomParametersAssociationsPlan struct
 type GlobalCatalogMetadataServiceCustomParametersAssociationsPlan struct {
-	// An array of pricing plan IDs, or parameters or locations depending on parent.
+	// An array of pricing plan IDs, parameters or locations depending on parent.
 	ShowFor []string `json:"show_for,omitempty"`
 
-	// Indicate if re-fetching the options is needed when the plan changed.
+	// Indicates whether re-fetching the options is needed when the plan changes.
 	OptionsRefresh *bool `json:"options_refresh,omitempty"`
 }
 
@@ -6168,7 +6180,7 @@ type GlobalCatalogMetadataUIStringsContent struct {
 	// The list of supporting media for this product.
 	Media []CatalogProductMediaItem `json:"media,omitempty"`
 
-	// List of custom navigation panel.
+	// The list of custom navigation panels.
 	NavigationItems []GlobalCatalogMetadataUINavigationItem `json:"navigation_items,omitempty"`
 }
 
@@ -6579,6 +6591,10 @@ func UnmarshalGlobalCatalogPlanMetadata(m map[string]json.RawMessage, result int
 type GlobalCatalogPlanMetadataOther struct {
 	// The resource controller metadata.
 	ResourceController *GlobalCatalogPlanMetadataOtherResourceController `json:"resource_controller,omitempty"`
+
+	// The selection of applicable plans.The resource controller can use this metadata to validate the plan update requests
+	// based on the plan name.
+	TargetPlans []GlobalCatalogPlanMetadataOtherTargetPlansItem `json:"target_plans,omitempty"`
 }
 
 // UnmarshalGlobalCatalogPlanMetadataOther unmarshals an instance of GlobalCatalogPlanMetadataOther from the specified map of raw messages.
@@ -6587,6 +6603,11 @@ func UnmarshalGlobalCatalogPlanMetadataOther(m map[string]json.RawMessage, resul
 	err = core.UnmarshalModel(m, "resource_controller", &obj.ResourceController, UnmarshalGlobalCatalogPlanMetadataOtherResourceController)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "resource_controller-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "target_plans", &obj.TargetPlans, UnmarshalGlobalCatalogPlanMetadataOtherTargetPlansItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_plans-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6598,6 +6619,13 @@ func (globalCatalogPlanMetadataOther *GlobalCatalogPlanMetadataOther) asPatch() 
 	_patch = map[string]interface{}{}
 	if !core.IsNil(globalCatalogPlanMetadataOther.ResourceController) {
 		_patch["resource_controller"] = globalCatalogPlanMetadataOther.ResourceController.asPatch()
+	}
+	if !core.IsNil(globalCatalogPlanMetadataOther.TargetPlans) {
+		var targetPlansPatches []map[string]interface{}
+		for _, targetPlans := range globalCatalogPlanMetadataOther.TargetPlans {
+			targetPlansPatches = append(targetPlansPatches, targetPlans.asPatch())
+		}
+		_patch["target_plans"] = targetPlansPatches
 	}
 
 	return
@@ -6626,6 +6654,45 @@ func (globalCatalogPlanMetadataOtherResourceController *GlobalCatalogPlanMetadat
 	_patch = map[string]interface{}{}
 	if !core.IsNil(globalCatalogPlanMetadataOtherResourceController.SubscriptionProviderID) {
 		_patch["subscription_provider_id"] = globalCatalogPlanMetadataOtherResourceController.SubscriptionProviderID
+	}
+
+	return
+}
+
+// GlobalCatalogPlanMetadataOtherTargetPlansItem : The resource controller metadata.
+type GlobalCatalogPlanMetadataOtherTargetPlansItem struct {
+	// The plan ID for the resource controller to validate the plan update requests.
+	ID *string `json:"id,omitempty"`
+
+	// The plan name for the resource controller to validate the plan update requests.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalGlobalCatalogPlanMetadataOtherTargetPlansItem unmarshals an instance of GlobalCatalogPlanMetadataOtherTargetPlansItem from the specified map of raw messages.
+func UnmarshalGlobalCatalogPlanMetadataOtherTargetPlansItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogPlanMetadataOtherTargetPlansItem)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogPlanMetadataOtherTargetPlansItem
+func (globalCatalogPlanMetadataOtherTargetPlansItem *GlobalCatalogPlanMetadataOtherTargetPlansItem) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogPlanMetadataOtherTargetPlansItem.ID) {
+		_patch["id"] = globalCatalogPlanMetadataOtherTargetPlansItem.ID
+	}
+	if !core.IsNil(globalCatalogPlanMetadataOtherTargetPlansItem.Name) {
+		_patch["name"] = globalCatalogPlanMetadataOtherTargetPlansItem.Name
 	}
 
 	return
@@ -8077,6 +8144,9 @@ type IamServiceRegistration struct {
 	// attribute. This constrains the context-based restriction rules specific to the service such that they describe
 	// access restrictions on only this set of endpoints.
 	SupportedNetwork *IamServiceRegistrationSupportedNetwork `json:"supported_network,omitempty"`
+
+	// The list that indicates which actions are part of the service restrictions.
+	SupportedActionControl []string `json:"supported_action_control,omitempty"`
 }
 
 // Constants associated with the IamServiceRegistration.ServiceType property.
@@ -8154,6 +8224,11 @@ func UnmarshalIamServiceRegistration(m map[string]json.RawMessage, result interf
 		err = core.SDKErrorf(err, "", "supported_network-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "supported_action_control", &obj.SupportedActionControl)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "supported_action_control-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -8174,6 +8249,9 @@ type IamServiceRegistrationAction struct {
 
 	// Extra options.
 	Options *IamServiceRegistrationActionOptions `json:"options,omitempty"`
+
+	// Context-based-restrictions API type configuration for an action.
+	ApiTypes []string `json:"api_types,omitempty"`
 }
 
 // UnmarshalIamServiceRegistrationAction unmarshals an instance of IamServiceRegistrationAction from the specified map of raw messages.
@@ -8204,6 +8282,11 @@ func UnmarshalIamServiceRegistrationAction(m map[string]json.RawMessage, result 
 		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "api_types", &obj.ApiTypes)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "api_types-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -8225,6 +8308,9 @@ func (iamServiceRegistrationAction *IamServiceRegistrationAction) asPatch() (_pa
 	}
 	if !core.IsNil(iamServiceRegistrationAction.Options) {
 		_patch["options"] = iamServiceRegistrationAction.Options.asPatch()
+	}
+	if !core.IsNil(iamServiceRegistrationAction.ApiTypes) {
+		_patch["api_types"] = iamServiceRegistrationAction.ApiTypes
 	}
 
 	return
@@ -8573,6 +8659,9 @@ type IamServiceRegistrationPatch struct {
 	// attribute. This constrains the context-based restriction rules specific to the service such that they describe
 	// access restrictions on only this set of endpoints.
 	SupportedNetwork *IamServiceRegistrationSupportedNetwork `json:"supported_network,omitempty"`
+
+	// The list that indicates which actions are part of the service restrictions.
+	SupportedActionControl []string `json:"supported_action_control,omitempty"`
 }
 
 // Constants associated with the IamServiceRegistrationPatch.ServiceType property.
@@ -8645,6 +8734,11 @@ func UnmarshalIamServiceRegistrationPatch(m map[string]json.RawMessage, result i
 		err = core.SDKErrorf(err, "", "supported_network-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "supported_action_control", &obj.SupportedActionControl)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "supported_action_control-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -8707,6 +8801,9 @@ func (iamServiceRegistrationPatch *IamServiceRegistrationPatch) AsPatch() (_patc
 	}
 	if !core.IsNil(iamServiceRegistrationPatch.SupportedNetwork) {
 		_patch["supported_network"] = iamServiceRegistrationPatch.SupportedNetwork.asPatch()
+	}
+	if !core.IsNil(iamServiceRegistrationPatch.SupportedActionControl) {
+		_patch["supported_action_control"] = iamServiceRegistrationPatch.SupportedActionControl
 	}
 
 	return
@@ -8972,6 +9069,13 @@ func (iamServiceRegistrationSupportedAuthorizationSubject *IamServiceRegistratio
 type IamServiceRegistrationSupportedNetwork struct {
 	// The environment attribute for support.
 	EnvironmentAttributes []EnvironmentAttribute `json:"environment_attributes,omitempty"`
+
+	// Specifies API types that the service supports.
+	Operations *IamServiceRegistrationSupportedNetworkOperations `json:"operations,omitempty"`
+
+	// Deprecated field, which is optionally specified only if the service uses additional enforcement mechanisms beyond
+	// the primary one.
+	SelfManagedAllowlistEnforcement *IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement `json:"self_managed_allowlist_enforcement,omitempty"`
 }
 
 // UnmarshalIamServiceRegistrationSupportedNetwork unmarshals an instance of IamServiceRegistrationSupportedNetwork from the specified map of raw messages.
@@ -8980,6 +9084,16 @@ func UnmarshalIamServiceRegistrationSupportedNetwork(m map[string]json.RawMessag
 	err = core.UnmarshalModel(m, "environment_attributes", &obj.EnvironmentAttributes, UnmarshalEnvironmentAttribute)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "environment_attributes-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "operations", &obj.Operations, UnmarshalIamServiceRegistrationSupportedNetworkOperations)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "operations-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "self_managed_allowlist_enforcement", &obj.SelfManagedAllowlistEnforcement, UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "self_managed_allowlist_enforcement-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8995,6 +9109,164 @@ func (iamServiceRegistrationSupportedNetwork *IamServiceRegistrationSupportedNet
 			environmentAttributesPatches = append(environmentAttributesPatches, environmentAttributes.asPatch())
 		}
 		_patch["environment_attributes"] = environmentAttributesPatches
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetwork.Operations) {
+		_patch["operations"] = iamServiceRegistrationSupportedNetwork.Operations.asPatch()
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetwork.SelfManagedAllowlistEnforcement) {
+		_patch["self_managed_allowlist_enforcement"] = iamServiceRegistrationSupportedNetwork.SelfManagedAllowlistEnforcement.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkOperations : Specifies API types that the service supports.
+type IamServiceRegistrationSupportedNetworkOperations struct {
+	// The environment attribute for support.
+	ApiTypes []IamServiceRegistrationSupportedNetworkOperationsApiTypeItems `json:"api_types,omitempty"`
+}
+
+// UnmarshalIamServiceRegistrationSupportedNetworkOperations unmarshals an instance of IamServiceRegistrationSupportedNetworkOperations from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkOperations(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkOperations)
+	err = core.UnmarshalModel(m, "api_types", &obj.ApiTypes, UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "api_types-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkOperations
+func (iamServiceRegistrationSupportedNetworkOperations *IamServiceRegistrationSupportedNetworkOperations) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperations.ApiTypes) {
+		var apiTypesPatches []map[string]interface{}
+		for _, apiTypes := range iamServiceRegistrationSupportedNetworkOperations.ApiTypes {
+			apiTypesPatches = append(apiTypesPatches, apiTypes.asPatch())
+		}
+		_patch["api_types"] = apiTypesPatches
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkOperationsApiTypeItems : Indicates the API type supported by the service.
+type IamServiceRegistrationSupportedNetworkOperationsApiTypeItems struct {
+	// The cloud resource name (CRN) or name of the API type.
+	Name *string `json:"name,omitempty"`
+
+	// The enforcement method used for the API type.
+	EnforcementMethod []string `json:"enforcement_method,omitempty"`
+
+	// The display name of the object.
+	DisplayName *IamServiceRegistrationDisplayNameObject `json:"display_name,omitempty"`
+
+	// The description for the object.
+	Description *IamServiceRegistrationDescriptionObject `json:"description,omitempty"`
+}
+
+// UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems unmarshals an instance of IamServiceRegistrationSupportedNetworkOperationsApiTypeItems from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enforcement_method", &obj.EnforcementMethod)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "enforcement_method-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "display_name", &obj.DisplayName, UnmarshalIamServiceRegistrationDisplayNameObject)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "description", &obj.Description, UnmarshalIamServiceRegistrationDescriptionObject)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems
+func (iamServiceRegistrationSupportedNetworkOperationsApiTypeItems *IamServiceRegistrationSupportedNetworkOperationsApiTypeItems) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Name) {
+		_patch["name"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Name
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EnforcementMethod) {
+		_patch["enforcement_method"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EnforcementMethod
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.DisplayName) {
+		_patch["display_name"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.DisplayName.asPatch()
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Description) {
+		_patch["description"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Description.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement : Deprecated field, which is optionally specified only if the service uses additional enforcement mechanisms beyond the
+// primary one.
+type IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement struct {
+	// Specifies API types that the service supports. This method is deprecated and is used only for older setups. Don't
+	// use this method when you create a context-based restrictions setup for the first time.
+	EventPublishing *IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing `json:"event_publishing,omitempty"`
+}
+
+// UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement unmarshals an instance of IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement)
+	err = core.UnmarshalModel(m, "event_publishing", &obj.EventPublishing, UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "event_publishing-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement
+func (iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement *IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement.EventPublishing) {
+		_patch["event_publishing"] = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcement.EventPublishing.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing : Specifies API types that the service supports. This method is deprecated and is used only for older setups. Don't use
+// this method when you create a context-based restrictions setup for the first time.
+type IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing struct {
+	// The cloud resource name (CRN) or name of the API type.
+	ApiTypes []string `json:"api_types,omitempty"`
+}
+
+// UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing unmarshals an instance of IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
+	err = core.UnmarshalPrimitive(m, "api_types", &obj.ApiTypes)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "api_types-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing
+func (iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing *IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing.ApiTypes) {
+		_patch["api_types"] = iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing.ApiTypes
 	}
 
 	return
@@ -10603,7 +10875,7 @@ func (supportedRoleOptions *SupportedRoleOptions) asPatch() (_patch map[string]i
 
 // UpdateCatalogDeploymentOptions : The UpdateCatalogDeployment options.
 type UpdateCatalogDeploymentOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -10680,7 +10952,7 @@ func (options *UpdateCatalogDeploymentOptions) SetHeaders(param map[string]strin
 
 // UpdateCatalogPlanOptions : The UpdateCatalogPlan options.
 type UpdateCatalogPlanOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -10747,7 +11019,7 @@ func (options *UpdateCatalogPlanOptions) SetHeaders(param map[string]string) *Up
 
 // UpdateCatalogProductOptions : The UpdateCatalogProduct options.
 type UpdateCatalogProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The unique ID of this global catalog product.
@@ -10804,7 +11076,7 @@ func (options *UpdateCatalogProductOptions) SetHeaders(param map[string]string) 
 
 // UpdateIamRegistrationOptions : The UpdateIamRegistration options.
 type UpdateIamRegistrationOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// The approved programmatic name of the product.
@@ -10861,7 +11133,7 @@ func (options *UpdateIamRegistrationOptions) SetHeaders(param map[string]string)
 
 // UpdateOnboardingProductOptions : The UpdateOnboardingProduct options.
 type UpdateOnboardingProductOptions struct {
-	// The unique ID of the product.
+	// The unique ID of the resource.
 	ProductID *string `json:"product_id" validate:"required,ne="`
 
 	// JSON Merge-Patch content for update_onboarding_product.

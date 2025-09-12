@@ -1291,10 +1291,13 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		var randomInteger = strconv.Itoa(rand.Intn(1000))
-		roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
+			apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
+			apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", iamServiceRegistrationId)
+
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
 				Default: core.StringPtr("View dashboard"),
 				En:      core.StringPtr("View dashboard"),
@@ -1333,6 +1336,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Description: iamServiceRegistrationDescriptionObjectModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
 				Options:     iamServiceRegistrationActionOptionsModel,
+				ApiTypes:    []string{apiTypeCrn, apiTypeCrnCustom},
 			}
 
 			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
@@ -1432,8 +1436,24 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options: environmentAttributeOptionsModel,
 			}
 
+			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
+				Name:              core.StringPtr(apiTypeCrn),
+				EnforcementMethod: []string{"authz-network"},
+				Description:       iamServiceRegistrationDescriptionObjectModel,
+			}
+			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
+				Name:        core.StringPtr(apiTypeCrnCustom),
+				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
+				Description: iamServiceRegistrationDescriptionObjectModel,
+			}
+
+			iamServiceRegistrationSupportedNetworkOperationsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations{
+				ApiTypes: []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel, *iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom},
+			}
+
 			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{
 				EnvironmentAttributes: []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel},
+				Operations:            iamServiceRegistrationSupportedNetworkOperationsModel,
 			}
 
 			createIamRegistrationOptions := &partnercentersellv1.CreateIamRegistrationOptions{
@@ -1449,6 +1469,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				SupportedAuthorizationSubjects: []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel},
 				SupportedRoles:                 []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel},
 				SupportedNetwork:               iamServiceRegistrationSupportedNetworkModel,
+				SupportedActionControl:         []string{fmt.Sprintf("%s.dashboard.view", iamServiceRegistrationId)},
 				Env:                            core.StringPtr(env),
 			}
 
@@ -1469,6 +1490,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		It(`UpdateIamRegistration(updateIamRegistrationOptions *UpdateIamRegistrationOptions)`, func() {
 			var randomInteger = strconv.Itoa(rand.Intn(10000))
 			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
+			apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
+			apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", iamServiceRegistrationId)
 
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
 				Default: core.StringPtr("View dashboard"),
@@ -1508,6 +1531,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Description: iamServiceRegistrationDescriptionObjectModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
 				Options:     iamServiceRegistrationActionOptionsModel,
+				ApiTypes:    []string{apiTypeCrn, apiTypeCrnCustom},
 			}
 
 			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
@@ -1607,8 +1631,26 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options: environmentAttributeOptionsModel,
 			}
 
+			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
+				Name:              core.StringPtr(apiTypeCrn),
+				EnforcementMethod: []string{"authz-network"},
+				Description:       iamServiceRegistrationDescriptionObjectModel,
+			}
+
+			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
+				Name:              core.StringPtr(apiTypeCrnCustom),
+				EnforcementMethod: []string{"authz-network"},
+				DisplayName:       iamServiceRegistrationDisplayNameObjectModel,
+				Description:       iamServiceRegistrationDescriptionObjectModel,
+			}
+
+			iamServiceRegistrationSupportedNetworkOperationsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations{
+				ApiTypes: []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel, *iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom},
+			}
+
 			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{
 				EnvironmentAttributes: []partnercentersellv1.EnvironmentAttribute{*environmentAttributeModel},
+				Operations:            iamServiceRegistrationSupportedNetworkOperationsModel,
 			}
 
 			iamServiceRegistrationPatchModel := &partnercentersellv1.IamServiceRegistrationPatch{
@@ -1623,6 +1665,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				SupportedAuthorizationSubjects: []partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel},
 				SupportedRoles:                 []partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel},
 				SupportedNetwork:               iamServiceRegistrationSupportedNetworkModel,
+				SupportedActionControl:         []string{fmt.Sprintf("%s.dashboard.view", iamServiceRegistrationId)},
 			}
 			iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())

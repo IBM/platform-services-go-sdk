@@ -24,6 +24,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
@@ -69,6 +70,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		productIdLink                         string
 		programmaticNameLink                  string
 		registrationIdLink                    string
+		iamServiceRegistrationId              string
 	)
 
 	var shouldSkipTest = func() {
@@ -99,6 +101,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			badgeId = config["BADGE_ID"]
 			Expect(badgeId).ToNot(BeEmpty())
+
+			iamServiceRegistrationId = config["IAM_REGISTRATION_ID"]
+			Expect(iamServiceRegistrationId).ToNot(BeEmpty())
 
 			shouldSkipTest = func() {}
 		})
@@ -152,6 +157,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`CreateRegistration request example`, func() {
 			fmt.Println("\nCreateRegistration() result:")
+
 			// begin-create_registration
 
 			primaryContactModel := &partnercentersellv1.PrimaryContact{
@@ -183,6 +189,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`CreateOnboardingProduct request example`, func() {
 			fmt.Println("\nCreateOnboardingProduct() result:")
+
 			// begin-create_onboarding_product
 
 			primaryContactModel := &partnercentersellv1.PrimaryContact{
@@ -213,6 +220,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`UpdateOnboardingProduct request example`, func() {
 			fmt.Println("\nUpdateOnboardingProduct() result:")
+
 			// begin-update_onboarding_product
 
 			onboardingProductPatchModel := &partnercentersellv1.OnboardingProductPatch{}
@@ -242,6 +250,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`CreateCatalogProduct request example`, func() {
 			fmt.Println("\nCreateCatalogProduct() result:")
+
 			// begin-create_catalog_product
 
 			catalogProductProviderModel := &partnercentersellv1.CatalogProductProvider{
@@ -558,11 +567,12 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`CreateIamRegistration request example`, func() {
 			fmt.Println("\nCreateIamRegistration() result:")
+
 			// begin-create_iam_registration
 
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				"pet-store",
+				iamServiceRegistrationId,
 			)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
@@ -581,8 +591,13 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			programmaticNameLink = *iamServiceRegistration.Name
 			fmt.Fprintf(GinkgoWriter, "Saved programmaticNameLink value: %v\n", programmaticNameLink)
 		})
+		It(`Waiting for 25 seconds...`, func() {
+			fmt.Println("Waiting for 25 seconds...")
+			time.Sleep(25 * time.Second)
+		})
 		It(`UpdateIamRegistration request example`, func() {
 			fmt.Println("\nUpdateIamRegistration() result:")
+
 			// begin-update_iam_registration
 
 			iamServiceRegistrationPatchModel := &partnercentersellv1.IamServiceRegistrationPatch{}
@@ -591,7 +606,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			updateIamRegistrationOptions := partnerCenterSellService.NewUpdateIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				programmaticNameLink,
+				iamServiceRegistrationId,
 				iamServiceRegistrationPatchModelAsPatch,
 			)
 
@@ -613,6 +628,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`CreateResourceBroker request example`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
+
 			// begin-create_resource_broker
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -649,6 +665,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetRegistration request example`, func() {
 			fmt.Println("\nGetRegistration() result:")
+
 			// begin-get_registration
 
 			getRegistrationOptions := partnerCenterSellServiceAlt.NewGetRegistrationOptions(
@@ -670,6 +687,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`UpdateRegistration request example`, func() {
 			fmt.Println("\nUpdateRegistration() result:")
+
 			// begin-update_registration
 
 			registrationPatchModel := &partnercentersellv1.RegistrationPatch{}
@@ -696,6 +714,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetOnboardingProduct request example`, func() {
 			fmt.Println("\nGetOnboardingProduct() result:")
+
 			// begin-get_onboarding_product
 
 			getOnboardingProductOptions := partnerCenterSellServiceAlt.NewGetOnboardingProductOptions(
@@ -720,6 +739,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetCatalogProduct request example`, func() {
 			fmt.Println("\nGetCatalogProduct() result:")
+
 			// begin-get_catalog_product
 
 			getCatalogProductOptions := partnerCenterSellService.NewGetCatalogProductOptions(
@@ -745,6 +765,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetCatalogPlan request example`, func() {
 			fmt.Println("\nGetCatalogPlan() result:")
+
 			// begin-get_catalog_plan
 
 			getCatalogPlanOptions := partnerCenterSellService.NewGetCatalogPlanOptions(
@@ -771,6 +792,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetCatalogDeployment request example`, func() {
 			fmt.Println("\nGetCatalogDeployment() result:")
+
 			// begin-get_catalog_deployment
 
 			getCatalogDeploymentOptions := partnerCenterSellService.NewGetCatalogDeploymentOptions(
@@ -796,13 +818,19 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			catalogDeploymentIdLink = *globalCatalogDeployment.ID
 			fmt.Fprintf(GinkgoWriter, "Saved catalogDeploymentIdLink value: %v\n", catalogDeploymentIdLink)
 		})
+		It(`Waiting for 20 seconds...`, func() {
+			fmt.Println("Waiting for 20 seconds...")
+			time.Sleep(20 * time.Second)
+		})
 		It(`GetIamRegistration request example`, func() {
+
 			fmt.Println("\nGetIamRegistration() result:")
+
 			// begin-get_iam_registration
 
 			getIamRegistrationOptions := partnerCenterSellService.NewGetIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
-				programmaticNameLink,
+				iamServiceRegistrationId,
 			)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.GetIamRegistration(getIamRegistrationOptions)
@@ -823,6 +851,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`UpdateResourceBroker request example`, func() {
 			fmt.Println("\nUpdateResourceBroker() result:")
+
 			// begin-update_resource_broker
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -854,6 +883,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetResourceBroker request example`, func() {
 			fmt.Println("\nGetResourceBroker() result:")
+
 			// begin-get_resource_broker
 
 			getResourceBrokerOptions := partnerCenterSellService.NewGetResourceBrokerOptions(
@@ -875,6 +905,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`ListProductBadges request example`, func() {
 			fmt.Println("\nListProductBadges() result:")
+
 			// begin-list_product_badges
 
 			listProductBadgesOptions := partnerCenterSellService.NewListProductBadgesOptions()
@@ -894,6 +925,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		})
 		It(`GetProductBadge request example`, func() {
 			fmt.Println("\nGetProductBadge() result:")
+
 			// begin-get_product_badge
 
 			getProductBadgeOptions := partnerCenterSellService.NewGetProductBadgeOptions(
@@ -914,6 +946,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(productBadge).ToNot(BeNil())
 		})
 		It(`DeleteCatalogDeployment request example`, func() {
+
 			// begin-delete_catalog_deployment
 
 			deleteCatalogDeploymentOptions := partnerCenterSellService.NewDeleteCatalogDeploymentOptions(
@@ -937,6 +970,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteCatalogPlan request example`, func() {
+
 			// begin-delete_catalog_plan
 
 			deleteCatalogPlanOptions := partnerCenterSellService.NewDeleteCatalogPlanOptions(
@@ -959,6 +993,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteCatalogProduct request example`, func() {
+
 			// begin-delete_catalog_product
 
 			deleteCatalogProductOptions := partnerCenterSellService.NewDeleteCatalogProductOptions(
@@ -980,6 +1015,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteIamRegistration request example`, func() {
+
 			// begin-delete_iam_registration
 
 			deleteIamRegistrationOptions := partnerCenterSellService.NewDeleteIamRegistrationOptions(
@@ -1001,6 +1037,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteOnboardingProduct request example`, func() {
+
 			// begin-delete_onboarding_product
 
 			deleteOnboardingProductOptions := partnerCenterSellServiceAlt.NewDeleteOnboardingProductOptions(
@@ -1021,6 +1058,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteRegistration request example`, func() {
+
 			// begin-delete_registration
 
 			deleteRegistrationOptions := partnerCenterSellServiceAlt.NewDeleteRegistrationOptions(
@@ -1041,6 +1079,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteResourceBroker request example`, func() {
+
 			// begin-delete_resource_broker
 
 			deleteResourceBrokerOptions := partnerCenterSellService.NewDeleteResourceBrokerOptions(
