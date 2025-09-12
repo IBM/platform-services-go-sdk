@@ -1,3 +1,10 @@
+# [0.87.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.86.1...v0.87.0) (2025-09-12)
+
+
+### Features
+
+* **Partner Center Sell:** adding cbr options for iam registration ([#403](https://github.com/IBM/platform-services-go-sdk/issues/403)) ([e93483c](https://github.com/IBM/platform-services-go-sdk/commit/e93483c94ddd05adf1faebd66f774967d566fcba))
+
 ## [0.86.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.86.0...v0.86.1) (2025-08-25)
 
 
