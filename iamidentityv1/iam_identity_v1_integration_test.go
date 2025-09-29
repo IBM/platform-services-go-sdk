@@ -1081,7 +1081,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteClaimRule2 - Delete claim rule #1`, func() {
+	Describe(`DeleteClaimRule1 - Delete claim rule #1`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -1652,8 +1652,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.EntityTag).ToNot(BeNil())
 			Expect(accountSettingsResponse.RestrictCreateServiceID).ToNot(BeNil())
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).ToNot(BeNil())
-			//Expect(accountSettingsResponse.RestrictUserListVisibility).ToNot(BeNil())
-			//Expect(accountSettingsResponse.RestrictUserDomains).ToNot(BeNil())
+			Expect(accountSettingsResponse.RestrictUserListVisibility).ToNot(BeNil())
+			Expect(accountSettingsResponse.RestrictUserDomains).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).ToNot(BeNil())

@@ -1000,10 +1000,6 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 
 			deleteResponse, delErr := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
-
-			if delErr != nil {
-				panic(delErr)
-			}
 			Expect(delErr).To(BeNil())
 			Expect(deleteResponse.StatusCode).To(Equal(204))
 		})
