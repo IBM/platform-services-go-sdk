@@ -80,6 +80,13 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		exampleActionControlTemplateName               = "ActionControlTemplateGoSDKTest"
 		exampleActionControlAssignmentETag      string = ""
 		exampleActionControlAssignmentId        string
+		exampleRoleTemplateID                   string
+		exampleRoleTemplateBaseVersion          string
+		exampleRoleTemplateETag                 string = ""
+		exampleRoleTemplateVersion              string
+		exampleRoleTemplateName                        = "RoleTemplateGoSDKTest"
+		exampleRoleAssignmentETag               string = ""
+		exampleRoleAssignmentId                 string
 	)
 
 	var shouldSkipTest = func() {
@@ -1639,6 +1646,415 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			}
 
 			// end-delete_action_control_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`CreateRoleTemplate request example`, func() {
+			fmt.Println("\nCreateRoleTemplate() result:")
+			// begin-create_role_template
+
+			templateRole := &iampolicymanagementv1.TemplateRole{
+				Name:        core.StringPtr("GOSDKTestRoleCreate"),
+				DisplayName: core.StringPtr("GOSDKTestRoleCreate"),
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("Test Role from GO SDK - Create"),
+				Actions:     []string{"am-test-service.test.create"},
+			}
+
+			createRoleTemplateOptions := &iampolicymanagementv1.CreateRoleTemplateOptions{
+				Name:           &exampleRoleTemplateName,
+				AccountID:      &exampleAccountID,
+				Role:  templateRole,
+				Description:    core.StringPtr("Test Role Template from GO SDK"),
+				Committed:      core.BoolPtr(true),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			roleTemplate, response, err := iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(roleTemplate, "", "  ")
+			exampleRoleTemplateID = *roleTemplate.ID
+			exampleRoleTemplateBaseVersion = *roleTemplate.Version
+			exampleRoleTemplateETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-create_role_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+
+		It(`GetRoleTemplate request example`, func() {
+			fmt.Println("\nGetRoleTemplate() result:")
+			// begin-get_role_template
+
+			getRoleTemplateOptions := iamPolicyManagementService.NewGetRoleTemplateOptions(
+				exampleRoleTemplateID,
+			)
+
+			roleTemplate, response, err := iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(roleTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_role_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleTemplate.AccountID).ToNot(BeNil())
+			Expect(roleTemplate.Version).ToNot(BeNil())
+			Expect(roleTemplate.Name).ToNot(BeNil())
+			Expect(roleTemplate.Role).ToNot(BeNil())
+		})
+
+		It(`CreateRoleTemplateVersion request example`, func() {
+			fmt.Println("\nCreateRoleTemplateVersion() result:")
+			// begin-create_role_template_version
+			templateRole := &iampolicymanagementv1.TemplateRole{
+				Name:        core.StringPtr("GOSDKTestRoleDelete"),
+				DisplayName: core.StringPtr("GOSDKTestRoleDelete"),
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("Test Role from GO SDK - Delete"),
+				Actions:     []string{"am-test-service.test.delete"},
+			}
+
+			updateRoleTemplateVersionOptions := &iampolicymanagementv1.CreateRoleTemplateVersionOptions{
+				Role:           templateRole,
+				Description:             core.StringPtr("Test of Role Template version from GO SDK"),
+				RoleTemplateID: &exampleRoleTemplateID,
+			}
+
+			roleTemplate, response, err := iamPolicyManagementService.CreateRoleTemplateVersion(updateRoleTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(roleTemplate, "", "  ")
+			exampleRoleTemplateVersion = *roleTemplate.Version
+			exampleRoleTemplateETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-create_role_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+
+		It(`ListRoleTemplateVersions request example`, func() {
+			fmt.Println("\nListRoleTemplateVersions() result:")
+			// begin-list_role_templates
+
+			listRoleTemplateVersionsOptions := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
+				RoleTemplateID: &exampleRoleTemplateID,
+				Limit: core.Int64Ptr(int64(10)),
+			}
+
+			pager, err := iamPolicyManagementService.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iampolicymanagementv1.RoleTemplate
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_role_template_versions
+
+			Expect(allResults).ToNot(BeNil())
+		})
+
+		It(`ReplaceRoleTemplate request example`, func() {
+			fmt.Println("\nReplaceRoleTemplate() result:")
+			// begin-replace_role_template
+			templateRole := &iampolicymanagementv1.TemplateRole{
+				Name:        core.StringPtr("GOSDKTestRoleUpdate"),
+				DisplayName: core.StringPtr("GOSDKTestRoleUpdate"),
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("am-test-service service role"),
+				Actions:     []string{"am-test-service.test.delete", "am-test-service.test.create"},
+			}
+
+			replaceRoleTemplateVersionOptions := &iampolicymanagementv1.ReplaceRoleTemplateOptions{
+				Role:           templateRole,
+				Description:             core.StringPtr("Test update of Role Template from GO SDK"),
+				Committed:               core.BoolPtr(true),
+				IfMatch:                 core.StringPtr(exampleRoleTemplateETag),
+				Version:                 core.StringPtr(exampleRoleTemplateVersion),
+				RoleTemplateID: &exampleRoleTemplateID,
+			}
+
+			roleTemplate, response, err := iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(roleTemplate, "", "  ")
+			exampleRoleTemplateVersion = *roleTemplate.Version
+			exampleRoleTemplateETag = response.GetHeaders().Get("ETag")
+			fmt.Println(string(b))
+
+			// end-replace_role_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+
+		It(`GetRoleTemplateVersion request example`, func() {
+			fmt.Println("\nGetRoleTemplateVersion() result:")
+			// begin-get_role_template_version
+
+			getRoleTemplateVersionOptions := iamPolicyManagementService.NewGetRoleTemplateVersionOptions(
+				exampleRoleTemplateID,
+				exampleRoleTemplateVersion,
+			)
+
+			roleTemplate, response, err := iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(roleTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_role_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+
+		It(`CommitRoleTemplate request example`, func() {
+			fmt.Println("\nCommitRoleTemplate() result:")
+			// begin-commit_role_template
+
+			commitRoleTemplateOptions := iamPolicyManagementService.NewCommitRoleTemplateOptions(
+				exampleRoleTemplateID,
+				exampleRoleTemplateBaseVersion,
+			)
+
+			response, err := iamPolicyManagementService.CommitRoleTemplate(commitRoleTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from CommitRoleTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-commit_role_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`ListRoleTemplates request example`, func() {
+			fmt.Println("\nListRoleTemplates() result:")
+			// begin-list_role_templates
+			listRoleTemplatesOptions := &iampolicymanagementv1.ListRoleTemplatesOptions{
+				AccountID: &exampleAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+				Limit: core.Int64Ptr(int64(10)),
+			}
+
+			pager, err := iamPolicyManagementService.NewRoleTemplatesPager(listRoleTemplatesOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iampolicymanagementv1.RoleTemplate
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_role_templates
+			Expect(allResults).ToNot(BeNil())
+		})
+
+		It(`CreateRoleAssignments request example`, func() {
+			fmt.Println("\nCreateRoleTemplateAssignment() result:")
+			// begin-create_role_template_assignment
+			template := iampolicymanagementv1.RoleAssignmentTemplate{
+				ID:      &exampleRoleTemplateID,
+				Version: &exampleRoleTemplateVersion,
+			}
+			templates := []iampolicymanagementv1.RoleAssignmentTemplate{
+				template,
+			}
+
+			target := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: core.StringPtr("Account"),
+				ID:   &exampleTargetAccountID,
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreateRoleTemplateAssignmentOptions{
+				Target:    target,
+				Templates: templates,
+			}
+
+			roleAssignment, response, err := iamPolicyManagementService.CreateRoleTemplateAssignment(createPolicyTemplateVersionOptions)
+
+			b, _ := json.MarshalIndent(roleAssignment, "", "  ")
+			fmt.Println(string(b))
+
+			var assignmentDetails = roleAssignment.Assignments[0]
+			// end-create_role_template_assignment
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			exampleRoleAssignmentETag = response.GetHeaders().Get(exampleETagHeader)
+			exampleRoleAssignmentId = *assignmentDetails.ID
+		})
+
+		It(`UpdateRoleAssignment request example))`, func() {
+			// begin-update_role_assignment
+			updatePolicyAssignmentOptions := iamPolicyManagementService.NewUpdateRoleAssignmentOptions(
+				exampleRoleAssignmentId,
+				exampleRoleAssignmentETag,
+				exampleRoleTemplateBaseVersion,
+			)
+
+			roleAssignment, response, err := iamPolicyManagementService.UpdateRoleAssignment(updatePolicyAssignmentOptions)
+			b, _ := json.MarshalIndent(roleAssignment, "", "  ")
+			fmt.Println(string(b))
+			// end-update_role_assignment
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			exampleRoleAssignmentId = *roleAssignment.ID
+		})
+
+		It(`ListRoleAssignments request example`, func() {
+			fmt.Println("\nListRoleAssignments() result:")
+			// begin-list_role_assignments
+
+			listRoleAssignmentsOptions := iamPolicyManagementService.NewListRoleAssignmentsOptions(
+				exampleAccountID,
+			)
+
+			roleTemplateAssignmentCollection, response, err := iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(roleTemplateAssignmentCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_role_assignments
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			var assignmentDetails = roleTemplateAssignmentCollection.Assignments[0]
+			Expect(assignmentDetails).ToNot(BeNil())
+			Expect(assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Status).ToNot(BeNil())
+			Expect(assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.Resources).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(assignmentDetails.Href).ToNot(BeNil())
+		})
+
+		It(`GetRoleAssignment request example`, func() {
+			fmt.Println("\nGetRoleAssignment() result:")
+			// begin-get_role_assignment
+
+			getRoleAssignmentOptions := iamPolicyManagementService.NewGetRoleAssignmentOptions(
+				exampleRoleAssignmentId,
+			)
+
+			assignmentDetails, response, err := iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(assignmentDetails, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_role_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(assignmentDetails).ToNot(BeNil())
+			Expect(assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(assignmentDetails.Status).ToNot(BeNil())
+			Expect(assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(assignmentDetails.Href).ToNot(BeNil())
+		})
+
+		It(`DeleteRoleAssignment request example)`, func() {
+			// begin-delete_role_assignment
+			deleteRoleAssignmentOptions := iamPolicyManagementService.NewDeleteRoleAssignmentOptions(
+				exampleRoleAssignmentId,
+			)
+
+			response, err := iamPolicyManagementService.DeleteRoleAssignment(deleteRoleAssignmentOptions)
+			// end-delete_role_assignment
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`DeleteRoleTemplateVersion request example`, func() {
+			// begin-delete_role_template_version
+
+			deleteRoleTemplateVersionOptions := iamPolicyManagementService.NewDeleteRoleTemplateVersionOptions(
+				exampleRoleTemplateID,
+				exampleRoleTemplateVersion,
+			)
+
+			response, err := iamPolicyManagementService.DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteRoleTemplateVersion(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_role_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`DeleteRoleTemplate request example`, func() {
+			// begin-delete_role_template
+
+			deleteRoleTemplateOptions := iamPolicyManagementService.NewDeleteRoleTemplateOptions(
+				exampleRoleTemplateID,
+			)
+
+			response, err := iamPolicyManagementService.DeleteRoleTemplate(deleteRoleTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeletePolicyTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_role_template
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
