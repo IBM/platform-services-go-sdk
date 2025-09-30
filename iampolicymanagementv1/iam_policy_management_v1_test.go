@@ -13048,6 +13048,3499 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`ListRoleTemplates(listRoleTemplatesOptions *ListRoleTemplatesOptions) - Operation response error`, func() {
+		listRoleTemplatesPath := "/v1/role_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["role_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["role_service_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListRoleTemplates with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleTemplatesOptions model
+				listRoleTemplatesOptionsModel := new(iampolicymanagementv1.ListRoleTemplatesOptions)
+				listRoleTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleTemplatesOptionsModel.Name = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleServiceName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.State = core.StringPtr("active")
+				listRoleTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListRoleTemplates(listRoleTemplatesOptions *ListRoleTemplatesOptions)`, func() {
+		listRoleTemplatesPath := "/v1/role_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["role_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["role_service_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "role_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListRoleTemplates successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListRoleTemplatesOptions model
+				listRoleTemplatesOptionsModel := new(iampolicymanagementv1.ListRoleTemplatesOptions)
+				listRoleTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleTemplatesOptionsModel.Name = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleServiceName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.State = core.StringPtr("active")
+				listRoleTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListRoleTemplatesWithContext(ctx, listRoleTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListRoleTemplatesWithContext(ctx, listRoleTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["role_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["role_service_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "role_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListRoleTemplates successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplates(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListRoleTemplatesOptions model
+				listRoleTemplatesOptionsModel := new(iampolicymanagementv1.ListRoleTemplatesOptions)
+				listRoleTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleTemplatesOptionsModel.Name = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleServiceName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.State = core.StringPtr("active")
+				listRoleTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListRoleTemplates with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleTemplatesOptions model
+				listRoleTemplatesOptionsModel := new(iampolicymanagementv1.ListRoleTemplatesOptions)
+				listRoleTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleTemplatesOptionsModel.Name = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleServiceName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.State = core.StringPtr("active")
+				listRoleTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListRoleTemplatesOptions model with no property values
+				listRoleTemplatesOptionsModelNew := new(iampolicymanagementv1.ListRoleTemplatesOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListRoleTemplates successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleTemplatesOptions model
+				listRoleTemplatesOptionsModel := new(iampolicymanagementv1.ListRoleTemplatesOptions)
+				listRoleTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleTemplatesOptionsModel.Name = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.RoleServiceName = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.State = core.StringPtr("active")
+				listRoleTemplatesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplatesOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplates(listRoleTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.RoleTemplateCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.RoleTemplateCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"role_templates":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"role":{"name":"Name","display_name":"DisplayName","service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"role_templates":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"role":{"name":"Name","display_name":"DisplayName","service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use RoleTemplatesPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listRoleTemplatesOptionsModel := &iampolicymanagementv1.ListRoleTemplatesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					Name: core.StringPtr("testString"),
+					RoleName: core.StringPtr("testString"),
+					RoleServiceName: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewRoleTemplatesPager(listRoleTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.RoleTemplate
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use RoleTemplatesPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listRoleTemplatesOptionsModel := &iampolicymanagementv1.ListRoleTemplatesOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					Name: core.StringPtr("testString"),
+					RoleName: core.StringPtr("testString"),
+					RoleServiceName: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewRoleTemplatesPager(listRoleTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateRoleTemplate(createRoleTemplateOptions *CreateRoleTemplateOptions) - Operation response error`, func() {
+		createRoleTemplatePath := "/v1/role_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplate with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateOptions model
+				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
+				createRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateRoleTemplate(createRoleTemplateOptions *CreateRoleTemplateOptions)`, func() {
+		createRoleTemplatePath := "/v1/role_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplate successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateOptions model
+				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
+				createRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateRoleTemplateWithContext(ctx, createRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateRoleTemplateWithContext(ctx, createRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateOptions model
+				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
+				createRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateRoleTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateOptions model
+				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
+				createRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateRoleTemplateOptions model with no property values
+				createRoleTemplateOptionsModelNew := new(iampolicymanagementv1.CreateRoleTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateOptions model
+				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
+				createRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplate(createRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetRoleTemplate(getRoleTemplateOptions *GetRoleTemplateOptions) - Operation response error`, func() {
+		getRoleTemplatePath := "/v1/role_templates/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetRoleTemplate with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleTemplateOptions model
+				getRoleTemplateOptionsModel := new(iampolicymanagementv1.GetRoleTemplateOptions)
+				getRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateOptionsModel.State = core.StringPtr("active")
+				getRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetRoleTemplate(getRoleTemplateOptions *GetRoleTemplateOptions)`, func() {
+		getRoleTemplatePath := "/v1/role_templates/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetRoleTemplate successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetRoleTemplateOptions model
+				getRoleTemplateOptionsModel := new(iampolicymanagementv1.GetRoleTemplateOptions)
+				getRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateOptionsModel.State = core.StringPtr("active")
+				getRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetRoleTemplateWithContext(ctx, getRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetRoleTemplateWithContext(ctx, getRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetRoleTemplateOptions model
+				getRoleTemplateOptionsModel := new(iampolicymanagementv1.GetRoleTemplateOptions)
+				getRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateOptionsModel.State = core.StringPtr("active")
+				getRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetRoleTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleTemplateOptions model
+				getRoleTemplateOptionsModel := new(iampolicymanagementv1.GetRoleTemplateOptions)
+				getRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateOptionsModel.State = core.StringPtr("active")
+				getRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetRoleTemplateOptions model with no property values
+				getRoleTemplateOptionsModelNew := new(iampolicymanagementv1.GetRoleTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleTemplateOptions model
+				getRoleTemplateOptionsModel := new(iampolicymanagementv1.GetRoleTemplateOptions)
+				getRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateOptionsModel.State = core.StringPtr("active")
+				getRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplate(getRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteRoleTemplate(deleteRoleTemplateOptions *DeleteRoleTemplateOptions)`, func() {
+		deleteRoleTemplatePath := "/v1/role_templates/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteRoleTemplatePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.DeleteRoleTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteRoleTemplateOptions model
+				deleteRoleTemplateOptionsModel := new(iampolicymanagementv1.DeleteRoleTemplateOptions)
+				deleteRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				deleteRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteRoleTemplate(deleteRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteRoleTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteRoleTemplateOptions model
+				deleteRoleTemplateOptionsModel := new(iampolicymanagementv1.DeleteRoleTemplateOptions)
+				deleteRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				deleteRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.DeleteRoleTemplate(deleteRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteRoleTemplateOptions model with no property values
+				deleteRoleTemplateOptionsModelNew := new(iampolicymanagementv1.DeleteRoleTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.DeleteRoleTemplate(deleteRoleTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateRoleTemplateVersion(createRoleTemplateVersionOptions *CreateRoleTemplateVersionOptions) - Operation response error`, func() {
+		createRoleTemplateVersionPath := "/v1/role_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateVersion with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateVersionOptions model
+				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
+				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
+				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateRoleTemplateVersion(createRoleTemplateVersionOptions *CreateRoleTemplateVersionOptions)`, func() {
+		createRoleTemplateVersionPath := "/v1/role_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateVersion successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateVersionOptions model
+				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
+				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
+				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateRoleTemplateVersionWithContext(ctx, createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateRoleTemplateVersionWithContext(ctx, createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateVersionOptions model
+				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
+				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
+				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateRoleTemplateVersion with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateVersionOptions model
+				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
+				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
+				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateRoleTemplateVersionOptions model with no property values
+				createRoleTemplateVersionOptionsModelNew := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the CreateRoleTemplateVersionOptions model
+				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
+				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
+				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateVersion(createRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListRoleTemplateVersions(listRoleTemplateVersionsOptions *ListRoleTemplateVersionsOptions) - Operation response error`, func() {
+		listRoleTemplateVersionsPath := "/v1/role_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListRoleTemplateVersions with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleTemplateVersionsOptions model
+				listRoleTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListRoleTemplateVersionsOptions)
+				listRoleTemplateVersionsOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listRoleTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListRoleTemplateVersions(listRoleTemplateVersionsOptions *ListRoleTemplateVersionsOptions)`, func() {
+		listRoleTemplateVersionsPath := "/v1/role_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListRoleTemplateVersions successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListRoleTemplateVersionsOptions model
+				listRoleTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListRoleTemplateVersionsOptions)
+				listRoleTemplateVersionsOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listRoleTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListRoleTemplateVersionsWithContext(ctx, listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListRoleTemplateVersionsWithContext(ctx, listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}]}`)
+				}))
+			})
+			It(`Invoke ListRoleTemplateVersions successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplateVersions(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListRoleTemplateVersionsOptions model
+				listRoleTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListRoleTemplateVersionsOptions)
+				listRoleTemplateVersionsOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listRoleTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListRoleTemplateVersions with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleTemplateVersionsOptions model
+				listRoleTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListRoleTemplateVersionsOptions)
+				listRoleTemplateVersionsOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listRoleTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListRoleTemplateVersionsOptions model with no property values
+				listRoleTemplateVersionsOptionsModelNew := new(iampolicymanagementv1.ListRoleTemplateVersionsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListRoleTemplateVersions successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleTemplateVersionsOptions model
+				listRoleTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListRoleTemplateVersionsOptions)
+				listRoleTemplateVersionsOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.State = core.StringPtr("active")
+				listRoleTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleTemplateVersionsOptionsModel.Start = core.StringPtr("testString")
+				listRoleTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListRoleTemplateVersions(listRoleTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.RoleTemplateVersionsCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.RoleTemplateVersionsCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"versions":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"role":{"name":"Name","display_name":"DisplayName","service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"versions":[{"name":"Name","description":"Description","account_id":"AccountID","committed":false,"role":{"name":"Name","display_name":"DisplayName","service_name":"ServiceName","description":"Description","actions":["Actions"]},"id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","version":"Version","state":"active"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use RoleTemplateVersionsPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listRoleTemplateVersionsOptionsModel := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
+					RoleTemplateID: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.RoleTemplate
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use RoleTemplateVersionsPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listRoleTemplateVersionsOptionsModel := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
+					RoleTemplateID: core.StringPtr("testString"),
+					State: core.StringPtr("active"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`ReplaceRoleTemplate(replaceRoleTemplateOptions *ReplaceRoleTemplateOptions) - Operation response error`, func() {
+		replaceRoleTemplatePath := "/v1/role_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceRoleTemplatePath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ReplaceRoleTemplate with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceRoleTemplateOptions model
+				replaceRoleTemplateOptionsModel := new(iampolicymanagementv1.ReplaceRoleTemplateOptions)
+				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
+				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceRoleTemplate(replaceRoleTemplateOptions *ReplaceRoleTemplateOptions)`, func() {
+		replaceRoleTemplatePath := "/v1/role_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceRoleTemplatePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke ReplaceRoleTemplate successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceRoleTemplateOptions model
+				replaceRoleTemplateOptionsModel := new(iampolicymanagementv1.ReplaceRoleTemplateOptions)
+				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
+				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ReplaceRoleTemplateWithContext(ctx, replaceRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ReplaceRoleTemplateWithContext(ctx, replaceRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceRoleTemplatePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke ReplaceRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ReplaceRoleTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceRoleTemplateOptions model
+				replaceRoleTemplateOptionsModel := new(iampolicymanagementv1.ReplaceRoleTemplateOptions)
+				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
+				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ReplaceRoleTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceRoleTemplateOptions model
+				replaceRoleTemplateOptionsModel := new(iampolicymanagementv1.ReplaceRoleTemplateOptions)
+				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
+				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ReplaceRoleTemplateOptions model with no property values
+				replaceRoleTemplateOptionsModelNew := new(iampolicymanagementv1.ReplaceRoleTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+
+				// Construct an instance of the ReplaceRoleTemplateOptions model
+				replaceRoleTemplateOptionsModel := new(iampolicymanagementv1.ReplaceRoleTemplateOptions)
+				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
+				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
+				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ReplaceRoleTemplate(replaceRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptions *DeleteRoleTemplateVersionOptions)`, func() {
+		deleteRoleTemplateVersionPath := "/v1/role_templates/testString/versions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteRoleTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.DeleteRoleTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteRoleTemplateVersionOptions model
+				deleteRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.DeleteRoleTemplateVersionOptions)
+				deleteRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				deleteRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteRoleTemplateVersion with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteRoleTemplateVersionOptions model
+				deleteRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.DeleteRoleTemplateVersionOptions)
+				deleteRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				deleteRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteRoleTemplateVersionOptions model with no property values
+				deleteRoleTemplateVersionOptionsModelNew := new(iampolicymanagementv1.DeleteRoleTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetRoleTemplateVersion(getRoleTemplateVersionOptions *GetRoleTemplateVersionOptions) - Operation response error`, func() {
+		getRoleTemplateVersionPath := "/v1/role_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetRoleTemplateVersion with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleTemplateVersionOptions model
+				getRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.GetRoleTemplateVersionOptions)
+				getRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetRoleTemplateVersion(getRoleTemplateVersionOptions *GetRoleTemplateVersionOptions)`, func() {
+		getRoleTemplateVersionPath := "/v1/role_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetRoleTemplateVersion successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetRoleTemplateVersionOptions model
+				getRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.GetRoleTemplateVersionOptions)
+				getRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetRoleTemplateVersionWithContext(ctx, getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetRoleTemplateVersionWithContext(ctx, getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "committed": false, "role": {"name": "Name", "display_name": "DisplayName", "service_name": "ServiceName", "description": "Description", "actions": ["Actions"]}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "version": "Version", "state": "active"}`)
+				}))
+			})
+			It(`Invoke GetRoleTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetRoleTemplateVersionOptions model
+				getRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.GetRoleTemplateVersionOptions)
+				getRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetRoleTemplateVersion with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleTemplateVersionOptions model
+				getRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.GetRoleTemplateVersionOptions)
+				getRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetRoleTemplateVersionOptions model with no property values
+				getRoleTemplateVersionOptionsModelNew := new(iampolicymanagementv1.GetRoleTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetRoleTemplateVersion successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleTemplateVersionOptions model
+				getRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.GetRoleTemplateVersionOptions)
+				getRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetRoleTemplateVersion(getRoleTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CommitRoleTemplate(commitRoleTemplateOptions *CommitRoleTemplateOptions)`, func() {
+		commitRoleTemplatePath := "/v1/role_templates/testString/versions/testString/commit"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitRoleTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke CommitRoleTemplate successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.CommitRoleTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the CommitRoleTemplateOptions model
+				commitRoleTemplateOptionsModel := new(iampolicymanagementv1.CommitRoleTemplateOptions)
+				commitRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				commitRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.CommitRoleTemplate(commitRoleTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke CommitRoleTemplate with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the CommitRoleTemplateOptions model
+				commitRoleTemplateOptionsModel := new(iampolicymanagementv1.CommitRoleTemplateOptions)
+				commitRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
+				commitRoleTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.CommitRoleTemplate(commitRoleTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the CommitRoleTemplateOptions model with no property values
+				commitRoleTemplateOptionsModelNew := new(iampolicymanagementv1.CommitRoleTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.CommitRoleTemplate(commitRoleTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListRoleAssignments(listRoleAssignmentsOptions *ListRoleAssignmentsOptions) - Operation response error`, func() {
+		listRoleAssignmentsPath := "/v1/role_assignments"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListRoleAssignments with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleAssignmentsOptions model
+				listRoleAssignmentsOptionsModel := new(iampolicymanagementv1.ListRoleAssignmentsOptions)
+				listRoleAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListRoleAssignments(listRoleAssignmentsOptions *ListRoleAssignmentsOptions)`, func() {
+		listRoleAssignmentsPath := "/v1/role_assignments"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke ListRoleAssignments successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListRoleAssignmentsOptions model
+				listRoleAssignmentsOptionsModel := new(iampolicymanagementv1.ListRoleAssignmentsOptions)
+				listRoleAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListRoleAssignmentsWithContext(ctx, listRoleAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListRoleAssignmentsWithContext(ctx, listRoleAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke ListRoleAssignments successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListRoleAssignments(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListRoleAssignmentsOptions model
+				listRoleAssignmentsOptionsModel := new(iampolicymanagementv1.ListRoleAssignmentsOptions)
+				listRoleAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListRoleAssignments with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleAssignmentsOptions model
+				listRoleAssignmentsOptionsModel := new(iampolicymanagementv1.ListRoleAssignmentsOptions)
+				listRoleAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListRoleAssignmentsOptions model with no property values
+				listRoleAssignmentsOptionsModelNew := new(iampolicymanagementv1.ListRoleAssignmentsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListRoleAssignments successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoleAssignmentsOptions model
+				listRoleAssignmentsOptionsModel := new(iampolicymanagementv1.ListRoleAssignmentsOptions)
+				listRoleAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listRoleAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listRoleAssignmentsOptionsModel.Start = core.StringPtr("testString")
+				listRoleAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListRoleAssignments(listRoleAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(iampolicymanagementv1.RoleAssignmentCollection)
+				nextObject := new(iampolicymanagementv1.Next)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(iampolicymanagementv1.RoleAssignmentCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listRoleAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"assignments":[{"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","operation":"create","resources":[{"target":{"type":"Account","id":"ID"},"role":{"resource_created":{"id":"ID"},"error_message":{"name":"Name","errorCode":"ErrorCode","message":"Message","code":"Code","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}]}}}],"template":{"id":"ID","version":"Version"},"target":{"type":"Account","id":"ID"},"status":"accepted"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"assignments":[{"id":"ID","account_id":"AccountID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","operation":"create","resources":[{"target":{"type":"Account","id":"ID"},"role":{"resource_created":{"id":"ID"},"error_message":{"name":"Name","errorCode":"ErrorCode","message":"Message","code":"Code","errors":[{"code":"insufficent_permissions","message":"Message","details":{"conflicts_with":{"etag":"Etag","role":"Role","policy":"Policy"}},"more_info":"MoreInfo"}]}}}],"template":{"id":"ID","version":"Version"},"target":{"type":"Account","id":"ID"},"status":"accepted"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use RoleAssignmentsPager.GetNext successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listRoleAssignmentsOptionsModel := &iampolicymanagementv1.ListRoleAssignmentsOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					TemplateID: core.StringPtr("testString"),
+					TemplateVersion: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewRoleAssignmentsPager(listRoleAssignmentsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iampolicymanagementv1.RoleAssignment
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use RoleAssignmentsPager.GetAll successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				listRoleAssignmentsOptionsModel := &iampolicymanagementv1.ListRoleAssignmentsOptions{
+					AccountID: core.StringPtr("testString"),
+					AcceptLanguage: core.StringPtr("default"),
+					TemplateID: core.StringPtr("testString"),
+					TemplateVersion: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := iamPolicyManagementService.NewRoleAssignmentsPager(listRoleAssignmentsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptions *CreateRoleTemplateAssignmentOptions) - Operation response error`, func() {
+		createRoleTemplateAssignmentPath := "/v1/role_assignments"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplateAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateAssignment with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the RoleAssignmentTemplate model
+				roleAssignmentTemplateModel := new(iampolicymanagementv1.RoleAssignmentTemplate)
+				roleAssignmentTemplateModel.ID = core.StringPtr("testString")
+				roleAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateRoleTemplateAssignmentOptions model
+				createRoleTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateAssignmentOptions)
+				createRoleTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createRoleTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel}
+				createRoleTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptions *CreateRoleTemplateAssignmentOptions)`, func() {
+		createRoleTemplateAssignmentPath := "/v1/role_assignments"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplateAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateAssignment successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the RoleAssignmentTemplate model
+				roleAssignmentTemplateModel := new(iampolicymanagementv1.RoleAssignmentTemplate)
+				roleAssignmentTemplateModel.ID = core.StringPtr("testString")
+				roleAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateRoleTemplateAssignmentOptions model
+				createRoleTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateAssignmentOptions)
+				createRoleTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createRoleTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel}
+				createRoleTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateRoleTemplateAssignmentWithContext(ctx, createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateRoleTemplateAssignmentWithContext(ctx, createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createRoleTemplateAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "assignments": [{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}]}`)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the RoleAssignmentTemplate model
+				roleAssignmentTemplateModel := new(iampolicymanagementv1.RoleAssignmentTemplate)
+				roleAssignmentTemplateModel.ID = core.StringPtr("testString")
+				roleAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateRoleTemplateAssignmentOptions model
+				createRoleTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateAssignmentOptions)
+				createRoleTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createRoleTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel}
+				createRoleTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateRoleTemplateAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the RoleAssignmentTemplate model
+				roleAssignmentTemplateModel := new(iampolicymanagementv1.RoleAssignmentTemplate)
+				roleAssignmentTemplateModel.ID = core.StringPtr("testString")
+				roleAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateRoleTemplateAssignmentOptions model
+				createRoleTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateAssignmentOptions)
+				createRoleTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createRoleTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel}
+				createRoleTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateRoleTemplateAssignmentOptions model with no property values
+				createRoleTemplateAssignmentOptionsModelNew := new(iampolicymanagementv1.CreateRoleTemplateAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateRoleTemplateAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the RoleAssignmentTemplate model
+				roleAssignmentTemplateModel := new(iampolicymanagementv1.RoleAssignmentTemplate)
+				roleAssignmentTemplateModel.ID = core.StringPtr("testString")
+				roleAssignmentTemplateModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateRoleTemplateAssignmentOptions model
+				createRoleTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateAssignmentOptions)
+				createRoleTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
+				createRoleTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel}
+				createRoleTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createRoleTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetRoleAssignment(getRoleAssignmentOptions *GetRoleAssignmentOptions) - Operation response error`, func() {
+		getRoleAssignmentPath := "/v1/role_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetRoleAssignment with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleAssignmentOptions model
+				getRoleAssignmentOptionsModel := new(iampolicymanagementv1.GetRoleAssignmentOptions)
+				getRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetRoleAssignment(getRoleAssignmentOptions *GetRoleAssignmentOptions)`, func() {
+		getRoleAssignmentPath := "/v1/role_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke GetRoleAssignment successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetRoleAssignmentOptions model
+				getRoleAssignmentOptionsModel := new(iampolicymanagementv1.GetRoleAssignmentOptions)
+				getRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetRoleAssignmentWithContext(ctx, getRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetRoleAssignmentWithContext(ctx, getRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getRoleAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke GetRoleAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetRoleAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetRoleAssignmentOptions model
+				getRoleAssignmentOptionsModel := new(iampolicymanagementv1.GetRoleAssignmentOptions)
+				getRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetRoleAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleAssignmentOptions model
+				getRoleAssignmentOptionsModel := new(iampolicymanagementv1.GetRoleAssignmentOptions)
+				getRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetRoleAssignmentOptions model with no property values
+				getRoleAssignmentOptionsModelNew := new(iampolicymanagementv1.GetRoleAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetRoleAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetRoleAssignmentOptions model
+				getRoleAssignmentOptionsModel := new(iampolicymanagementv1.GetRoleAssignmentOptions)
+				getRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetRoleAssignment(getRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateRoleAssignment(updateRoleAssignmentOptions *UpdateRoleAssignmentOptions) - Operation response error`, func() {
+		updateRoleAssignmentPath := "/v1/role_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateRoleAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateRoleAssignment with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateRoleAssignmentOptions model
+				updateRoleAssignmentOptionsModel := new(iampolicymanagementv1.UpdateRoleAssignmentOptions)
+				updateRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateRoleAssignment(updateRoleAssignmentOptions *UpdateRoleAssignmentOptions)`, func() {
+		updateRoleAssignmentPath := "/v1/role_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateRoleAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke UpdateRoleAssignment successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateRoleAssignmentOptions model
+				updateRoleAssignmentOptionsModel := new(iampolicymanagementv1.UpdateRoleAssignmentOptions)
+				updateRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.UpdateRoleAssignmentWithContext(ctx, updateRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.UpdateRoleAssignmentWithContext(ctx, updateRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateRoleAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "operation": "create", "resources": [{"target": {"type": "Account", "id": "ID"}, "role": {"resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "code": "Code", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}]}}}], "template": {"id": "ID", "version": "Version"}, "target": {"type": "Account", "id": "ID"}, "status": "accepted"}`)
+				}))
+			})
+			It(`Invoke UpdateRoleAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.UpdateRoleAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateRoleAssignmentOptions model
+				updateRoleAssignmentOptionsModel := new(iampolicymanagementv1.UpdateRoleAssignmentOptions)
+				updateRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateRoleAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateRoleAssignmentOptions model
+				updateRoleAssignmentOptionsModel := new(iampolicymanagementv1.UpdateRoleAssignmentOptions)
+				updateRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateRoleAssignmentOptions model with no property values
+				updateRoleAssignmentOptionsModelNew := new(iampolicymanagementv1.UpdateRoleAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateRoleAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateRoleAssignmentOptions model
+				updateRoleAssignmentOptionsModel := new(iampolicymanagementv1.UpdateRoleAssignmentOptions)
+				updateRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.TemplateVersion = core.StringPtr("testString")
+				updateRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.UpdateRoleAssignment(updateRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteRoleAssignment(deleteRoleAssignmentOptions *DeleteRoleAssignmentOptions)`, func() {
+		deleteRoleAssignmentPath := "/v1/role_assignments/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteRoleAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteRoleAssignment successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamPolicyManagementService.DeleteRoleAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteRoleAssignmentOptions model
+				deleteRoleAssignmentOptionsModel := new(iampolicymanagementv1.DeleteRoleAssignmentOptions)
+				deleteRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteRoleAssignment(deleteRoleAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteRoleAssignment with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteRoleAssignmentOptions model
+				deleteRoleAssignmentOptionsModel := new(iampolicymanagementv1.DeleteRoleAssignmentOptions)
+				deleteRoleAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteRoleAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamPolicyManagementService.DeleteRoleAssignment(deleteRoleAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteRoleAssignmentOptions model with no property values
+				deleteRoleAssignmentOptionsModelNew := new(iampolicymanagementv1.DeleteRoleAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamPolicyManagementService.DeleteRoleAssignment(deleteRoleAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamPolicyManagementService, _ := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -13093,6 +16586,19 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(commitPolicyTemplateOptionsModel.PolicyTemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(commitPolicyTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(commitPolicyTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCommitRoleTemplateOptions successfully`, func() {
+				// Construct an instance of the CommitRoleTemplateOptions model
+				roleTemplateID := "testString"
+				version := "testString"
+				commitRoleTemplateOptionsModel := iamPolicyManagementService.NewCommitRoleTemplateOptions(roleTemplateID, version)
+				commitRoleTemplateOptionsModel.SetRoleTemplateID("testString")
+				commitRoleTemplateOptionsModel.SetVersion("testString")
+				commitRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(commitRoleTemplateOptionsModel).ToNot(BeNil())
+				Expect(commitRoleTemplateOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(commitRoleTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(commitRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewControl successfully`, func() {
 				var grant *iampolicymanagementv1.Grant = nil
@@ -13541,6 +17047,105 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(createRoleOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
 				Expect(createRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewCreateRoleTemplateAssignmentOptions successfully`, func() {
+				// Construct an instance of the AssignmentTargetDetails model
+				assignmentTargetDetailsModel := new(iampolicymanagementv1.AssignmentTargetDetails)
+				Expect(assignmentTargetDetailsModel).ToNot(BeNil())
+				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
+				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
+				Expect(assignmentTargetDetailsModel.Type).To(Equal(core.StringPtr("Account")))
+				Expect(assignmentTargetDetailsModel.ID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the RoleAssignmentTemplate model
+				roleAssignmentTemplateModel := new(iampolicymanagementv1.RoleAssignmentTemplate)
+				Expect(roleAssignmentTemplateModel).ToNot(BeNil())
+				roleAssignmentTemplateModel.ID = core.StringPtr("testString")
+				roleAssignmentTemplateModel.Version = core.StringPtr("testString")
+				Expect(roleAssignmentTemplateModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(roleAssignmentTemplateModel.Version).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateRoleTemplateAssignmentOptions model
+				var createRoleTemplateAssignmentOptionsTarget *iampolicymanagementv1.AssignmentTargetDetails = nil
+				createRoleTemplateAssignmentOptionsTemplates := []iampolicymanagementv1.RoleAssignmentTemplate{}
+				createRoleTemplateAssignmentOptionsModel := iamPolicyManagementService.NewCreateRoleTemplateAssignmentOptions(createRoleTemplateAssignmentOptionsTarget, createRoleTemplateAssignmentOptionsTemplates)
+				createRoleTemplateAssignmentOptionsModel.SetTarget(assignmentTargetDetailsModel)
+				createRoleTemplateAssignmentOptionsModel.SetTemplates([]iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel})
+				createRoleTemplateAssignmentOptionsModel.SetAcceptLanguage("default")
+				createRoleTemplateAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createRoleTemplateAssignmentOptionsModel).ToNot(BeNil())
+				Expect(createRoleTemplateAssignmentOptionsModel.Target).To(Equal(assignmentTargetDetailsModel))
+				Expect(createRoleTemplateAssignmentOptionsModel.Templates).To(Equal([]iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel}))
+				Expect(createRoleTemplateAssignmentOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(createRoleTemplateAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateRoleTemplateOptions successfully`, func() {
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				Expect(templateRoleModel).ToNot(BeNil())
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+				Expect(templateRoleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.Actions).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the CreateRoleTemplateOptions model
+				createRoleTemplateOptionsName := "testString"
+				createRoleTemplateOptionsAccountID := "testString"
+				createRoleTemplateOptionsModel := iamPolicyManagementService.NewCreateRoleTemplateOptions(createRoleTemplateOptionsName, createRoleTemplateOptionsAccountID)
+				createRoleTemplateOptionsModel.SetName("testString")
+				createRoleTemplateOptionsModel.SetAccountID("testString")
+				createRoleTemplateOptionsModel.SetDescription("testString")
+				createRoleTemplateOptionsModel.SetCommitted(true)
+				createRoleTemplateOptionsModel.SetRole(templateRoleModel)
+				createRoleTemplateOptionsModel.SetAcceptLanguage("default")
+				createRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createRoleTemplateOptionsModel).ToNot(BeNil())
+				Expect(createRoleTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(createRoleTemplateOptionsModel.Role).To(Equal(templateRoleModel))
+				Expect(createRoleTemplateOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(createRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateRoleTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				Expect(templateRoleModel).ToNot(BeNil())
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+				Expect(templateRoleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.Actions).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the CreateRoleTemplateVersionOptions model
+				roleTemplateID := "testString"
+				var createRoleTemplateVersionOptionsRole *iampolicymanagementv1.TemplateRole = nil
+				createRoleTemplateVersionOptionsModel := iamPolicyManagementService.NewCreateRoleTemplateVersionOptions(roleTemplateID, createRoleTemplateVersionOptionsRole)
+				createRoleTemplateVersionOptionsModel.SetRoleTemplateID("testString")
+				createRoleTemplateVersionOptionsModel.SetRole(templateRoleModel)
+				createRoleTemplateVersionOptionsModel.SetName("testString")
+				createRoleTemplateVersionOptionsModel.SetDescription("testString")
+				createRoleTemplateVersionOptionsModel.SetCommitted(true)
+				createRoleTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createRoleTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(createRoleTemplateVersionOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateVersionOptionsModel.Role).To(Equal(templateRoleModel))
+				Expect(createRoleTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateVersionOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(createRoleTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewCreateV2PolicyOptions successfully`, func() {
 				// Construct an instance of the Roles model
 				rolesModel := new(iampolicymanagementv1.Roles)
@@ -13714,6 +17319,16 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(deletePolicyTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(deletePolicyTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteRoleAssignmentOptions successfully`, func() {
+				// Construct an instance of the DeleteRoleAssignmentOptions model
+				assignmentID := "testString"
+				deleteRoleAssignmentOptionsModel := iamPolicyManagementService.NewDeleteRoleAssignmentOptions(assignmentID)
+				deleteRoleAssignmentOptionsModel.SetAssignmentID("testString")
+				deleteRoleAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteRoleAssignmentOptionsModel).ToNot(BeNil())
+				Expect(deleteRoleAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteRoleAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteRoleOptions successfully`, func() {
 				// Construct an instance of the DeleteRoleOptions model
 				roleID := "testString"
@@ -13723,6 +17338,29 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(deleteRoleOptionsModel).ToNot(BeNil())
 				Expect(deleteRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteRoleTemplateOptions successfully`, func() {
+				// Construct an instance of the DeleteRoleTemplateOptions model
+				roleTemplateID := "testString"
+				deleteRoleTemplateOptionsModel := iamPolicyManagementService.NewDeleteRoleTemplateOptions(roleTemplateID)
+				deleteRoleTemplateOptionsModel.SetRoleTemplateID("testString")
+				deleteRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteRoleTemplateOptionsModel).ToNot(BeNil())
+				Expect(deleteRoleTemplateOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteRoleTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the DeleteRoleTemplateVersionOptions model
+				roleTemplateID := "testString"
+				version := "testString"
+				deleteRoleTemplateVersionOptionsModel := iamPolicyManagementService.NewDeleteRoleTemplateVersionOptions(roleTemplateID, version)
+				deleteRoleTemplateVersionOptionsModel.SetRoleTemplateID("testString")
+				deleteRoleTemplateVersionOptionsModel.SetVersion("testString")
+				deleteRoleTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteRoleTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(deleteRoleTemplateVersionOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteRoleTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(deleteRoleTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteV2PolicyOptions successfully`, func() {
 				// Construct an instance of the DeleteV2PolicyOptions model
@@ -13817,6 +17455,16 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(getPolicyTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(getPolicyTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetRoleAssignmentOptions successfully`, func() {
+				// Construct an instance of the GetRoleAssignmentOptions model
+				assignmentID := "testString"
+				getRoleAssignmentOptionsModel := iamPolicyManagementService.NewGetRoleAssignmentOptions(assignmentID)
+				getRoleAssignmentOptionsModel.SetAssignmentID("testString")
+				getRoleAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getRoleAssignmentOptionsModel).ToNot(BeNil())
+				Expect(getRoleAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(getRoleAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetRoleOptions successfully`, func() {
 				// Construct an instance of the GetRoleOptions model
 				roleID := "testString"
@@ -13826,6 +17474,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(getRoleOptionsModel).ToNot(BeNil())
 				Expect(getRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
 				Expect(getRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetRoleTemplateOptions successfully`, func() {
+				// Construct an instance of the GetRoleTemplateOptions model
+				roleTemplateID := "testString"
+				getRoleTemplateOptionsModel := iamPolicyManagementService.NewGetRoleTemplateOptions(roleTemplateID)
+				getRoleTemplateOptionsModel.SetRoleTemplateID("testString")
+				getRoleTemplateOptionsModel.SetState("active")
+				getRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getRoleTemplateOptionsModel).ToNot(BeNil())
+				Expect(getRoleTemplateOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getRoleTemplateOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(getRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetRoleTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetRoleTemplateVersionOptions model
+				roleTemplateID := "testString"
+				version := "testString"
+				getRoleTemplateVersionOptionsModel := iamPolicyManagementService.NewGetRoleTemplateVersionOptions(roleTemplateID, version)
+				getRoleTemplateVersionOptionsModel.SetRoleTemplateID("testString")
+				getRoleTemplateVersionOptionsModel.SetVersion("testString")
+				getRoleTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getRoleTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getRoleTemplateVersionOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getRoleTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(getRoleTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetSettingsOptions successfully`, func() {
 				// Construct an instance of the GetSettingsOptions model
@@ -14016,6 +17689,66 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listPolicyTemplatesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listPolicyTemplatesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListRoleAssignmentsOptions successfully`, func() {
+				// Construct an instance of the ListRoleAssignmentsOptions model
+				accountID := "testString"
+				listRoleAssignmentsOptionsModel := iamPolicyManagementService.NewListRoleAssignmentsOptions(accountID)
+				listRoleAssignmentsOptionsModel.SetAccountID("testString")
+				listRoleAssignmentsOptionsModel.SetAcceptLanguage("default")
+				listRoleAssignmentsOptionsModel.SetTemplateID("testString")
+				listRoleAssignmentsOptionsModel.SetTemplateVersion("testString")
+				listRoleAssignmentsOptionsModel.SetLimit(int64(10))
+				listRoleAssignmentsOptionsModel.SetStart("testString")
+				listRoleAssignmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listRoleAssignmentsOptionsModel).ToNot(BeNil())
+				Expect(listRoleAssignmentsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleAssignmentsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listRoleAssignmentsOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleAssignmentsOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleAssignmentsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listRoleAssignmentsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleAssignmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListRoleTemplateVersionsOptions successfully`, func() {
+				// Construct an instance of the ListRoleTemplateVersionsOptions model
+				roleTemplateID := "testString"
+				listRoleTemplateVersionsOptionsModel := iamPolicyManagementService.NewListRoleTemplateVersionsOptions(roleTemplateID)
+				listRoleTemplateVersionsOptionsModel.SetRoleTemplateID("testString")
+				listRoleTemplateVersionsOptionsModel.SetState("active")
+				listRoleTemplateVersionsOptionsModel.SetLimit(int64(10))
+				listRoleTemplateVersionsOptionsModel.SetStart("testString")
+				listRoleTemplateVersionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listRoleTemplateVersionsOptionsModel).ToNot(BeNil())
+				Expect(listRoleTemplateVersionsOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplateVersionsOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listRoleTemplateVersionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listRoleTemplateVersionsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplateVersionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListRoleTemplatesOptions successfully`, func() {
+				// Construct an instance of the ListRoleTemplatesOptions model
+				accountID := "testString"
+				listRoleTemplatesOptionsModel := iamPolicyManagementService.NewListRoleTemplatesOptions(accountID)
+				listRoleTemplatesOptionsModel.SetAccountID("testString")
+				listRoleTemplatesOptionsModel.SetAcceptLanguage("default")
+				listRoleTemplatesOptionsModel.SetName("testString")
+				listRoleTemplatesOptionsModel.SetRoleName("testString")
+				listRoleTemplatesOptionsModel.SetRoleServiceName("testString")
+				listRoleTemplatesOptionsModel.SetState("active")
+				listRoleTemplatesOptionsModel.SetLimit(int64(10))
+				listRoleTemplatesOptionsModel.SetStart("testString")
+				listRoleTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listRoleTemplatesOptionsModel).ToNot(BeNil())
+				Expect(listRoleTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplatesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listRoleTemplatesOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplatesOptionsModel.RoleName).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplatesOptionsModel.RoleServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplatesOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listRoleTemplatesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listRoleTemplatesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listRoleTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListRolesOptions successfully`, func() {
 				// Construct an instance of the ListRolesOptions model
@@ -14333,6 +18066,45 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(replaceRoleOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewReplaceRoleTemplateOptions successfully`, func() {
+				// Construct an instance of the TemplateRole model
+				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
+				Expect(templateRoleModel).ToNot(BeNil())
+				templateRoleModel.Name = core.StringPtr("testString")
+				templateRoleModel.DisplayName = core.StringPtr("testString")
+				templateRoleModel.ServiceName = core.StringPtr("testString")
+				templateRoleModel.Description = core.StringPtr("testString")
+				templateRoleModel.Actions = []string{"testString"}
+				Expect(templateRoleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateRoleModel.Actions).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the ReplaceRoleTemplateOptions model
+				roleTemplateID := "testString"
+				version := "testString"
+				ifMatch := "testString"
+				var replaceRoleTemplateOptionsRole *iampolicymanagementv1.TemplateRole = nil
+				replaceRoleTemplateOptionsModel := iamPolicyManagementService.NewReplaceRoleTemplateOptions(roleTemplateID, version, ifMatch, replaceRoleTemplateOptionsRole)
+				replaceRoleTemplateOptionsModel.SetRoleTemplateID("testString")
+				replaceRoleTemplateOptionsModel.SetVersion("testString")
+				replaceRoleTemplateOptionsModel.SetIfMatch("testString")
+				replaceRoleTemplateOptionsModel.SetRole(templateRoleModel)
+				replaceRoleTemplateOptionsModel.SetName("testString")
+				replaceRoleTemplateOptionsModel.SetDescription("testString")
+				replaceRoleTemplateOptionsModel.SetCommitted(true)
+				replaceRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceRoleTemplateOptionsModel).ToNot(BeNil())
+				Expect(replaceRoleTemplateOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleTemplateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleTemplateOptionsModel.Role).To(Equal(templateRoleModel))
+				Expect(replaceRoleTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(replaceRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewReplaceV2PolicyOptions successfully`, func() {
 				// Construct an instance of the Roles model
 				rolesModel := new(iampolicymanagementv1.Roles)
@@ -14455,6 +18227,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewRoleAssignmentTemplate successfully`, func() {
+				id := "testString"
+				version := "testString"
+				_model, err := iamPolicyManagementService.NewRoleAssignmentTemplate(id, version)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewRoles successfully`, func() {
 				roleID := "testString"
 				_model, err := iamPolicyManagementService.NewRoles(roleID)
@@ -14486,6 +18265,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			It(`Invoke NewTemplatePolicy successfully`, func() {
 				typeVar := "access"
 				_model, err := iamPolicyManagementService.NewTemplatePolicy(typeVar)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTemplateRole successfully`, func() {
+				name := "testString"
+				displayName := "testString"
+				serviceName := "testString"
+				actions := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewTemplateRole(name, displayName, serviceName, actions)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -14538,6 +18326,22 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(updatePolicyStateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updatePolicyStateOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(updatePolicyStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateRoleAssignmentOptions successfully`, func() {
+				// Construct an instance of the UpdateRoleAssignmentOptions model
+				assignmentID := "testString"
+				ifMatch := "testString"
+				updateRoleAssignmentOptionsTemplateVersion := "testString"
+				updateRoleAssignmentOptionsModel := iamPolicyManagementService.NewUpdateRoleAssignmentOptions(assignmentID, ifMatch, updateRoleAssignmentOptionsTemplateVersion)
+				updateRoleAssignmentOptionsModel.SetAssignmentID("testString")
+				updateRoleAssignmentOptionsModel.SetIfMatch("testString")
+				updateRoleAssignmentOptionsModel.SetTemplateVersion("testString")
+				updateRoleAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateRoleAssignmentOptionsModel).ToNot(BeNil())
+				Expect(updateRoleAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(updateRoleAssignmentOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateRoleAssignmentOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(updateRoleAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateSettingsOptions successfully`, func() {
 				// Construct an instance of the IdentityTypesBase model
@@ -14938,6 +18742,25 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalRoleAssignmentTemplate successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.RoleAssignmentTemplate)
+			model.ID = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.RoleAssignmentTemplate
+			err = iampolicymanagementv1.UnmarshalRoleAssignmentTemplate(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalRoles successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.Roles)
@@ -15035,6 +18858,28 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.TemplatePolicy
 			err = iampolicymanagementv1.UnmarshalTemplatePolicy(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateRole successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateRole)
+			model.Name = core.StringPtr("testString")
+			model.DisplayName = core.StringPtr("testString")
+			model.ServiceName = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Actions = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateRole
+			err = iampolicymanagementv1.UnmarshalTemplateRole(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
