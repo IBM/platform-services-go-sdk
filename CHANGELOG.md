@@ -1,3 +1,15 @@
+# [0.88.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.87.0...v0.88.0) (2025-10-01)
+
+
+### Bug Fixes
+
+* **Global Search:** regenerated services with latest API definition ([#407](https://github.com/IBM/platform-services-go-sdk/issues/407)) ([37fd6d6](https://github.com/IBM/platform-services-go-sdk/commit/37fd6d6f797ded7b1e094921c47493d06de0483a))
+
+
+### Features
+
+* **IAM Identity:** add new account settings ([#409](https://github.com/IBM/platform-services-go-sdk/issues/409)) ([a3201d7](https://github.com/IBM/platform-services-go-sdk/commit/a3201d79e86372beed2967a91684ccc9bbc3969b))
+
 # [0.87.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.86.1...v0.87.0) (2025-09-12)
 
 

@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2020, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,17 +47,18 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 	const externalConfigFile = "../iam_identity.env"
 
 	var (
-		apikeyName         string = "Go-SDK-IT-APIKey"
-		serviceIDName      string = "Go-SDK-IT-ServiceId"
-		profileName1       string = "Go-SDK-IT-Profile-1"
-		profileName2       string = "Go-SDK-IT-Profile-2"
+		now string = fmt.Sprint(time.Now().UnixNano() / int64(time.Millisecond))
+
+		apikeyName         string = "Go-SDK-IT-APIKey-" + now
+		serviceIDName      string = "Go-SDK-IT-ServiceId-" + now
+		profileName1       string = "Go-SDK-IT-Profile-1-" + now
+		profileName2       string = "Go-SDK-IT-Profile-2-" + now
 		accountID          string
 		iamID              string
-		iamIDMember        string
 		iamAPIKey          string
 		claimRuleType      string = "Profile-SAML"
 		realmName          string = "https://sdk.test.realm/1234"
-		serviceIdGroupName string = "Go-SDK-IT-ServiceId-Group"
+		serviceIdGroupName string = "Go-SDK-IT-ServiceId-Group-" + now
 
 		iamIdentityService *iamidentityv1.IamIdentityV1
 		err                error
@@ -92,14 +93,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 		enterpriseAccountID                   string
 		enterpriseSubAccountID                string
-		profileTemplateName                   string = "Go-SDK-IT-Profile-Template"
-		profileTemplateProfileName            string = "Go-SDK-IT-Profile-From-Template"
+		profileTemplateName                   string = "Go-SDK-IT-Profile-Template-" + now
+		profileTemplateProfileName            string = "Go-SDK-IT-Profile-From-Template-" + now
 		profileTemplateId                     string
 		profileTemplateVersion                int64
 		profileTemplateEtag                   string
 		profileTemplateAssignmentId           string
 		profileTemplateAssignmentEtag         string
-		accountSettingsTemplateName           string = "Go-SDK-IT-AccountSettings-Template"
+		accountSettingsTemplateName           string = "Go-SDK-IT-AccountSettings-Template-" + now
 		accountSettingsTemplateId             string
 		accountSettingsTemplateVersion        int64
 		accountSettingsTemplateEtag           string
@@ -140,9 +141,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
 
-			iamIDMember = config["IAM_ID_MEMBER"]
-			Expect(iamIDMember).ToNot(BeEmpty())
-
 			iamAPIKey = config["APIKEY"]
 			Expect(iamAPIKey).ToNot(BeEmpty())
 
@@ -154,9 +152,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			enterpriseSubAccountID = config["ENTERPRISE_SUBACCOUNT_ID"]
 			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
-
-			iamIDForPreferences = config["IAM_ID_FOR_PREFERENCES"]
-			Expect(iamIDForPreferences).ToNot(BeEmpty())
 
 		})
 	})
@@ -824,6 +819,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "CreateProfile #1 response:\n%s\n", common.ToJSON(trustedProfile))
 
 			profileId2 = *trustedProfile.ID
+			iamIDForPreferences = *trustedProfile.IamID // for use in preference ITs
+
 			Expect(profileId2).ToNot(BeNil())
 		})
 	})
@@ -1319,6 +1316,18 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(profileIdentities.Identities).ToNot(BeNil())
 			Expect(profileIdentities.Identities[0].Identifier).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdentities))
+
+			// delete so it can be added in a different test
+			deleteProfileIdentityOptions := iamidentityv1.DeleteProfileIdentityOptions{
+				ProfileID:    &profileId2,
+				IdentityType: core.StringPtr("user"),
+				IdentifierID: &iamID,
+			}
+
+			delResponse, delErr := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
+
+			Expect(delErr).To(BeNil())
+			Expect(delResponse.StatusCode).To(Equal(204))
 		})
 	})
 
@@ -1333,7 +1342,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			setProfileIdentityOptions := iamidentityv1.SetProfileIdentityOptions{
 				ProfileID:    &profileId2,
 				IdentityType: core.StringPtr("user"),
-				Identifier:   &iamIDMember,
+				Identifier:   &iamID,
 				Accounts:     accounts,
 				Type:         core.StringPtr("user"),
 				Description:  core.StringPtr("Identity description"),
@@ -1358,7 +1367,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			getProfileIdentityOptions := iamidentityv1.GetProfileIdentityOptions{
 				ProfileID:    &profileId2,
 				IdentityType: core.StringPtr("user"),
-				IdentifierID: &iamIDMember,
+				IdentifierID: &iamID,
 			}
 
 			profileIdnetity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
@@ -1380,33 +1389,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			deleteProfileIdentityOptions := iamidentityv1.DeleteProfileIdentityOptions{
 				ProfileID:    &profileId2,
 				IdentityType: core.StringPtr("user"),
-				IdentifierID: &iamIDMember,
+				IdentifierID: &iamID,
 			}
 
 			response, err := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-		})
-	})
-
-	Describe(`DeleteProfile2 - Delete trusted profile #2`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteProfile(deleteProfileOptions *DeleteProfileOptions)`, func() {
-
-			deleteProfileOptions := &iamidentityv1.DeleteProfileOptions{
-				ProfileID: &profileId2,
-			}
-
-			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-			profile := getProfile(iamIdentityService, profileId2)
-			Expect(profile).To(BeNil())
 		})
 	})
 
@@ -1651,6 +1640,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			getAccountSettingsOptions := &iamidentityv1.GetAccountSettingsOptions{
 				AccountID:      core.StringPtr(accountID),
 				IncludeHistory: core.BoolPtr(true),
+				ResolveUserMfa: core.BoolPtr(false),
 			}
 
 			accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
@@ -1662,6 +1652,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.EntityTag).ToNot(BeNil())
 			Expect(accountSettingsResponse.RestrictCreateServiceID).ToNot(BeNil())
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).ToNot(BeNil())
+			Expect(accountSettingsResponse.RestrictUserListVisibility).ToNot(BeNil())
+			Expect(accountSettingsResponse.RestrictUserDomains).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).ToNot(BeNil())
@@ -1680,23 +1672,37 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 
-			accountSettingsUserMFA := new(iamidentityv1.AccountSettingsUserMfa)
-			accountSettingsUserMFA.IamID = core.StringPtr(iamIDMember)
-			accountSettingsUserMFA.Mfa = core.StringPtr("NONE")
+			userMFA := new(iamidentityv1.UserMfa)
+			userMFA.IamID = core.StringPtr(iamID)
+			userMFA.Mfa = core.StringPtr("NONE")
+
+			userDomainRestriction := new(iamidentityv1.AccountSettingsUserDomainRestriction)
+			userDomainRestriction.RealmID = core.StringPtr("IBMid")
+			userDomainRestriction.RestrictInvitation = core.BoolPtr(false)
+			userDomainRestriction.InvitationEmailAllowPatterns = []string{"**@**ibm.com"}
 
 			accountSettingsRequestOptions := &iamidentityv1.UpdateAccountSettingsOptions{
 				IfMatch:                      core.StringPtr(accountSettingEtag),
 				AccountID:                    core.StringPtr(accountID),
 				RestrictCreateServiceID:      core.StringPtr("NOT_RESTRICTED"),
 				RestrictCreatePlatformApikey: core.StringPtr("NOT_RESTRICTED"),
+				RestrictUserListVisibility:   core.StringPtr("NOT_RESTRICTED"),
+				RestrictUserDomains:          []iamidentityv1.AccountSettingsUserDomainRestriction{*userDomainRestriction},
 				//AllowedIPAddresses:                  core.StringPtr("testString"),
 				Mfa:                                   core.StringPtr("NONE"),
-				UserMfa:                               []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMFA},
+				UserMfa:                               []iamidentityv1.UserMfa{*userMFA},
 				SessionExpirationInSeconds:            core.StringPtr("86400"),
 				SessionInvalidationInSeconds:          core.StringPtr("7200"),
 				MaxSessionsPerIdentity:                core.StringPtr("10"),
 				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3600"),
 				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
+			}
+
+			expectedUserMfaResponse := []iamidentityv1.AccountSettingsUserMfaResponse{
+				{
+					IamID: core.StringPtr(iamID),
+					Mfa:   core.StringPtr("NONE"),
+				},
 			}
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(accountSettingsRequestOptions)
@@ -1707,10 +1713,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.History).ToNot(BeNil())
 			Expect(accountSettingsResponse.EntityTag).ToNot(Equal(accountSettingEtag))
 			Expect(accountSettingsResponse.Mfa).To(Equal(accountSettingsRequestOptions.Mfa))
-			Expect(accountSettingsResponse.UserMfa).To(Equal(accountSettingsRequestOptions.UserMfa))
+			Expect(accountSettingsResponse.UserMfa).To(Equal(expectedUserMfaResponse))
 			Expect(accountSettingsResponse.AccountID).To(Equal(accountSettingsRequestOptions.AccountID))
 			Expect(accountSettingsResponse.RestrictCreateServiceID).To(Equal(accountSettingsRequestOptions.RestrictCreateServiceID))
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).To(Equal(accountSettingsRequestOptions.RestrictCreatePlatformApikey))
+			Expect(accountSettingsResponse.RestrictUserListVisibility).To(Equal(accountSettingsRequestOptions.RestrictUserListVisibility))
+			Expect(accountSettingsResponse.RestrictUserDomains).To(Equal(accountSettingsRequestOptions.RestrictUserDomains))
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).To(Equal(accountSettingsRequestOptions.SessionInvalidationInSeconds))
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SessionExpirationInSeconds))
 			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemAccessTokenExpirationInSeconds))
@@ -1728,6 +1736,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			getEffectiveAccountSettingsOptions := &iamidentityv1.GetEffectiveAccountSettingsOptions{
 				AccountID:      core.StringPtr(accountID),
 				IncludeHistory: core.BoolPtr(true),
+				ResolveUserMfa: core.BoolPtr(false),
 			}
 
 			effectiveAccountSettingsResponse, response, err := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions)
@@ -2606,6 +2615,26 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteProfile2 - Delete trusted profile #2`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfile(deleteProfileOptions *DeleteProfileOptions)`, func() {
+
+			deleteProfileOptions := &iamidentityv1.DeleteProfileOptions{
+				ProfileID: &profileId2,
+			}
+
+			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			profile := getProfile(iamIdentityService, profileId2)
+			Expect(profile).To(BeNil())
 		})
 	})
 
