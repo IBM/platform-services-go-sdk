@@ -1717,6 +1717,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		It(`CreateRoleTemplateVersion request example`, func() {
 			fmt.Println("\nCreateRoleTemplateVersion() result:")
 			// begin-create_role_template_version
+
 			templateRole := &iampolicymanagementv1.TemplateRole{
 				Name:        core.StringPtr("GOSDKTestRoleDelete"),
 				DisplayName: core.StringPtr("GOSDKTestRoleDelete"),
@@ -1771,6 +1772,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
+
 			// end-list_role_template_versions
 
 			Expect(allResults).ToNot(BeNil())
@@ -1779,6 +1781,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		It(`ReplaceRoleTemplate request example`, func() {
 			fmt.Println("\nReplaceRoleTemplate() result:")
 			// begin-replace_role_template
+
 			templateRole := &iampolicymanagementv1.TemplateRole{
 				Name:        core.StringPtr("GOSDKTestRoleUpdate"),
 				DisplayName: core.StringPtr("GOSDKTestRoleUpdate"),
@@ -1861,6 +1864,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		It(`ListRoleTemplates request example`, func() {
 			fmt.Println("\nListRoleTemplates() result:")
 			// begin-list_role_templates
+
 			listRoleTemplatesOptions := &iampolicymanagementv1.ListRoleTemplatesOptions{
 				AccountID: &exampleAccountID,
 				AcceptLanguage: core.StringPtr("default"),
@@ -1882,13 +1886,16 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
+
 			// end-list_role_templates
+
 			Expect(allResults).ToNot(BeNil())
 		})
 
 		It(`CreateRoleAssignments request example`, func() {
 			fmt.Println("\nCreateRoleTemplateAssignment() result:")
 			// begin-create_role_template_assignment
+
 			template := iampolicymanagementv1.RoleAssignmentTemplate{
 				ID:      &exampleRoleTemplateID,
 				Version: &exampleRoleTemplateVersion,
@@ -1913,7 +1920,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 
 			var assignmentDetails = roleAssignment.Assignments[0]
+
 			// end-create_role_template_assignment
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			exampleRoleAssignmentETag = response.GetHeaders().Get(exampleETagHeader)
@@ -1922,6 +1931,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		It(`UpdateRoleAssignment request example))`, func() {
 			// begin-update_role_assignment
+
 			updatePolicyAssignmentOptions := iamPolicyManagementService.NewUpdateRoleAssignmentOptions(
 				exampleRoleAssignmentId,
 				exampleRoleAssignmentETag,
@@ -1931,7 +1941,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			roleAssignment, response, err := iamPolicyManagementService.UpdateRoleAssignment(updatePolicyAssignmentOptions)
 			b, _ := json.MarshalIndent(roleAssignment, "", "  ")
 			fmt.Println(string(b))
+
 			// end-update_role_assignment
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			exampleRoleAssignmentId = *roleAssignment.ID
@@ -2007,12 +2019,15 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		It(`DeleteRoleAssignment request example)`, func() {
 			// begin-delete_role_assignment
+
 			deleteRoleAssignmentOptions := iamPolicyManagementService.NewDeleteRoleAssignmentOptions(
 				exampleRoleAssignmentId,
 			)
 
 			response, err := iamPolicyManagementService.DeleteRoleAssignment(deleteRoleAssignmentOptions)
+
 			// end-delete_role_assignment
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
