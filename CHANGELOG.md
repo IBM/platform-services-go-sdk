@@ -1,3 +1,10 @@
+# [0.89.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.88.0...v0.89.0) (2025-10-10)
+
+
+### Features
+
+* **IAM Policy Management:** add enterprise custom role ([#410](https://github.com/IBM/platform-services-go-sdk/issues/410)) ([634a3e7](https://github.com/IBM/platform-services-go-sdk/commit/634a3e7105c657d8bec6948bc497dd2ffb83c889))
+
 # [0.88.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.87.0...v0.88.0) (2025-10-01)
 
 
