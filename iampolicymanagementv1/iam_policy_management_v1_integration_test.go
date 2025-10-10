@@ -94,6 +94,13 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testActionControlTemplateVersionETag        string = ""
 		testActionControlAssignmentETag             string = ""
 		testActionControlAssignmentId               string = ""
+		exampleRoleTemplateName                     string = "RoleTemplateGoSDK"
+		testRoleTemplateID                          string = ""
+		testRoleUpdateTemplateVersion               string = ""
+		testRoleTemplateVersion                     string = ""
+		testRoleTemplateVersionETag                 string = ""
+		testRoleAssignmentETag                      string = ""
+		testRoleAssignmentId                        string = ""
 	)
 
 	var shouldSkipTest = func() {
@@ -1964,6 +1971,463 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			response, err := service.DeleteActionControlTemplate(deleteActionControlTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`CreateRoleTemplate - Create role template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateRoleTemplate(createRoleTemplateOptions *CreateRoleTemplateOptions)`, func() {
+			templateRoleModel := &iampolicymanagementv1.TemplateRole{
+				Name:        core.StringPtr("GOSDKTestRoleCreate"),
+				DisplayName: core.StringPtr("GOSDKTestRoleCreate"),
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("Test Role from GO SDK - Create"),
+				Actions:     []string{"am-test-service.test.create"},
+			}
+
+			createRoleTemplateOptions := &iampolicymanagementv1.CreateRoleTemplateOptions{
+				Name:           &exampleRoleTemplateName,
+				AccountID:      &testAccountID,
+				Description:    core.StringPtr("Test Role Template from GO SDK"),
+				Committed:      core.BoolPtr(true),
+				Role:           templateRoleModel,
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			roleTemplate, response, err := service.CreateRoleTemplate(createRoleTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(roleTemplate).ToNot(BeNil())
+			Expect(roleTemplate.Name).To(Equal(core.StringPtr(exampleRoleTemplateName)))
+			Expect(roleTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(roleTemplate.State).To(Equal(core.StringPtr("active")))
+			testRoleTemplateID = *roleTemplate.ID
+			testRoleTemplateVersion = *roleTemplate.Version
+		})
+	})
+
+	Describe(`CreateRoleTemplateVersion - Create a new role template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateRoleTemplateVersion(createRoleTemplateVersionOptions *CreateRoleTemplateVersionOptions)`, func() {
+			templateRoleModel := &iampolicymanagementv1.TemplateRole{
+				Name:        core.StringPtr("GOSDKTestRoleDelete"),
+				DisplayName: core.StringPtr("GOSDKTestRoleDelete"),
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("Test Role from GO SDK - Delete"),
+				Actions:     []string{"am-test-service.test.delete"},
+			}
+
+			createRoleTemplateVersionOptions := &iampolicymanagementv1.CreateRoleTemplateVersionOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Role:           templateRoleModel,
+				Description:    core.StringPtr("Test of Role Template Version from GO SDK"),
+			}
+
+			roleTemplate, response, err := service.CreateRoleTemplateVersion(createRoleTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(roleTemplate).ToNot(BeNil())
+			Expect(roleTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(roleTemplate.Name).To(Equal(core.StringPtr(exampleRoleTemplateName)))
+			Expect(roleTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testRoleUpdateTemplateVersion = *roleTemplate.Version
+			testRoleTemplateVersionETag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`ReplaceRoleTemplate - Update a role template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceRoleTemplate(replaceRoleTemplateOptions *ReplaceRoleTemplateOptions)`, func() {
+			templateRoleModel := &iampolicymanagementv1.TemplateRole{
+				Name:        core.StringPtr("GOSDKTestRoleDelete"),
+				DisplayName: core.StringPtr("GOSDKTestRoleDelete"),
+				ServiceName: core.StringPtr("am-test-service"),
+				Description: core.StringPtr("Test Role from GO SDK - Delete/Create"),
+				Actions:     []string{"am-test-service.test.delete", "am-test-service.test.create"},
+			}
+
+			replaceRoleTemplateOptions := &iampolicymanagementv1.ReplaceRoleTemplateOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Version:        &testRoleUpdateTemplateVersion,
+				IfMatch:        &testRoleTemplateVersionETag,
+				Role:           templateRoleModel,
+				Committed:      core.BoolPtr(true),
+			}
+
+			roleTemplate, response, err := service.ReplaceRoleTemplate(replaceRoleTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListRoleTemplates - List role templates by attributes`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListRoleTemplates(listRoleTemplatesOptions *ListRoleTemplatesOptions) with pagination`, func() {
+			listRoleTemplatesOptions := &iampolicymanagementv1.ListRoleTemplatesOptions{
+				AccountID:      &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+				Limit:          core.Int64Ptr(int64(10)),
+				Start:          core.StringPtr(""),
+			}
+
+			listRoleTemplatesOptions.Start = nil
+			listRoleTemplatesOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []iampolicymanagementv1.RoleTemplate
+			for {
+				roleTemplateCollection, response, err := service.ListRoleTemplates(listRoleTemplatesOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(roleTemplateCollection).ToNot(BeNil())
+				allResults = append(allResults, roleTemplateCollection.RoleTemplates...)
+
+				listRoleTemplatesOptions.Start, err = roleTemplateCollection.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listRoleTemplatesOptions.Start == nil {
+					break
+				}
+			}
+			Expect(allResults[0].AccountID).To(Equal(&testAccountID))
+			Expect(allResults[0].State).To(Equal(core.StringPtr("active")))
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListRoleTemplates(listRoleTemplatesOptions *ListRoleTemplatesOptions) using RoleTemplatesPager`, func() {
+			listRoleTemplatesOptions := &iampolicymanagementv1.ListRoleTemplatesOptions{
+				AccountID:      &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+				Limit:          core.Int64Ptr(int64(10)),
+			}
+
+			// Test GetNext().
+			pager, err := service.NewRoleTemplatesPager(listRoleTemplatesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []iampolicymanagementv1.RoleTemplate
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = service.NewRoleTemplatesPager(listRoleTemplatesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListRoleTemplates() returned a total of %d item(s) using RoleTemplatesPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetRoleTemplateVersion - Retrieve a role template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetRoleTemplateVersion(getRoleTemplateVersionOptions *GetRoleTemplateVersionOptions)`, func() {
+			getRoleTemplateVersionOptions := &iampolicymanagementv1.GetRoleTemplateVersionOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Version:        &testRoleUpdateTemplateVersion,
+			}
+
+			roleTemplate, response, err := service.GetRoleTemplateVersion(getRoleTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CommitRoleTemplate - Commit a role template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CommitRoleTemplate(commitRoleTemplateOptions *CommitRoleTemplateOptions)`, func() {
+			commitRoleTemplateOptions := &iampolicymanagementv1.CommitRoleTemplateOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Version:        &testRoleUpdateTemplateVersion,
+			}
+
+			response, err := service.CommitRoleTemplate(commitRoleTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`GetRoleTemplate - Retrieve the latest version of a role template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetRoleTemplate(getRoleTemplateOptions *GetRoleTemplateOptions)`, func() {
+			getRoleTemplateOptions := &iampolicymanagementv1.GetRoleTemplateOptions{
+				RoleTemplateID: &testRoleTemplateID,
+			}
+
+			roleTemplate, response, err := service.GetRoleTemplate(getRoleTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleTemplate).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListRoleTemplateVersions - Retrieve role template versions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListRoleTemplateVersions(listRoleTemplateVersionsOptions *ListRoleTemplateVersionsOptions) with pagination`, func() {
+			listRoleTemplateVersionsOptions := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Limit:          core.Int64Ptr(int64(10)),
+				Start:          core.StringPtr(""),
+			}
+
+			listRoleTemplateVersionsOptions.Start = nil
+			listRoleTemplateVersionsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []iampolicymanagementv1.RoleTemplate
+			for {
+				roleTemplateVersionsCollection, response, err := service.ListRoleTemplateVersions(listRoleTemplateVersionsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(roleTemplateVersionsCollection).ToNot(BeNil())
+				allResults = append(allResults, roleTemplateVersionsCollection.Versions...)
+
+				listRoleTemplateVersionsOptions.Start, err = roleTemplateVersionsCollection.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listRoleTemplateVersionsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListRoleTemplateVersions(listRoleTemplateVersionsOptions *ListRoleTemplateVersionsOptions) using RoleTemplateVersionsPager`, func() {
+			listRoleTemplateVersionsOptions := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Limit:          core.Int64Ptr(int64(10)),
+			}
+
+			// Test GetNext().
+			pager, err := service.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []iampolicymanagementv1.RoleTemplate
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = service.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListRoleTemplateVersions() returned a total of %d item(s) using RoleTemplateVersionsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateRoleTemplateAssignment - Create a role template assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptions *CreateRoleTemplateAssignmentOptions)`, func() {
+			assignmentTargetDetailsModel := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: &testTargetType,
+				ID:   &testTargetAccountID,
+			}
+
+			roleAssignmentTemplateModel := &iampolicymanagementv1.RoleAssignmentTemplate{
+				ID:      &testRoleTemplateID,
+				Version: &testRoleTemplateVersion,
+			}
+
+			createRoleTemplateAssignmentOptions := &iampolicymanagementv1.CreateRoleTemplateAssignmentOptions{
+				Target: assignmentTargetDetailsModel,
+				Templates: []iampolicymanagementv1.RoleAssignmentTemplate{*roleAssignmentTemplateModel},
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			roleAssignmentCollection, response, err := service.CreateRoleTemplateAssignment(createRoleTemplateAssignmentOptions)
+			var assignmentDetails = roleAssignmentCollection.Assignments[0]
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(roleAssignmentCollection).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Role.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.ID).To(Equal(testTargetAccountID))
+			Expect(*assignmentDetails.Resources[0].Target.Type).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.Type).To(Equal(testTargetType))
+			testRoleAssignmentETag = response.GetHeaders().Get(etagHeader)
+			testRoleAssignmentId = *assignmentDetails.ID
+		})
+	})
+
+	Describe(`UpdateRoleAssignment - Update a role assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateRoleAssignment(updateRoleAssignmentOptions *UpdateRoleAssignmentOptions)`, func() {
+			updateRoleAssignmentOptions := &iampolicymanagementv1.UpdateRoleAssignmentOptions{
+				AssignmentID: &testRoleAssignmentId,
+				IfMatch: &testRoleAssignmentETag,
+				TemplateVersion: &testRoleUpdateTemplateVersion,
+			}
+
+			roleAssignment, response, err := service.UpdateRoleAssignment(updateRoleAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleAssignment).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListRoleAssignments - Get role template assignments`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListRoleAssignments(listRoleAssignmentsOptions *ListRoleAssignmentsOptions) with pagination`, func(){
+			listRoleAssignmentsOptions := &iampolicymanagementv1.ListRoleAssignmentsOptions{
+				AccountID: &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+				Limit: core.Int64Ptr(int64(10)),
+				Start: core.StringPtr(""),
+			}
+
+			listRoleAssignmentsOptions.Start = nil
+			listRoleAssignmentsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []iampolicymanagementv1.RoleAssignment
+			for {
+				roleAssignmentCollection, response, err := service.ListRoleAssignments(listRoleAssignmentsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(roleAssignmentCollection).ToNot(BeNil())
+				allResults = append(allResults, roleAssignmentCollection.Assignments...)
+
+				listRoleAssignmentsOptions.Start, err = roleAssignmentCollection.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listRoleAssignmentsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListRoleAssignments(listRoleAssignmentsOptions *ListRoleAssignmentsOptions) using RoleAssignmentsPager`, func(){
+			listRoleAssignmentsOptions := &iampolicymanagementv1.ListRoleAssignmentsOptions{
+				AccountID: &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+				Limit: core.Int64Ptr(int64(10)),
+			}
+
+			// Test GetNext().
+			pager, err := service.NewRoleAssignmentsPager(listRoleAssignmentsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []iampolicymanagementv1.RoleAssignment
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = service.NewRoleAssignmentsPager(listRoleAssignmentsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListRoleAssignments() returned a total of %d item(s) using RoleAssignmentsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetRoleAssignment - Retrieve a role assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetRoleAssignment(getRoleAssignmentOptions *GetRoleAssignmentOptions)`, func() {
+			getRoleAssignmentOptions := &iampolicymanagementv1.GetRoleAssignmentOptions{
+				AssignmentID: &testRoleAssignmentId,
+			}
+
+			roleAssignment, response, err := service.GetRoleAssignment(getRoleAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(roleAssignment).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteRoleAssignment - Remove a role assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteRoleAssignment(deleteRoleAssignmentOptions *DeleteRoleAssignmentOptions)`, func() {
+			deleteRoleAssignmentOptions := &iampolicymanagementv1.DeleteRoleAssignmentOptions{
+				AssignmentID: &testRoleAssignmentId,
+			}
+
+			response, err := service.DeleteRoleAssignment(deleteRoleAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteRoleTemplateVersion - Delete a role template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptions *DeleteRoleTemplateVersionOptions)`, func() {
+			deleteRoleTemplateVersionOptions := &iampolicymanagementv1.DeleteRoleTemplateVersionOptions{
+				RoleTemplateID: &testRoleTemplateID,
+				Version: &testRoleUpdateTemplateVersion,
+			}
+
+			response, err := service.DeleteRoleTemplateVersion(deleteRoleTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteRoleTemplate - Delete a Role template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteRoleTemplate(deleteRoleTemplateOptions *DeleteRoleTemplateOptions)`, func() {
+			deleteRoleTemplateOptions := &iampolicymanagementv1.DeleteRoleTemplateOptions{
+				RoleTemplateID: &testRoleTemplateID,
+			}
+
+			response, err := service.DeleteRoleTemplate(deleteRoleTemplateOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
