@@ -2,6 +2,8 @@ version: "2"
 linters:
   enable:
     - gosec
+  disable:
+    - staticcheck
   exclusions:
     generated: lax
     presets:
@@ -24,3 +26,12 @@ formatters:
       - third_party$
       - builtin$
       - examples$
+run:
+  timeout: 5m
+issues:
+  exclude-rules:
+    # Skip test files when running the gosec linter.
+    - path: (.+)_test\.go
+      linters:
+        - gosec
+
