@@ -1624,33 +1624,60 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\ncreateAccountSettingsTemplate() result:")
 			// begin-create_account_settings_template
 
-			settings := &iamidentityv1.AccountSettingsComponent{
-				Mfa:                                  core.StringPtr("LEVEL1"),
-				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
+			userMfaModel := &iamidentityv1.UserMfa{
+				IamID: &iamID,
+				Mfa:   core.StringPtr("LEVEL1"),
 			}
 
-			createOptions := &iamidentityv1.CreateAccountSettingsTemplateOptions{
+			accountSettingsUserDomainRestrictionModel := &iamidentityv1.AccountSettingsUserDomainRestriction{
+				RealmID:                      core.StringPtr("IBMid"),
+				InvitationEmailAllowPatterns: []string{"*.*@ibm.com"},
+				RestrictInvitation:           core.BoolPtr(true),
+			}
+
+			templateAccountSettingsRestrictUserDomainsModel := &iamidentityv1.TemplateAccountSettingsRestrictUserDomains{
+				AccountSufficient: core.BoolPtr(true),
+				Restrictions:      []iamidentityv1.AccountSettingsUserDomainRestriction{*accountSettingsUserDomainRestrictionModel},
+			}
+
+			templateAccountSettingsModel := &iamidentityv1.TemplateAccountSettings{
+				RestrictCreateServiceID:               core.StringPtr("NOT_SET"),
+				RestrictCreatePlatformApikey:          core.StringPtr("NOT_SET"),
+				Mfa:                                   core.StringPtr("LEVEL1"),
+				UserMfa:                               []iamidentityv1.UserMfa{*userMfaModel},
+				SessionExpirationInSeconds:            core.StringPtr("86400"),
+				SessionInvalidationInSeconds:          core.StringPtr("7200"),
+				MaxSessionsPerIdentity:                core.StringPtr("10"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3600"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
+				RestrictUserListVisibility:            core.StringPtr("RESTRICTED"),
+				RestrictUserDomains:                   templateAccountSettingsRestrictUserDomainsModel,
+			}
+
+			createAccountSettingsTemplateOptions := &iamidentityv1.CreateAccountSettingsTemplateOptions{
 				Name:            &accountSettingsTemplateName,
 				Description:     core.StringPtr("GoSDK test Account Settings Template"),
 				AccountID:       &enterpriseAccountID,
-				AccountSettings: settings,
+				AccountSettings: templateAccountSettingsModel,
 			}
 
-			createResponse, response, err := iamIdentityService.CreateAccountSettingsTemplate(createOptions)
-
-			b, _ := json.MarshalIndent(createResponse, "", "  ")
+			accountSettingsTemplateResponse, response, err := iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsTemplateResponse, "", "  ")
 			fmt.Println(string(b))
 
 			// Grab the ID and Etag value from the response for use in the update operation.
-			accountSettingsTemplateId = *createResponse.ID
-			accountSettingsTemplateVersion = *createResponse.Version
+			accountSettingsTemplateId = *accountSettingsTemplateResponse.ID
+			accountSettingsTemplateVersion = *accountSettingsTemplateResponse.Version
 			accountSettingsTemplateEtag = response.GetHeaders().Get("Etag")
 
 			// end-create_account_settings_template
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(createResponse).ToNot(BeNil())
+			Expect(accountSettingsTemplateResponse).ToNot(BeNil())
 			Expect(accountSettingsTemplateId).ToNot(BeNil())
 			Expect(accountSettingsTemplateEtag).ToNot(BeEmpty())
 		})
@@ -1701,27 +1728,22 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`updateAccountSettingsTemplateVersion request example`, func() {
 
-			fmt.Println("\nupdateAccountSettingsTemplateVersion() result:")
+			fmt.Println("\nUpdateAccountSettingsTemplateVersion() result:")
 			// begin-update_account_settings_template_version
 
-			settings := &iamidentityv1.AccountSettingsComponent{
-				Mfa:                                  core.StringPtr("LEVEL1"),
-				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
+			updateAccountSettingsTemplateVersionOptions := iamIdentityService.NewUpdateAccountSettingsTemplateVersionOptions(
+				accountSettingsTemplateEtag,
+				accountSettingsTemplateId,
+				strconv.FormatInt(accountSettingsTemplateVersion, 10),
+			)
+
+			updateAccountSettingsTemplateVersionOptions.SetDescription("Example Account Settings Template - updated")
+
+			accountSettingsTemplateResponse, response, err := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptions)
+			if err != nil {
+				panic(err)
 			}
-
-			updateOptions := &iamidentityv1.UpdateAccountSettingsTemplateVersionOptions{
-				AccountID:       &enterpriseAccountID,
-				TemplateID:      &accountSettingsTemplateId,
-				Version:         core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
-				IfMatch:         &accountSettingsTemplateEtag,
-				Name:            &accountSettingsTemplateName,
-				Description:     core.StringPtr("GoSDK test Account Settings Template - updated"),
-				AccountSettings: settings,
-			}
-
-			updateResponse, response, err := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateOptions)
-
-			b, _ := json.MarshalIndent(updateResponse, "", "  ")
+			b, _ := json.MarshalIndent(accountSettingsTemplateResponse, "", "  ")
 			fmt.Println(string(b))
 
 			// Grab the Etag value from the response for use in the update operation.
@@ -1731,7 +1753,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(updateResponse).ToNot(BeNil())
+			Expect(accountSettingsTemplateResponse).ToNot(BeNil())
 			Expect(accountSettingsTemplateEtag).ToNot(BeEmpty())
 		})
 		It(`commitAccountSettingsTemplate request example`, func() {
@@ -1821,40 +1843,61 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(assignment).ToNot(BeNil())
 		})
-		It(`createAccountSettingsTemplateVersion request example`, func() {
+		It(`CreateAccountSettingsTemplateVersion request example`, func() {
 
-			fmt.Println("\ncreateAccountSettingsTemplateVersion() result:")
+			fmt.Println("\nCreateAccountSettingsTemplateVersion() result:")
 			// begin-create_account_settings_template_version
 
-			settings := &iamidentityv1.AccountSettingsComponent{
-				Mfa:                                  core.StringPtr("LEVEL1"),
-				SystemAccessTokenExpirationInSeconds: core.StringPtr("2600"),
-				RestrictCreatePlatformApikey:         core.StringPtr("RESTRICTED"),
-				RestrictCreateServiceID:              core.StringPtr("RESTRICTED"),
+			userMfaModel := &iamidentityv1.UserMfa{
+				IamID: &iamID,
+				Mfa:   core.StringPtr("NONE"),
 			}
 
-			createOptions := &iamidentityv1.CreateAccountSettingsTemplateVersionOptions{
-				Name:            &accountSettingsTemplateName,
-				Description:     core.StringPtr("GoSDK test Account Settings Template - new version"),
+			accountSettingsUserDomainRestrictionModel := &iamidentityv1.AccountSettingsUserDomainRestriction{
+				RealmID:                      core.StringPtr("IBMid"),
+				InvitationEmailAllowPatterns: []string{"*.*@ibm.com"},
+				RestrictInvitation:           core.BoolPtr(false),
+			}
+
+			templateAccountSettingsRestrictUserDomainsModel := &iamidentityv1.TemplateAccountSettingsRestrictUserDomains{
+				AccountSufficient: core.BoolPtr(false),
+				Restrictions:      []iamidentityv1.AccountSettingsUserDomainRestriction{*accountSettingsUserDomainRestrictionModel},
+			}
+
+			templateAccountSettingsModel := &iamidentityv1.TemplateAccountSettings{
+				RestrictCreateServiceID:               core.StringPtr("RESTRICTED"),
+				RestrictCreatePlatformApikey:          core.StringPtr("RESTRICTED"),
+				Mfa:                                   core.StringPtr("LEVEL2"),
+				UserMfa:                               []iamidentityv1.UserMfa{*userMfaModel},
+				SessionExpirationInSeconds:            core.StringPtr("86400"),
+				SessionInvalidationInSeconds:          core.StringPtr("6000"),
+				MaxSessionsPerIdentity:                core.StringPtr("6"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3000"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("3600"),
+				RestrictUserListVisibility:            core.StringPtr("RESTRICTED"),
+				RestrictUserDomains:                   templateAccountSettingsRestrictUserDomainsModel,
+			}
+
+			createAccountSettingsTemplateVersionOptions := &iamidentityv1.CreateAccountSettingsTemplateVersionOptions{
+				Name:            core.StringPtr("Go-SDK-Example-AccountSettings-Template-Version" + time.Now().Format("20060102-150405")),
+				Description:     core.StringPtr("GoSDK test Account Settings Template Version"),
 				AccountID:       &enterpriseAccountID,
+				AccountSettings: templateAccountSettingsModel,
 				TemplateID:      &accountSettingsTemplateId,
-				AccountSettings: settings,
 			}
 
-			createResponse, response, err := iamIdentityService.CreateAccountSettingsTemplateVersion(createOptions)
-
-			b, _ := json.MarshalIndent(createResponse, "", "  ")
+			accountSettingsTemplateVersionResponse, response, err := iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsTemplateVersionResponse, "", "  ")
 			fmt.Println(string(b))
-
-			// save the new version to be used in subsequent calls
-			accountSettingsTemplateVersion = *createResponse.Version
 
 			// end-create_account_settings_template_version
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(createResponse).ToNot(BeNil())
-			Expect(accountSettingsTemplateVersion).ToNot(BeNil())
+			Expect(accountSettingsTemplateVersionResponse).ToNot(BeNil())
 		})
 		It(`getLatestAccountSettingsTemplateVersion request example`, func() {
 
@@ -1869,6 +1912,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			b, _ := json.MarshalIndent(getResponse, "", "  ")
 			fmt.Println(string(b))
+
+			accountSettingsTemplateVersion = *getResponse.Version
 
 			// end-get_latest_account_settings_template_version
 
