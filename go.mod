@@ -1,8 +1,6 @@
 module github.com/IBM/platform-services-go-sdk
 
-go 1.23.0
-
-toolchain go1.23.6
+go 1.24.0
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.20.1
