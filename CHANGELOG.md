@@ -1,3 +1,10 @@
+## [0.90.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.0...v0.90.1) (2025-11-18)
+
+
+### Bug Fixes
+
+* **build:** bump crypto and sdk core versions to avoid CVEs ([#414](https://github.com/IBM/platform-services-go-sdk/issues/414)) ([f581d3a](https://github.com/IBM/platform-services-go-sdk/commit/f581d3a47aaae18b3c5a8dc797061b1896b5b231))
+
 # [0.90.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.89.0...v0.90.0) (2025-10-28)
 
 
