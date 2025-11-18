@@ -3,7 +3,7 @@ module github.com/IBM/platform-services-go-sdk
 go 1.24.0
 
 require (
-	github.com/IBM/go-sdk-core/v5 v5.20.1
+	github.com/IBM/go-sdk-core/v5 v5.21.1
 	github.com/go-openapi/strfmt v0.23.0
 	github.com/google/uuid v1.6.0
 	github.com/onsi/ginkgo v1.16.5
