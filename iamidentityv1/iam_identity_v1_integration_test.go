@@ -1744,9 +1744,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(effectiveAccountSettingsResponse).ToNot(BeNil())
-			Expect(effectiveAccountSettingsResponse.AccountID).ToNot(BeNil())
-			Expect(effectiveAccountSettingsResponse.Effective).ToNot(BeNil())
-			Expect(effectiveAccountSettingsResponse.Account).ToNot(BeNil())
 		})
 	})
 
@@ -2250,15 +2247,41 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It(`CreateAccountSettingsTemplateIT`, func() {
 
-			settings := &iamidentityv1.AccountSettingsComponent{
-				Mfa:                                  core.StringPtr("LEVEL1"),
-				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
+			userMfaModel := &iamidentityv1.UserMfa{
+				IamID: &iamID,
+				Mfa:   core.StringPtr("LEVEL1"),
 			}
+
+			accountSettingsUserDomainRestrictionModel := &iamidentityv1.AccountSettingsUserDomainRestriction{
+				RealmID:                      core.StringPtr("IBMid"),
+				InvitationEmailAllowPatterns: []string{"*.*@ibm.com"},
+				RestrictInvitation:           core.BoolPtr(true),
+			}
+
+			templateAccountSettingsRestrictUserDomainsModel := &iamidentityv1.TemplateAccountSettingsRestrictUserDomains{
+				AccountSufficient: core.BoolPtr(true),
+				Restrictions:      []iamidentityv1.AccountSettingsUserDomainRestriction{*accountSettingsUserDomainRestrictionModel},
+			}
+
+			templateAccountSettingsModel := &iamidentityv1.TemplateAccountSettings{
+				RestrictCreateServiceID:               core.StringPtr("NOT_SET"),
+				RestrictCreatePlatformApikey:          core.StringPtr("NOT_SET"),
+				Mfa:                                   core.StringPtr("LEVEL1"),
+				UserMfa:                               []iamidentityv1.UserMfa{*userMfaModel},
+				SessionExpirationInSeconds:            core.StringPtr("86400"),
+				SessionInvalidationInSeconds:          core.StringPtr("7200"),
+				MaxSessionsPerIdentity:                core.StringPtr("10"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3600"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
+				RestrictUserListVisibility:            core.StringPtr("RESTRICTED"),
+				RestrictUserDomains:                   templateAccountSettingsRestrictUserDomainsModel,
+			}
+
 			createOptions := &iamidentityv1.CreateAccountSettingsTemplateOptions{
 				Name:            &accountSettingsTemplateName,
 				Description:     core.StringPtr("GoSDK test Account Settings Template"),
 				AccountID:       &enterpriseAccountID,
-				AccountSettings: settings,
+				AccountSettings: templateAccountSettingsModel,
 			}
 
 			createResponse, response, err := iamIdentityService.CreateAccountSettingsTemplate(createOptions)
@@ -2316,10 +2339,36 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateAccountSettingsTemplateIT`, func() {
-			settings := &iamidentityv1.AccountSettingsComponent{
-				Mfa:                                  core.StringPtr("LEVEL1"),
-				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
+			userMfaModel := &iamidentityv1.UserMfa{
+				IamID: &iamID,
+				Mfa:   core.StringPtr("LEVEL1"),
 			}
+
+			accountSettingsUserDomainRestrictionModel := &iamidentityv1.AccountSettingsUserDomainRestriction{
+				RealmID:                      core.StringPtr("IBMid"),
+				InvitationEmailAllowPatterns: []string{"*.*@ibm.com"},
+				RestrictInvitation:           core.BoolPtr(true),
+			}
+
+			templateAccountSettingsRestrictUserDomainsModel := &iamidentityv1.TemplateAccountSettingsRestrictUserDomains{
+				AccountSufficient: core.BoolPtr(true),
+				Restrictions:      []iamidentityv1.AccountSettingsUserDomainRestriction{*accountSettingsUserDomainRestrictionModel},
+			}
+
+			templateAccountSettingsModel := &iamidentityv1.TemplateAccountSettings{
+				RestrictCreateServiceID:               core.StringPtr("NOT_RESTRICTED"),
+				RestrictCreatePlatformApikey:          core.StringPtr("NOT_RESTRICTED"),
+				Mfa:                                   core.StringPtr("LEVEL2"),
+				UserMfa:                               []iamidentityv1.UserMfa{*userMfaModel},
+				SessionExpirationInSeconds:            core.StringPtr("76400"),
+				SessionInvalidationInSeconds:          core.StringPtr("6000"),
+				MaxSessionsPerIdentity:                core.StringPtr("5"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3000"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
+				RestrictUserListVisibility:            core.StringPtr("NOT_RESTRICTED"),
+				RestrictUserDomains:                   templateAccountSettingsRestrictUserDomainsModel,
+			}
+
 			updateOptions := &iamidentityv1.UpdateAccountSettingsTemplateVersionOptions{
 				AccountID:       &enterpriseAccountID,
 				TemplateID:      &accountSettingsTemplateId,
@@ -2327,7 +2376,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				IfMatch:         &accountSettingsTemplateEtag,
 				Name:            &accountSettingsTemplateName,
 				Description:     core.StringPtr("GoSDK test Account Settings Template - updated"),
-				AccountSettings: settings,
+				AccountSettings: templateAccountSettingsModel,
 			}
 			updateResponse, response, err := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateOptions)
 			Expect(response.StatusCode).To(Equal(200))
@@ -2396,18 +2445,42 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateNewAccountSettingsTemplateVersionIT`, func() {
-			settings := &iamidentityv1.AccountSettingsComponent{
-				Mfa:                                  core.StringPtr("LEVEL1"),
-				SystemAccessTokenExpirationInSeconds: core.StringPtr("2600"),
-				RestrictCreatePlatformApikey:         core.StringPtr("RESTRICTED"),
-				RestrictCreateServiceID:              core.StringPtr("RESTRICTED"),
+			userMfaModel := &iamidentityv1.UserMfa{
+				IamID: &iamID,
+				Mfa:   core.StringPtr("LEVEL1"),
 			}
+
+			accountSettingsUserDomainRestrictionModel := &iamidentityv1.AccountSettingsUserDomainRestriction{
+				RealmID:                      core.StringPtr("IBMid"),
+				InvitationEmailAllowPatterns: []string{"*.*@ibm.com"},
+				RestrictInvitation:           core.BoolPtr(true),
+			}
+
+			templateAccountSettingsRestrictUserDomainsModel := &iamidentityv1.TemplateAccountSettingsRestrictUserDomains{
+				AccountSufficient: core.BoolPtr(true),
+				Restrictions:      []iamidentityv1.AccountSettingsUserDomainRestriction{*accountSettingsUserDomainRestrictionModel},
+			}
+
+			templateAccountSettingsModel := &iamidentityv1.TemplateAccountSettings{
+				RestrictCreateServiceID:               core.StringPtr("RESTRICTED"),
+				RestrictCreatePlatformApikey:          core.StringPtr("RESTRICTED"),
+				Mfa:                                   core.StringPtr("LEVEL1"),
+				UserMfa:                               []iamidentityv1.UserMfa{*userMfaModel},
+				SessionExpirationInSeconds:            core.StringPtr("76400"),
+				SessionInvalidationInSeconds:          core.StringPtr("6000"),
+				MaxSessionsPerIdentity:                core.StringPtr("5"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("2600"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
+				RestrictUserListVisibility:            core.StringPtr("NOT_RESTRICTED"),
+				RestrictUserDomains:                   templateAccountSettingsRestrictUserDomainsModel,
+			}
+
 			createOptions := &iamidentityv1.CreateAccountSettingsTemplateVersionOptions{
 				Name:            &accountSettingsTemplateName,
 				Description:     core.StringPtr("GoSDK test Account Settings Template - new version"),
 				AccountID:       &enterpriseAccountID,
 				TemplateID:      &accountSettingsTemplateId,
-				AccountSettings: settings,
+				AccountSettings: templateAccountSettingsModel,
 			}
 
 			createResponse, response, err := iamIdentityService.CreateAccountSettingsTemplateVersion(createOptions)

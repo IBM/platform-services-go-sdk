@@ -1,3 +1,17 @@
+## [0.90.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.0...v0.90.1) (2025-11-18)
+
+
+### Bug Fixes
+
+* **build:** bump crypto and sdk core versions to avoid CVEs ([#414](https://github.com/IBM/platform-services-go-sdk/issues/414)) ([f581d3a](https://github.com/IBM/platform-services-go-sdk/commit/f581d3a47aaae18b3c5a8dc797061b1896b5b231))
+
+# [0.90.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.89.0...v0.90.0) (2025-10-28)
+
+
+### Features
+
+* **IAM Identity:** add few new account settings ([#412](https://github.com/IBM/platform-services-go-sdk/issues/412)) ([40a93dd](https://github.com/IBM/platform-services-go-sdk/commit/40a93ddd3265c9b5db2d991b24e908bb0a4b6e23))
+
 # [0.89.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.88.0...v0.89.0) (2025-10-10)
 
 
