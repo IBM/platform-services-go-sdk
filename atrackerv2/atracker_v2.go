@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.105.1-067d600b-20250616-154447
+ * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -207,6 +207,10 @@ func (atracker *AtrackerV2) DisableRetries() {
 // Creates a target that includes information about the endpoint and the credentials required to write to that target.
 // You can send your logs from all regions to a single target, different targets or multiple targets. One target per
 // region is not required. You can define up to 16 targets per account.
+//
+// **Enterprise management**:  Optionally set `managed_by: "enterprise"` in the request body to create an
+// enterprise-managed target. the `managed_by` value is immutable after creation and you cannot mingle account-managed
+// and enterprise-managed resources.
 func (atracker *AtrackerV2) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.CreateTargetWithContext(context.Background(), createTargetOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -265,6 +269,9 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 	if createTargetOptions.Region != nil {
 		body["region"] = createTargetOptions.Region
 	}
+	if createTargetOptions.ManagedBy != nil {
+		body["managed_by"] = createTargetOptions.ManagedBy
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -298,6 +305,10 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 
 // ListTargets : List targets
 // List all targets that are defined for your account.
+//
+// **Enterprise management** - The response will include the `managed_by` field. - The `managed_by` attribute is
+// immutable; it cannot be changed after creation. This endpoint only
+//   reads/returns targets and does not modify their state.
 func (atracker *AtrackerV2) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetList, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.ListTargetsWithContext(context.Background(), listTargetsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -362,6 +373,9 @@ func (atracker *AtrackerV2) ListTargetsWithContext(ctx context.Context, listTarg
 
 // GetTarget : Get details of a target
 // Retrieve the configuration details of a target.
+//
+// **Enterprise management** - The response will include a `managed_by` field indicating if the target is managed by
+// `"enterprise"` or `"account"`.
 func (atracker *AtrackerV2) GetTarget(getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.GetTargetWithContext(context.Background(), getTargetOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -431,6 +445,9 @@ func (atracker *AtrackerV2) GetTargetWithContext(ctx context.Context, getTargetO
 
 // ReplaceTarget : Update a target
 // Update the configuration details of a target.
+//
+// **Enterprise management** - The `managed_by` attribute is **immutable** and cannot be modified. - Enterprise-managed
+// targets can only be updated by identities authorized for enterprise target actions.
 func (atracker *AtrackerV2) ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.ReplaceTargetWithContext(context.Background(), replaceTargetOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -659,6 +676,9 @@ func (atracker *AtrackerV2) ValidateTargetWithContext(ctx context.Context, valid
 
 // CreateRoute : Create a route
 // Create a route to define the rule that specifies how to manage auditing events.
+//
+// **Enterprise management** The `managed_by` value is immutable and you cannot mingle account-managed and
+// enterprise-managed resources.
 func (atracker *AtrackerV2) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.CreateRouteWithContext(context.Background(), createRouteOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -705,6 +725,9 @@ func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRo
 	if createRouteOptions.Rules != nil {
 		body["rules"] = createRouteOptions.Rules
 	}
+	if createRouteOptions.ManagedBy != nil {
+		body["managed_by"] = createRouteOptions.ManagedBy
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -738,6 +761,8 @@ func (atracker *AtrackerV2) CreateRouteWithContext(ctx context.Context, createRo
 
 // ListRoutes : List routes
 // List the route that is configured for an account.
+//
+// **Enterprise management** - The response includes the `managed_by` field. - The `managed_by` value is immutable.
 func (atracker *AtrackerV2) ListRoutes(listRoutesOptions *ListRoutesOptions) (result *RouteList, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.ListRoutesWithContext(context.Background(), listRoutesOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -798,6 +823,8 @@ func (atracker *AtrackerV2) ListRoutesWithContext(ctx context.Context, listRoute
 
 // GetRoute : Get details of a route
 // Get the configuration details of a route.
+//
+// **Enterprise management** - The response includes the `managed_by:` field. - The `managed_by` value is immutable.
 func (atracker *AtrackerV2) GetRoute(getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.GetRouteWithContext(context.Background(), getRouteOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -867,6 +894,9 @@ func (atracker *AtrackerV2) GetRouteWithContext(ctx context.Context, getRouteOpt
 
 // ReplaceRoute : Update a route
 // Update the configuration details of a route.
+//
+// **Enterprise management** The `managed_by` value is immutable and you cannot mingle account-managed and
+// enterprise-managed resources.
 func (atracker *AtrackerV2) ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.ReplaceRouteWithContext(context.Background(), replaceRouteOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -916,6 +946,9 @@ func (atracker *AtrackerV2) ReplaceRouteWithContext(ctx context.Context, replace
 	}
 	if replaceRouteOptions.Rules != nil {
 		body["rules"] = replaceRouteOptions.Rules
+	}
+	if replaceRouteOptions.ManagedBy != nil {
+		body["managed_by"] = replaceRouteOptions.ManagedBy
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1069,6 +1102,9 @@ func (atracker *AtrackerV2) GetSettingsWithContext(ctx context.Context, getSetti
 
 // PutSettings : Modify settings
 // Modify the current settings such as default targets, permitted target regions, metadata region primary and secondary.
+//
+// **Enterprise management** - Default targets must be **account-managed**. Enterprise-managed targets (`managed_by:
+// enterprise`) cannot be set as default targets and will be rejected.
 func (atracker *AtrackerV2) PutSettings(putSettingsOptions *PutSettingsOptions) (result *Settings, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.PutSettingsWithContext(context.Background(), putSettingsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1324,9 +1360,21 @@ type CreateRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
+	// Identifies who manages this route. Optional at create time. The managed_by value is immutable and you cannot mingle
+	// account-managed and enterprise-managed resources.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
+
+// Constants associated with the CreateRouteOptions.ManagedBy property.
+// Identifies who manages this route. Optional at create time. The managed_by value is immutable and you cannot mingle
+// account-managed and enterprise-managed resources.
+const (
+	CreateRouteOptionsManagedByAccountConst = "account"
+	CreateRouteOptionsManagedByEnterpriseConst = "enterprise"
+)
 
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*AtrackerV2) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
@@ -1345,6 +1393,12 @@ func (_options *CreateRouteOptions) SetName(name string) *CreateRouteOptions {
 // SetRules : Allow user to set Rules
 func (_options *CreateRouteOptions) SetRules(rules []RulePrototype) *CreateRouteOptions {
 	_options.Rules = rules
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *CreateRouteOptions) SetManagedBy(managedBy string) *CreateRouteOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
 	return _options
 }
 
@@ -1377,6 +1431,11 @@ type CreateTargetOptions struct {
 	// connected.
 	Region *string `json:"region,omitempty"`
 
+	// Identifies who manages this target. Optional at create time. If set to `enterprise`, the target becomes
+	// enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set
+	// to `account`, the target is managed by the child account. This value is immutable after creation.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -1388,6 +1447,15 @@ const (
 	CreateTargetOptionsTargetTypeCloudLogsConst = "cloud_logs"
 	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 	CreateTargetOptionsTargetTypeEventStreamsConst = "event_streams"
+)
+
+// Constants associated with the CreateTargetOptions.ManagedBy property.
+// Identifies who manages this target. Optional at create time. If set to `enterprise`, the target becomes
+// enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set to
+// `account`, the target is managed by the child account. This value is immutable after creation.
+const (
+	CreateTargetOptionsManagedByAccountConst = "account"
+	CreateTargetOptionsManagedByEnterpriseConst = "enterprise"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
@@ -1431,6 +1499,12 @@ func (_options *CreateTargetOptions) SetCloudlogsEndpoint(cloudlogsEndpoint *Clo
 // SetRegion : Allow user to set Region
 func (_options *CreateTargetOptions) SetRegion(region string) *CreateTargetOptions {
 	_options.Region = core.StringPtr(region)
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *CreateTargetOptions) SetManagedBy(managedBy string) *CreateTargetOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
 	return _options
 }
 
@@ -1740,7 +1814,7 @@ type PutSettingsOptions struct {
 	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only" validate:"required"`
 
 	// The target ID List. In the event that no routing rule causes the event to be sent to a target, these targets will
-	// receive the event.
+	// receive the event. Enterprise-managed targets are not supported.
 	DefaultTargets []string `json:"default_targets,omitempty"`
 
 	// If present then only these regions may be used to define a target.
@@ -1809,9 +1883,21 @@ type ReplaceRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
+	// Identifies who manages this route. Optional at create time. The managed_by value is immutable and you cannot mingle
+	// account-managed and enterprise-managed resources.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
+
+// Constants associated with the ReplaceRouteOptions.ManagedBy property.
+// Identifies who manages this route. Optional at create time. The managed_by value is immutable and you cannot mingle
+// account-managed and enterprise-managed resources.
+const (
+	ReplaceRouteOptionsManagedByAccountConst = "account"
+	ReplaceRouteOptionsManagedByEnterpriseConst = "enterprise"
+)
 
 // NewReplaceRouteOptions : Instantiate ReplaceRouteOptions
 func (*AtrackerV2) NewReplaceRouteOptions(id string, name string, rules []RulePrototype) *ReplaceRouteOptions {
@@ -1837,6 +1923,12 @@ func (_options *ReplaceRouteOptions) SetName(name string) *ReplaceRouteOptions {
 // SetRules : Allow user to set Rules
 func (_options *ReplaceRouteOptions) SetRules(rules []RulePrototype) *ReplaceRouteOptions {
 	_options.Rules = rules
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *ReplaceRouteOptions) SetManagedBy(managedBy string) *ReplaceRouteOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
 	return _options
 }
 
@@ -1941,7 +2033,17 @@ type Route struct {
 
 	// An optional message containing information about the route.
 	Message *string `json:"message,omitempty"`
+
+	// Present when the route is enterprise-managed (`managed_by: enterprise`).
+	ManagedBy *string `json:"managed_by,omitempty"`
 }
+
+// Constants associated with the Route.ManagedBy property.
+// Present when the route is enterprise-managed (`managed_by: enterprise`).
+const (
+	RouteManagedByAccountConst = "account"
+	RouteManagedByEnterpriseConst = "enterprise"
+)
 
 // UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
 func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1989,6 +2091,11 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2084,7 +2191,7 @@ func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (e
 // Settings : Activity Tracker Event Routing settings response.
 type Settings struct {
 	// The target ID List. In the event that no routing rule causes the event to be sent to a target, these targets will
-	// receive the event.
+	// receive the event. Enterprise-managed targets are not supported.
 	DefaultTargets []string `json:"default_targets" validate:"required"`
 
 	// If present then only these regions may be used to define a target.
@@ -2189,6 +2296,9 @@ type Target struct {
 
 	// The API version of the target.
 	APIVersion *int64 `json:"api_version" validate:"required"`
+
+	// Identifies who manages the target.
+	ManagedBy *string `json:"managed_by" validate:"required"`
 }
 
 // Constants associated with the Target.TargetType property.
@@ -2197,6 +2307,13 @@ const (
 	TargetTargetTypeCloudLogsConst = "cloud_logs"
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 	TargetTargetTypeEventStreamsConst = "event_streams"
+)
+
+// Constants associated with the Target.ManagedBy property.
+// Identifies who manages the target.
+const (
+	TargetManagedByAccountConst = "account"
+	TargetManagedByEnterpriseConst = "enterprise"
 )
 
 // UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
@@ -2265,6 +2382,11 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
