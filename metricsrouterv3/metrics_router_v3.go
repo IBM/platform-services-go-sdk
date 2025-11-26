@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.105.1-067d600b-20250616-154447
+ * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
  */
 
 // Package metricsrouterv3 : Operations and models for the MetricsRouterV3 service
@@ -204,6 +204,10 @@ func (metricsRouter *MetricsRouterV3) DisableRetries() {
 // Creates a target that includes information about the destination required to write platform metrics to that target.
 // You can send your platform metrics from all regions to a single target, different targets or multiple targets. One
 // target per region is not required. You can define up to 16 targets per account.
+//
+// **Enterprise management** Optionally set `managed_by: "enterprise"` in the request body to create an
+// enterprise-managed target. the `managed_by` value is immutable after creation and you cannot mingle account-managed
+// and enterprise-managed resources.
 func (metricsRouter *MetricsRouterV3) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.CreateTargetWithContext(context.Background(), createTargetOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -253,6 +257,9 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 	if createTargetOptions.Region != nil {
 		body["region"] = createTargetOptions.Region
 	}
+	if createTargetOptions.ManagedBy != nil {
+		body["managed_by"] = createTargetOptions.ManagedBy
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -286,6 +293,9 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 
 // ListTargets : List targets
 // List all targets that are defined for your account.
+//
+// **Enterprise management** - The response will include the `managed_by` field. - The `managed_by` attribute is
+// immutable; it cannot be changed after creation.
 func (metricsRouter *MetricsRouterV3) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetCollection, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.ListTargetsWithContext(context.Background(), listTargetsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -346,6 +356,9 @@ func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context
 
 // GetTarget : Get details of a target
 // Retrieve the configuration details of a target.
+//
+// **Enterprise management** - The response will include a `managed_by` field indicating if the target is managed by
+// `"enterprise"` or `"account"`.
 func (metricsRouter *MetricsRouterV3) GetTarget(getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.GetTargetWithContext(context.Background(), getTargetOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -415,6 +428,9 @@ func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, 
 
 // UpdateTarget : Update a target
 // Update the configuration details of a target.
+//
+// **Enterprise management** - The `managed_by` attribute is **immutable** and cannot be modified after creation. -
+// Enterprise-managed targets can only be updated by identities authorized for enterprise target actions.
 func (metricsRouter *MetricsRouterV3) UpdateTarget(updateTargetOptions *UpdateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.UpdateTargetWithContext(context.Background(), updateTargetOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -557,6 +573,9 @@ func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Contex
 
 // CreateRoute : Create a route
 // Create a route with rules that specify how to manage platform metrics routing.
+//
+// **Enterprise management** The `managed_by` value is immutable and you cannot mingle account-managed and
+// enterprise-managed resources.
 func (metricsRouter *MetricsRouterV3) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.CreateRouteWithContext(context.Background(), createRouteOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -602,6 +621,9 @@ func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context
 	}
 	if createRouteOptions.Rules != nil {
 		body["rules"] = createRouteOptions.Rules
+	}
+	if createRouteOptions.ManagedBy != nil {
+		body["managed_by"] = createRouteOptions.ManagedBy
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -696,6 +718,8 @@ func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context,
 
 // GetRoute : Get details of a route
 // Get the configuration details of a route.
+//
+// **Enterprise management** - The response includes the `managed_by:` field. - The `managed_by` value is immutable.
 func (metricsRouter *MetricsRouterV3) GetRoute(getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.GetRouteWithContext(context.Background(), getRouteOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -765,6 +789,9 @@ func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, g
 
 // UpdateRoute : Update a route
 // Update the configuration details of a route.
+//
+// **Enterprise management** The `managed_by` value is immutable and you cannot mingle account-managed and
+// enterprise-managed resources.
 func (metricsRouter *MetricsRouterV3) UpdateRoute(updateRouteOptions *UpdateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.UpdateRouteWithContext(context.Background(), updateRouteOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -968,6 +995,9 @@ func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context
 // UpdateSettings : Modify settings
 // Modify the current account level settings such as default targets, permitted target regions, metadata region primary
 // and secondary.
+//
+// **Enterprise management** - Default targets must be **account-managed**. Enterprise-managed targets (`managed_by:
+// enterprise`) cannot be set as default targets and will be rejected.
 func (metricsRouter *MetricsRouterV3) UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
 	result, response, err = metricsRouter.UpdateSettingsWithContext(context.Background(), updateSettingsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1066,9 +1096,21 @@ type CreateRouteOptions struct {
 	// Routing rules that will be evaluated in their order of the array.
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
+	// Identifies who manages this route. Optional at create time. If not provided, the default is `account`. The
+	// managed_by value is immutable and you cannot mingle account-managed and enterprise-managed resources.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
+
+// Constants associated with the CreateRouteOptions.ManagedBy property.
+// Identifies who manages this route. Optional at create time. If not provided, the default is `account`. The managed_by
+// value is immutable and you cannot mingle account-managed and enterprise-managed resources.
+const (
+	CreateRouteOptionsManagedByAccountConst    = "account"
+	CreateRouteOptionsManagedByEnterpriseConst = "enterprise"
+)
 
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*MetricsRouterV3) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
@@ -1087,6 +1129,12 @@ func (_options *CreateRouteOptions) SetName(name string) *CreateRouteOptions {
 // SetRules : Allow user to set Rules
 func (_options *CreateRouteOptions) SetRules(rules []RulePrototype) *CreateRouteOptions {
 	_options.Rules = rules
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *CreateRouteOptions) SetManagedBy(managedBy string) *CreateRouteOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
 	return _options
 }
 
@@ -1112,9 +1160,23 @@ type CreateTargetOptions struct {
 	// connected.
 	Region *string `json:"region,omitempty"`
 
+	// Identifies who manages this target. Optional at create time. If set to `enterprise`, the target becomes
+	// enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set
+	// to `account`, the target is managed by the child account. This value is immutable after creation.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
+
+// Constants associated with the CreateTargetOptions.ManagedBy property.
+// Identifies who manages this target. Optional at create time. If set to `enterprise`, the target becomes
+// enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set to
+// `account`, the target is managed by the child account. This value is immutable after creation.
+const (
+	CreateTargetOptionsManagedByAccountConst    = "account"
+	CreateTargetOptionsManagedByEnterpriseConst = "enterprise"
+)
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
 func (*MetricsRouterV3) NewCreateTargetOptions(name string, destinationCRN string) *CreateTargetOptions {
@@ -1139,6 +1201,12 @@ func (_options *CreateTargetOptions) SetDestinationCRN(destinationCRN string) *C
 // SetRegion : Allow user to set Region
 func (_options *CreateTargetOptions) SetRegion(region string) *CreateTargetOptions {
 	_options.Region = core.StringPtr(region)
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *CreateTargetOptions) SetManagedBy(managedBy string) *CreateTargetOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
 	return _options
 }
 
@@ -1455,7 +1523,17 @@ type Route struct {
 
 	// The timestamp of the route last updated time.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
+
+	// Present when the route is enterprise-managed (`managed_by: enterprise`).
+	ManagedBy *string `json:"managed_by,omitempty"`
 }
+
+// Constants associated with the Route.ManagedBy property.
+// Present when the route is enterprise-managed (`managed_by: enterprise`).
+const (
+	RouteManagedByAccountConst    = "account"
+	RouteManagedByEnterpriseConst = "enterprise"
+)
 
 // UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
 func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1488,6 +1566,11 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1610,7 +1693,7 @@ func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (e
 
 // Setting : Metrics routing settings response.
 type Setting struct {
-	// A list of default target references.
+	// A list of default target references. Enterprise-managed targets are not supported.
 	DefaultTargets []TargetReference `json:"default_targets" validate:"required"`
 
 	// If present then only these regions may be used to define a target.
@@ -1687,12 +1770,24 @@ type Target struct {
 
 	// The timestamp of the target last updated time.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
+
+	// Present when the target is enterprise-managed (`managed_by: enterprise`). For account-managed targets this field is
+	// omitted.
+	ManagedBy *string `json:"managed_by" validate:"required"`
 }
 
 // Constants associated with the Target.TargetType property.
 // The type of the target.
 const (
 	TargetTargetTypeSysdigMonitorConst = "sysdig_monitor"
+)
+
+// Constants associated with the Target.ManagedBy property.
+// Present when the target is enterprise-managed (`managed_by: enterprise`). For account-managed targets this field is
+// omitted.
+const (
+	TargetManagedByAccountConst    = "account"
+	TargetManagedByEnterpriseConst = "enterprise"
 )
 
 // UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
@@ -1736,6 +1831,11 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -1887,7 +1987,7 @@ func (options *UpdateRouteOptions) SetHeaders(param map[string]string) *UpdateRo
 
 // UpdateSettingsOptions : The UpdateSettings options.
 type UpdateSettingsOptions struct {
-	// A list of default target references.
+	// A list of default target references. Enterprise-managed targets are not supported.
 	DefaultTargets []TargetIdentity `json:"default_targets,omitempty"`
 
 	// If present then only these regions may be used to define a target.

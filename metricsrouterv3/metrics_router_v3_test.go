@@ -286,6 +286,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createTargetOptionsModel.Name = core.StringPtr("my-mr-target")
 				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := metricsRouterService.CreateTarget(createTargetOptionsModel)
@@ -338,7 +339,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully with retries`, func() {
@@ -355,6 +356,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createTargetOptionsModel.Name = core.StringPtr("my-mr-target")
 				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -410,7 +412,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -432,6 +434,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createTargetOptionsModel.Name = core.StringPtr("my-mr-target")
 				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -454,6 +457,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createTargetOptionsModel.Name = core.StringPtr("my-mr-target")
 				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := metricsRouterService.SetServiceURL("")
@@ -497,6 +501,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createTargetOptionsModel.Name = core.StringPtr("my-mr-target")
 				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -573,7 +578,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully with retries`, func() {
@@ -626,7 +631,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -774,7 +779,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -828,7 +833,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -1004,7 +1009,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke UpdateTarget successfully with retries`, func() {
@@ -1076,7 +1081,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke UpdateTarget successfully`, func() {
@@ -1289,6 +1294,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := metricsRouterService.CreateRoute(createRouteOptionsModel)
@@ -1341,7 +1347,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully with retries`, func() {
@@ -1373,6 +1379,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1428,7 +1435,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully`, func() {
@@ -1465,6 +1472,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1502,6 +1510,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := metricsRouterService.SetServiceURL("")
@@ -1560,6 +1569,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1636,7 +1646,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully with retries`, func() {
@@ -1689,7 +1699,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully`, func() {
@@ -1837,7 +1847,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully with retries`, func() {
@@ -1891,7 +1901,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully`, func() {
@@ -2083,7 +2093,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke UpdateRoute successfully with retries`, func() {
@@ -2171,7 +2181,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke UpdateRoute successfully`, func() {
@@ -2905,10 +2915,12 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createRouteOptionsModel := metricsRouterService.NewCreateRouteOptions(createRouteOptionsName, createRouteOptionsRules)
 				createRouteOptionsModel.SetName("my-route")
 				createRouteOptionsModel.SetRules([]metricsrouterv3.RulePrototype{*rulePrototypeModel})
+				createRouteOptionsModel.SetManagedBy("enterprise")
 				createRouteOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRouteOptionsModel).ToNot(BeNil())
 				Expect(createRouteOptionsModel.Name).To(Equal(core.StringPtr("my-route")))
 				Expect(createRouteOptionsModel.Rules).To(Equal([]metricsrouterv3.RulePrototype{*rulePrototypeModel}))
+				Expect(createRouteOptionsModel.ManagedBy).To(Equal(core.StringPtr("enterprise")))
 				Expect(createRouteOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTargetOptions successfully`, func() {
@@ -2919,11 +2931,13 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				createTargetOptionsModel.SetName("my-mr-target")
 				createTargetOptionsModel.SetDestinationCRN("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
 				createTargetOptionsModel.SetRegion("us-south")
+				createTargetOptionsModel.SetManagedBy("enterprise")
 				createTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTargetOptionsModel).ToNot(BeNil())
 				Expect(createTargetOptionsModel.Name).To(Equal(core.StringPtr("my-mr-target")))
 				Expect(createTargetOptionsModel.DestinationCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")))
 				Expect(createTargetOptionsModel.Region).To(Equal(core.StringPtr("us-south")))
+				Expect(createTargetOptionsModel.ManagedBy).To(Equal(core.StringPtr("enterprise")))
 				Expect(createTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteRouteOptions successfully`, func() {
