@@ -1,3 +1,10 @@
+## [0.90.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.1...v0.90.2) (2025-11-24)
+
+
+### Bug Fixes
+
+* **build:** bump dependency versions ([#415](https://github.com/IBM/platform-services-go-sdk/issues/415)) ([741f917](https://github.com/IBM/platform-services-go-sdk/commit/741f917c816ae4d9edb5f3d3d1bb644cc66c1d37))
+
 ## [0.90.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.0...v0.90.1) (2025-11-18)
 
 

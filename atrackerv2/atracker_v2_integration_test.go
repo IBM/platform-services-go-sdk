@@ -588,7 +588,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
 		})
-
 	})
 
 	Describe(`ListRoutes - List routes`, func() {
@@ -659,7 +658,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		})
 		It(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions)`, func() {
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				//TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
 				TargetIds: []string{targetIDLink3, targetIDLink4},
 				Locations: []string{"us-south"},
 			}
