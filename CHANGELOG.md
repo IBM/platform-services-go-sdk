@@ -1,3 +1,10 @@
+## [0.90.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.3...v0.90.4) (2025-11-27)
+
+
+### Bug Fixes
+
+* **Metrics Router:** re-gen service after recent API changes and hand edit examples and ITs ([#417](https://github.com/IBM/platform-services-go-sdk/issues/417)) ([b25e74a](https://github.com/IBM/platform-services-go-sdk/commit/b25e74ab2253fefaee167acb6e90660d3c8a7c0e))
+
 ## [0.90.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.2...v0.90.3) (2025-11-27)
 
 
