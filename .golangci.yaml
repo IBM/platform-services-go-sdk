@@ -21,6 +21,11 @@ linters:
         - -ST1023
         - -QF1011
         - -QF1003
+    govet:
+      enable-all: true
+      disable:
+        - buildtag
+        - fieldalignment
 run:
   timeout: 5m
 
