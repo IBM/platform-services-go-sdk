@@ -68,14 +68,13 @@ var _ = Describe(`AtrackerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_URL": "https://atrackerv2/api",
+				"ATRACKER_URL":       "https://atrackerv2/api",
 				"ATRACKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{
-				})
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{})
 				Expect(atrackerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`AtrackerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{
-				})
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{})
 				err := atrackerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(atrackerService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`AtrackerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_URL": "https://atrackerv2/api",
+				"ATRACKER_URL":       "https://atrackerv2/api",
 				"ATRACKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{
-			})
+			atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(atrackerService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`AtrackerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_AUTH_TYPE":   "NOAuth",
+				"ATRACKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -320,6 +317,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := atrackerService.CreateTarget(createTargetOptionsModel)
@@ -372,7 +370,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully with retries`, func() {
@@ -412,6 +410,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -467,7 +466,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -512,6 +511,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -557,6 +557,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := atrackerService.SetServiceURL("")
@@ -623,6 +624,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -702,7 +704,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully with retries`, func() {
@@ -757,7 +759,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -908,7 +910,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -962,7 +964,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -1160,7 +1162,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully with retries`, func() {
@@ -1254,7 +1256,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully`, func() {
@@ -1696,7 +1698,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ValidateTarget successfully with retries`, func() {
@@ -1750,7 +1752,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ValidateTarget successfully`, func() {
@@ -1878,6 +1880,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createRouteOptionsModel := new(atrackerv2.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := atrackerService.CreateRoute(createRouteOptionsModel)
@@ -1930,7 +1933,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully with retries`, func() {
@@ -1951,6 +1954,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createRouteOptionsModel := new(atrackerv2.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2006,7 +2010,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully`, func() {
@@ -2032,6 +2036,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createRouteOptionsModel := new(atrackerv2.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2058,6 +2063,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createRouteOptionsModel := new(atrackerv2.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := atrackerService.SetServiceURL("")
@@ -2105,6 +2111,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createRouteOptionsModel := new(atrackerv2.CreateRouteOptions)
 				createRouteOptionsModel.Name = core.StringPtr("my-route")
 				createRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				createRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2181,7 +2188,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully with retries`, func() {
@@ -2234,7 +2241,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully`, func() {
@@ -2382,7 +2389,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully with retries`, func() {
@@ -2436,7 +2443,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully`, func() {
@@ -2565,6 +2572,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceRouteOptionsModel.ID = core.StringPtr("testString")
 				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
 				replaceRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				replaceRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := atrackerService.ReplaceRoute(replaceRouteOptionsModel)
@@ -2617,7 +2625,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ReplaceRoute successfully with retries`, func() {
@@ -2639,6 +2647,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceRouteOptionsModel.ID = core.StringPtr("testString")
 				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
 				replaceRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				replaceRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2694,7 +2703,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully.", "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ReplaceRoute successfully`, func() {
@@ -2721,6 +2730,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceRouteOptionsModel.ID = core.StringPtr("testString")
 				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
 				replaceRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				replaceRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2748,6 +2758,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceRouteOptionsModel.ID = core.StringPtr("testString")
 				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
 				replaceRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				replaceRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := atrackerService.SetServiceURL("")
@@ -2796,6 +2807,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceRouteOptionsModel.ID = core.StringPtr("testString")
 				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
 				replaceRouteOptionsModel.Rules = []atrackerv2.RulePrototype{*rulePrototypeModel}
+				replaceRouteOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3378,10 +3390,12 @@ var _ = Describe(`AtrackerV2`, func() {
 				createRouteOptionsModel := atrackerService.NewCreateRouteOptions(createRouteOptionsName, createRouteOptionsRules)
 				createRouteOptionsModel.SetName("my-route")
 				createRouteOptionsModel.SetRules([]atrackerv2.RulePrototype{*rulePrototypeModel})
+				createRouteOptionsModel.SetManagedBy("enterprise")
 				createRouteOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRouteOptionsModel).ToNot(BeNil())
 				Expect(createRouteOptionsModel.Name).To(Equal(core.StringPtr("my-route")))
 				Expect(createRouteOptionsModel.Rules).To(Equal([]atrackerv2.RulePrototype{*rulePrototypeModel}))
+				Expect(createRouteOptionsModel.ManagedBy).To(Equal(core.StringPtr("enterprise")))
 				Expect(createRouteOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTargetOptions successfully`, func() {
@@ -3429,6 +3443,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.SetEventstreamsEndpoint(eventstreamsEndpointPrototypeModel)
 				createTargetOptionsModel.SetCloudlogsEndpoint(cloudLogsEndpointPrototypeModel)
 				createTargetOptionsModel.SetRegion("us-south")
+				createTargetOptionsModel.SetManagedBy("enterprise")
 				createTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTargetOptionsModel).ToNot(BeNil())
 				Expect(createTargetOptionsModel.Name).To(Equal(core.StringPtr("my-cos-target")))
@@ -3437,6 +3452,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				Expect(createTargetOptionsModel.EventstreamsEndpoint).To(Equal(eventstreamsEndpointPrototypeModel))
 				Expect(createTargetOptionsModel.CloudlogsEndpoint).To(Equal(cloudLogsEndpointPrototypeModel))
 				Expect(createTargetOptionsModel.Region).To(Equal(core.StringPtr("us-south")))
+				Expect(createTargetOptionsModel.ManagedBy).To(Equal(core.StringPtr("enterprise")))
 				Expect(createTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteRouteOptions successfully`, func() {
@@ -3546,11 +3562,13 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceRouteOptionsModel.SetID("testString")
 				replaceRouteOptionsModel.SetName("my-route")
 				replaceRouteOptionsModel.SetRules([]atrackerv2.RulePrototype{*rulePrototypeModel})
+				replaceRouteOptionsModel.SetManagedBy("enterprise")
 				replaceRouteOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceRouteOptionsModel).ToNot(BeNil())
 				Expect(replaceRouteOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRouteOptionsModel.Name).To(Equal(core.StringPtr("my-route")))
 				Expect(replaceRouteOptionsModel.Rules).To(Equal([]atrackerv2.RulePrototype{*rulePrototypeModel}))
+				Expect(replaceRouteOptionsModel.ManagedBy).To(Equal(core.StringPtr("enterprise")))
 				Expect(replaceRouteOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceTargetOptions successfully`, func() {
