@@ -26,6 +26,7 @@ linters:
       disable:
         - buildtag
         - fieldalignment
+        - shadow
 run:
   timeout: 5m
 
