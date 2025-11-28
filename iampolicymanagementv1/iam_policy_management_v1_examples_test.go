@@ -87,6 +87,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		exampleRoleTemplateName                        = "RoleTemplateGoSDKTest"
 		exampleRoleAssignmentETag               string = ""
 		exampleRoleAssignmentId                 string
+		examplePolicyRoleTemplateID             string
+		// examplePolicyRoleTemplateVersion        string
+		exampleRolePolicyTemplateName           = "PolicySampleTemplateRoleTest"
 	)
 
 	var shouldSkipTest = func() {
@@ -719,11 +722,11 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			policyRole := &iampolicymanagementv1.Roles{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
 			}
-			v2PolicyGrant := &iampolicymanagementv1.Grant{
+			templateGrant := &iampolicymanagementv1.TemplateGrant{
 				Roles: []iampolicymanagementv1.Roles{*policyRole},
 			}
-			v2PolicyControl := &iampolicymanagementv1.Control{
-				Grant: v2PolicyGrant,
+			templateControl := &iampolicymanagementv1.TemplateControl{
+				Grant: templateGrant,
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
@@ -749,7 +752,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				Type:        core.StringPtr("authorization"),
 				Description: core.StringPtr("Test Template"),
 				Resource:    policyResource,
-				Control:     v2PolicyControl,
+				Control:     templateControl,
 				Subject:     policySubject,
 			}
 
@@ -828,11 +831,11 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader"),
 			}
 
-			grantModel := &iampolicymanagementv1.Grant{
+			grantModel := &iampolicymanagementv1.TemplateGrant{
 				Roles: []iampolicymanagementv1.Roles{*rolesModel},
 			}
 
-			controlModel := &iampolicymanagementv1.Control{
+			controlModel := &iampolicymanagementv1.TemplateControl{
 				Grant: grantModel,
 			}
 
@@ -891,14 +894,14 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		It(`ReplacePolicyS2STemplate request example`, func() {
 			fmt.Println("\nReplacePolicyTemplate() result:")
 			// begin-replace_policy_template
-			v2PolicyGrant := &iampolicymanagementv1.Grant{
+			templateGrant := &iampolicymanagementv1.TemplateGrant{
 				Roles: []iampolicymanagementv1.Roles{
 					{core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")},
 				},
 			}
 
-			v2PolicyControl := &iampolicymanagementv1.Control{
-				Grant: v2PolicyGrant,
+			templateControl := &iampolicymanagementv1.TemplateControl{
+				Grant: templateGrant,
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
@@ -924,7 +927,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				Type:        core.StringPtr("authorization"),
 				Description: core.StringPtr("Test Template v2"),
 				Resource:    policyResource,
-				Control:     v2PolicyControl,
+				Control:     templateControl,
 				Subject:     policySubject,
 			}
 
@@ -1655,7 +1658,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			fmt.Println("\nCreateRoleTemplate() result:")
 			// begin-create_role_template
 
-			templateRole := &iampolicymanagementv1.TemplateRole{
+			templateRole := &iampolicymanagementv1.RoleTemplatePrototypeRole{
 				Name:        core.StringPtr("GOSDKTestRoleCreate"),
 				DisplayName: core.StringPtr("GOSDKTestRoleCreate"),
 				ServiceName: core.StringPtr("am-test-service"),
@@ -1666,7 +1669,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			createRoleTemplateOptions := &iampolicymanagementv1.CreateRoleTemplateOptions{
 				Name:           &exampleRoleTemplateName,
 				AccountID:      &exampleAccountID,
-				Role:  templateRole,
+				Role:           templateRole,
 				Description:    core.StringPtr("Test Role Template from GO SDK"),
 				Committed:      core.BoolPtr(true),
 				AcceptLanguage: core.StringPtr("default"),
@@ -1687,6 +1690,64 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(roleTemplate).ToNot(BeNil())
+		})
+
+		It(`CreatePolicyTemplate with role template ID request example`, func() {
+			fmt.Println("\nCreatePolicyTemplate() result:")
+			// begin-create_policy_template
+
+			policyRole := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
+			}
+			roleTemplateReference := &iampolicymanagementv1.RoleTemplateReferencesItem{
+				ID:      &exampleRoleTemplateID,
+				Version: &exampleRoleTemplateBaseVersion,
+			}
+			templateGrant := &iampolicymanagementv1.TemplateGrant{
+				Roles:                  []iampolicymanagementv1.Roles{*policyRole},
+				RoleTemplateReferences: []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReference},
+			}
+			templateControl := &iampolicymanagementv1.TemplateControl{
+				Grant: templateGrant,
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("am-test-service"),
+			}
+
+			policyResource := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
+					*serviceNameResourceAttribute},
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Test Template"),
+				Resource:    policyResource,
+				Control:     templateControl,
+			}
+
+			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
+				Name:      &exampleRolePolicyTemplateName,
+				AccountID: &exampleAccountID,
+				Committed: core.BoolPtr(true),
+				Policy:    templatePolicyModel,
+			}
+
+			policyTemplate, response, err := iamPolicyManagementService.CreatePolicyTemplate(createPolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			examplePolicyRoleTemplateID = *policyTemplate.ID
+			fmt.Println(string(b))
+
+			// end-create_policy_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
 		})
 
 		It(`GetRoleTemplate request example`, func() {
@@ -1719,16 +1780,14 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-create_role_template_version
 
 			templateRole := &iampolicymanagementv1.TemplateRole{
-				Name:        core.StringPtr("GOSDKTestRoleDelete"),
 				DisplayName: core.StringPtr("GOSDKTestRoleDelete"),
-				ServiceName: core.StringPtr("am-test-service"),
 				Description: core.StringPtr("Test Role from GO SDK - Delete"),
 				Actions:     []string{"am-test-service.test.delete"},
 			}
 
 			updateRoleTemplateVersionOptions := &iampolicymanagementv1.CreateRoleTemplateVersionOptions{
 				Role:           templateRole,
-				Description:             core.StringPtr("Test of Role Template version from GO SDK"),
+				Description:    core.StringPtr("Test of Role Template version from GO SDK"),
 				RoleTemplateID: &exampleRoleTemplateID,
 			}
 
@@ -1754,7 +1813,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			listRoleTemplateVersionsOptions := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
 				RoleTemplateID: &exampleRoleTemplateID,
-				Limit: core.Int64Ptr(int64(10)),
+				Limit:          core.Int64Ptr(int64(10)),
 			}
 
 			pager, err := iamPolicyManagementService.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptions)
@@ -1783,19 +1842,17 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-replace_role_template
 
 			templateRole := &iampolicymanagementv1.TemplateRole{
-				Name:        core.StringPtr("GOSDKTestRoleUpdate"),
 				DisplayName: core.StringPtr("GOSDKTestRoleUpdate"),
-				ServiceName: core.StringPtr("am-test-service"),
 				Description: core.StringPtr("am-test-service service role"),
 				Actions:     []string{"am-test-service.test.delete", "am-test-service.test.create"},
 			}
 
 			replaceRoleTemplateVersionOptions := &iampolicymanagementv1.ReplaceRoleTemplateOptions{
 				Role:           templateRole,
-				Description:             core.StringPtr("Test update of Role Template from GO SDK"),
-				Committed:               core.BoolPtr(true),
-				IfMatch:                 core.StringPtr(exampleRoleTemplateETag),
-				Version:                 core.StringPtr(exampleRoleTemplateVersion),
+				Description:    core.StringPtr("Test update of Role Template from GO SDK"),
+				Committed:      core.BoolPtr(true),
+				IfMatch:        core.StringPtr(exampleRoleTemplateETag),
+				Version:        core.StringPtr(exampleRoleTemplateVersion),
 				RoleTemplateID: &exampleRoleTemplateID,
 			}
 
@@ -1866,9 +1923,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-list_role_templates
 
 			listRoleTemplatesOptions := &iampolicymanagementv1.ListRoleTemplatesOptions{
-				AccountID: &exampleAccountID,
+				AccountID:      &exampleAccountID,
 				AcceptLanguage: core.StringPtr("default"),
-				Limit: core.Int64Ptr(int64(10)),
+				Limit:          core.Int64Ptr(int64(10)),
 			}
 
 			pager, err := iamPolicyManagementService.NewRoleTemplatesPager(listRoleTemplatesOptions)
@@ -2027,6 +2084,27 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			response, err := iamPolicyManagementService.DeleteRoleAssignment(deleteRoleAssignmentOptions)
 
 			// end-delete_role_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`DeleteRolePolicyTemplate request example`, func() {
+			// begin-delete_policy_template
+
+			deletePolicyTemplateOptions := iamPolicyManagementService.NewDeletePolicyTemplateOptions(
+				examplePolicyRoleTemplateID,
+			)
+
+			response, err := iamPolicyManagementService.DeletePolicyTemplate(deletePolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeletePolicyTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_policy_template
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
