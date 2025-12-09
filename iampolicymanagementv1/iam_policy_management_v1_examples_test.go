@@ -88,7 +88,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		exampleRoleAssignmentETag               string = ""
 		exampleRoleAssignmentId                 string
 		examplePolicyRoleTemplateID             string
-		// examplePolicyRoleTemplateVersion        string
 		exampleRolePolicyTemplateName           = "PolicySampleTemplateRoleTest"
 	)
 

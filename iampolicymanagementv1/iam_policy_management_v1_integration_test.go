@@ -77,7 +77,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testPolicyAssignmentId                string = ""
 		examplePolicyTemplateName             string = "PolicySampleTemplateTestV1"
 		TestPolicyType                        string = "TestPolicyType"
-		// assignmentPolicyID                          string
+		assignmentPolicyID                          string
 		testTargetAccountID                         string = ""
 		testPolicyAssignmentETag                    string = ""
 		testTargetType                              string = "Account"
@@ -1315,7 +1315,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			var assignmentDetails = policyAssignment.Assignments[0]
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			// Expect(*assignmentDetails.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
 			Expect(*assignmentDetails.Resources[0].Target.ID).ToNot(BeNil())
 			Expect(*assignmentDetails.Resources[0].Target.ID).To(Equal(testTargetAccountID))
 			Expect(*assignmentDetails.Resources[0].Target.Type).ToNot(BeNil())
@@ -1341,7 +1341,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			policyAssignment, response, err := service.UpdatePolicyAssignment(updatePolicyAssignmentOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			// Expect(*policyAssignment.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*policyAssignment.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
 			Expect(*policyAssignment.ID).To(Equal(testPolicyAssignmentId))
 		})
 	})
@@ -1405,32 +1405,32 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(*assignmentDetails.LastModifiedAt).ToNot(BeNil())
 			Expect(*assignmentDetails.LastModifiedByID).ToNot(BeNil())
 			Expect(*assignmentDetails.Href).ToNot(BeNil())
-			// assignmentPolicyID = *assignmentDetails.Resources[0].Policy.ResourceCreated.ID
+			assignmentPolicyID = *assignmentDetails.Resources[0].Policy.ResourceCreated.ID
 		})
 	})
 
-	// Describe("GetPolicyV2 - Retrieve Policy Template MetaData created from assignment", func() {
+	Describe("GetPolicyV2 - Retrieve Policy Template MetaData created from assignment", func() {
 
-	// 	It("Successfully retrieved a v2 access policy", func() {
-	// 		shouldSkipTest()
-	// 		Expect(testPolicyId).To(Not(BeNil()))
+		It("Successfully retrieved a v2 access policy", func() {
+			shouldSkipTest()
+			Expect(testPolicyId).To(Not(BeNil()))
 
-	// 		options := service.NewGetV2PolicyOptions(assignmentPolicyID)
-	// 		policy, detailedResponse, err := service.GetV2Policy(options)
-	// 		fmt.Println(policy)
-	// 		fmt.Println(detailedResponse)
-	// 		fmt.Println(err)
-	// 		// Expect(err).To(BeNil())
-	// 		// Expect(detailedResponse.StatusCode).To(Equal(200))
-	// 		// Expect(policy).ToNot(BeNil())
-	// 		// fmt.Fprintf(GinkgoWriter, "GetV2Policy() result:\n%s\n", common.ToJSON(policy))
-	// 		// Expect(*policy.ID).To(Equal(assignmentPolicyID))
-	// 		// Expect(policy.Template).ToNot(BeNil())
-	// 		// Expect(policy.Template.ID).ToNot(BeNil())
-	// 		// Expect(policy.Template.Version).ToNot(BeNil())
-	// 		// Expect(policy.Template.AssignmentID).ToNot(BeNil())
-	// 	})
-	// })
+			options := service.NewGetV2PolicyOptions(assignmentPolicyID)
+			policy, detailedResponse, err := service.GetV2Policy(options)
+			fmt.Println(policy)
+			fmt.Println(detailedResponse)
+			fmt.Println(err)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetV2Policy() result:\n%s\n", common.ToJSON(policy))
+			Expect(*policy.ID).To(Equal(assignmentPolicyID))
+			Expect(policy.Template).ToNot(BeNil())
+			Expect(policy.Template.ID).ToNot(BeNil())
+			Expect(policy.Template.Version).ToNot(BeNil())
+			Expect(policy.Template.AssignmentID).ToNot(BeNil())
+		})
+	})
 
 	Describe(`DeletePolicyAssignment - Delete a policy assignment by ID`, func() {
 		BeforeEach(func() {
