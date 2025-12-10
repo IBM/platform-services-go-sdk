@@ -1,3 +1,10 @@
+# [0.91.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.4...v0.91.0) (2025-12-10)
+
+
+### Features
+
+* **IAM Policy Management:** re-gen service after recent API changes for role template references ([#419](https://github.com/IBM/platform-services-go-sdk/issues/419)) ([79b2228](https://github.com/IBM/platform-services-go-sdk/commit/79b22280fccf032fbf688f45f362bb86ddbc9b26))
+
 ## [0.90.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.3...v0.90.4) (2025-11-27)
 
 
