@@ -5261,13 +5261,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -5277,7 +5277,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateOptions model
 				createPolicyTemplateOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateOptions)
@@ -5390,13 +5390,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -5406,7 +5406,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateOptions model
 				createPolicyTemplateOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateOptions)
@@ -5527,13 +5527,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -5543,7 +5543,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateOptions model
 				createPolicyTemplateOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateOptions)
@@ -5607,13 +5607,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -5623,7 +5623,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateOptions model
 				createPolicyTemplateOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateOptions)
@@ -5708,13 +5708,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -5724,7 +5724,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateOptions model
 				createPolicyTemplateOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateOptions)
@@ -6097,13 +6097,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -6113,7 +6113,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateVersionOptions model
 				createPolicyTemplateVersionOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateVersionOptions)
@@ -6223,13 +6223,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -6239,7 +6239,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateVersionOptions model
 				createPolicyTemplateVersionOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateVersionOptions)
@@ -6357,13 +6357,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -6373,7 +6373,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateVersionOptions model
 				createPolicyTemplateVersionOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateVersionOptions)
@@ -6436,13 +6436,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -6452,7 +6452,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateVersionOptions model
 				createPolicyTemplateVersionOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateVersionOptions)
@@ -6536,13 +6536,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -6552,7 +6552,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the CreatePolicyTemplateVersionOptions model
 				createPolicyTemplateVersionOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateVersionOptions)
@@ -6967,13 +6967,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -6983,7 +6983,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the ReplacePolicyTemplateOptions model
 				replacePolicyTemplateOptionsModel := new(iampolicymanagementv1.ReplacePolicyTemplateOptions)
@@ -7097,13 +7097,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -7113,7 +7113,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the ReplacePolicyTemplateOptions model
 				replacePolicyTemplateOptionsModel := new(iampolicymanagementv1.ReplacePolicyTemplateOptions)
@@ -7235,13 +7235,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -7251,7 +7251,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the ReplacePolicyTemplateOptions model
 				replacePolicyTemplateOptionsModel := new(iampolicymanagementv1.ReplacePolicyTemplateOptions)
@@ -7316,13 +7316,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -7332,7 +7332,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the ReplacePolicyTemplateOptions model
 				replacePolicyTemplateOptionsModel := new(iampolicymanagementv1.ReplacePolicyTemplateOptions)
@@ -7418,13 +7418,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				controlModel.Grant = grantModel
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				templateControlModel.Grant = templateGrantModel
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -7434,7 +7434,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 
 				// Construct an instance of the ReplacePolicyTemplateOptions model
 				replacePolicyTemplateOptionsModel := new(iampolicymanagementv1.ReplacePolicyTemplateOptions)
@@ -13448,13 +13448,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the TemplateRole model
-				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
-				templateRoleModel.DisplayName = core.StringPtr("testString")
-				templateRoleModel.ServiceName = core.StringPtr("testString")
-				templateRoleModel.Description = core.StringPtr("testString")
-				templateRoleModel.Actions = []string{"testString"}
+				// Construct an instance of the RoleTemplatePrototypeRole model
+				roleTemplatePrototypeRoleModel := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+				roleTemplatePrototypeRoleModel.Name = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.DisplayName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.ServiceName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Description = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Actions = []string{"testString"}
 
 				// Construct an instance of the CreateRoleTemplateOptions model
 				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
@@ -13462,7 +13462,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
-				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.Role = roleTemplatePrototypeRoleModel
 				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -13530,13 +13530,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				iamPolicyManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the TemplateRole model
-				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
-				templateRoleModel.DisplayName = core.StringPtr("testString")
-				templateRoleModel.ServiceName = core.StringPtr("testString")
-				templateRoleModel.Description = core.StringPtr("testString")
-				templateRoleModel.Actions = []string{"testString"}
+				// Construct an instance of the RoleTemplatePrototypeRole model
+				roleTemplatePrototypeRoleModel := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+				roleTemplatePrototypeRoleModel.Name = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.DisplayName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.ServiceName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Description = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Actions = []string{"testString"}
 
 				// Construct an instance of the CreateRoleTemplateOptions model
 				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
@@ -13544,7 +13544,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
-				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.Role = roleTemplatePrototypeRoleModel
 				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -13620,13 +13620,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the TemplateRole model
-				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
-				templateRoleModel.DisplayName = core.StringPtr("testString")
-				templateRoleModel.ServiceName = core.StringPtr("testString")
-				templateRoleModel.Description = core.StringPtr("testString")
-				templateRoleModel.Actions = []string{"testString"}
+				// Construct an instance of the RoleTemplatePrototypeRole model
+				roleTemplatePrototypeRoleModel := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+				roleTemplatePrototypeRoleModel.Name = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.DisplayName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.ServiceName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Description = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Actions = []string{"testString"}
 
 				// Construct an instance of the CreateRoleTemplateOptions model
 				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
@@ -13634,7 +13634,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
-				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.Role = roleTemplatePrototypeRoleModel
 				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -13653,13 +13653,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the TemplateRole model
-				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
-				templateRoleModel.DisplayName = core.StringPtr("testString")
-				templateRoleModel.ServiceName = core.StringPtr("testString")
-				templateRoleModel.Description = core.StringPtr("testString")
-				templateRoleModel.Actions = []string{"testString"}
+				// Construct an instance of the RoleTemplatePrototypeRole model
+				roleTemplatePrototypeRoleModel := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+				roleTemplatePrototypeRoleModel.Name = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.DisplayName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.ServiceName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Description = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Actions = []string{"testString"}
 
 				// Construct an instance of the CreateRoleTemplateOptions model
 				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
@@ -13667,7 +13667,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
-				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.Role = roleTemplatePrototypeRoleModel
 				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -13707,13 +13707,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the TemplateRole model
-				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
-				templateRoleModel.DisplayName = core.StringPtr("testString")
-				templateRoleModel.ServiceName = core.StringPtr("testString")
-				templateRoleModel.Description = core.StringPtr("testString")
-				templateRoleModel.Actions = []string{"testString"}
+				// Construct an instance of the RoleTemplatePrototypeRole model
+				roleTemplatePrototypeRoleModel := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+				roleTemplatePrototypeRoleModel.Name = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.DisplayName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.ServiceName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Description = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Actions = []string{"testString"}
 
 				// Construct an instance of the CreateRoleTemplateOptions model
 				createRoleTemplateOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateOptions)
@@ -13721,7 +13721,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleTemplateOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Description = core.StringPtr("testString")
 				createRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
-				createRoleTemplateOptionsModel.Role = templateRoleModel
+				createRoleTemplateOptionsModel.Role = roleTemplatePrototypeRoleModel
 				createRoleTemplateOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14051,7 +14051,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14060,9 +14059,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the CreateRoleTemplateVersionOptions model
 				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
 				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
-				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
 				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -14130,7 +14129,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14139,9 +14137,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the CreateRoleTemplateVersionOptions model
 				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
 				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
-				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
 				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14217,7 +14215,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14226,9 +14223,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the CreateRoleTemplateVersionOptions model
 				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
 				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
-				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
 				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14249,7 +14246,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14258,9 +14254,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the CreateRoleTemplateVersionOptions model
 				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
 				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
-				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
 				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -14302,7 +14298,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14311,9 +14306,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the CreateRoleTemplateVersionOptions model
 				createRoleTemplateVersionOptionsModel := new(iampolicymanagementv1.CreateRoleTemplateVersionOptions)
 				createRoleTemplateVersionOptionsModel.RoleTemplateID = core.StringPtr("testString")
-				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Name = core.StringPtr("testString")
 				createRoleTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createRoleTemplateVersionOptionsModel.Role = templateRoleModel
 				createRoleTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createRoleTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14686,7 +14681,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14697,9 +14691,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -14769,7 +14763,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14780,9 +14773,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14860,7 +14853,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14871,9 +14863,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14894,7 +14886,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14905,9 +14896,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -14949,7 +14940,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
@@ -14960,9 +14950,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replaceRoleTemplateOptionsModel.RoleTemplateID = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Version = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Name = core.StringPtr("testString")
 				replaceRoleTemplateOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleTemplateOptionsModel.Role = templateRoleModel
 				replaceRoleTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replaceRoleTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -16861,17 +16851,17 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel.RoleID = core.StringPtr("testString")
 				Expect(rolesModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				Expect(grantModel).ToNot(BeNil())
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				Expect(grantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				Expect(templateGrantModel).ToNot(BeNil())
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				Expect(templateGrantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				Expect(controlModel).ToNot(BeNil())
-				controlModel.Grant = grantModel
-				Expect(controlModel.Grant).To(Equal(grantModel))
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				Expect(templateControlModel).ToNot(BeNil())
+				templateControlModel.Grant = templateGrantModel
+				Expect(templateControlModel.Grant).To(Equal(templateGrantModel))
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -16882,14 +16872,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 				Expect(templatePolicyModel.Type).To(Equal(core.StringPtr("access")))
 				Expect(templatePolicyModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(templatePolicyModel.Resource).To(Equal(v2PolicyResourceModel))
 				Expect(templatePolicyModel.Subject).To(Equal(v2PolicySubjectModel))
 				Expect(templatePolicyModel.Pattern).To(Equal(core.StringPtr("testString")))
 				Expect(templatePolicyModel.Rule).To(Equal(v2PolicyRuleModel))
-				Expect(templatePolicyModel.Control).To(Equal(controlModel))
+				Expect(templatePolicyModel.Control).To(Equal(templateControlModel))
 
 				// Construct an instance of the CreatePolicyTemplateOptions model
 				createPolicyTemplateOptionsName := "testString"
@@ -16973,17 +16963,17 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel.RoleID = core.StringPtr("testString")
 				Expect(rolesModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				Expect(grantModel).ToNot(BeNil())
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				Expect(grantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				Expect(templateGrantModel).ToNot(BeNil())
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				Expect(templateGrantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				Expect(controlModel).ToNot(BeNil())
-				controlModel.Grant = grantModel
-				Expect(controlModel.Grant).To(Equal(grantModel))
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				Expect(templateControlModel).ToNot(BeNil())
+				templateControlModel.Grant = templateGrantModel
+				Expect(templateControlModel.Grant).To(Equal(templateGrantModel))
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -16994,14 +16984,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 				Expect(templatePolicyModel.Type).To(Equal(core.StringPtr("access")))
 				Expect(templatePolicyModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(templatePolicyModel.Resource).To(Equal(v2PolicyResourceModel))
 				Expect(templatePolicyModel.Subject).To(Equal(v2PolicySubjectModel))
 				Expect(templatePolicyModel.Pattern).To(Equal(core.StringPtr("testString")))
 				Expect(templatePolicyModel.Rule).To(Equal(v2PolicyRuleModel))
-				Expect(templatePolicyModel.Control).To(Equal(controlModel))
+				Expect(templatePolicyModel.Control).To(Equal(templateControlModel))
 
 				// Construct an instance of the CreatePolicyTemplateVersionOptions model
 				policyTemplateID := "testString"
@@ -17079,19 +17069,19 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(createRoleTemplateAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateRoleTemplateOptions successfully`, func() {
-				// Construct an instance of the TemplateRole model
-				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
-				Expect(templateRoleModel).ToNot(BeNil())
-				templateRoleModel.Name = core.StringPtr("testString")
-				templateRoleModel.DisplayName = core.StringPtr("testString")
-				templateRoleModel.ServiceName = core.StringPtr("testString")
-				templateRoleModel.Description = core.StringPtr("testString")
-				templateRoleModel.Actions = []string{"testString"}
-				Expect(templateRoleModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(templateRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
-				Expect(templateRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
-				Expect(templateRoleModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(templateRoleModel.Actions).To(Equal([]string{"testString"}))
+				// Construct an instance of the RoleTemplatePrototypeRole model
+				roleTemplatePrototypeRoleModel := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+				Expect(roleTemplatePrototypeRoleModel).ToNot(BeNil())
+				roleTemplatePrototypeRoleModel.Name = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.DisplayName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.ServiceName = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Description = core.StringPtr("testString")
+				roleTemplatePrototypeRoleModel.Actions = []string{"testString"}
+				Expect(roleTemplatePrototypeRoleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(roleTemplatePrototypeRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(roleTemplatePrototypeRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(roleTemplatePrototypeRoleModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(roleTemplatePrototypeRoleModel.Actions).To(Equal([]string{"testString"}))
 
 				// Construct an instance of the CreateRoleTemplateOptions model
 				createRoleTemplateOptionsName := "testString"
@@ -17101,7 +17091,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleTemplateOptionsModel.SetAccountID("testString")
 				createRoleTemplateOptionsModel.SetDescription("testString")
 				createRoleTemplateOptionsModel.SetCommitted(true)
-				createRoleTemplateOptionsModel.SetRole(templateRoleModel)
+				createRoleTemplateOptionsModel.SetRole(roleTemplatePrototypeRoleModel)
 				createRoleTemplateOptionsModel.SetAcceptLanguage("default")
 				createRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRoleTemplateOptionsModel).ToNot(BeNil())
@@ -17109,7 +17099,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(createRoleTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
-				Expect(createRoleTemplateOptionsModel.Role).To(Equal(templateRoleModel))
+				Expect(createRoleTemplateOptionsModel.Role).To(Equal(roleTemplatePrototypeRoleModel))
 				Expect(createRoleTemplateOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
 				Expect(createRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -17117,12 +17107,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
 				Expect(templateRoleModel).ToNot(BeNil())
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
 				templateRoleModel.Actions = []string{"testString"}
-				Expect(templateRoleModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(templateRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
 				Expect(templateRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(templateRoleModel.Description).To(Equal(core.StringPtr("testString")))
@@ -17130,19 +17118,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the CreateRoleTemplateVersionOptions model
 				roleTemplateID := "testString"
-				var createRoleTemplateVersionOptionsRole *iampolicymanagementv1.TemplateRole = nil
-				createRoleTemplateVersionOptionsModel := iamPolicyManagementService.NewCreateRoleTemplateVersionOptions(roleTemplateID, createRoleTemplateVersionOptionsRole)
+				createRoleTemplateVersionOptionsModel := iamPolicyManagementService.NewCreateRoleTemplateVersionOptions(roleTemplateID)
 				createRoleTemplateVersionOptionsModel.SetRoleTemplateID("testString")
-				createRoleTemplateVersionOptionsModel.SetRole(templateRoleModel)
 				createRoleTemplateVersionOptionsModel.SetName("testString")
 				createRoleTemplateVersionOptionsModel.SetDescription("testString")
+				createRoleTemplateVersionOptionsModel.SetRole(templateRoleModel)
 				createRoleTemplateVersionOptionsModel.SetCommitted(true)
 				createRoleTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRoleTemplateVersionOptionsModel).ToNot(BeNil())
 				Expect(createRoleTemplateVersionOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
-				Expect(createRoleTemplateVersionOptionsModel.Role).To(Equal(templateRoleModel))
 				Expect(createRoleTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleTemplateVersionOptionsModel.Role).To(Equal(templateRoleModel))
 				Expect(createRoleTemplateVersionOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
 				Expect(createRoleTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -17991,17 +17978,17 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel.RoleID = core.StringPtr("testString")
 				Expect(rolesModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Grant model
-				grantModel := new(iampolicymanagementv1.Grant)
-				Expect(grantModel).ToNot(BeNil())
-				grantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				Expect(grantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
+				Expect(templateGrantModel).ToNot(BeNil())
+				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
+				Expect(templateGrantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
 
-				// Construct an instance of the Control model
-				controlModel := new(iampolicymanagementv1.Control)
-				Expect(controlModel).ToNot(BeNil())
-				controlModel.Grant = grantModel
-				Expect(controlModel.Grant).To(Equal(grantModel))
+				// Construct an instance of the TemplateControl model
+				templateControlModel := new(iampolicymanagementv1.TemplateControl)
+				Expect(templateControlModel).ToNot(BeNil())
+				templateControlModel.Grant = templateGrantModel
+				Expect(templateControlModel.Grant).To(Equal(templateGrantModel))
 
 				// Construct an instance of the TemplatePolicy model
 				templatePolicyModel := new(iampolicymanagementv1.TemplatePolicy)
@@ -18012,14 +17999,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				templatePolicyModel.Subject = v2PolicySubjectModel
 				templatePolicyModel.Pattern = core.StringPtr("testString")
 				templatePolicyModel.Rule = v2PolicyRuleModel
-				templatePolicyModel.Control = controlModel
+				templatePolicyModel.Control = templateControlModel
 				Expect(templatePolicyModel.Type).To(Equal(core.StringPtr("access")))
 				Expect(templatePolicyModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(templatePolicyModel.Resource).To(Equal(v2PolicyResourceModel))
 				Expect(templatePolicyModel.Subject).To(Equal(v2PolicySubjectModel))
 				Expect(templatePolicyModel.Pattern).To(Equal(core.StringPtr("testString")))
 				Expect(templatePolicyModel.Rule).To(Equal(v2PolicyRuleModel))
-				Expect(templatePolicyModel.Control).To(Equal(controlModel))
+				Expect(templatePolicyModel.Control).To(Equal(templateControlModel))
 
 				// Construct an instance of the ReplacePolicyTemplateOptions model
 				policyTemplateID := "testString"
@@ -18070,12 +18057,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the TemplateRole model
 				templateRoleModel := new(iampolicymanagementv1.TemplateRole)
 				Expect(templateRoleModel).ToNot(BeNil())
-				templateRoleModel.Name = core.StringPtr("testString")
 				templateRoleModel.DisplayName = core.StringPtr("testString")
 				templateRoleModel.ServiceName = core.StringPtr("testString")
 				templateRoleModel.Description = core.StringPtr("testString")
 				templateRoleModel.Actions = []string{"testString"}
-				Expect(templateRoleModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(templateRoleModel.DisplayName).To(Equal(core.StringPtr("testString")))
 				Expect(templateRoleModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(templateRoleModel.Description).To(Equal(core.StringPtr("testString")))
@@ -18085,23 +18070,22 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				roleTemplateID := "testString"
 				version := "testString"
 				ifMatch := "testString"
-				var replaceRoleTemplateOptionsRole *iampolicymanagementv1.TemplateRole = nil
-				replaceRoleTemplateOptionsModel := iamPolicyManagementService.NewReplaceRoleTemplateOptions(roleTemplateID, version, ifMatch, replaceRoleTemplateOptionsRole)
+				replaceRoleTemplateOptionsModel := iamPolicyManagementService.NewReplaceRoleTemplateOptions(roleTemplateID, version, ifMatch)
 				replaceRoleTemplateOptionsModel.SetRoleTemplateID("testString")
 				replaceRoleTemplateOptionsModel.SetVersion("testString")
 				replaceRoleTemplateOptionsModel.SetIfMatch("testString")
-				replaceRoleTemplateOptionsModel.SetRole(templateRoleModel)
 				replaceRoleTemplateOptionsModel.SetName("testString")
 				replaceRoleTemplateOptionsModel.SetDescription("testString")
+				replaceRoleTemplateOptionsModel.SetRole(templateRoleModel)
 				replaceRoleTemplateOptionsModel.SetCommitted(true)
 				replaceRoleTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceRoleTemplateOptionsModel).ToNot(BeNil())
 				Expect(replaceRoleTemplateOptionsModel.RoleTemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRoleTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRoleTemplateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(replaceRoleTemplateOptionsModel.Role).To(Equal(templateRoleModel))
 				Expect(replaceRoleTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRoleTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleTemplateOptionsModel.Role).To(Equal(templateRoleModel))
 				Expect(replaceRoleTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
 				Expect(replaceRoleTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -18234,6 +18218,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewRoleTemplatePrototypeRole successfully`, func() {
+				name := "testString"
+				displayName := "testString"
+				actions := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewRoleTemplatePrototypeRole(name, displayName, actions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewRoleTemplateReferencesItem successfully`, func() {
+				id := "testString"
+				version := "testString"
+				_model, err := iamPolicyManagementService.NewRoleTemplateReferencesItem(id, version)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewRoles successfully`, func() {
 				roleID := "testString"
 				_model, err := iamPolicyManagementService.NewRoles(roleID)
@@ -18262,6 +18261,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewTemplateControl successfully`, func() {
+				var grant iampolicymanagementv1.TemplateGrantIntf = nil
+				_, err := iamPolicyManagementService.NewTemplateControl(grant)
+				Expect(err).ToNot(BeNil())
+			})
 			It(`Invoke NewTemplatePolicy successfully`, func() {
 				typeVar := "access"
 				_model, err := iamPolicyManagementService.NewTemplatePolicy(typeVar)
@@ -18269,11 +18273,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewTemplateRole successfully`, func() {
-				name := "testString"
 				displayName := "testString"
-				serviceName := "testString"
 				actions := []string{"testString"}
-				_model, err := iamPolicyManagementService.NewTemplateRole(name, displayName, serviceName, actions)
+				_model, err := iamPolicyManagementService.NewTemplateRole(displayName, actions)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -18432,6 +18434,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				operator := "and"
 				conditions := []iampolicymanagementv1.RuleAttribute{}
 				_model, err := iamPolicyManagementService.NewNestedConditionRuleWithConditions(operator, conditions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTemplateGrantRoleReferences successfully`, func() {
+				roleTemplateReferences := []iampolicymanagementv1.RoleTemplateReferencesItem{}
+				_model, err := iamPolicyManagementService.NewTemplateGrantRoleReferences(roleTemplateReferences)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTemplateGrantRoles successfully`, func() {
+				roles := []iampolicymanagementv1.Roles{}
+				_model, err := iamPolicyManagementService.NewTemplateGrantRoles(roles)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -18761,6 +18775,47 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalRoleTemplatePrototypeRole successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.RoleTemplatePrototypeRole)
+			model.Name = core.StringPtr("testString")
+			model.DisplayName = core.StringPtr("testString")
+			model.ServiceName = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Actions = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.RoleTemplatePrototypeRole
+			err = iampolicymanagementv1.UnmarshalRoleTemplatePrototypeRole(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRoleTemplateReferencesItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.RoleTemplateReferencesItem)
+			model.ID = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.RoleTemplateReferencesItem
+			err = iampolicymanagementv1.UnmarshalRoleTemplateReferencesItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalRoles successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.Roles)
@@ -18838,6 +18893,43 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalTemplateControl successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateControl)
+			model.Grant = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateControl
+			err = iampolicymanagementv1.UnmarshalTemplateControl(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateGrant successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateGrant)
+			model.Roles = nil
+			model.RoleTemplateReferences = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateGrant
+			err = iampolicymanagementv1.UnmarshalTemplateGrant(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalTemplatePolicy successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.TemplatePolicy)
@@ -18865,7 +18957,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		It(`Invoke UnmarshalTemplateRole successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.TemplateRole)
-			model.Name = core.StringPtr("testString")
 			model.DisplayName = core.StringPtr("testString")
 			model.ServiceName = core.StringPtr("testString")
 			model.Description = core.StringPtr("testString")
@@ -19037,6 +19128,42 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.NestedConditionRuleWithConditions
 			err = iampolicymanagementv1.UnmarshalNestedConditionRuleWithConditions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateGrantRoleReferences successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateGrantRoleReferences)
+			model.RoleTemplateReferences = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateGrantRoleReferences
+			err = iampolicymanagementv1.UnmarshalTemplateGrantRoleReferences(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateGrantRoles successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateGrantRoles)
+			model.Roles = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateGrantRoles
+			err = iampolicymanagementv1.UnmarshalTemplateGrantRoles(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
