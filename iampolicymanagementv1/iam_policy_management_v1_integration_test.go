@@ -66,17 +66,17 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testPolicyS2STemplateID         string = ""
 		testPolicyS2SOnlyTypeTemplateID string = ""
 
-		testPolicyS2STemplateVersion          string = ""
-		testPolicyS2SOnlyTypeTemplateVersions string = ""
-		testPolicyS2SUpdateTemplateVersion    string = ""
-		testPolicyTemplateETag                string = ""
-		testPolicyOnlyPolicyTemplateETag      string = ""
-		testPolicyTemplatePolicyTypeETag      string = ""
-		testPolicyTemplateVersion             string = ""
-		testPolicyTemplatePolicyTypeVersion   string = ""
-		testPolicyAssignmentId                string = ""
-		examplePolicyTemplateName             string = "PolicySampleTemplateTestV1"
-		TestPolicyType                        string = "TestPolicyType"
+		testPolicyS2STemplateVersion                string = ""
+		testPolicyS2SOnlyTypeTemplateVersions       string = ""
+		testPolicyS2SUpdateTemplateVersion          string = ""
+		testPolicyTemplateETag                      string = ""
+		testPolicyOnlyPolicyTemplateETag            string = ""
+		testPolicyTemplatePolicyTypeETag            string = ""
+		testPolicyTemplateVersion                   string = ""
+		testPolicyTemplatePolicyTypeVersion         string = ""
+		testPolicyAssignmentId                      string = ""
+		examplePolicyTemplateName                   string = "PolicySampleTemplateTestV1"
+		TestPolicyType                              string = "TestPolicyType"
 		assignmentPolicyID                          string
 		testTargetAccountID                         string = ""
 		testPolicyAssignmentETag                    string = ""
@@ -2068,11 +2068,11 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
-	Describe(`CreatePolicyTemplate - Create a policy template with role template references`, func() {
+	Describe(`CreateRolePolicyTemplate - Create a policy template with role template references`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions)`, func() {
+		It(`CreateRolePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions)`, func() {
 			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
 				Operator: core.StringPtr("stringEquals"),

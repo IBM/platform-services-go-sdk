@@ -12900,11 +12900,11 @@ func UnmarshalTemplateActionControl(m map[string]json.RawMessage, result interfa
 // TemplateControl : Specifies the type of access that is granted by the policy.
 type TemplateControl struct {
 	// Permission is granted by the policy.
-	Grant *TemplateGrant `json:"grant" validate:"required"`
+	Grant TemplateGrantIntf `json:"grant" validate:"required"`
 }
 
 // NewTemplateControl : Instantiate TemplateControl (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewTemplateControl(grant *TemplateGrant) (_model *TemplateControl, err error) {
+func (*IamPolicyManagementV1) NewTemplateControl(grant TemplateGrantIntf) (_model *TemplateControl, err error) {
 	_model = &TemplateControl{
 		Grant: grant,
 	}
@@ -12954,12 +12954,22 @@ func UnmarshalTemplateCountData(m map[string]json.RawMessage, result interface{}
 }
 
 // TemplateGrant : Permission is granted by the policy.
+// Models which "extend" this model:
+// - TemplateGrantRoles
+// - TemplateGrantRoleReferences
 type TemplateGrant struct {
 	// A set of role Cloud Resource Names (CRNs) granted by the policy.
 	Roles []Roles `json:"roles,omitempty"`
 
 	// A set of role template reference IDs granted by the policy.
 	RoleTemplateReferences []RoleTemplateReferencesItem `json:"role_template_references,omitempty"`
+}
+func (*TemplateGrant) isaTemplateGrant() bool {
+	return true
+}
+
+type TemplateGrantIntf interface {
+	isaTemplateGrant() bool
 }
 
 // UnmarshalTemplateGrant unmarshals an instance of TemplateGrant from the specified map of raw messages.
@@ -14580,6 +14590,76 @@ func UnmarshalPolicyTemplateAssignmentItemsPolicyAssignmentV1(m map[string]json.
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TemplateGrantRoleReferences : TemplateGrantRoleReferences struct
+// This model "extends" TemplateGrant
+type TemplateGrantRoleReferences struct {
+	// A set of role template reference IDs granted by the policy.
+	RoleTemplateReferences []RoleTemplateReferencesItem `json:"role_template_references" validate:"required"`
+}
+
+// NewTemplateGrantRoleReferences : Instantiate TemplateGrantRoleReferences (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewTemplateGrantRoleReferences(roleTemplateReferences []RoleTemplateReferencesItem) (_model *TemplateGrantRoleReferences, err error) {
+	_model = &TemplateGrantRoleReferences{
+		RoleTemplateReferences: roleTemplateReferences,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*TemplateGrantRoleReferences) isaTemplateGrant() bool {
+	return true
+}
+
+// UnmarshalTemplateGrantRoleReferences unmarshals an instance of TemplateGrantRoleReferences from the specified map of raw messages.
+func UnmarshalTemplateGrantRoleReferences(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TemplateGrantRoleReferences)
+	err = core.UnmarshalModel(m, "role_template_references", &obj.RoleTemplateReferences, UnmarshalRoleTemplateReferencesItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "role_template_references-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TemplateGrantRoles : TemplateGrantRoles struct
+// This model "extends" TemplateGrant
+type TemplateGrantRoles struct {
+	// A set of role Cloud Resource Names (CRNs) granted by the policy.
+	Roles []Roles `json:"roles" validate:"required"`
+}
+
+// NewTemplateGrantRoles : Instantiate TemplateGrantRoles (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewTemplateGrantRoles(roles []Roles) (_model *TemplateGrantRoles, err error) {
+	_model = &TemplateGrantRoles{
+		Roles: roles,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*TemplateGrantRoles) isaTemplateGrant() bool {
+	return true
+}
+
+// UnmarshalTemplateGrantRoles unmarshals an instance of TemplateGrantRoles from the specified map of raw messages.
+func UnmarshalTemplateGrantRoles(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TemplateGrantRoles)
+	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalRoles)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "roles-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))

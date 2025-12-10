@@ -4897,7 +4897,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully with retries`, func() {
@@ -4971,7 +4971,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully`, func() {
@@ -5127,9 +5127,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"policy_templates":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}],"role_template_references":[{"id":"ID","version":"Version"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"policy_templates":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"policy_templates":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}],"role_template_references":[{"id":"ID","version":"Version"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"policy_templates":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -5261,15 +5261,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -5347,7 +5341,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplate successfully with retries`, func() {
@@ -5396,15 +5390,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -5485,7 +5473,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplate successfully`, func() {
@@ -5539,15 +5527,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -5625,15 +5607,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -5732,15 +5708,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -5844,7 +5814,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplate successfully with retries`, func() {
@@ -5900,7 +5870,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplate successfully`, func() {
@@ -6127,15 +6097,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -6210,7 +6174,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateVersion successfully with retries`, func() {
@@ -6259,15 +6223,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -6345,7 +6303,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateVersion successfully`, func() {
@@ -6399,15 +6357,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -6484,15 +6436,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -6590,15 +6536,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -6707,7 +6647,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully with retries`, func() {
@@ -6767,7 +6707,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "first": {"href": "Href"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully`, func() {
@@ -6905,9 +6845,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}],"role_template_references":[{"id":"ID","version":"Version"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}],"role_template_references":[{"id":"ID","version":"Version"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"policy":{"type":"access","description":"Description","resource":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}],"tags":[{"key":"Key","value":"Value","operator":"stringEquals"}]},"subject":{"attributes":[{"key":"Key","operator":"stringEquals","value":"anyValue"}]},"pattern":"Pattern","rule":{"key":"Key","operator":"stringEquals","value":"anyValue"},"control":{"grant":{"roles":[{"role_id":"RoleID"}]}}},"state":"active","id":"ID","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -7027,15 +6967,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -7114,7 +7048,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplacePolicyTemplate successfully with retries`, func() {
@@ -7163,15 +7097,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -7253,7 +7181,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplacePolicyTemplate successfully`, func() {
@@ -7307,15 +7235,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -7394,15 +7316,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -7502,15 +7418,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel := new(iampolicymanagementv1.Roles)
 				rolesModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -7683,7 +7593,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplateVersion successfully with retries`, func() {
@@ -7738,7 +7648,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}], "role_template_references": [{"id": "ID", "version": "Version"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplateVersion successfully`, func() {
@@ -16941,21 +16851,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel.RoleID = core.StringPtr("testString")
 				Expect(rolesModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				Expect(roleTemplateReferencesItemModel).ToNot(BeNil())
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-				Expect(roleTemplateReferencesItemModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(roleTemplateReferencesItemModel.Version).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				Expect(templateGrantModel).ToNot(BeNil())
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 				Expect(templateGrantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
-				Expect(templateGrantModel.RoleTemplateReferences).To(Equal([]iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}))
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -17063,21 +16963,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel.RoleID = core.StringPtr("testString")
 				Expect(rolesModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				Expect(roleTemplateReferencesItemModel).ToNot(BeNil())
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-				Expect(roleTemplateReferencesItemModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(roleTemplateReferencesItemModel.Version).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				Expect(templateGrantModel).ToNot(BeNil())
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 				Expect(templateGrantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
-				Expect(templateGrantModel.RoleTemplateReferences).To(Equal([]iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}))
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -18088,21 +17978,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				rolesModel.RoleID = core.StringPtr("testString")
 				Expect(rolesModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the RoleTemplateReferencesItem model
-				roleTemplateReferencesItemModel := new(iampolicymanagementv1.RoleTemplateReferencesItem)
-				Expect(roleTemplateReferencesItemModel).ToNot(BeNil())
-				roleTemplateReferencesItemModel.ID = core.StringPtr("testString")
-				roleTemplateReferencesItemModel.Version = core.StringPtr("testString")
-				Expect(roleTemplateReferencesItemModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(roleTemplateReferencesItemModel.Version).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the TemplateGrant model
-				templateGrantModel := new(iampolicymanagementv1.TemplateGrant)
+				// Construct an instance of the TemplateGrantRoles model
+				templateGrantModel := new(iampolicymanagementv1.TemplateGrantRoles)
 				Expect(templateGrantModel).ToNot(BeNil())
 				templateGrantModel.Roles = []iampolicymanagementv1.Roles{*rolesModel}
-				templateGrantModel.RoleTemplateReferences = []iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}
 				Expect(templateGrantModel.Roles).To(Equal([]iampolicymanagementv1.Roles{*rolesModel}))
-				Expect(templateGrantModel.RoleTemplateReferences).To(Equal([]iampolicymanagementv1.RoleTemplateReferencesItem{*roleTemplateReferencesItemModel}))
 
 				// Construct an instance of the TemplateControl model
 				templateControlModel := new(iampolicymanagementv1.TemplateControl)
@@ -18382,7 +18262,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewTemplateControl successfully`, func() {
-				var grant *iampolicymanagementv1.TemplateGrant = nil
+				var grant iampolicymanagementv1.TemplateGrantIntf = nil
 				_, err := iamPolicyManagementService.NewTemplateControl(grant)
 				Expect(err).ToNot(BeNil())
 			})
@@ -18554,6 +18434,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				operator := "and"
 				conditions := []iampolicymanagementv1.RuleAttribute{}
 				_model, err := iamPolicyManagementService.NewNestedConditionRuleWithConditions(operator, conditions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTemplateGrantRoleReferences successfully`, func() {
+				roleTemplateReferences := []iampolicymanagementv1.RoleTemplateReferencesItem{}
+				_model, err := iamPolicyManagementService.NewTemplateGrantRoleReferences(roleTemplateReferences)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTemplateGrantRoles successfully`, func() {
+				roles := []iampolicymanagementv1.Roles{}
+				_model, err := iamPolicyManagementService.NewTemplateGrantRoles(roles)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -19236,6 +19128,42 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.NestedConditionRuleWithConditions
 			err = iampolicymanagementv1.UnmarshalNestedConditionRuleWithConditions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateGrantRoleReferences successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateGrantRoleReferences)
+			model.RoleTemplateReferences = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateGrantRoleReferences
+			err = iampolicymanagementv1.UnmarshalTemplateGrantRoleReferences(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateGrantRoles successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.TemplateGrantRoles)
+			model.Roles = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.TemplateGrantRoles
+			err = iampolicymanagementv1.UnmarshalTemplateGrantRoles(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
