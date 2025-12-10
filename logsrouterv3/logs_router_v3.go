@@ -1,0 +1,2558 @@
+/**
+ * (C) Copyright IBM Corp. 2026.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
+ */
+
+// Package logsrouterv3 : Operations and models for the LogsRouterV3 service
+package logsrouterv3
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"reflect"
+	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
+)
+
+// LogsRouterV3 : IBM Cloud Logs Routing allows you to configure how to route platform logs in your account.
+//
+// API Version: 3.0.0
+type LogsRouterV3 struct {
+	Service *core.BaseService
+}
+
+// DefaultServiceURL is the default URL to make service requests to.
+const DefaultServiceURL = "https://api.au-syd.logs-router.cloud.ibm.com/v3"
+
+// DefaultServiceName is the default key used to find external configuration information.
+const DefaultServiceName = "logs_router"
+
+// LogsRouterV3Options : Service options
+type LogsRouterV3Options struct {
+	ServiceName   string
+	URL           string
+	Authenticator core.Authenticator
+}
+
+// NewLogsRouterV3UsingExternalConfig : constructs an instance of LogsRouterV3 with passed in options and external configuration.
+func NewLogsRouterV3UsingExternalConfig(options *LogsRouterV3Options) (logsRouter *LogsRouterV3, err error) {
+	if options.ServiceName == "" {
+		options.ServiceName = DefaultServiceName
+	}
+
+	if options.Authenticator == nil {
+		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
+			return
+		}
+	}
+
+	logsRouter, err = NewLogsRouterV3(options)
+	err = core.RepurposeSDKProblem(err, "new-client-error")
+	if err != nil {
+		return
+	}
+
+	err = logsRouter.Service.ConfigureService(options.ServiceName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
+		return
+	}
+
+	if options.URL != "" {
+		err = logsRouter.Service.SetServiceURL(options.URL)
+		err = core.RepurposeSDKProblem(err, "url-set-error")
+	}
+	return
+}
+
+// NewLogsRouterV3 : constructs an instance of LogsRouterV3 with passed in options.
+func NewLogsRouterV3(options *LogsRouterV3Options) (service *LogsRouterV3, err error) {
+	serviceOptions := &core.ServiceOptions{
+		URL:           DefaultServiceURL,
+		Authenticator: options.Authenticator,
+	}
+
+	baseService, err := core.NewBaseService(serviceOptions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
+		return
+	}
+
+	if options.URL != "" {
+		err = baseService.SetServiceURL(options.URL)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
+			return
+		}
+	}
+
+	service = &LogsRouterV3{
+		Service: baseService,
+	}
+
+	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	var endpoints = map[string]string{
+		"au-syd": "https://api.au-syd.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the au-syd region.
+		"private.au-syd": "https://api.private.au-syd.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the au-syd region.
+		"br-sao": "https://api.br-sao.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the br-sao region.
+		"private.br-sao": "https://api.private.br-sao.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the br-sao region.
+		"ca-mon": "https://api.ca-mon.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the ca-mon region.
+		"private.ca-mon": "https://api.private.ca-mon.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the ca-mon region.
+		"ca-tor": "https://api.ca-tor.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the ca-tor region.
+		"private.ca-tor": "https://api.private.ca-tor.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the ca-tor region.
+		"eu-de": "https://api.eu-de.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-de region.
+		"private.eu-de": "https://api.private.eu-de.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-de region.
+		"eu-es": "https://api.eu-es.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-es region.
+		"private.eu-es": "https://api.private.eu-es.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-es region.
+		"eu-fr2": "https://api.eu-fr2.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-fr2 region.
+		"private.eu-fr2": "https://api.private.eu-fr2.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-fr2 region.s
+		"eu-gb": "https://api.eu-gb.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-gb region.
+		"private.eu-gb": "https://api.private.eu-gb.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-gb region.
+		"jp-osa": "https://api.jp-osa.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the jp-osa region.
+		"private.jp-osa": "https://api.private.jp-osa.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the jp-osa region.
+		"jp-tok": "https://api.jp-tok.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the jp-tok region.
+		"private.jp-tok": "https://api.private.jp-tok.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the jp-tok region.
+		"us-east": "https://api.us-east.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the us-east region.
+		"private.us-east": "https://api.private.us-east.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the us-east region.
+		"us-south": "https://api.us-south.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the us-south region.
+		"private.us-south": "https://api.private.us-south.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the us-south region.
+	}
+
+	if url, ok := endpoints[region]; ok {
+		return url, nil
+	}
+	return "", core.SDKErrorf(nil, fmt.Sprintf("service URL for region '%s' not found", region), "invalid-region", common.GetComponentInfo())
+}
+
+// Clone makes a copy of "logsRouter" suitable for processing requests.
+func (logsRouter *LogsRouterV3) Clone() *LogsRouterV3 {
+	if core.IsNil(logsRouter) {
+		return nil
+	}
+	clone := *logsRouter
+	clone.Service = logsRouter.Service.Clone()
+	return &clone
+}
+
+// SetServiceURL sets the service URL
+func (logsRouter *LogsRouterV3) SetServiceURL(url string) error {
+	err := logsRouter.Service.SetServiceURL(url)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
+	}
+	return err
+}
+
+// GetServiceURL returns the service URL
+func (logsRouter *LogsRouterV3) GetServiceURL() string {
+	return logsRouter.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (logsRouter *LogsRouterV3) SetDefaultHeaders(headers http.Header) {
+	logsRouter.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (logsRouter *LogsRouterV3) SetEnableGzipCompression(enableGzip bool) {
+	logsRouter.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (logsRouter *LogsRouterV3) GetEnableGzipCompression() bool {
+	return logsRouter.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (logsRouter *LogsRouterV3) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	logsRouter.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (logsRouter *LogsRouterV3) DisableRetries() {
+	logsRouter.Service.DisableRetries()
+}
+
+// CreateTarget : Create a target
+// Creates a target that includes information about the destination required to write platform logs to that target. You
+// can send your platform logs from all regions to a single target, different targets or multiple targets. One target
+// per region is not required. You can define up to 16 targets per account.
+//
+// **Enterprise management** Optionally set `managed_by: "enterprise"` in the request body to create an
+// enterprise-managed target. the `managed_by` value is immutable after creation and you cannot mingle account-managed
+// and enterprise-managed resources.
+func (logsRouter *LogsRouterV3) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.CreateTargetWithContext(context.Background(), createTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreateTargetWithContext is an alternate form of the CreateTarget method which supports a Context parameter
+func (logsRouter *LogsRouterV3) CreateTargetWithContext(ctx context.Context, createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createTargetOptions, "createTargetOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createTargetOptions, "createTargetOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/targets`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "CreateTarget")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range createTargetOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createTargetOptions.Name != nil {
+		body["name"] = createTargetOptions.Name
+	}
+	if createTargetOptions.DestinationCRN != nil {
+		body["destination_crn"] = createTargetOptions.DestinationCRN
+	}
+	if createTargetOptions.Region != nil {
+		body["region"] = createTargetOptions.Region
+	}
+	if createTargetOptions.ManagedBy != nil {
+		body["managed_by"] = createTargetOptions.ManagedBy
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "create_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListTargets : List targets
+// List all targets that are defined for your account.
+//
+// **Enterprise management** - The response will include the `managed_by` field. - The `managed_by` attribute is
+// immutable; it cannot be changed after creation.
+func (logsRouter *LogsRouterV3) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetCollection, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.ListTargetsWithContext(context.Background(), listTargetsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListTargetsWithContext is an alternate form of the ListTargets method which supports a Context parameter
+func (logsRouter *LogsRouterV3) ListTargetsWithContext(ctx context.Context, listTargetsOptions *ListTargetsOptions) (result *TargetCollection, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listTargetsOptions, "listTargetsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/targets`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "ListTargets")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listTargetsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_targets", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTargetCollection)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetTarget : Get details of a target
+// Retrieve the configuration details of a target.
+//
+// **Enterprise management** - The response will include a `managed_by` field indicating if the target is managed by
+// `"enterprise"` or `"account"`.
+func (logsRouter *LogsRouterV3) GetTarget(getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.GetTargetWithContext(context.Background(), getTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetTargetWithContext is an alternate form of the GetTarget method which supports a Context parameter
+func (logsRouter *LogsRouterV3) GetTargetWithContext(ctx context.Context, getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getTargetOptions, "getTargetOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getTargetOptions, "getTargetOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getTargetOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/targets/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "GetTarget")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getTargetOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateTarget : Update a target
+// Update the configuration details of a target.
+//
+// **Enterprise management** - The `managed_by` attribute is **immutable** and cannot be modified after creation. -
+// Enterprise-managed targets can only be updated by identities authorized for enterprise target actions.
+func (logsRouter *LogsRouterV3) UpdateTarget(updateTargetOptions *UpdateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.UpdateTargetWithContext(context.Background(), updateTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateTargetWithContext is an alternate form of the UpdateTarget method which supports a Context parameter
+func (logsRouter *LogsRouterV3) UpdateTargetWithContext(ctx context.Context, updateTargetOptions *UpdateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateTargetOptions, "updateTargetOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateTargetOptions, "updateTargetOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *updateTargetOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/targets/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "UpdateTarget")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateTargetOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateTargetOptions.Name != nil {
+		body["name"] = updateTargetOptions.Name
+	}
+	if updateTargetOptions.DestinationCRN != nil {
+		body["destination_crn"] = updateTargetOptions.DestinationCRN
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteTarget : Delete a target
+// Delete a target.
+func (logsRouter *LogsRouterV3) DeleteTarget(deleteTargetOptions *DeleteTargetOptions) (response *core.DetailedResponse, err error) {
+	response, err = logsRouter.DeleteTargetWithContext(context.Background(), deleteTargetOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteTargetWithContext is an alternate form of the DeleteTarget method which supports a Context parameter
+func (logsRouter *LogsRouterV3) DeleteTargetWithContext(ctx context.Context, deleteTargetOptions *DeleteTargetOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteTargetOptions, "deleteTargetOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteTargetOptions, "deleteTargetOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deleteTargetOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/targets/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "DeleteTarget")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range deleteTargetOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = logsRouter.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_target", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// CreateRoute : Create a route
+// Create a route with rules that specify how to manage platform logs routing.
+//
+// **Enterprise management** The `managed_by` value is immutable and you cannot mingle account-managed and
+// enterprise-managed resources.
+func (logsRouter *LogsRouterV3) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.CreateRouteWithContext(context.Background(), createRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreateRouteWithContext is an alternate form of the CreateRoute method which supports a Context parameter
+func (logsRouter *LogsRouterV3) CreateRouteWithContext(ctx context.Context, createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createRouteOptions, "createRouteOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createRouteOptions, "createRouteOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/routes`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "CreateRoute")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range createRouteOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createRouteOptions.Name != nil {
+		body["name"] = createRouteOptions.Name
+	}
+	if createRouteOptions.Rules != nil {
+		body["rules"] = createRouteOptions.Rules
+	}
+	if createRouteOptions.ManagedBy != nil {
+		body["managed_by"] = createRouteOptions.ManagedBy
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "create_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListRoutes : List routes
+// List the routes that are configured for an account.
+func (logsRouter *LogsRouterV3) ListRoutes(listRoutesOptions *ListRoutesOptions) (result *RouteCollection, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.ListRoutesWithContext(context.Background(), listRoutesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListRoutesWithContext is an alternate form of the ListRoutes method which supports a Context parameter
+func (logsRouter *LogsRouterV3) ListRoutesWithContext(ctx context.Context, listRoutesOptions *ListRoutesOptions) (result *RouteCollection, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listRoutesOptions, "listRoutesOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/routes`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "ListRoutes")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listRoutesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_routes", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRouteCollection)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetRoute : Get details of a route
+// Get the configuration details of a route.
+//
+// **Enterprise management** - The response includes the `managed_by:` field. - The `managed_by` value is immutable.
+func (logsRouter *LogsRouterV3) GetRoute(getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.GetRouteWithContext(context.Background(), getRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetRouteWithContext is an alternate form of the GetRoute method which supports a Context parameter
+func (logsRouter *LogsRouterV3) GetRouteWithContext(ctx context.Context, getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getRouteOptions, "getRouteOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getRouteOptions, "getRouteOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getRouteOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/routes/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "GetRoute")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getRouteOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateRoute : Update a route
+// Update the configuration details of a route.
+//
+// **Enterprise management** The `managed_by` value is immutable and you cannot mingle account-managed and
+// enterprise-managed resources.
+func (logsRouter *LogsRouterV3) UpdateRoute(updateRouteOptions *UpdateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.UpdateRouteWithContext(context.Background(), updateRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateRouteWithContext is an alternate form of the UpdateRoute method which supports a Context parameter
+func (logsRouter *LogsRouterV3) UpdateRouteWithContext(ctx context.Context, updateRouteOptions *UpdateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateRouteOptions, "updateRouteOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateRouteOptions, "updateRouteOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *updateRouteOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/routes/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "UpdateRoute")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateRouteOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateRouteOptions.Name != nil {
+		body["name"] = updateRouteOptions.Name
+	}
+	if updateRouteOptions.Rules != nil {
+		body["rules"] = updateRouteOptions.Rules
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteRoute : Delete a route
+// Deletes a route.
+func (logsRouter *LogsRouterV3) DeleteRoute(deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
+	response, err = logsRouter.DeleteRouteWithContext(context.Background(), deleteRouteOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteRouteWithContext is an alternate form of the DeleteRoute method which supports a Context parameter
+func (logsRouter *LogsRouterV3) DeleteRouteWithContext(ctx context.Context, deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteRouteOptions, "deleteRouteOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteRouteOptions, "deleteRouteOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deleteRouteOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/routes/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "DeleteRoute")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range deleteRouteOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = logsRouter.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_route", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// GetSettings : Get settings
+// Get information about the current account level settings for Logs Routing service.
+func (logsRouter *LogsRouterV3) GetSettings(getSettingsOptions *GetSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.GetSettingsWithContext(context.Background(), getSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetSettingsWithContext is an alternate form of the GetSettings method which supports a Context parameter
+func (logsRouter *LogsRouterV3) GetSettingsWithContext(ctx context.Context, getSettingsOptions *GetSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getSettingsOptions, "getSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/settings`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "GetSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSetting)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateSettings : Modify settings
+// Modify the current account level settings such as default targets, permitted target regions, metadata region primary
+// and secondary.
+//
+// **Enterprise management** - Default targets must be **account-managed**. Enterprise-managed targets (`managed_by:
+// enterprise`) cannot be set as default targets and will be rejected.
+func (logsRouter *LogsRouterV3) UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.UpdateSettingsWithContext(context.Background(), updateSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateSettingsWithContext is an alternate form of the UpdateSettings method which supports a Context parameter
+func (logsRouter *LogsRouterV3) UpdateSettingsWithContext(ctx context.Context, updateSettingsOptions *UpdateSettingsOptions) (result *Setting, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateSettingsOptions, "updateSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateSettingsOptions, "updateSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/settings`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "UpdateSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateSettingsOptions.DefaultTargets != nil {
+		body["default_targets"] = updateSettingsOptions.DefaultTargets
+	}
+	if updateSettingsOptions.PermittedTargetRegions != nil {
+		body["permitted_target_regions"] = updateSettingsOptions.PermittedTargetRegions
+	}
+	if updateSettingsOptions.PrimaryMetadataRegion != nil {
+		body["primary_metadata_region"] = updateSettingsOptions.PrimaryMetadataRegion
+	}
+	if updateSettingsOptions.BackupMetadataRegion != nil {
+		body["backup_metadata_region"] = updateSettingsOptions.BackupMetadataRegion
+	}
+	if updateSettingsOptions.PrivateAPIEndpointOnly != nil {
+		body["private_api_endpoint_only"] = updateSettingsOptions.PrivateAPIEndpointOnly
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSetting)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// QueryDestinations : Query Destinations
+// Query target destinations for a given set of cloud resources.
+func (logsRouter *LogsRouterV3) QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions) (result *DestinationsQuery, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.QueryDestinationsWithContext(context.Background(), queryDestinationsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// QueryDestinationsWithContext is an alternate form of the QueryDestinations method which supports a Context parameter
+func (logsRouter *LogsRouterV3) QueryDestinationsWithContext(ctx context.Context, queryDestinationsOptions *QueryDestinationsOptions) (result *DestinationsQuery, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(queryDestinationsOptions, "queryDestinationsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(queryDestinationsOptions, "queryDestinationsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/destinations/query`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "QueryDestinations")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range queryDestinationsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if queryDestinationsOptions.Crns != nil {
+		body["crns"] = queryDestinationsOptions.Crns
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "query_destinations", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDestinationsQuery)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// MigrateActions : Migrate from old API version to version 3
+// Users are required to invoke this API endpoint to switch from old API version to the version 3 API before v3
+// resources get evaluated and applied.
+func (logsRouter *LogsRouterV3) MigrateActions(migrateActionsOptions *MigrateActionsOptions) (result *MigrationComplete, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.MigrateActionsWithContext(context.Background(), migrateActionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// MigrateActionsWithContext is an alternate form of the MigrateActions method which supports a Context parameter
+func (logsRouter *LogsRouterV3) MigrateActionsWithContext(ctx context.Context, migrateActionsOptions *MigrateActionsOptions) (result *MigrationComplete, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(migrateActionsOptions, "migrateActionsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(migrateActionsOptions, "migrateActionsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/migrate`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "MigrateActions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range migrateActionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("action", fmt.Sprint(*migrateActionsOptions.Action))
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "migrate_actions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMigrationComplete)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+func getServiceComponentInfo() *core.ProblemComponent {
+	return core.NewProblemComponent(DefaultServiceName, "3.0.0")
+}
+
+// AssociatedTargetsPrototype : A target that points to the destination.
+type AssociatedTargetsPrototype struct {
+	// CRN of the target.
+	CRN *string `json:"crn" validate:"required"`
+
+	// ID of the target.
+	ID *string `json:"id" validate:"required"`
+
+	// Name of the target.
+	Name *string `json:"name" validate:"required"`
+
+	// A list of reasons why the target was associated with the resource CRN.
+	AssociationReasons []AssociationReasonPrototype `json:"association_reasons" validate:"required"`
+}
+
+// UnmarshalAssociatedTargetsPrototype unmarshals an instance of AssociatedTargetsPrototype from the specified map of raw messages.
+func UnmarshalAssociatedTargetsPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AssociatedTargetsPrototype)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "association_reasons", &obj.AssociationReasons, UnmarshalAssociationReasonPrototype)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "association_reasons-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AssociationReasonPrototype : Details the reason why the target destination matched the resource CRN. The reasoning is either that the target is
+// attached to a route or one of the default targets.
+type AssociationReasonPrototype struct {
+	// Type of association reason.
+	Type *string `json:"type" validate:"required"`
+
+	// Name of the route, if applicable.
+	Name *string `json:"name,omitempty"`
+
+	// CRN of the route, if applicable.
+	CRN *string `json:"crn,omitempty"`
+}
+
+// UnmarshalAssociationReasonPrototype unmarshals an instance of AssociationReasonPrototype from the specified map of raw messages.
+func UnmarshalAssociationReasonPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AssociationReasonPrototype)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CRNPrototype : A Cloud Resource Name (CRN).
+type CRNPrototype struct {
+	// CRN of a cloud resource.
+	CRN *string `json:"crn" validate:"required"`
+}
+
+// NewCRNPrototype : Instantiate CRNPrototype (Generic Model Constructor)
+func (*LogsRouterV3) NewCRNPrototype(crn string) (_model *CRNPrototype, err error) {
+	_model = &CRNPrototype{
+		CRN: core.StringPtr(crn),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalCRNPrototype unmarshals an instance of CRNPrototype from the specified map of raw messages.
+func UnmarshalCRNPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CRNPrototype)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateRouteOptions : The CreateRoute options.
+type CreateRouteOptions struct {
+	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
+	// `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
+	Name *string `json:"name" validate:"required"`
+
+	// Routing rules that will be evaluated in their order of the array.
+	Rules []RulePrototype `json:"rules" validate:"required"`
+
+	// Identifies who manages this route. Optional at create time. If not provided, the default is `account`. The
+	// managed_by value is immutable and you cannot mingle account-managed and enterprise-managed resources.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the CreateRouteOptions.ManagedBy property.
+// Identifies who manages this route. Optional at create time. If not provided, the default is `account`. The managed_by
+// value is immutable and you cannot mingle account-managed and enterprise-managed resources.
+const (
+	CreateRouteOptionsManagedByAccountConst = "account"
+	CreateRouteOptionsManagedByEnterpriseConst = "enterprise"
+)
+
+// NewCreateRouteOptions : Instantiate CreateRouteOptions
+func (*LogsRouterV3) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
+	return &CreateRouteOptions{
+		Name: core.StringPtr(name),
+		Rules: rules,
+	}
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateRouteOptions) SetName(name string) *CreateRouteOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRules : Allow user to set Rules
+func (_options *CreateRouteOptions) SetRules(rules []RulePrototype) *CreateRouteOptions {
+	_options.Rules = rules
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *CreateRouteOptions) SetManagedBy(managedBy string) *CreateRouteOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateRouteOptions) SetHeaders(param map[string]string) *CreateRouteOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateTargetOptions : The CreateTarget options.
+type CreateTargetOptions struct {
+	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
+	// than `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
+	Name *string `json:"name" validate:"required"`
+
+	// Cloud Resource Name (CRN) of the destination resource. Ensure you have a service authorization between IBM Cloud
+	// Logs Routing and your Cloud resource.
+	DestinationCRN *string `json:"destination_crn" validate:"required"`
+
+	// Include this optional field if you want to create a target in a different region other than the one you are
+	// connected.
+	Region *string `json:"region,omitempty"`
+
+	// Identifies who manages this target. Optional at create time. If set to `enterprise`, the target becomes
+	// enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set
+	// to `account`, the target is managed by the child account. This value is immutable after creation.
+	ManagedBy *string `json:"managed_by,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the CreateTargetOptions.ManagedBy property.
+// Identifies who manages this target. Optional at create time. If set to `enterprise`, the target becomes
+// enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set to
+// `account`, the target is managed by the child account. This value is immutable after creation.
+const (
+	CreateTargetOptionsManagedByAccountConst = "account"
+	CreateTargetOptionsManagedByEnterpriseConst = "enterprise"
+)
+
+// NewCreateTargetOptions : Instantiate CreateTargetOptions
+func (*LogsRouterV3) NewCreateTargetOptions(name string, destinationCRN string) *CreateTargetOptions {
+	return &CreateTargetOptions{
+		Name: core.StringPtr(name),
+		DestinationCRN: core.StringPtr(destinationCRN),
+	}
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateTargetOptions) SetName(name string) *CreateTargetOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetDestinationCRN : Allow user to set DestinationCRN
+func (_options *CreateTargetOptions) SetDestinationCRN(destinationCRN string) *CreateTargetOptions {
+	_options.DestinationCRN = core.StringPtr(destinationCRN)
+	return _options
+}
+
+// SetRegion : Allow user to set Region
+func (_options *CreateTargetOptions) SetRegion(region string) *CreateTargetOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
+}
+
+// SetManagedBy : Allow user to set ManagedBy
+func (_options *CreateTargetOptions) SetManagedBy(managedBy string) *CreateTargetOptions {
+	_options.ManagedBy = core.StringPtr(managedBy)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateTargetOptions) SetHeaders(param map[string]string) *CreateTargetOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteRouteOptions : The DeleteRoute options.
+type DeleteRouteOptions struct {
+	// The v4 UUID that uniquely identifies the route.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewDeleteRouteOptions : Instantiate DeleteRouteOptions
+func (*LogsRouterV3) NewDeleteRouteOptions(id string) *DeleteRouteOptions {
+	return &DeleteRouteOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *DeleteRouteOptions) SetID(id string) *DeleteRouteOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteRouteOptions) SetHeaders(param map[string]string) *DeleteRouteOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteTargetOptions : The DeleteTarget options.
+type DeleteTargetOptions struct {
+	// The v4 UUID that uniquely identifies the target.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewDeleteTargetOptions : Instantiate DeleteTargetOptions
+func (*LogsRouterV3) NewDeleteTargetOptions(id string) *DeleteTargetOptions {
+	return &DeleteTargetOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *DeleteTargetOptions) SetID(id string) *DeleteTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteTargetOptions) SetHeaders(param map[string]string) *DeleteTargetOptions {
+	options.Headers = param
+	return options
+}
+
+// DestinationPrototype : A single target destination.
+type DestinationPrototype struct {
+	// Account that owns the destination.
+	Account *string `json:"account,omitempty"`
+
+	// If platform logs is going to a destination: 'send', if its explicitly dropped: 'drop'.
+	Action *string `json:"action" validate:"required"`
+
+	// A list of targets that points to the destination.
+	AssociatedTargets []AssociatedTargetsPrototype `json:"associated_targets,omitempty"`
+
+	// CRN of the destination.
+	CRN *string `json:"crn,omitempty"`
+
+	// Region of the target destination.
+	Region *string `json:"region,omitempty"`
+
+	// CRN service name of the destination.
+	ServiceName *string `json:"service_name,omitempty"`
+}
+
+// UnmarshalDestinationPrototype unmarshals an instance of DestinationPrototype from the specified map of raw messages.
+func UnmarshalDestinationPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DestinationPrototype)
+	err = core.UnmarshalPrimitive(m, "account", &obj.Account)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "action-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "associated_targets", &obj.AssociatedTargets, UnmarshalAssociatedTargetsPrototype)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "associated_targets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DestinationsQuery : Destinations Query response payload. Returning the target destinations for each requested resource CRN.
+type DestinationsQuery struct {
+	// Key is the resource CRN. Value is an array of target destinations for each requested resource CRN.
+	Destinations map[string][]DestinationPrototype `json:"destinations" validate:"required"`
+}
+
+// UnmarshalDestinationsQuery unmarshals an instance of DestinationsQuery from the specified map of raw messages.
+func UnmarshalDestinationsQuery(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DestinationsQuery)
+	err = core.UnmarshalModel(m, "destinations", &obj.Destinations, UnmarshalDestinationPrototype)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "destinations-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetRouteOptions : The GetRoute options.
+type GetRouteOptions struct {
+	// The v4 UUID that uniquely identifies the route.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetRouteOptions : Instantiate GetRouteOptions
+func (*LogsRouterV3) NewGetRouteOptions(id string) *GetRouteOptions {
+	return &GetRouteOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *GetRouteOptions) SetID(id string) *GetRouteOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetRouteOptions) SetHeaders(param map[string]string) *GetRouteOptions {
+	options.Headers = param
+	return options
+}
+
+// GetSettingsOptions : The GetSettings options.
+type GetSettingsOptions struct {
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetSettingsOptions : Instantiate GetSettingsOptions
+func (*LogsRouterV3) NewGetSettingsOptions() *GetSettingsOptions {
+	return &GetSettingsOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetSettingsOptions) SetHeaders(param map[string]string) *GetSettingsOptions {
+	options.Headers = param
+	return options
+}
+
+// GetTargetOptions : The GetTarget options.
+type GetTargetOptions struct {
+	// The v4 UUID that uniquely identifies the target.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetTargetOptions : Instantiate GetTargetOptions
+func (*LogsRouterV3) NewGetTargetOptions(id string) *GetTargetOptions {
+	return &GetTargetOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *GetTargetOptions) SetID(id string) *GetTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetTargetOptions) SetHeaders(param map[string]string) *GetTargetOptions {
+	options.Headers = param
+	return options
+}
+
+// InclusionFilter : A list of conditions to be satisfied for routing platform logs to pre-defined target.
+type InclusionFilter struct {
+	// Part of CRN that can be compared with values. Currently only location is supported.
+	Operand *string `json:"operand" validate:"required"`
+
+	// The operation to be performed between operand and the provided values. 'is' to be used with one value and 'in' can
+	// support up to 20 values in the array.
+	Operator *string `json:"operator" validate:"required"`
+
+	// The provided string values of the operand to be compared with.
+	Values []string `json:"values" validate:"required"`
+}
+
+// Constants associated with the InclusionFilter.Operand property.
+// Part of CRN that can be compared with values. Currently only location is supported.
+const (
+	InclusionFilterOperandLocationConst = "location"
+)
+
+// Constants associated with the InclusionFilter.Operator property.
+// The operation to be performed between operand and the provided values. 'is' to be used with one value and 'in' can
+// support up to 20 values in the array.
+const (
+	InclusionFilterOperatorInConst = "in"
+	InclusionFilterOperatorIsConst = "is"
+)
+
+// UnmarshalInclusionFilter unmarshals an instance of InclusionFilter from the specified map of raw messages.
+func UnmarshalInclusionFilter(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(InclusionFilter)
+	err = core.UnmarshalPrimitive(m, "operand", &obj.Operand)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "operand-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "values", &obj.Values)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "values-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// InclusionFilterPrototype : A list of conditions to be satisfied for routing platform logs to pre-defined targets.
+type InclusionFilterPrototype struct {
+	// Part of CRN that can be compared with values. Currently only location is supported.
+	Operand *string `json:"operand" validate:"required"`
+
+	// The operation to be performed between operand and the provided values. 'is' to be used with one value and 'in' can
+	// support up to 20 values in the array.
+	Operator *string `json:"operator" validate:"required"`
+
+	// The provided string values of the operand to be compared with.
+	Values []string `json:"values" validate:"required"`
+}
+
+// Constants associated with the InclusionFilterPrototype.Operand property.
+// Part of CRN that can be compared with values. Currently only location is supported.
+const (
+	InclusionFilterPrototypeOperandLocationConst = "location"
+)
+
+// Constants associated with the InclusionFilterPrototype.Operator property.
+// The operation to be performed between operand and the provided values. 'is' to be used with one value and 'in' can
+// support up to 20 values in the array.
+const (
+	InclusionFilterPrototypeOperatorInConst = "in"
+	InclusionFilterPrototypeOperatorIsConst = "is"
+)
+
+// NewInclusionFilterPrototype : Instantiate InclusionFilterPrototype (Generic Model Constructor)
+func (*LogsRouterV3) NewInclusionFilterPrototype(operand string, operator string, values []string) (_model *InclusionFilterPrototype, err error) {
+	_model = &InclusionFilterPrototype{
+		Operand: core.StringPtr(operand),
+		Operator: core.StringPtr(operator),
+		Values: values,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalInclusionFilterPrototype unmarshals an instance of InclusionFilterPrototype from the specified map of raw messages.
+func UnmarshalInclusionFilterPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(InclusionFilterPrototype)
+	err = core.UnmarshalPrimitive(m, "operand", &obj.Operand)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "operand-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "values", &obj.Values)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "values-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ListRoutesOptions : The ListRoutes options.
+type ListRoutesOptions struct {
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListRoutesOptions : Instantiate ListRoutesOptions
+func (*LogsRouterV3) NewListRoutesOptions() *ListRoutesOptions {
+	return &ListRoutesOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListRoutesOptions) SetHeaders(param map[string]string) *ListRoutesOptions {
+	options.Headers = param
+	return options
+}
+
+// ListTargetsOptions : The ListTargets options.
+type ListTargetsOptions struct {
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListTargetsOptions : Instantiate ListTargetsOptions
+func (*LogsRouterV3) NewListTargetsOptions() *ListTargetsOptions {
+	return &ListTargetsOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTargetsOptions {
+	options.Headers = param
+	return options
+}
+
+// MigrateActionsOptions : The MigrateActions options.
+type MigrateActionsOptions struct {
+	Action *string `json:"action" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the MigrateActionsOptions.Action property.
+const (
+	MigrateActionsOptionsActionCompleteConst = "complete"
+)
+
+// NewMigrateActionsOptions : Instantiate MigrateActionsOptions
+func (*LogsRouterV3) NewMigrateActionsOptions(action string) *MigrateActionsOptions {
+	return &MigrateActionsOptions{
+		Action: core.StringPtr(action),
+	}
+}
+
+// SetAction : Allow user to set Action
+func (_options *MigrateActionsOptions) SetAction(action string) *MigrateActionsOptions {
+	_options.Action = core.StringPtr(action)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *MigrateActionsOptions) SetHeaders(param map[string]string) *MigrateActionsOptions {
+	options.Headers = param
+	return options
+}
+
+// MigrationComplete : Migration complete action is successful.
+type MigrationComplete struct {
+	// API version used for IBM Cloud Logs Routing service under the account.
+	APIVersion *int64 `json:"api_version" validate:"required"`
+
+	// Migration completed message.
+	Message *string `json:"message,omitempty"`
+}
+
+// UnmarshalMigrationComplete unmarshals an instance of MigrationComplete from the specified map of raw messages.
+func UnmarshalMigrationComplete(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MigrationComplete)
+	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// QueryDestinationsOptions : The QueryDestinations options.
+type QueryDestinationsOptions struct {
+	// List of resource CRNs that will be queried.
+	Crns []CRNPrototype `json:"crns" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewQueryDestinationsOptions : Instantiate QueryDestinationsOptions
+func (*LogsRouterV3) NewQueryDestinationsOptions(crns []CRNPrototype) *QueryDestinationsOptions {
+	return &QueryDestinationsOptions{
+		Crns: crns,
+	}
+}
+
+// SetCrns : Allow user to set Crns
+func (_options *QueryDestinationsOptions) SetCrns(crns []CRNPrototype) *QueryDestinationsOptions {
+	_options.Crns = crns
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *QueryDestinationsOptions) SetHeaders(param map[string]string) *QueryDestinationsOptions {
+	options.Headers = param
+	return options
+}
+
+// Route : The route resource. The scope of the route is account wide. That means all the routes are evaluated in all regions,
+// except the ones limited by region.
+type Route struct {
+	// The UUID of the route resource.
+	ID *string `json:"id" validate:"required"`
+
+	// The name of the route.
+	Name *string `json:"name" validate:"required"`
+
+	// The crn of the route resource.
+	CRN *string `json:"crn" validate:"required"`
+
+	// The routing rules that will be evaluated in their order of the array. Once a rule is matched, the remaining rules in
+	// the route definition will be skipped.
+	Rules []Rule `json:"rules" validate:"required"`
+
+	// The timestamp of the route creation time.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// The timestamp of the route last updated time.
+	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
+
+	// Present when the route is enterprise-managed (`managed_by: enterprise`).
+	ManagedBy *string `json:"managed_by,omitempty"`
+}
+
+// Constants associated with the Route.ManagedBy property.
+// Present when the route is enterprise-managed (`managed_by: enterprise`).
+const (
+	RouteManagedByAccountConst = "account"
+	RouteManagedByEnterpriseConst = "enterprise"
+)
+
+// UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
+func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Route)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalRule)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "rules-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RouteCollection : A list of route resources.
+type RouteCollection struct {
+	// A list of route resources.
+	Routes []Route `json:"routes" validate:"required"`
+}
+
+// UnmarshalRouteCollection unmarshals an instance of RouteCollection from the specified map of raw messages.
+func UnmarshalRouteCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RouteCollection)
+	err = core.UnmarshalModel(m, "routes", &obj.Routes, UnmarshalRoute)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "routes-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Rule : A configuration to route platform logs to pre-defined target.
+type Rule struct {
+	// The action if the inclusion_filters matches, default is `send` action.
+	Action *string `json:"action,omitempty"`
+
+	// The target ID List. Platform logs will be sent to all targets listed in the rule. You can include targets from other
+	// regions.
+	Targets []TargetReference `json:"targets" validate:"required"`
+
+	// A list of conditions to be satisfied for routing platform logs to pre-defined target.
+	InclusionFilters []InclusionFilter `json:"inclusion_filters" validate:"required"`
+}
+
+// Constants associated with the Rule.Action property.
+// The action if the inclusion_filters matches, default is `send` action.
+const (
+	RuleActionDropConst = "drop"
+	RuleActionSendConst = "send"
+)
+
+// UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
+func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Rule)
+	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "action-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTargetReference)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "inclusion_filters", &obj.InclusionFilters, UnmarshalInclusionFilter)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "inclusion_filters-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RulePrototype : A configuration to route platform logs to pre-defined target.
+type RulePrototype struct {
+	// The action if the inclusion_filters matches, default is `send` action.
+	Action *string `json:"action,omitempty"`
+
+	// A collection of targets with ID in the request.
+	Targets []TargetIdentity `json:"targets" validate:"required"`
+
+	// A list of conditions to be satisfied for routing platform logs to pre-defined target.
+	InclusionFilters []InclusionFilterPrototype `json:"inclusion_filters" validate:"required"`
+}
+
+// Constants associated with the RulePrototype.Action property.
+// The action if the inclusion_filters matches, default is `send` action.
+const (
+	RulePrototypeActionDropConst = "drop"
+	RulePrototypeActionSendConst = "send"
+)
+
+// NewRulePrototype : Instantiate RulePrototype (Generic Model Constructor)
+func (*LogsRouterV3) NewRulePrototype(targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
+	_model = &RulePrototype{
+		Targets: targets,
+		InclusionFilters: inclusionFilters,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalRulePrototype unmarshals an instance of RulePrototype from the specified map of raw messages.
+func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RulePrototype)
+	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "action-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTargetIdentity)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "inclusion_filters", &obj.InclusionFilters, UnmarshalInclusionFilterPrototype)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "inclusion_filters-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Setting : Logs routing settings response.
+type Setting struct {
+	// A list of default target references. Enterprise-managed targets are not supported.
+	DefaultTargets []TargetReference `json:"default_targets" validate:"required"`
+
+	// If present then only these regions may be used to define a target.
+	PermittedTargetRegions []string `json:"permitted_target_regions" validate:"required"`
+
+	// To store all your meta data in a single region.
+	PrimaryMetadataRegion *string `json:"primary_metadata_region" validate:"required"`
+
+	// To backup all your meta data in a different region.
+	BackupMetadataRegion *string `json:"backup_metadata_region,omitempty"`
+
+	// If you set this true then you cannot access api through public network.
+	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only" validate:"required"`
+
+	// API version used for IBM Cloud Logs Routing service under the account.
+	APIVersion *int64 `json:"api_version" validate:"required"`
+}
+
+// UnmarshalSetting unmarshals an instance of Setting from the specified map of raw messages.
+func UnmarshalSetting(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Setting)
+	err = core.UnmarshalModel(m, "default_targets", &obj.DefaultTargets, UnmarshalTargetReference)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "default_targets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "permitted_target_regions", &obj.PermittedTargetRegions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "permitted_target_regions-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "primary_metadata_region", &obj.PrimaryMetadataRegion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "primary_metadata_region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "backup_metadata_region", &obj.BackupMetadataRegion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "backup_metadata_region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_api_endpoint_only", &obj.PrivateAPIEndpointOnly)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_api_endpoint_only-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Target : Property values for a target in responses.
+type Target struct {
+	// The UUID of the target resource.
+	ID *string `json:"id" validate:"required"`
+
+	// The name of the target resource.
+	Name *string `json:"name" validate:"required"`
+
+	// The crn of the target resource.
+	CRN *string `json:"crn" validate:"required"`
+
+	// Cloud Resource Name (CRN) of the destination resource. Ensure you have a service authorization between IBM Cloud
+	// Logs Routing and your Cloud resource. See [service-to-service
+	// authorization](https://cloud.ibm.com/docs/logs-router?topic=logs-router-target-monitoring&interface=ui#target-monitoring-ui)
+	// for details.
+	DestinationCRN *string `json:"destination_crn" validate:"required"`
+
+	// The type of the target.
+	TargetType *string `json:"target_type" validate:"required"`
+
+	// Include this optional field if you used it to create a target in a different region other than the one you are
+	// connected.
+	Region *string `json:"region,omitempty"`
+
+	// The status of the write attempt to the target with the provided endpoint parameters.
+	WriteStatus *WriteStatus `json:"write_status" validate:"required"`
+
+	// The timestamp of the target creation time.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// The timestamp of the target last updated time.
+	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
+
+	// Present when the target is enterprise-managed (`managed_by: enterprise`). For account-managed targets this field is
+	// omitted.
+	ManagedBy *string `json:"managed_by" validate:"required"`
+}
+
+// Constants associated with the Target.TargetType property.
+// The type of the target.
+const (
+	TargetTargetTypeCloudLogsConst = "cloud_logs"
+)
+
+// Constants associated with the Target.ManagedBy property.
+// Present when the target is enterprise-managed (`managed_by: enterprise`). For account-managed targets this field is
+// omitted.
+const (
+	TargetManagedByAccountConst = "account"
+	TargetManagedByEnterpriseConst = "enterprise"
+)
+
+// UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
+func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Target)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "destination_crn", &obj.DestinationCRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "destination_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "write_status", &obj.WriteStatus, UnmarshalWriteStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "write_status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TargetCollection : A list of target resources.
+type TargetCollection struct {
+	// A list of target resources.
+	Targets []Target `json:"targets" validate:"required"`
+}
+
+// UnmarshalTargetCollection unmarshals an instance of TargetCollection from the specified map of raw messages.
+func UnmarshalTargetCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TargetCollection)
+	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalTarget)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "targets-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TargetIdentity : A configuration to route platform logs to pre-defined target.
+type TargetIdentity struct {
+	// The target uuid for a pre-defined logs router target.
+	ID *string `json:"id" validate:"required"`
+}
+
+// NewTargetIdentity : Instantiate TargetIdentity (Generic Model Constructor)
+func (*LogsRouterV3) NewTargetIdentity(id string) (_model *TargetIdentity, err error) {
+	_model = &TargetIdentity{
+		ID: core.StringPtr(id),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalTargetIdentity unmarshals an instance of TargetIdentity from the specified map of raw messages.
+func UnmarshalTargetIdentity(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TargetIdentity)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TargetReference : A configuration to route platform logs to pre-defined target.
+type TargetReference struct {
+	// The target uuid for a pre-defined platform logs router target.
+	ID *string `json:"id" validate:"required"`
+
+	// The CRN of a pre-defined logs-router target.
+	CRN *string `json:"crn" validate:"required"`
+
+	// The name of a pre-defined logs-router target.
+	Name *string `json:"name" validate:"required"`
+
+	// The type of the target.
+	TargetType *string `json:"target_type" validate:"required"`
+}
+
+// Constants associated with the TargetReference.TargetType property.
+// The type of the target.
+const (
+	TargetReferenceTargetTypeCloudLogsConst = "cloud_logs"
+)
+
+// UnmarshalTargetReference unmarshals an instance of TargetReference from the specified map of raw messages.
+func UnmarshalTargetReference(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TargetReference)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateRouteOptions : The UpdateRoute options.
+type UpdateRouteOptions struct {
+	// The v4 UUID that uniquely identifies the route.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
+	// `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
+	Name *string `json:"name,omitempty"`
+
+	// Routing rules that will be evaluated in their order of the array.
+	Rules []RulePrototype `json:"rules,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateRouteOptions : Instantiate UpdateRouteOptions
+func (*LogsRouterV3) NewUpdateRouteOptions(id string) *UpdateRouteOptions {
+	return &UpdateRouteOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *UpdateRouteOptions) SetID(id string) *UpdateRouteOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateRouteOptions) SetName(name string) *UpdateRouteOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRules : Allow user to set Rules
+func (_options *UpdateRouteOptions) SetRules(rules []RulePrototype) *UpdateRouteOptions {
+	_options.Rules = rules
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateRouteOptions) SetHeaders(param map[string]string) *UpdateRouteOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateSettingsOptions : The UpdateSettings options.
+type UpdateSettingsOptions struct {
+	// A list of default target references. Enterprise-managed targets are not supported.
+	DefaultTargets []TargetIdentity `json:"default_targets,omitempty"`
+
+	// If present then only these regions may be used to define a target.
+	PermittedTargetRegions []string `json:"permitted_target_regions,omitempty"`
+
+	// To store all your meta data in a single region.
+	PrimaryMetadataRegion *string `json:"primary_metadata_region,omitempty"`
+
+	// To backup all your meta data in a different region.
+	BackupMetadataRegion *string `json:"backup_metadata_region,omitempty"`
+
+	// If you set this true then you cannot access api through public network.
+	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateSettingsOptions : Instantiate UpdateSettingsOptions
+func (*LogsRouterV3) NewUpdateSettingsOptions() *UpdateSettingsOptions {
+	return &UpdateSettingsOptions{}
+}
+
+// SetDefaultTargets : Allow user to set DefaultTargets
+func (_options *UpdateSettingsOptions) SetDefaultTargets(defaultTargets []TargetIdentity) *UpdateSettingsOptions {
+	_options.DefaultTargets = defaultTargets
+	return _options
+}
+
+// SetPermittedTargetRegions : Allow user to set PermittedTargetRegions
+func (_options *UpdateSettingsOptions) SetPermittedTargetRegions(permittedTargetRegions []string) *UpdateSettingsOptions {
+	_options.PermittedTargetRegions = permittedTargetRegions
+	return _options
+}
+
+// SetPrimaryMetadataRegion : Allow user to set PrimaryMetadataRegion
+func (_options *UpdateSettingsOptions) SetPrimaryMetadataRegion(primaryMetadataRegion string) *UpdateSettingsOptions {
+	_options.PrimaryMetadataRegion = core.StringPtr(primaryMetadataRegion)
+	return _options
+}
+
+// SetBackupMetadataRegion : Allow user to set BackupMetadataRegion
+func (_options *UpdateSettingsOptions) SetBackupMetadataRegion(backupMetadataRegion string) *UpdateSettingsOptions {
+	_options.BackupMetadataRegion = core.StringPtr(backupMetadataRegion)
+	return _options
+}
+
+// SetPrivateAPIEndpointOnly : Allow user to set PrivateAPIEndpointOnly
+func (_options *UpdateSettingsOptions) SetPrivateAPIEndpointOnly(privateAPIEndpointOnly bool) *UpdateSettingsOptions {
+	_options.PrivateAPIEndpointOnly = core.BoolPtr(privateAPIEndpointOnly)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateSettingsOptions) SetHeaders(param map[string]string) *UpdateSettingsOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateTargetOptions : The UpdateTarget options.
+type UpdateTargetOptions struct {
+	// The v4 UUID that uniquely identifies the target.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
+	// than `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
+	Name *string `json:"name,omitempty"`
+
+	// Cloud Resource Name (CRN) of the destination resource. Ensure you have a service authorization between IBM Cloud
+	// Logs Routing and your Cloud resource. See [service-to-service
+	// authorization](https://cloud.ibm.com/docs/logs-router?topic=logs-router-target-monitoring&interface=ui#target-monitoring-ui)
+	// for details.
+	DestinationCRN *string `json:"destination_crn,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateTargetOptions : Instantiate UpdateTargetOptions
+func (*LogsRouterV3) NewUpdateTargetOptions(id string) *UpdateTargetOptions {
+	return &UpdateTargetOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *UpdateTargetOptions) SetID(id string) *UpdateTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateTargetOptions) SetName(name string) *UpdateTargetOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetDestinationCRN : Allow user to set DestinationCRN
+func (_options *UpdateTargetOptions) SetDestinationCRN(destinationCRN string) *UpdateTargetOptions {
+	_options.DestinationCRN = core.StringPtr(destinationCRN)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateTargetOptions) SetHeaders(param map[string]string) *UpdateTargetOptions {
+	options.Headers = param
+	return options
+}
+
+// WriteStatus : The status of the write attempt to the target with the provided endpoint parameters.
+type WriteStatus struct {
+	// The status such as failed or success.
+	Status *string `json:"status" validate:"required"`
+
+	// The timestamp of the failure.
+	LastFailure *strfmt.DateTime `json:"last_failure,omitempty"`
+
+	// Detailed description of the cause of the failure.
+	ReasonForLastFailure *string `json:"reason_for_last_failure,omitempty"`
+}
+
+// Constants associated with the WriteStatus.Status property.
+// The status such as failed or success.
+const (
+	WriteStatusStatusFailedConst = "failed"
+	WriteStatusStatusSuccessConst = "success"
+)
+
+// UnmarshalWriteStatus unmarshals an instance of WriteStatus from the specified map of raw messages.
+func UnmarshalWriteStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(WriteStatus)
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_failure", &obj.LastFailure)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_failure-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason_for_last_failure", &obj.ReasonForLastFailure)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "reason_for_last_failure-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
