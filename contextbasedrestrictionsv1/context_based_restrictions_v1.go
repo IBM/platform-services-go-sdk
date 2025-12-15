@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
+ * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
  */
 
 // Package contextbasedrestrictionsv1 : Operations and models for the ContextBasedRestrictionsV1 service
@@ -198,12 +198,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContex
 		return
 	}
 
-	for headerName, headerValue := range createZoneOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "CreateZone")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "CreateZone")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createZoneOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -292,12 +292,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext
 		return
 	}
 
-	for headerName, headerValue := range listZonesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListZones")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListZones")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listZonesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -375,12 +375,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range getZoneOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetZone")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetZone")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getZoneOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -451,12 +451,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithConte
 		return
 	}
 
-	for headerName, headerValue := range replaceZoneOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ReplaceZone")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ReplaceZone")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceZoneOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -552,12 +552,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteZoneWithContex
 		return
 	}
 
-	for headerName, headerValue := range deleteZoneOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "DeleteZone")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "DeleteZone")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteZoneOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	if deleteZoneOptions.XCorrelationID != nil {
@@ -608,12 +608,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 		return
 	}
 
-	for headerName, headerValue := range listAvailableServicerefTargetsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListAvailableServicerefTargets")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListAvailableServicerefTargets")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listAvailableServicerefTargetsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -687,12 +687,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetServicerefTargetW
 		return
 	}
 
-	for headerName, headerValue := range getServicerefTargetOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetServicerefTarget")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetServicerefTarget")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getServicerefTargetOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -753,12 +753,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContex
 		return
 	}
 
-	for headerName, headerValue := range createRuleOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "CreateRule")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "CreateRule")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createRuleOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -847,12 +847,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 		return
 	}
 
-	for headerName, headerValue := range listRulesOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListRules")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListRules")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listRulesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -954,12 +954,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range getRuleOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetRule")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetRule")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getRuleOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1030,12 +1030,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithConte
 		return
 	}
 
-	for headerName, headerValue := range replaceRuleOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ReplaceRule")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ReplaceRule")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range replaceRuleOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1131,12 +1131,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteRuleWithContex
 		return
 	}
 
-	for headerName, headerValue := range deleteRuleOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "DeleteRule")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "DeleteRule")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteRuleOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	if deleteRuleOptions.XCorrelationID != nil {
@@ -1196,12 +1196,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettingsWi
 		return
 	}
 
-	for headerName, headerValue := range getAccountSettingsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetAccountSettings")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetAccountSettings")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range getAccountSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1262,12 +1262,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 		return
 	}
 
-	for headerName, headerValue := range listAvailableServiceOperationsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListAvailableServiceOperations")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListAvailableServiceOperations")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listAvailableServiceOperationsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -1630,7 +1630,7 @@ type CreateRuleOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1728,7 +1728,7 @@ type CreateZoneOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1802,7 +1802,7 @@ type DeleteRuleOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1854,7 +1854,7 @@ type DeleteZoneOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1906,7 +1906,7 @@ type GetAccountSettingsOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1958,7 +1958,7 @@ type GetRuleOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2010,7 +2010,7 @@ type GetServicerefTargetOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2062,7 +2062,7 @@ type GetZoneOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2120,7 +2120,7 @@ type ListAvailableServiceOperationsOptions struct {
 	// The type of resource.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2182,7 +2182,7 @@ type ListAvailableServicerefTargetsOptions struct {
 	// Specifies the types of services to retrieve.
 	Type *string `json:"type,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2270,7 +2270,7 @@ type ListRulesOptions struct {
 	// The rule's `enforcement_mode` attribute.
 	EnforcementMode *string `json:"enforcement_mode,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2397,7 +2397,7 @@ type ListZonesOptions struct {
 	// [Sorting](https://cloud.ibm.com/docs/api-handbook?topic=api-handbook-sorting).
 	Sort *string `json:"sort,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2560,7 +2560,7 @@ type ReplaceRuleOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2680,7 +2680,7 @@ type ReplaceZoneOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3110,6 +3110,9 @@ type ServiceRefTarget struct {
 
 	// The locations the service is available.
 	Locations []ServiceRefTargetLocationsItem `json:"locations,omitempty"`
+
+	// The display name of the service.
+	DisplayName *string `json:"display_name,omitempty"`
 }
 
 // UnmarshalServiceRefTarget unmarshals an instance of ServiceRefTarget from the specified map of raw messages.
@@ -3128,6 +3131,11 @@ func UnmarshalServiceRefTarget(m map[string]json.RawMessage, result interface{})
 	err = core.UnmarshalModel(m, "locations", &obj.Locations, UnmarshalServiceRefTargetLocationsItem)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "locations-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
