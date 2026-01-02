@@ -29,8 +29,8 @@ import (
 	"reflect"
 	"time"
 
-	common "github.com/IBM/cloud-go-sdk/common"
 	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 )
 
@@ -335,7 +335,7 @@ func (distributionListApi *DistributionListApiV1) GetDestinationEntryWithContext
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getDestinationEntryOptions.AccountID,
+		"account_id":     *getDestinationEntryOptions.AccountID,
 		"destination_id": fmt.Sprint(*getDestinationEntryOptions.DestinationID),
 	}
 
@@ -405,7 +405,7 @@ func (distributionListApi *DistributionListApiV1) DeleteDestinationEntryWithCont
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *deleteDestinationEntryOptions.AccountID,
+		"account_id":     *deleteDestinationEntryOptions.AccountID,
 		"destination_id": fmt.Sprint(*deleteDestinationEntryOptions.DestinationID),
 	}
 
@@ -466,7 +466,7 @@ func (distributionListApi *DistributionListApiV1) TestDestinationEntryWithContex
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *testDestinationEntryOptions.AccountID,
+		"account_id":     *testDestinationEntryOptions.AccountID,
 		"destination_id": fmt.Sprint(*testDestinationEntryOptions.DestinationID),
 	}
 
@@ -538,7 +538,7 @@ type AddDestinationEntryOptions struct {
 // NewAddDestinationEntryOptions : Instantiate AddDestinationEntryOptions
 func (*DistributionListApiV1) NewAddDestinationEntryOptions(accountID string, addDestinationEntryRequest AddDestinationEntryRequestIntf) *AddDestinationEntryOptions {
 	return &AddDestinationEntryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:                  core.StringPtr(accountID),
 		AddDestinationEntryRequest: addDestinationEntryRequest,
 	}
 }
@@ -577,6 +577,7 @@ type AddDestinationEntryRequest struct {
 const (
 	AddDestinationEntryRequest_DestinationType_EventNotifications = "event_notifications"
 )
+
 func (*AddDestinationEntryRequest) isaAddDestinationEntryRequest() bool {
 	return true
 }
@@ -627,6 +628,7 @@ type AddDestinationEntryResponse struct {
 const (
 	AddDestinationEntryResponse_DestinationType_EventNotifications = "event_notifications"
 )
+
 func (*AddDestinationEntryResponse) isaAddDestinationEntryResponse() bool {
 	return true
 }
@@ -676,7 +678,7 @@ type DeleteDestinationEntryOptions struct {
 // NewDeleteDestinationEntryOptions : Instantiate DeleteDestinationEntryOptions
 func (*DistributionListApiV1) NewDeleteDestinationEntryOptions(accountID string, destinationID *strfmt.UUID) *DeleteDestinationEntryOptions {
 	return &DeleteDestinationEntryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:     core.StringPtr(accountID),
 		DestinationID: destinationID,
 	}
 }
@@ -715,6 +717,7 @@ type DestinationListItem struct {
 const (
 	DestinationListItem_DestinationType_EventNotifications = "event_notifications"
 )
+
 func (*DestinationListItem) isaDestinationListItem() bool {
 	return true
 }
@@ -783,7 +786,7 @@ type GetDestinationEntryOptions struct {
 // NewGetDestinationEntryOptions : Instantiate GetDestinationEntryOptions
 func (*DistributionListApiV1) NewGetDestinationEntryOptions(accountID string, destinationID *strfmt.UUID) *GetDestinationEntryOptions {
 	return &GetDestinationEntryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:     core.StringPtr(accountID),
 		DestinationID: destinationID,
 	}
 }
@@ -822,6 +825,7 @@ type GetDestinationEntryResponse struct {
 const (
 	GetDestinationEntryResponse_DestinationType_EventNotifications = "event_notifications"
 )
+
 func (*GetDestinationEntryResponse) isaGetDestinationEntryResponse() bool {
 	return true
 }
@@ -873,8 +877,8 @@ type TestDestinationEntryOptions struct {
 // NewTestDestinationEntryOptions : Instantiate TestDestinationEntryOptions
 func (*DistributionListApiV1) NewTestDestinationEntryOptions(accountID string, destinationID *strfmt.UUID, testDestinationEntryRequest TestDestinationEntryRequestIntf) *TestDestinationEntryOptions {
 	return &TestDestinationEntryOptions{
-		AccountID: core.StringPtr(accountID),
-		DestinationID: destinationID,
+		AccountID:                   core.StringPtr(accountID),
+		DestinationID:               destinationID,
 		TestDestinationEntryRequest: testDestinationEntryRequest,
 	}
 }
@@ -923,13 +927,14 @@ const (
 // Constants associated with the TestDestinationEntryRequest.NotificationType property.
 // Type of notification to test.
 const (
-	TestDestinationEntryRequest_NotificationType_Announcements = "announcements"
-	TestDestinationEntryRequest_NotificationType_BillingAndUsage = "billing_and_usage"
-	TestDestinationEntryRequest_NotificationType_Incident = "incident"
-	TestDestinationEntryRequest_NotificationType_Maintenance = "maintenance"
-	TestDestinationEntryRequest_NotificationType_Resource = "resource"
+	TestDestinationEntryRequest_NotificationType_Announcements     = "announcements"
+	TestDestinationEntryRequest_NotificationType_BillingAndUsage   = "billing_and_usage"
+	TestDestinationEntryRequest_NotificationType_Incident          = "incident"
+	TestDestinationEntryRequest_NotificationType_Maintenance       = "maintenance"
+	TestDestinationEntryRequest_NotificationType_Resource          = "resource"
 	TestDestinationEntryRequest_NotificationType_SecurityBulletins = "security_bulletins"
 )
+
 func (*TestDestinationEntryRequest) isaTestDestinationEntryRequest() bool {
 	return true
 }
@@ -1000,7 +1005,7 @@ const (
 // NewAddDestinationEntryRequestEventNotificationDestination : Instantiate AddDestinationEntryRequestEventNotificationDestination (Generic Model Constructor)
 func (*DistributionListApiV1) NewAddDestinationEntryRequestEventNotificationDestination(id *strfmt.UUID, destinationType string) (_model *AddDestinationEntryRequestEventNotificationDestination, err error) {
 	_model = &AddDestinationEntryRequestEventNotificationDestination{
-		ID: id,
+		ID:              id,
 		DestinationType: core.StringPtr(destinationType),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -1161,18 +1166,18 @@ const (
 // Constants associated with the TestDestinationEntryRequestTestEventNotificationDestination.NotificationType property.
 // Type of notification to test.
 const (
-	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Announcements = "announcements"
-	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_BillingAndUsage = "billing_and_usage"
-	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Incident = "incident"
-	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Maintenance = "maintenance"
-	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Resource = "resource"
+	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Announcements     = "announcements"
+	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_BillingAndUsage   = "billing_and_usage"
+	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Incident          = "incident"
+	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Maintenance       = "maintenance"
+	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_Resource          = "resource"
 	TestDestinationEntryRequestTestEventNotificationDestination_NotificationType_SecurityBulletins = "security_bulletins"
 )
 
 // NewTestDestinationEntryRequestTestEventNotificationDestination : Instantiate TestDestinationEntryRequestTestEventNotificationDestination (Generic Model Constructor)
 func (*DistributionListApiV1) NewTestDestinationEntryRequestTestEventNotificationDestination(destinationType string, notificationType string) (_model *TestDestinationEntryRequestTestEventNotificationDestination, err error) {
 	_model = &TestDestinationEntryRequestTestEventNotificationDestination{
-		DestinationType: core.StringPtr(destinationType),
+		DestinationType:  core.StringPtr(destinationType),
 		NotificationType: core.StringPtr(notificationType),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
