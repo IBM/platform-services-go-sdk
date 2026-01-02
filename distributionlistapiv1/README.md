@@ -42,7 +42,7 @@ The SDK uses IBM Cloud IAM authentication. Configure authentication using one of
 ### Environment Variables
 ```bash
 export DISTRIBUTION_LIST_API_AUTH_TYPE=iam
-export DISTRIBUTION_LIST_API_APIKEY=<your-iam-api-key>
+export DISTRIBUTION_LIST_API_APIKEY=<your-iam-api-key> # pragma: allowlist secret
 export DISTRIBUTION_LIST_API_URL=<service-url>
 ```
 
