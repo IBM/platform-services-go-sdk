@@ -42,7 +42,7 @@ The SDK uses IBM Cloud IAM authentication. Configure authentication using one of
 ### Environment Variables
 ```bash
 export DISTRIBUTION_LIST_API_AUTH_TYPE=iam
-export DISTRIBUTION_LIST_API_APIKEY=<your-api-key>
+export DISTRIBUTION_LIST_API_APIKEY=<your-iam-api-key>
 export DISTRIBUTION_LIST_API_URL=<service-url>
 ```
 
@@ -53,8 +53,9 @@ import (
     "github.com/IBM/platform-services-go-sdk/distributionlistapiv1"
 )
 
+// Create IAM authenticator
 authenticator := &core.IamAuthenticator{
-    ApiKey: "<your-api-key>",
+    ApiKey: "<your-iam-api-key>", // pragma: allowlist secret
 }
 
 service, err := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
@@ -195,7 +196,7 @@ import (
 func main() {
     // Initialize service
     authenticator := &core.IamAuthenticator{
-        ApiKey: "your-api-key",
+        ApiKey: "your-iam-api-key", // pragma: allowlist secret
     }
 
     service, err := distributionlistapiv1.NewDistributionListApiV1(
