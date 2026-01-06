@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2020, 2025.
+ * (C) Copyright IBM Corp. 2020, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -190,6 +190,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #1"),
+				ExpiresAt:   core.StringPtr("2049-01-02T18:30:00+0000"),
 			}
 
 			apiKey, response, err := iamIdentityService.CreateAPIKey(createAPIKeyOptions)
@@ -347,6 +348,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				ID:          &apikeyId1,
 				IfMatch:     &apikeyEtag1,
 				Description: &newDescription,
+				ExpiresAt:   core.StringPtr("2049-01-02T18:30:00+0000"),
 			}
 
 			apiKey, response, err := iamIdentityService.UpdateAPIKey(updateAPIKeyOptions)
@@ -496,11 +498,17 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateServiceID(createServiceIdOptions *CreateServiceIdOptions)`, func() {
+			apiKeyInsideCreateServiceIDRequestModel := &iamidentityv1.APIKeyInsideCreateServiceIDRequest{
+				Name:       core.StringPtr("APIKey Name"),
+				StoreValue: core.BoolPtr(true),
+				ExpiresAt:  core.StringPtr("2049-01-02T18:30:00+0000"),
+			}
 
 			createServiceIDOptions := &iamidentityv1.CreateServiceIDOptions{
 				AccountID:   &accountID,
 				Name:        &serviceIDName,
 				Description: core.StringPtr("GoSDK test serviceId"),
+				Apikey:      apiKeyInsideCreateServiceIDRequestModel,
 			}
 
 			serviceID, response, err := iamIdentityService.CreateServiceID(createServiceIDOptions)
