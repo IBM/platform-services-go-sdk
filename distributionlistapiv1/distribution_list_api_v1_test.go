@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,8 +56,8 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 				URL: "https://distributionlistapiv1/api",
 				Authenticator: &core.BasicAuthenticator{
-					Username: "", // pragma: allowlist secret
-					Password: "", // pragma: allowlist secret
+					Username: "",
+					Password: "",
 				},
 			})
 			Expect(distributionListApiService).To(BeNil())
@@ -68,13 +68,14 @@ var _ = Describe(`DistributionListApiV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DISTRIBUTION_LIST_API_URL":       "https://distributionlistapiv1/api",
+				"DISTRIBUTION_LIST_API_URL": "https://distributionlistapiv1/api",
 				"DISTRIBUTION_LIST_API_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1UsingExternalConfig(&distributionlistapiv1.DistributionListApiV1Options{})
+				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1UsingExternalConfig(&distributionlistapiv1.DistributionListApiV1Options{
+				})
 				Expect(distributionListApiService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1UsingExternalConfig(&distributionlistapiv1.DistributionListApiV1Options{})
+				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1UsingExternalConfig(&distributionlistapiv1.DistributionListApiV1Options{
+				})
 				err := distributionListApiService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`DistributionListApiV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DISTRIBUTION_LIST_API_URL":       "https://distributionlistapiv1/api",
+				"DISTRIBUTION_LIST_API_URL": "https://distributionlistapiv1/api",
 				"DISTRIBUTION_LIST_API_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1UsingExternalConfig(&distributionlistapiv1.DistributionListApiV1Options{})
+			distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1UsingExternalConfig(&distributionlistapiv1.DistributionListApiV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(distributionListApiService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DISTRIBUTION_LIST_API_AUTH_TYPE": "NOAuth",
+				"DISTRIBUTION_LIST_API_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -162,22 +165,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
-	Describe(`GetAllDestinationEntries(getAllDestinationEntriesOptions *GetAllDestinationEntriesOptions) - Operation response error`, func() {
-		getAllDestinationEntriesPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations" // pragma: allowlist secret
+	Describe(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) - Operation response error`, func() {
+		listDistributionListDestinationsPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAllDestinationEntriesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listDistributionListDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetAllDestinationEntries with error: Operation response processing error`, func() {
+			It(`Invoke ListDistributionListDestinations with error: Operation response processing error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -185,19 +188,19 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the GetAllDestinationEntriesOptions model
-				getAllDestinationEntriesOptionsModel := new(distributionlistapiv1.GetAllDestinationEntriesOptions)
-				getAllDestinationEntriesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListDistributionListDestinationsOptions model
+				listDistributionListDestinationsOptionsModel := new(distributionlistapiv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModel)
+				result, response, operationErr := distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				distributionListApiService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModel)
+				result, response, operationErr = distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -207,15 +210,15 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`GetAllDestinationEntries(getAllDestinationEntriesOptions *GetAllDestinationEntriesOptions)`, func() {
-		getAllDestinationEntriesPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations" // pragma: allowlist secret
+	Describe(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions)`, func() {
+		listDistributionListDestinationsPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAllDestinationEntriesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listDistributionListDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -224,10 +227,10 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `[{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}]`)
+					fmt.Fprintf(res, "%s", `{"destinations": [{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}]}`)
 				}))
 			})
-			It(`Invoke GetAllDestinationEntries successfully with retries`, func() {
+			It(`Invoke ListDistributionListDestinations successfully with retries`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -236,21 +239,21 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 				distributionListApiService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetAllDestinationEntriesOptions model
-				getAllDestinationEntriesOptionsModel := new(distributionlistapiv1.GetAllDestinationEntriesOptions)
-				getAllDestinationEntriesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListDistributionListDestinationsOptions model
+				listDistributionListDestinationsOptionsModel := new(distributionlistapiv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListApiService.GetAllDestinationEntriesWithContext(ctx, getAllDestinationEntriesOptionsModel)
+				_, _, operationErr := distributionListApiService.ListDistributionListDestinationsWithContext(ctx, listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				distributionListApiService.DisableRetries()
-				result, response, operationErr := distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModel)
+				result, response, operationErr := distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -258,7 +261,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListApiService.GetAllDestinationEntriesWithContext(ctx, getAllDestinationEntriesOptionsModel)
+				_, _, operationErr = distributionListApiService.ListDistributionListDestinationsWithContext(ctx, listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -272,16 +275,16 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAllDestinationEntriesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listDistributionListDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `[{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}]`)
+					fmt.Fprintf(res, "%s", `{"destinations": [{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}]}`)
 				}))
 			})
-			It(`Invoke GetAllDestinationEntries successfully`, func() {
+			It(`Invoke ListDistributionListDestinations successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -290,24 +293,24 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListApiService.GetAllDestinationEntries(nil)
+				result, response, operationErr := distributionListApiService.ListDistributionListDestinations(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetAllDestinationEntriesOptions model
-				getAllDestinationEntriesOptionsModel := new(distributionlistapiv1.GetAllDestinationEntriesOptions)
-				getAllDestinationEntriesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListDistributionListDestinationsOptions model
+				listDistributionListDestinationsOptionsModel := new(distributionlistapiv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModel)
+				result, response, operationErr = distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetAllDestinationEntries with error: Operation validation and request error`, func() {
+			It(`Invoke ListDistributionListDestinations with error: Operation validation and request error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -315,22 +318,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the GetAllDestinationEntriesOptions model
-				getAllDestinationEntriesOptionsModel := new(distributionlistapiv1.GetAllDestinationEntriesOptions)
-				getAllDestinationEntriesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListDistributionListDestinationsOptions model
+				listDistributionListDestinationsOptionsModel := new(distributionlistapiv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := distributionListApiService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModel)
+				result, response, operationErr := distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetAllDestinationEntriesOptions model with no property values
-				getAllDestinationEntriesOptionsModelNew := new(distributionlistapiv1.GetAllDestinationEntriesOptions)
+				// Construct a second instance of the ListDistributionListDestinationsOptions model with no property values
+				listDistributionListDestinationsOptionsModelNew := new(distributionlistapiv1.ListDistributionListDestinationsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModelNew)
+				result, response, operationErr = distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -348,7 +351,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke GetAllDestinationEntries successfully`, func() {
+			It(`Invoke ListDistributionListDestinations successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -356,13 +359,13 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the GetAllDestinationEntriesOptions model
-				getAllDestinationEntriesOptionsModel := new(distributionlistapiv1.GetAllDestinationEntriesOptions)
-				getAllDestinationEntriesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListDistributionListDestinationsOptions model
+				listDistributionListDestinationsOptionsModel := new(distributionlistapiv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListApiService.GetAllDestinationEntries(getAllDestinationEntriesOptionsModel)
+				result, response, operationErr := distributionListApiService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -374,22 +377,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`AddDestinationEntry(addDestinationEntryOptions *AddDestinationEntryOptions) - Operation response error`, func() {
-		addDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations" // pragma: allowlist secret
+	Describe(`CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions) - Operation response error`, func() {
+		createDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(addDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke AddDestinationEntry with error: Operation response processing error`, func() {
+			It(`Invoke CreateDistributionListDestination with error: Operation response processing error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -397,25 +400,25 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the AddDestinationEntryRequestEventNotificationDestination model
-				addDestinationEntryRequestModel := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
-				addDestinationEntryRequestModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				addDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
+				// Construct an instance of the AddDestinationPrototypeEventNotificationDestination model
+				addDestinationPrototypeModel := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
+				addDestinationPrototypeModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
+				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
-				// Construct an instance of the AddDestinationEntryOptions model
-				addDestinationEntryOptionsModel := new(distributionlistapiv1.AddDestinationEntryOptions)
-				addDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				addDestinationEntryOptionsModel.AddDestinationEntryRequest = addDestinationEntryRequestModel
-				addDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateDistributionListDestinationOptions model
+				createDistributionListDestinationOptionsModel := new(distributionlistapiv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
+				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				distributionListApiService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModel)
+				result, response, operationErr = distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -425,94 +428,15 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`AddDestinationEntry(addDestinationEntryOptions *AddDestinationEntryOptions)`, func() {
-		addDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations" // pragma: allowlist secret
+	Describe(`CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions)`, func() {
+		createDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(addDestinationEntryPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}`)
-				}))
-			})
-			It(`Invoke AddDestinationEntry successfully with retries`, func() {
-				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(distributionListApiService).ToNot(BeNil())
-				distributionListApiService.EnableRetries(0, 0)
-
-				// Construct an instance of the AddDestinationEntryRequestEventNotificationDestination model
-				addDestinationEntryRequestModel := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
-				addDestinationEntryRequestModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				addDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-
-				// Construct an instance of the AddDestinationEntryOptions model
-				addDestinationEntryOptionsModel := new(distributionlistapiv1.AddDestinationEntryOptions)
-				addDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				addDestinationEntryOptionsModel.AddDestinationEntryRequest = addDestinationEntryRequestModel
-				addDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := distributionListApiService.AddDestinationEntryWithContext(ctx, addDestinationEntryOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				distributionListApiService.DisableRetries()
-				result, response, operationErr := distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = distributionListApiService.AddDestinationEntryWithContext(ctx, addDestinationEntryOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(addDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -531,13 +455,92 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}`)
 				}))
 			})
-			It(`Invoke AddDestinationEntry successfully`, func() {
+			It(`Invoke CreateDistributionListDestination successfully with retries`, func() {
+				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(distributionListApiService).ToNot(BeNil())
+				distributionListApiService.EnableRetries(0, 0)
+
+				// Construct an instance of the AddDestinationPrototypeEventNotificationDestination model
+				addDestinationPrototypeModel := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
+				addDestinationPrototypeModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
+				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+
+				// Construct an instance of the CreateDistributionListDestinationOptions model
+				createDistributionListDestinationOptionsModel := new(distributionlistapiv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
+				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := distributionListApiService.CreateDistributionListDestinationWithContext(ctx, createDistributionListDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				distributionListApiService.DisableRetries()
+				result, response, operationErr := distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = distributionListApiService.CreateDistributionListDestinationWithContext(ctx, createDistributionListDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDistributionListDestinationPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}`)
+				}))
+			})
+			It(`Invoke CreateDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -546,30 +549,30 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListApiService.AddDestinationEntry(nil)
+				result, response, operationErr := distributionListApiService.CreateDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the AddDestinationEntryRequestEventNotificationDestination model
-				addDestinationEntryRequestModel := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
-				addDestinationEntryRequestModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				addDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
+				// Construct an instance of the AddDestinationPrototypeEventNotificationDestination model
+				addDestinationPrototypeModel := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
+				addDestinationPrototypeModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
+				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
-				// Construct an instance of the AddDestinationEntryOptions model
-				addDestinationEntryOptionsModel := new(distributionlistapiv1.AddDestinationEntryOptions)
-				addDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				addDestinationEntryOptionsModel.AddDestinationEntryRequest = addDestinationEntryRequestModel
-				addDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateDistributionListDestinationOptions model
+				createDistributionListDestinationOptionsModel := new(distributionlistapiv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
+				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModel)
+				result, response, operationErr = distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke AddDestinationEntry with error: Operation validation and request error`, func() {
+			It(`Invoke CreateDistributionListDestination with error: Operation validation and request error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -577,28 +580,28 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the AddDestinationEntryRequestEventNotificationDestination model
-				addDestinationEntryRequestModel := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
-				addDestinationEntryRequestModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				addDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
+				// Construct an instance of the AddDestinationPrototypeEventNotificationDestination model
+				addDestinationPrototypeModel := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
+				addDestinationPrototypeModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
+				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
-				// Construct an instance of the AddDestinationEntryOptions model
-				addDestinationEntryOptionsModel := new(distributionlistapiv1.AddDestinationEntryOptions)
-				addDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				addDestinationEntryOptionsModel.AddDestinationEntryRequest = addDestinationEntryRequestModel
-				addDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateDistributionListDestinationOptions model
+				createDistributionListDestinationOptionsModel := new(distributionlistapiv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
+				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := distributionListApiService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the AddDestinationEntryOptions model with no property values
-				addDestinationEntryOptionsModelNew := new(distributionlistapiv1.AddDestinationEntryOptions)
+				// Construct a second instance of the CreateDistributionListDestinationOptions model with no property values
+				createDistributionListDestinationOptionsModelNew := new(distributionlistapiv1.CreateDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModelNew)
+				result, response, operationErr = distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -616,7 +619,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					res.WriteHeader(201)
 				}))
 			})
-			It(`Invoke AddDestinationEntry successfully`, func() {
+			It(`Invoke CreateDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -624,19 +627,19 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the AddDestinationEntryRequestEventNotificationDestination model
-				addDestinationEntryRequestModel := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
-				addDestinationEntryRequestModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				addDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
+				// Construct an instance of the AddDestinationPrototypeEventNotificationDestination model
+				addDestinationPrototypeModel := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
+				addDestinationPrototypeModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
+				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
-				// Construct an instance of the AddDestinationEntryOptions model
-				addDestinationEntryOptionsModel := new(distributionlistapiv1.AddDestinationEntryOptions)
-				addDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				addDestinationEntryOptionsModel.AddDestinationEntryRequest = addDestinationEntryRequestModel
-				addDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateDistributionListDestinationOptions model
+				createDistributionListDestinationOptionsModel := new(distributionlistapiv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
+				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListApiService.AddDestinationEntry(addDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -648,22 +651,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`GetDestinationEntry(getDestinationEntryOptions *GetDestinationEntryOptions) - Operation response error`, func() {
-		getDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012" // pragma: allowlist secret
+	Describe(`GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions) - Operation response error`, func() {
+		getDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetDestinationEntry with error: Operation response processing error`, func() {
+			It(`Invoke GetDistributionListDestination with error: Operation response processing error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -671,20 +674,20 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the GetDestinationEntryOptions model
-				getDestinationEntryOptionsModel := new(distributionlistapiv1.GetDestinationEntryOptions)
-				getDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				getDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetDistributionListDestinationOptions model
+				getDistributionListDestinationOptionsModel := new(distributionlistapiv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				distributionListApiService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModel)
+				result, response, operationErr = distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -694,15 +697,15 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`GetDestinationEntry(getDestinationEntryOptions *GetDestinationEntryOptions)`, func() {
-		getDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012" // pragma: allowlist secret
+	Describe(`GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions)`, func() {
+		getDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -714,7 +717,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}`)
 				}))
 			})
-			It(`Invoke GetDestinationEntry successfully with retries`, func() {
+			It(`Invoke GetDistributionListDestination successfully with retries`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -723,22 +726,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 				distributionListApiService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetDestinationEntryOptions model
-				getDestinationEntryOptionsModel := new(distributionlistapiv1.GetDestinationEntryOptions)
-				getDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				getDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetDistributionListDestinationOptions model
+				getDistributionListDestinationOptionsModel := new(distributionlistapiv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListApiService.GetDestinationEntryWithContext(ctx, getDestinationEntryOptionsModel)
+				_, _, operationErr := distributionListApiService.GetDistributionListDestinationWithContext(ctx, getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				distributionListApiService.DisableRetries()
-				result, response, operationErr := distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -746,7 +749,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListApiService.GetDestinationEntryWithContext(ctx, getDestinationEntryOptionsModel)
+				_, _, operationErr = distributionListApiService.GetDistributionListDestinationWithContext(ctx, getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -760,7 +763,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -769,7 +772,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "12345678-1234-1234-1234-123456789012", "destination_type": "event_notifications"}`)
 				}))
 			})
-			It(`Invoke GetDestinationEntry successfully`, func() {
+			It(`Invoke GetDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -778,25 +781,25 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListApiService.GetDestinationEntry(nil)
+				result, response, operationErr := distributionListApiService.GetDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetDestinationEntryOptions model
-				getDestinationEntryOptionsModel := new(distributionlistapiv1.GetDestinationEntryOptions)
-				getDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				getDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetDistributionListDestinationOptions model
+				getDistributionListDestinationOptionsModel := new(distributionlistapiv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModel)
+				result, response, operationErr = distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetDestinationEntry with error: Operation validation and request error`, func() {
+			It(`Invoke GetDistributionListDestination with error: Operation validation and request error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -804,23 +807,23 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the GetDestinationEntryOptions model
-				getDestinationEntryOptionsModel := new(distributionlistapiv1.GetDestinationEntryOptions)
-				getDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				getDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetDistributionListDestinationOptions model
+				getDistributionListDestinationOptionsModel := new(distributionlistapiv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := distributionListApiService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetDestinationEntryOptions model with no property values
-				getDestinationEntryOptionsModelNew := new(distributionlistapiv1.GetDestinationEntryOptions)
+				// Construct a second instance of the GetDistributionListDestinationOptions model with no property values
+				getDistributionListDestinationOptionsModelNew := new(distributionlistapiv1.GetDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModelNew)
+				result, response, operationErr = distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -838,7 +841,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke GetDestinationEntry successfully`, func() {
+			It(`Invoke GetDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -846,14 +849,14 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the GetDestinationEntryOptions model
-				getDestinationEntryOptionsModel := new(distributionlistapiv1.GetDestinationEntryOptions)
-				getDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				getDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetDistributionListDestinationOptions model
+				getDistributionListDestinationOptionsModel := new(distributionlistapiv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListApiService.GetDestinationEntry(getDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -865,21 +868,21 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`DeleteDestinationEntry(deleteDestinationEntryOptions *DeleteDestinationEntryOptions)`, func() {
-		deleteDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012" // pragma: allowlist secret
+	Describe(`DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions)`, func() {
+		deleteDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
 					res.WriteHeader(204)
 				}))
 			})
-			It(`Invoke DeleteDestinationEntry successfully`, func() {
+			It(`Invoke DeleteDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -888,22 +891,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := distributionListApiService.DeleteDestinationEntry(nil)
+				response, operationErr := distributionListApiService.DeleteDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the DeleteDestinationEntryOptions model
-				deleteDestinationEntryOptionsModel := new(distributionlistapiv1.DeleteDestinationEntryOptions)
-				deleteDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				deleteDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				deleteDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteDistributionListDestinationOptions model
+				deleteDistributionListDestinationOptionsModel := new(distributionlistapiv1.DeleteDistributionListDestinationOptions)
+				deleteDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				deleteDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				deleteDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = distributionListApiService.DeleteDestinationEntry(deleteDestinationEntryOptionsModel)
+				response, operationErr = distributionListApiService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke DeleteDestinationEntry with error: Operation validation and request error`, func() {
+			It(`Invoke DeleteDistributionListDestination with error: Operation validation and request error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -911,22 +914,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the DeleteDestinationEntryOptions model
-				deleteDestinationEntryOptionsModel := new(distributionlistapiv1.DeleteDestinationEntryOptions)
-				deleteDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				deleteDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				deleteDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteDistributionListDestinationOptions model
+				deleteDistributionListDestinationOptionsModel := new(distributionlistapiv1.DeleteDistributionListDestinationOptions)
+				deleteDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				deleteDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				deleteDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := distributionListApiService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := distributionListApiService.DeleteDestinationEntry(deleteDestinationEntryOptionsModel)
+				response, operationErr := distributionListApiService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteDestinationEntryOptions model with no property values
-				deleteDestinationEntryOptionsModelNew := new(distributionlistapiv1.DeleteDestinationEntryOptions)
+				// Construct a second instance of the DeleteDistributionListDestinationOptions model with no property values
+				deleteDistributionListDestinationOptionsModelNew := new(distributionlistapiv1.DeleteDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = distributionListApiService.DeleteDestinationEntry(deleteDestinationEntryOptionsModelNew)
+				response, operationErr = distributionListApiService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -935,22 +938,22 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`TestDestinationEntry(testDestinationEntryOptions *TestDestinationEntryOptions) - Operation response error`, func() {
-		testDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test" // pragma: allowlist secret
+	Describe(`TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions) - Operation response error`, func() {
+		testDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(testDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(testDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke TestDestinationEntry with error: Operation response processing error`, func() {
+			It(`Invoke TestDistributionListDestination with error: Operation response processing error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -958,26 +961,26 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the TestDestinationEntryRequestTestEventNotificationDestination model
-				testDestinationEntryRequestModel := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
-				testDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				testDestinationEntryRequestModel.NotificationType = core.StringPtr("incident")
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
+				testDestinationRequestBodyPrototypeModel := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
-				// Construct an instance of the TestDestinationEntryOptions model
-				testDestinationEntryOptionsModel := new(distributionlistapiv1.TestDestinationEntryOptions)
-				testDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				testDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				testDestinationEntryOptionsModel.TestDestinationEntryRequest = testDestinationEntryRequestModel
-				testDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TestDistributionListDestinationOptions model
+				testDistributionListDestinationOptionsModel := new(distributionlistapiv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				testDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
+				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				distributionListApiService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModel)
+				result, response, operationErr = distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -987,15 +990,15 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			})
 		})
 	})
-	Describe(`TestDestinationEntry(testDestinationEntryOptions *TestDestinationEntryOptions)`, func() {
-		testDestinationEntryPath := "/notification-api/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test" // pragma: allowlist secret
+	Describe(`TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions)`, func() {
+		testDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(testDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(testDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1023,7 +1026,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					fmt.Fprintf(res, "%s", `{"message": "success"}`)
 				}))
 			})
-			It(`Invoke TestDestinationEntry successfully with retries`, func() {
+			It(`Invoke TestDistributionListDestination successfully with retries`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1032,28 +1035,28 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 				distributionListApiService.EnableRetries(0, 0)
 
-				// Construct an instance of the TestDestinationEntryRequestTestEventNotificationDestination model
-				testDestinationEntryRequestModel := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
-				testDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				testDestinationEntryRequestModel.NotificationType = core.StringPtr("incident")
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
+				testDestinationRequestBodyPrototypeModel := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
-				// Construct an instance of the TestDestinationEntryOptions model
-				testDestinationEntryOptionsModel := new(distributionlistapiv1.TestDestinationEntryOptions)
-				testDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				testDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				testDestinationEntryOptionsModel.TestDestinationEntryRequest = testDestinationEntryRequestModel
-				testDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TestDistributionListDestinationOptions model
+				testDistributionListDestinationOptionsModel := new(distributionlistapiv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				testDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
+				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListApiService.TestDestinationEntryWithContext(ctx, testDestinationEntryOptionsModel)
+				_, _, operationErr := distributionListApiService.TestDistributionListDestinationWithContext(ctx, testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				distributionListApiService.DisableRetries()
-				result, response, operationErr := distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1061,7 +1064,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListApiService.TestDestinationEntryWithContext(ctx, testDestinationEntryOptionsModel)
+				_, _, operationErr = distributionListApiService.TestDistributionListDestinationWithContext(ctx, testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1075,7 +1078,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(testDestinationEntryPath))
+					Expect(req.URL.EscapedPath()).To(Equal(testDistributionListDestinationPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1100,7 +1103,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					fmt.Fprintf(res, "%s", `{"message": "success"}`)
 				}))
 			})
-			It(`Invoke TestDestinationEntry successfully`, func() {
+			It(`Invoke TestDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1109,31 +1112,31 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(distributionListApiService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListApiService.TestDestinationEntry(nil)
+				result, response, operationErr := distributionListApiService.TestDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the TestDestinationEntryRequestTestEventNotificationDestination model
-				testDestinationEntryRequestModel := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
-				testDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				testDestinationEntryRequestModel.NotificationType = core.StringPtr("incident")
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
+				testDestinationRequestBodyPrototypeModel := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
-				// Construct an instance of the TestDestinationEntryOptions model
-				testDestinationEntryOptionsModel := new(distributionlistapiv1.TestDestinationEntryOptions)
-				testDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				testDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				testDestinationEntryOptionsModel.TestDestinationEntryRequest = testDestinationEntryRequestModel
-				testDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TestDistributionListDestinationOptions model
+				testDistributionListDestinationOptionsModel := new(distributionlistapiv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				testDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
+				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModel)
+				result, response, operationErr = distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke TestDestinationEntry with error: Operation validation and request error`, func() {
+			It(`Invoke TestDistributionListDestination with error: Operation validation and request error`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1141,29 +1144,29 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the TestDestinationEntryRequestTestEventNotificationDestination model
-				testDestinationEntryRequestModel := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
-				testDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				testDestinationEntryRequestModel.NotificationType = core.StringPtr("incident")
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
+				testDestinationRequestBodyPrototypeModel := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
-				// Construct an instance of the TestDestinationEntryOptions model
-				testDestinationEntryOptionsModel := new(distributionlistapiv1.TestDestinationEntryOptions)
-				testDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				testDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				testDestinationEntryOptionsModel.TestDestinationEntryRequest = testDestinationEntryRequestModel
-				testDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TestDistributionListDestinationOptions model
+				testDistributionListDestinationOptionsModel := new(distributionlistapiv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				testDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
+				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := distributionListApiService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the TestDestinationEntryOptions model with no property values
-				testDestinationEntryOptionsModelNew := new(distributionlistapiv1.TestDestinationEntryOptions)
+				// Construct a second instance of the TestDistributionListDestinationOptions model with no property values
+				testDistributionListDestinationOptionsModelNew := new(distributionlistapiv1.TestDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModelNew)
+				result, response, operationErr = distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1181,7 +1184,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke TestDestinationEntry successfully`, func() {
+			It(`Invoke TestDistributionListDestination successfully`, func() {
 				distributionListApiService, serviceErr := distributionlistapiv1.NewDistributionListApiV1(&distributionlistapiv1.DistributionListApiV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1189,20 +1192,20 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(distributionListApiService).ToNot(BeNil())
 
-				// Construct an instance of the TestDestinationEntryRequestTestEventNotificationDestination model
-				testDestinationEntryRequestModel := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
-				testDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				testDestinationEntryRequestModel.NotificationType = core.StringPtr("incident")
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
+				testDestinationRequestBodyPrototypeModel := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
-				// Construct an instance of the TestDestinationEntryOptions model
-				testDestinationEntryOptionsModel := new(distributionlistapiv1.TestDestinationEntryOptions)
-				testDestinationEntryOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				testDestinationEntryOptionsModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				testDestinationEntryOptionsModel.TestDestinationEntryRequest = testDestinationEntryRequestModel
-				testDestinationEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TestDistributionListDestinationOptions model
+				testDistributionListDestinationOptionsModel := new(distributionlistapiv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				testDistributionListDestinationOptionsModel.ID = core.StringPtr("12345678-1234-1234-1234-123456789012")
+				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
+				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListApiService.TestDestinationEntry(testDestinationEntryOptionsModel)
+				result, response, operationErr := distributionListApiService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1220,107 +1223,107 @@ var _ = Describe(`DistributionListApiV1`, func() {
 				URL:           "http://distributionlistapiv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It(`Invoke NewAddDestinationEntryOptions successfully`, func() {
-				// Construct an instance of the AddDestinationEntryRequestEventNotificationDestination model
-				addDestinationEntryRequestModel := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
-				Expect(addDestinationEntryRequestModel).ToNot(BeNil())
-				addDestinationEntryRequestModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				addDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				Expect(addDestinationEntryRequestModel.ID).To(Equal(CreateMockUUID("12345678-1234-1234-1234-123456789012")))
-				Expect(addDestinationEntryRequestModel.DestinationType).To(Equal(core.StringPtr("event_notifications")))
+			It(`Invoke NewCreateDistributionListDestinationOptions successfully`, func() {
+				// Construct an instance of the AddDestinationPrototypeEventNotificationDestination model
+				addDestinationPrototypeModel := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
+				Expect(addDestinationPrototypeModel).ToNot(BeNil())
+				addDestinationPrototypeModel.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
+				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				Expect(addDestinationPrototypeModel.ID).To(Equal(CreateMockUUID("12345678-1234-1234-1234-123456789012")))
+				Expect(addDestinationPrototypeModel.DestinationType).To(Equal(core.StringPtr("event_notifications")))
 
-				// Construct an instance of the AddDestinationEntryOptions model
-				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" // pragma: allowlist secret
-				var addDestinationEntryRequest distributionlistapiv1.AddDestinationEntryRequestIntf = nil
-				addDestinationEntryOptionsModel := distributionListApiService.NewAddDestinationEntryOptions(accountID, addDestinationEntryRequest)
-				addDestinationEntryOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				addDestinationEntryOptionsModel.SetAddDestinationEntryRequest(addDestinationEntryRequestModel)
-				addDestinationEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(addDestinationEntryOptionsModel).ToNot(BeNil())
-				Expect(addDestinationEntryOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"))) // pragma: allowlist secret
-				Expect(addDestinationEntryOptionsModel.AddDestinationEntryRequest).To(Equal(addDestinationEntryRequestModel))
-				Expect(addDestinationEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				// Construct an instance of the CreateDistributionListDestinationOptions model
+				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+				var addDestinationPrototype distributionlistapiv1.AddDestinationPrototypeIntf = nil
+				createDistributionListDestinationOptionsModel := distributionListApiService.NewCreateDistributionListDestinationOptions(accountID, addDestinationPrototype)
+				createDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				createDistributionListDestinationOptionsModel.SetAddDestinationPrototype(addDestinationPrototypeModel)
+				createDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createDistributionListDestinationOptionsModel).ToNot(BeNil())
+				Expect(createDistributionListDestinationOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
+				Expect(createDistributionListDestinationOptionsModel.AddDestinationPrototype).To(Equal(addDestinationPrototypeModel))
+				Expect(createDistributionListDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewDeleteDestinationEntryOptions successfully`, func() {
-				// Construct an instance of the DeleteDestinationEntryOptions model
-				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" // pragma: allowlist secret
-				destinationID := CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				deleteDestinationEntryOptionsModel := distributionListApiService.NewDeleteDestinationEntryOptions(accountID, destinationID)
-				deleteDestinationEntryOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				deleteDestinationEntryOptionsModel.SetDestinationID(CreateMockUUID("12345678-1234-1234-1234-123456789012"))
-				deleteDestinationEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteDestinationEntryOptionsModel).ToNot(BeNil())
-				Expect(deleteDestinationEntryOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"))) // pragma: allowlist secret
-				Expect(deleteDestinationEntryOptionsModel.DestinationID).To(Equal(CreateMockUUID("12345678-1234-1234-1234-123456789012")))
-				Expect(deleteDestinationEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewDeleteDistributionListDestinationOptions successfully`, func() {
+				// Construct an instance of the DeleteDistributionListDestinationOptions model
+				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+				id := "12345678-1234-1234-1234-123456789012"
+				deleteDistributionListDestinationOptionsModel := distributionListApiService.NewDeleteDistributionListDestinationOptions(accountID, id)
+				deleteDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				deleteDistributionListDestinationOptionsModel.SetID("12345678-1234-1234-1234-123456789012")
+				deleteDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteDistributionListDestinationOptionsModel).ToNot(BeNil())
+				Expect(deleteDistributionListDestinationOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
+				Expect(deleteDistributionListDestinationOptionsModel.ID).To(Equal(core.StringPtr("12345678-1234-1234-1234-123456789012")))
+				Expect(deleteDistributionListDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetAllDestinationEntriesOptions successfully`, func() {
-				// Construct an instance of the GetAllDestinationEntriesOptions model
-				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel := distributionListApiService.NewGetAllDestinationEntriesOptions(accountID)
-				getAllDestinationEntriesOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getAllDestinationEntriesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getAllDestinationEntriesOptionsModel).ToNot(BeNil())
-				Expect(getAllDestinationEntriesOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"))) // pragma: allowlist secret
-				Expect(getAllDestinationEntriesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewGetDistributionListDestinationOptions successfully`, func() {
+				// Construct an instance of the GetDistributionListDestinationOptions model
+				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+				id := "12345678-1234-1234-1234-123456789012"
+				getDistributionListDestinationOptionsModel := distributionListApiService.NewGetDistributionListDestinationOptions(accountID, id)
+				getDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getDistributionListDestinationOptionsModel.SetID("12345678-1234-1234-1234-123456789012")
+				getDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getDistributionListDestinationOptionsModel).ToNot(BeNil())
+				Expect(getDistributionListDestinationOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
+				Expect(getDistributionListDestinationOptionsModel.ID).To(Equal(core.StringPtr("12345678-1234-1234-1234-123456789012")))
+				Expect(getDistributionListDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetDestinationEntryOptions successfully`, func() {
-				// Construct an instance of the GetDestinationEntryOptions model
-				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" // pragma: allowlist secret
-				destinationID := CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				getDestinationEntryOptionsModel := distributionListApiService.NewGetDestinationEntryOptions(accountID, destinationID)
-				getDestinationEntryOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				getDestinationEntryOptionsModel.SetDestinationID(CreateMockUUID("12345678-1234-1234-1234-123456789012"))
-				getDestinationEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getDestinationEntryOptionsModel).ToNot(BeNil())
-				Expect(getDestinationEntryOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"))) // pragma: allowlist secret
-				Expect(getDestinationEntryOptionsModel.DestinationID).To(Equal(CreateMockUUID("12345678-1234-1234-1234-123456789012")))
-				Expect(getDestinationEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewListDistributionListDestinationsOptions successfully`, func() {
+				// Construct an instance of the ListDistributionListDestinationsOptions model
+				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+				listDistributionListDestinationsOptionsModel := distributionListApiService.NewListDistributionListDestinationsOptions(accountID)
+				listDistributionListDestinationsOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listDistributionListDestinationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listDistributionListDestinationsOptionsModel).ToNot(BeNil())
+				Expect(listDistributionListDestinationsOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
+				Expect(listDistributionListDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewTestDestinationEntryOptions successfully`, func() {
-				// Construct an instance of the TestDestinationEntryRequestTestEventNotificationDestination model
-				testDestinationEntryRequestModel := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
-				Expect(testDestinationEntryRequestModel).ToNot(BeNil())
-				testDestinationEntryRequestModel.DestinationType = core.StringPtr("event_notifications")
-				testDestinationEntryRequestModel.NotificationType = core.StringPtr("incident")
-				Expect(testDestinationEntryRequestModel.DestinationType).To(Equal(core.StringPtr("event_notifications")))
-				Expect(testDestinationEntryRequestModel.NotificationType).To(Equal(core.StringPtr("incident")))
+			It(`Invoke NewTestDistributionListDestinationOptions successfully`, func() {
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
+				testDestinationRequestBodyPrototypeModel := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				Expect(testDestinationRequestBodyPrototypeModel).ToNot(BeNil())
+				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
+				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
+				Expect(testDestinationRequestBodyPrototypeModel.DestinationType).To(Equal(core.StringPtr("event_notifications")))
+				Expect(testDestinationRequestBodyPrototypeModel.NotificationType).To(Equal(core.StringPtr("incident")))
 
-				// Construct an instance of the TestDestinationEntryOptions model
-				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" // pragma: allowlist secret
-				destinationID := CreateMockUUID("12345678-1234-1234-1234-123456789012")
-				var testDestinationEntryRequest distributionlistapiv1.TestDestinationEntryRequestIntf = nil
-				testDestinationEntryOptionsModel := distributionListApiService.NewTestDestinationEntryOptions(accountID, destinationID, testDestinationEntryRequest)
-				testDestinationEntryOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6") // pragma: allowlist secret
-				testDestinationEntryOptionsModel.SetDestinationID(CreateMockUUID("12345678-1234-1234-1234-123456789012"))
-				testDestinationEntryOptionsModel.SetTestDestinationEntryRequest(testDestinationEntryRequestModel)
-				testDestinationEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(testDestinationEntryOptionsModel).ToNot(BeNil())
-				Expect(testDestinationEntryOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"))) // pragma: allowlist secret
-				Expect(testDestinationEntryOptionsModel.DestinationID).To(Equal(CreateMockUUID("12345678-1234-1234-1234-123456789012")))
-				Expect(testDestinationEntryOptionsModel.TestDestinationEntryRequest).To(Equal(testDestinationEntryRequestModel))
-				Expect(testDestinationEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				// Construct an instance of the TestDistributionListDestinationOptions model
+				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+				id := "12345678-1234-1234-1234-123456789012"
+				var testDestinationRequestBodyPrototype distributionlistapiv1.TestDestinationRequestBodyPrototypeIntf = nil
+				testDistributionListDestinationOptionsModel := distributionListApiService.NewTestDistributionListDestinationOptions(accountID, id, testDestinationRequestBodyPrototype)
+				testDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				testDistributionListDestinationOptionsModel.SetID("12345678-1234-1234-1234-123456789012")
+				testDistributionListDestinationOptionsModel.SetTestDestinationRequestBodyPrototype(testDestinationRequestBodyPrototypeModel)
+				testDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(testDistributionListDestinationOptionsModel).ToNot(BeNil())
+				Expect(testDistributionListDestinationOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
+				Expect(testDistributionListDestinationOptionsModel.ID).To(Equal(core.StringPtr("12345678-1234-1234-1234-123456789012")))
+				Expect(testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype).To(Equal(testDestinationRequestBodyPrototypeModel))
+				Expect(testDistributionListDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewAddDestinationEntryRequestEventNotificationDestination successfully`, func() {
+			It(`Invoke NewAddDestinationPrototypeEventNotificationDestination successfully`, func() {
 				id := CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				destinationType := "event_notifications"
-				_model, err := distributionListApiService.NewAddDestinationEntryRequestEventNotificationDestination(id, destinationType)
+				_model, err := distributionListApiService.NewAddDestinationPrototypeEventNotificationDestination(id, destinationType)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewTestDestinationEntryRequestTestEventNotificationDestination successfully`, func() {
+			It(`Invoke NewTestDestinationRequestBodyPrototypeTestEventNotificationDestination successfully`, func() {
 				destinationType := "event_notifications"
 				notificationType := "incident"
-				_model, err := distributionListApiService.NewTestDestinationEntryRequestTestEventNotificationDestination(destinationType, notificationType)
+				_model, err := distributionListApiService.NewTestDestinationRequestBodyPrototypeTestEventNotificationDestination(destinationType, notificationType)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
-		It(`Invoke UnmarshalAddDestinationEntryRequest successfully`, func() {
+		It(`Invoke UnmarshalAddDestinationPrototype successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistapiv1.AddDestinationEntryRequest)
+			model := new(distributionlistapiv1.AddDestinationPrototype)
 			model.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 			model.DestinationType = core.StringPtr("event_notifications")
 
@@ -1332,13 +1335,13 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			Expect(err).To(BeNil())
 
 			var result interface{}
-			err = distributionlistapiv1.UnmarshalAddDestinationEntryRequest(raw, &result)
+			err = distributionlistapiv1.UnmarshalAddDestinationPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 		})
-		It(`Invoke UnmarshalTestDestinationEntryRequest successfully`, func() {
+		It(`Invoke UnmarshalTestDestinationRequestBodyPrototype successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistapiv1.TestDestinationEntryRequest)
+			model := new(distributionlistapiv1.TestDestinationRequestBodyPrototype)
 			model.DestinationType = core.StringPtr("event_notifications")
 			model.NotificationType = core.StringPtr("incident")
 
@@ -1350,13 +1353,13 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			Expect(err).To(BeNil())
 
 			var result interface{}
-			err = distributionlistapiv1.UnmarshalTestDestinationEntryRequest(raw, &result)
+			err = distributionlistapiv1.UnmarshalTestDestinationRequestBodyPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 		})
-		It(`Invoke UnmarshalAddDestinationEntryRequestEventNotificationDestination successfully`, func() {
+		It(`Invoke UnmarshalAddDestinationPrototypeEventNotificationDestination successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination)
+			model := new(distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination)
 			model.ID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 			model.DestinationType = core.StringPtr("event_notifications")
 
@@ -1367,15 +1370,15 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *distributionlistapiv1.AddDestinationEntryRequestEventNotificationDestination
-			err = distributionlistapiv1.UnmarshalAddDestinationEntryRequestEventNotificationDestination(raw, &result)
+			var result *distributionlistapiv1.AddDestinationPrototypeEventNotificationDestination
+			err = distributionlistapiv1.UnmarshalAddDestinationPrototypeEventNotificationDestination(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalTestDestinationEntryRequestTestEventNotificationDestination successfully`, func() {
+		It(`Invoke UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination)
+			model := new(distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
 			model.DestinationType = core.StringPtr("event_notifications")
 			model.NotificationType = core.StringPtr("incident")
 
@@ -1386,8 +1389,8 @@ var _ = Describe(`DistributionListApiV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *distributionlistapiv1.TestDestinationEntryRequestTestEventNotificationDestination
-			err = distributionlistapiv1.UnmarshalTestDestinationEntryRequestTestEventNotificationDestination(raw, &result)
+			var result *distributionlistapiv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination
+			err = distributionlistapiv1.UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -1395,7 +1398,7 @@ var _ = Describe(`DistributionListApiV1`, func() {
 	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt") // pragma: allowlist secret
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
