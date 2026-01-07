@@ -310,6 +310,7 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			Expect(target).ToNot(BeNil())
 
 			defaultTargetIDLink := *target.ID
+			// End of manual code
 
 			targetIdentityModel := &logsrouterv3.TargetIdentity{
 				ID: &defaultTargetIDLink,
