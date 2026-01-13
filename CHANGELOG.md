@@ -1,3 +1,17 @@
+# [0.93.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.92.0...v0.93.0) (2026-01-13)
+
+
+### Features
+
+* **IAM Identity:** add apikey expiration ([#424](https://github.com/IBM/platform-services-go-sdk/issues/424)) ([44f79fe](https://github.com/IBM/platform-services-go-sdk/commit/44f79fe336138e7cacc5df3fb5191b8c66ce3cfa))
+
+# [0.92.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.91.0...v0.92.0) (2026-01-08)
+
+
+### Features
+
+* **Logs Router:** add logs-router service to project ([#423](https://github.com/IBM/platform-services-go-sdk/issues/423)) ([f9b3d5a](https://github.com/IBM/platform-services-go-sdk/commit/f9b3d5aa081104dadddb2623c6c82ddec9bac310))
+
 # [0.91.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.90.4...v0.91.0) (2025-12-10)
 
 
