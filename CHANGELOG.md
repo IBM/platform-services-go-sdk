@@ -1,3 +1,10 @@
+# [0.93.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.92.0...v0.93.0) (2026-01-13)
+
+
+### Features
+
+* **IAM Identity:** add apikey expiration ([#424](https://github.com/IBM/platform-services-go-sdk/issues/424)) ([44f79fe](https://github.com/IBM/platform-services-go-sdk/commit/44f79fe336138e7cacc5df3fb5191b8c66ce3cfa))
+
 # [0.92.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.91.0...v0.92.0) (2026-01-08)
 
 
