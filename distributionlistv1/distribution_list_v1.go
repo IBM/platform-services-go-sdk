@@ -543,7 +543,6 @@ type AddDestination struct {
 // Constants associated with the AddDestination.DestinationType property.
 // The type of the destination.
 const (
-	AddDestination_DestinationType_Email = "email"
 	AddDestination_DestinationType_EventNotifications = "event_notifications"
 )
 func (*AddDestination) isaAddDestination() bool {
@@ -612,7 +611,6 @@ type AddDestinationPrototype struct {
 // Constants associated with the AddDestinationPrototype.DestinationType property.
 // The type of the destination.
 const (
-	AddDestinationPrototype_DestinationType_Email = "email"
 	AddDestinationPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 func (*AddDestinationPrototype) isaAddDestinationPrototype() bool {
@@ -804,7 +802,6 @@ type TestDestinationRequestBodyPrototype struct {
 // Constants associated with the TestDestinationRequestBodyPrototype.DestinationType property.
 // The type of the destination.
 const (
-	TestDestinationRequestBodyPrototype_DestinationType_Email = "email"
 	TestDestinationRequestBodyPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 
@@ -930,7 +927,6 @@ type AddDestinationPrototypeEventNotificationDestinationPrototype struct {
 // Constants associated with the AddDestinationPrototypeEventNotificationDestinationPrototype.DestinationType property.
 // The type of the destination.
 const (
-	AddDestinationPrototypeEventNotificationDestinationPrototype_DestinationType_Email = "email"
 	AddDestinationPrototypeEventNotificationDestinationPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 
@@ -981,7 +977,6 @@ type AddDestinationEventNotificationDestination struct {
 // Constants associated with the AddDestinationEventNotificationDestination.DestinationType property.
 // The type of the destination.
 const (
-	AddDestinationEventNotificationDestination_DestinationType_Email = "email"
 	AddDestinationEventNotificationDestination_DestinationType_EventNotifications = "event_notifications"
 )
 
@@ -1019,7 +1014,6 @@ type TestDestinationRequestBodyPrototypeTestEventNotificationDestination struct 
 // Constants associated with the TestDestinationRequestBodyPrototypeTestEventNotificationDestination.DestinationType property.
 // The type of the destination.
 const (
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_DestinationType_Email = "email"
 	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_DestinationType_EventNotifications = "event_notifications"
 )
 
