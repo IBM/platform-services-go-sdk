@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package distributionlistv1_test
+package platformnotificationsv1_test
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestDistributionListV1(t *testing.T) {
+func TestPlatformNotificationsV1(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "DistributionListV1 Suite")
+	RunSpecs(t, "PlatformNotificationsV1 Suite")
 }

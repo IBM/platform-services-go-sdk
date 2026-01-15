@@ -18,8 +18,8 @@
  * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
  */
 
-// Package distributionlistv1 : Operations and models for the DistributionListV1 service
-package distributionlistv1
+// Package platformnotificationsv1 : Operations and models for the PlatformNotificationsV1 service
+package platformnotificationsv1
 
 import (
 	"context"
@@ -34,28 +34,30 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// DistributionListV1 : API for managing notification distribution lists for IBM Cloud accounts.
+// PlatformNotificationsV1 : **This API is currently in beta and subject to change.**
+//
+// API for managing notification distribution lists for IBM Cloud accounts.
 //
 // API Version: 1.0.0
-type DistributionListV1 struct {
+type PlatformNotificationsV1 struct {
 	Service *core.BaseService
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://cloud.ibm.com/notification-api"
+const DefaultServiceURL = "https://notifications.cloud.ibm.com/api"
 
 // DefaultServiceName is the default key used to find external configuration information.
-const DefaultServiceName = "distribution_list"
+const DefaultServiceName = "platform_notifications"
 
-// DistributionListV1Options : Service options
-type DistributionListV1Options struct {
+// PlatformNotificationsV1Options : Service options
+type PlatformNotificationsV1Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
-// NewDistributionListV1UsingExternalConfig : constructs an instance of DistributionListV1 with passed in options and external configuration.
-func NewDistributionListV1UsingExternalConfig(options *DistributionListV1Options) (distributionList *DistributionListV1, err error) {
+// NewPlatformNotificationsV1UsingExternalConfig : constructs an instance of PlatformNotificationsV1 with passed in options and external configuration.
+func NewPlatformNotificationsV1UsingExternalConfig(options *PlatformNotificationsV1Options) (platformNotifications *PlatformNotificationsV1, err error) {
 	if options.ServiceName == "" {
 		options.ServiceName = DefaultServiceName
 	}
@@ -68,27 +70,27 @@ func NewDistributionListV1UsingExternalConfig(options *DistributionListV1Options
 		}
 	}
 
-	distributionList, err = NewDistributionListV1(options)
+	platformNotifications, err = NewPlatformNotificationsV1(options)
 	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
-	err = distributionList.Service.ConfigureService(options.ServiceName)
+	err = platformNotifications.Service.ConfigureService(options.ServiceName)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
-		err = distributionList.Service.SetServiceURL(options.URL)
+		err = platformNotifications.Service.SetServiceURL(options.URL)
 		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
 
-// NewDistributionListV1 : constructs an instance of DistributionListV1 with passed in options.
-func NewDistributionListV1(options *DistributionListV1Options) (service *DistributionListV1, err error) {
+// NewPlatformNotificationsV1 : constructs an instance of PlatformNotificationsV1 with passed in options.
+func NewPlatformNotificationsV1(options *PlatformNotificationsV1Options) (service *PlatformNotificationsV1, err error) {
 	serviceOptions := &core.ServiceOptions{
 		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
@@ -108,7 +110,7 @@ func NewDistributionListV1(options *DistributionListV1Options) (service *Distrib
 		}
 	}
 
-	service = &DistributionListV1{
+	service = &PlatformNotificationsV1{
 		Service: baseService,
 	}
 
@@ -120,19 +122,19 @@ func GetServiceURLForRegion(region string) (string, error) {
 	return "", core.SDKErrorf(nil, "service does not support regional URLs", "no-regional-support", common.GetComponentInfo())
 }
 
-// Clone makes a copy of "distributionList" suitable for processing requests.
-func (distributionList *DistributionListV1) Clone() *DistributionListV1 {
-	if core.IsNil(distributionList) {
+// Clone makes a copy of "platformNotifications" suitable for processing requests.
+func (platformNotifications *PlatformNotificationsV1) Clone() *PlatformNotificationsV1 {
+	if core.IsNil(platformNotifications) {
 		return nil
 	}
-	clone := *distributionList
-	clone.Service = distributionList.Service.Clone()
+	clone := *platformNotifications
+	clone.Service = platformNotifications.Service.Clone()
 	return &clone
 }
 
 // SetServiceURL sets the service URL
-func (distributionList *DistributionListV1) SetServiceURL(url string) error {
-	err := distributionList.Service.SetServiceURL(url)
+func (platformNotifications *PlatformNotificationsV1) SetServiceURL(url string) error {
+	err := platformNotifications.Service.SetServiceURL(url)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
 	}
@@ -140,46 +142,46 @@ func (distributionList *DistributionListV1) SetServiceURL(url string) error {
 }
 
 // GetServiceURL returns the service URL
-func (distributionList *DistributionListV1) GetServiceURL() string {
-	return distributionList.Service.GetServiceURL()
+func (platformNotifications *PlatformNotificationsV1) GetServiceURL() string {
+	return platformNotifications.Service.GetServiceURL()
 }
 
 // SetDefaultHeaders sets HTTP headers to be sent in every request
-func (distributionList *DistributionListV1) SetDefaultHeaders(headers http.Header) {
-	distributionList.Service.SetDefaultHeaders(headers)
+func (platformNotifications *PlatformNotificationsV1) SetDefaultHeaders(headers http.Header) {
+	platformNotifications.Service.SetDefaultHeaders(headers)
 }
 
 // SetEnableGzipCompression sets the service's EnableGzipCompression field
-func (distributionList *DistributionListV1) SetEnableGzipCompression(enableGzip bool) {
-	distributionList.Service.SetEnableGzipCompression(enableGzip)
+func (platformNotifications *PlatformNotificationsV1) SetEnableGzipCompression(enableGzip bool) {
+	platformNotifications.Service.SetEnableGzipCompression(enableGzip)
 }
 
 // GetEnableGzipCompression returns the service's EnableGzipCompression field
-func (distributionList *DistributionListV1) GetEnableGzipCompression() bool {
-	return distributionList.Service.GetEnableGzipCompression()
+func (platformNotifications *PlatformNotificationsV1) GetEnableGzipCompression() bool {
+	return platformNotifications.Service.GetEnableGzipCompression()
 }
 
 // EnableRetries enables automatic retries for requests invoked for this service instance.
 // If either parameter is specified as 0, then a default value is used instead.
-func (distributionList *DistributionListV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
-	distributionList.Service.EnableRetries(maxRetries, maxRetryInterval)
+func (platformNotifications *PlatformNotificationsV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	platformNotifications.Service.EnableRetries(maxRetries, maxRetryInterval)
 }
 
 // DisableRetries disables automatic retries for requests invoked for this service instance.
-func (distributionList *DistributionListV1) DisableRetries() {
-	distributionList.Service.DisableRetries()
+func (platformNotifications *PlatformNotificationsV1) DisableRetries() {
+	platformNotifications.Service.DisableRetries()
 }
 
 // ListDistributionListDestinations : Get all destination entries
 // Retrieve all destinations in the distribution list for the specified account.
-func (distributionList *DistributionListV1) ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) (result *AddDestinationCollection, response *core.DetailedResponse, err error) {
-	result, response, err = distributionList.ListDistributionListDestinationsWithContext(context.Background(), listDistributionListDestinationsOptions)
+func (platformNotifications *PlatformNotificationsV1) ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) (result *AddDestinationCollection, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.ListDistributionListDestinationsWithContext(context.Background(), listDistributionListDestinationsOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // ListDistributionListDestinationsWithContext is an alternate form of the ListDistributionListDestinations method which supports a Context parameter
-func (distributionList *DistributionListV1) ListDistributionListDestinationsWithContext(ctx context.Context, listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) (result *AddDestinationCollection, response *core.DetailedResponse, err error) {
+func (platformNotifications *PlatformNotificationsV1) ListDistributionListDestinationsWithContext(ctx context.Context, listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) (result *AddDestinationCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listDistributionListDestinationsOptions, "listDistributionListDestinationsOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -197,14 +199,14 @@ func (distributionList *DistributionListV1) ListDistributionListDestinationsWith
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = distributionList.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(distributionList.Service.Options.URL, `/v2/distribution_lists/{account_id}/destinations`, pathParamsMap)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/distribution_lists/{account_id}/destinations`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("distribution_list", "V1", "ListDistributionListDestinations")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ListDistributionListDestinations")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -221,7 +223,7 @@ func (distributionList *DistributionListV1) ListDistributionListDestinationsWith
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = distributionList.Service.Request(request, &rawResponse)
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "list_distribution_list_destinations", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -244,14 +246,14 @@ func (distributionList *DistributionListV1) ListDistributionListDestinationsWith
 // of enterprise accounts, you can provide an Event Notifications destination that is from a different account than the
 // distribution list account, provided these two accounts are from the same enterprise and the user has permission to
 // manage the Event Notifications destinations on both accounts.
-func (distributionList *DistributionListV1) CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
-	result, response, err = distributionList.CreateDistributionListDestinationWithContext(context.Background(), createDistributionListDestinationOptions)
+func (platformNotifications *PlatformNotificationsV1) CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.CreateDistributionListDestinationWithContext(context.Background(), createDistributionListDestinationOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // CreateDistributionListDestinationWithContext is an alternate form of the CreateDistributionListDestination method which supports a Context parameter
-func (distributionList *DistributionListV1) CreateDistributionListDestinationWithContext(ctx context.Context, createDistributionListDestinationOptions *CreateDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
+func (platformNotifications *PlatformNotificationsV1) CreateDistributionListDestinationWithContext(ctx context.Context, createDistributionListDestinationOptions *CreateDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createDistributionListDestinationOptions, "createDistributionListDestinationOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -269,14 +271,14 @@ func (distributionList *DistributionListV1) CreateDistributionListDestinationWit
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = distributionList.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(distributionList.Service.Options.URL, `/v2/distribution_lists/{account_id}/destinations`, pathParamsMap)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/distribution_lists/{account_id}/destinations`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("distribution_list", "V1", "CreateDistributionListDestination")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "CreateDistributionListDestination")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -300,7 +302,7 @@ func (distributionList *DistributionListV1) CreateDistributionListDestinationWit
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = distributionList.Service.Request(request, &rawResponse)
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "create_distribution_list_destination", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -320,14 +322,14 @@ func (distributionList *DistributionListV1) CreateDistributionListDestinationWit
 
 // GetDistributionListDestination : Get a destination entry
 // Retrieve a specific destination from the distribution list of the account.
-func (distributionList *DistributionListV1) GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
-	result, response, err = distributionList.GetDistributionListDestinationWithContext(context.Background(), getDistributionListDestinationOptions)
+func (platformNotifications *PlatformNotificationsV1) GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.GetDistributionListDestinationWithContext(context.Background(), getDistributionListDestinationOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetDistributionListDestinationWithContext is an alternate form of the GetDistributionListDestination method which supports a Context parameter
-func (distributionList *DistributionListV1) GetDistributionListDestinationWithContext(ctx context.Context, getDistributionListDestinationOptions *GetDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
+func (platformNotifications *PlatformNotificationsV1) GetDistributionListDestinationWithContext(ctx context.Context, getDistributionListDestinationOptions *GetDistributionListDestinationOptions) (result AddDestinationIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getDistributionListDestinationOptions, "getDistributionListDestinationOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -346,14 +348,14 @@ func (distributionList *DistributionListV1) GetDistributionListDestinationWithCo
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = distributionList.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(distributionList.Service.Options.URL, `/v2/distribution_lists/{account_id}/destinations/{destination_id}`, pathParamsMap)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/distribution_lists/{account_id}/destinations/{destination_id}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("distribution_list", "V1", "GetDistributionListDestination")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetDistributionListDestination")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -370,7 +372,7 @@ func (distributionList *DistributionListV1) GetDistributionListDestinationWithCo
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = distributionList.Service.Request(request, &rawResponse)
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "get_distribution_list_destination", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -390,14 +392,14 @@ func (distributionList *DistributionListV1) GetDistributionListDestinationWithCo
 
 // DeleteDistributionListDestination : Delete destination entry
 // Remove a destination entry.
-func (distributionList *DistributionListV1) DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions) (response *core.DetailedResponse, err error) {
-	response, err = distributionList.DeleteDistributionListDestinationWithContext(context.Background(), deleteDistributionListDestinationOptions)
+func (platformNotifications *PlatformNotificationsV1) DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions) (response *core.DetailedResponse, err error) {
+	response, err = platformNotifications.DeleteDistributionListDestinationWithContext(context.Background(), deleteDistributionListDestinationOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // DeleteDistributionListDestinationWithContext is an alternate form of the DeleteDistributionListDestination method which supports a Context parameter
-func (distributionList *DistributionListV1) DeleteDistributionListDestinationWithContext(ctx context.Context, deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions) (response *core.DetailedResponse, err error) {
+func (platformNotifications *PlatformNotificationsV1) DeleteDistributionListDestinationWithContext(ctx context.Context, deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteDistributionListDestinationOptions, "deleteDistributionListDestinationOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -416,14 +418,14 @@ func (distributionList *DistributionListV1) DeleteDistributionListDestinationWit
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = distributionList.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(distributionList.Service.Options.URL, `/v2/distribution_lists/{account_id}/destinations/{destination_id}`, pathParamsMap)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/distribution_lists/{account_id}/destinations/{destination_id}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("distribution_list", "V1", "DeleteDistributionListDestination")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "DeleteDistributionListDestination")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -438,7 +440,7 @@ func (distributionList *DistributionListV1) DeleteDistributionListDestinationWit
 		return
 	}
 
-	response, err = distributionList.Service.Request(request, nil)
+	response, err = platformNotifications.Service.Request(request, nil)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "delete_distribution_list_destination", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -451,14 +453,14 @@ func (distributionList *DistributionListV1) DeleteDistributionListDestinationWit
 // TestDistributionListDestination : Test destination entry
 // Send a test notification to a destination in the distribution list. This allows you to verify that the destination is
 // properly configured and can receive notifications.
-func (distributionList *DistributionListV1) TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions) (result *TestDestinationResponseBody, response *core.DetailedResponse, err error) {
-	result, response, err = distributionList.TestDistributionListDestinationWithContext(context.Background(), testDistributionListDestinationOptions)
+func (platformNotifications *PlatformNotificationsV1) TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions) (result *TestDestinationResponseBody, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.TestDistributionListDestinationWithContext(context.Background(), testDistributionListDestinationOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // TestDistributionListDestinationWithContext is an alternate form of the TestDistributionListDestination method which supports a Context parameter
-func (distributionList *DistributionListV1) TestDistributionListDestinationWithContext(ctx context.Context, testDistributionListDestinationOptions *TestDistributionListDestinationOptions) (result *TestDestinationResponseBody, response *core.DetailedResponse, err error) {
+func (platformNotifications *PlatformNotificationsV1) TestDistributionListDestinationWithContext(ctx context.Context, testDistributionListDestinationOptions *TestDistributionListDestinationOptions) (result *TestDestinationResponseBody, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(testDistributionListDestinationOptions, "testDistributionListDestinationOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -477,14 +479,14 @@ func (distributionList *DistributionListV1) TestDistributionListDestinationWithC
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = distributionList.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(distributionList.Service.Options.URL, `/v2/distribution_lists/{account_id}/destinations/{destination_id}/test`, pathParamsMap)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/distribution_lists/{account_id}/destinations/{destination_id}/test`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("distribution_list", "V1", "TestDistributionListDestination")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "TestDistributionListDestination")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -508,7 +510,7 @@ func (distributionList *DistributionListV1) TestDistributionListDestinationWithC
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = distributionList.Service.Request(request, &rawResponse)
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "test_distribution_list_destination", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -543,7 +545,6 @@ type AddDestination struct {
 // Constants associated with the AddDestination.DestinationType property.
 // The type of the destination.
 const (
-	AddDestination_DestinationType_Email = "email"
 	AddDestination_DestinationType_EventNotifications = "event_notifications"
 )
 func (*AddDestination) isaAddDestination() bool {
@@ -612,7 +613,6 @@ type AddDestinationPrototype struct {
 // Constants associated with the AddDestinationPrototype.DestinationType property.
 // The type of the destination.
 const (
-	AddDestinationPrototype_DestinationType_Email = "email"
 	AddDestinationPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 func (*AddDestinationPrototype) isaAddDestinationPrototype() bool {
@@ -661,7 +661,7 @@ type CreateDistributionListDestinationOptions struct {
 }
 
 // NewCreateDistributionListDestinationOptions : Instantiate CreateDistributionListDestinationOptions
-func (*DistributionListV1) NewCreateDistributionListDestinationOptions(accountID string, addDestinationPrototype AddDestinationPrototypeIntf) *CreateDistributionListDestinationOptions {
+func (*PlatformNotificationsV1) NewCreateDistributionListDestinationOptions(accountID string, addDestinationPrototype AddDestinationPrototypeIntf) *CreateDistributionListDestinationOptions {
 	return &CreateDistributionListDestinationOptions{
 		AccountID: core.StringPtr(accountID),
 		AddDestinationPrototype: addDestinationPrototype,
@@ -699,7 +699,7 @@ type DeleteDistributionListDestinationOptions struct {
 }
 
 // NewDeleteDistributionListDestinationOptions : Instantiate DeleteDistributionListDestinationOptions
-func (*DistributionListV1) NewDeleteDistributionListDestinationOptions(accountID string, destinationID string) *DeleteDistributionListDestinationOptions {
+func (*PlatformNotificationsV1) NewDeleteDistributionListDestinationOptions(accountID string, destinationID string) *DeleteDistributionListDestinationOptions {
 	return &DeleteDistributionListDestinationOptions{
 		AccountID: core.StringPtr(accountID),
 		DestinationID: core.StringPtr(destinationID),
@@ -737,7 +737,7 @@ type GetDistributionListDestinationOptions struct {
 }
 
 // NewGetDistributionListDestinationOptions : Instantiate GetDistributionListDestinationOptions
-func (*DistributionListV1) NewGetDistributionListDestinationOptions(accountID string, destinationID string) *GetDistributionListDestinationOptions {
+func (*PlatformNotificationsV1) NewGetDistributionListDestinationOptions(accountID string, destinationID string) *GetDistributionListDestinationOptions {
 	return &GetDistributionListDestinationOptions{
 		AccountID: core.StringPtr(accountID),
 		DestinationID: core.StringPtr(destinationID),
@@ -772,7 +772,7 @@ type ListDistributionListDestinationsOptions struct {
 }
 
 // NewListDistributionListDestinationsOptions : Instantiate ListDistributionListDestinationsOptions
-func (*DistributionListV1) NewListDistributionListDestinationsOptions(accountID string) *ListDistributionListDestinationsOptions {
+func (*PlatformNotificationsV1) NewListDistributionListDestinationsOptions(accountID string) *ListDistributionListDestinationsOptions {
 	return &ListDistributionListDestinationsOptions{
 		AccountID: core.StringPtr(accountID),
 	}
@@ -792,10 +792,10 @@ func (options *ListDistributionListDestinationsOptions) SetHeaders(param map[str
 
 // TestDestinationRequestBodyPrototype : TestDestinationRequestBodyPrototype struct
 // Models which "extend" this model:
-// - TestDestinationRequestBodyPrototypeTestEventNotificationDestination
+// - TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype
 type TestDestinationRequestBodyPrototype struct {
 	// The type of the destination.
-	DestinationType *string `json:"destination_type,omitempty"`
+	DestinationType *string `json:"destination_type" validate:"required"`
 
 	// The type of the notification to test.
 	NotificationType *string `json:"notification_type,omitempty"`
@@ -804,7 +804,6 @@ type TestDestinationRequestBodyPrototype struct {
 // Constants associated with the TestDestinationRequestBodyPrototype.DestinationType property.
 // The type of the destination.
 const (
-	TestDestinationRequestBodyPrototype_DestinationType_Email = "email"
 	TestDestinationRequestBodyPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 
@@ -841,9 +840,9 @@ func UnmarshalTestDestinationRequestBodyPrototype(m map[string]json.RawMessage, 
 		return
 	}
 	if discValue == "event_notifications" {
-		err = core.UnmarshalModel(m, "", result, UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+		err = core.UnmarshalModel(m, "", result, UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-TestDestinationRequestBodyPrototypeTestEventNotificationDestination-error", common.GetComponentInfo())
+			err = core.SDKErrorf(err, "", "unmarshal-TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype-error", common.GetComponentInfo())
 		}
 	} else {
 		errMsg := fmt.Sprintf("unrecognized value for discriminator property 'destination_type': %s", discValue)
@@ -855,7 +854,7 @@ func UnmarshalTestDestinationRequestBodyPrototype(m map[string]json.RawMessage, 
 // TestDestinationResponseBody : Response from the test notification endpoint.
 type TestDestinationResponseBody struct {
 	// The status message that indicates the test result.
-	Message *string `json:"message,omitempty"`
+	Message *string `json:"message" validate:"required"`
 }
 
 // UnmarshalTestDestinationResponseBody unmarshals an instance of TestDestinationResponseBody from the specified map of raw messages.
@@ -885,7 +884,7 @@ type TestDistributionListDestinationOptions struct {
 }
 
 // NewTestDistributionListDestinationOptions : Instantiate TestDistributionListDestinationOptions
-func (*DistributionListV1) NewTestDistributionListDestinationOptions(accountID string, destinationID string, testDestinationRequestBodyPrototype TestDestinationRequestBodyPrototypeIntf) *TestDistributionListDestinationOptions {
+func (*PlatformNotificationsV1) NewTestDistributionListDestinationOptions(accountID string, destinationID string, testDestinationRequestBodyPrototype TestDestinationRequestBodyPrototypeIntf) *TestDistributionListDestinationOptions {
 	return &TestDistributionListDestinationOptions{
 		AccountID: core.StringPtr(accountID),
 		DestinationID: core.StringPtr(destinationID),
@@ -930,12 +929,11 @@ type AddDestinationPrototypeEventNotificationDestinationPrototype struct {
 // Constants associated with the AddDestinationPrototypeEventNotificationDestinationPrototype.DestinationType property.
 // The type of the destination.
 const (
-	AddDestinationPrototypeEventNotificationDestinationPrototype_DestinationType_Email = "email"
 	AddDestinationPrototypeEventNotificationDestinationPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 
 // NewAddDestinationPrototypeEventNotificationDestinationPrototype : Instantiate AddDestinationPrototypeEventNotificationDestinationPrototype (Generic Model Constructor)
-func (*DistributionListV1) NewAddDestinationPrototypeEventNotificationDestinationPrototype(destinationID *strfmt.UUID, destinationType string) (_model *AddDestinationPrototypeEventNotificationDestinationPrototype, err error) {
+func (*PlatformNotificationsV1) NewAddDestinationPrototypeEventNotificationDestinationPrototype(destinationID *strfmt.UUID, destinationType string) (_model *AddDestinationPrototypeEventNotificationDestinationPrototype, err error) {
 	_model = &AddDestinationPrototypeEventNotificationDestinationPrototype{
 		DestinationID: destinationID,
 		DestinationType: core.StringPtr(destinationType),
@@ -981,7 +979,6 @@ type AddDestinationEventNotificationDestination struct {
 // Constants associated with the AddDestinationEventNotificationDestination.DestinationType property.
 // The type of the destination.
 const (
-	AddDestinationEventNotificationDestination_DestinationType_Email = "email"
 	AddDestinationEventNotificationDestination_DestinationType_EventNotifications = "event_notifications"
 )
 
@@ -1006,9 +1003,9 @@ func UnmarshalAddDestinationEventNotificationDestination(m map[string]json.RawMe
 	return
 }
 
-// TestDestinationRequestBodyPrototypeTestEventNotificationDestination : Request body for testing an Event Notifications destination.
+// TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype : Request body for testing an Event Notifications destination.
 // This model "extends" TestDestinationRequestBodyPrototype
-type TestDestinationRequestBodyPrototypeTestEventNotificationDestination struct {
+type TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype struct {
 	// The type of the destination.
 	DestinationType *string `json:"destination_type" validate:"required"`
 
@@ -1016,27 +1013,26 @@ type TestDestinationRequestBodyPrototypeTestEventNotificationDestination struct 
 	NotificationType *string `json:"notification_type" validate:"required"`
 }
 
-// Constants associated with the TestDestinationRequestBodyPrototypeTestEventNotificationDestination.DestinationType property.
+// Constants associated with the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype.DestinationType property.
 // The type of the destination.
 const (
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_DestinationType_Email = "email"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_DestinationType_EventNotifications = "event_notifications"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_DestinationType_EventNotifications = "event_notifications"
 )
 
-// Constants associated with the TestDestinationRequestBodyPrototypeTestEventNotificationDestination.NotificationType property.
+// Constants associated with the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype.NotificationType property.
 // The type of the notification to test.
 const (
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_NotificationType_Announcements = "announcements"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_NotificationType_BillingAndUsage = "billing_and_usage"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_NotificationType_Incident = "incident"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_NotificationType_Maintenance = "maintenance"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_NotificationType_Resource = "resource"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestination_NotificationType_SecurityBulletins = "security_bulletins"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Announcements = "announcements"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_BillingAndUsage = "billing_and_usage"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Incident = "incident"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Maintenance = "maintenance"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Resource = "resource"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_SecurityBulletins = "security_bulletins"
 )
 
-// NewTestDestinationRequestBodyPrototypeTestEventNotificationDestination : Instantiate TestDestinationRequestBodyPrototypeTestEventNotificationDestination (Generic Model Constructor)
-func (*DistributionListV1) NewTestDestinationRequestBodyPrototypeTestEventNotificationDestination(destinationType string, notificationType string) (_model *TestDestinationRequestBodyPrototypeTestEventNotificationDestination, err error) {
-	_model = &TestDestinationRequestBodyPrototypeTestEventNotificationDestination{
+// NewTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype : Instantiate TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype (Generic Model Constructor)
+func (*PlatformNotificationsV1) NewTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype(destinationType string, notificationType string) (_model *TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype, err error) {
+	_model = &TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
 		DestinationType: core.StringPtr(destinationType),
 		NotificationType: core.StringPtr(notificationType),
 	}
@@ -1047,13 +1043,13 @@ func (*DistributionListV1) NewTestDestinationRequestBodyPrototypeTestEventNotifi
 	return
 }
 
-func (*TestDestinationRequestBodyPrototypeTestEventNotificationDestination) isaTestDestinationRequestBodyPrototype() bool {
+func (*TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype) isaTestDestinationRequestBodyPrototype() bool {
 	return true
 }
 
-// UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination unmarshals an instance of TestDestinationRequestBodyPrototypeTestEventNotificationDestination from the specified map of raw messages.
-func UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+// UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype unmarshals an instance of TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype from the specified map of raw messages.
+func UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 	err = core.UnmarshalPrimitive(m, "destination_type", &obj.DestinationType)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "destination_type-error", common.GetComponentInfo())

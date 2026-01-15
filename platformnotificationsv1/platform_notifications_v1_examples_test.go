@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package distributionlistv1_test
+package platformnotificationsv1_test
 
 import (
 	"encoding/json"
@@ -24,30 +24,30 @@ import (
 	"os"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/distributionlistv1"
+	"github.com/IBM/platform-services-go-sdk/platformnotificationsv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 //
-// This file provides an example of how to use the Distribution List service.
+// This file provides an example of how to use the Platform Notifications service.
 //
 // The following configuration properties are assumed to be defined:
-// DISTRIBUTION_LIST_URL=<service base url>
-// DISTRIBUTION_LIST_AUTH_TYPE=iam
-// DISTRIBUTION_LIST_APIKEY=<IAM apikey>
-// DISTRIBUTION_LIST_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// PLATFORM_NOTIFICATIONS_URL=<service base url>
+// PLATFORM_NOTIFICATIONS_AUTH_TYPE=iam
+// PLATFORM_NOTIFICATIONS_APIKEY=<IAM apikey>
+// PLATFORM_NOTIFICATIONS_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-var _ = Describe(`DistributionListV1 Examples Tests`, func() {
+var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
-	const externalConfigFile = "../distribution_list_v1.env"
+	const externalConfigFile = "../platform_notifications_v1.env"
 
 	var (
-		distributionListService *distributionlistv1.DistributionListV1
+		platformNotificationsService *platformnotificationsv1.PlatformNotificationsV1
 		config       map[string]string
 	)
 
@@ -64,7 +64,7 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(distributionlistv1.DefaultServiceName)
+			config, err = core.GetServiceProperties(platformnotificationsv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping examples: " + err.Error())
 			} else if len(config) == 0 {
@@ -84,9 +84,9 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 
 			// begin-common
 
-			distributionListServiceOptions := &distributionlistv1.DistributionListV1Options{}
+			platformNotificationsServiceOptions := &platformnotificationsv1.PlatformNotificationsV1Options{}
 
-			distributionListService, err = distributionlistv1.NewDistributionListV1UsingExternalConfig(distributionListServiceOptions)
+			platformNotificationsService, err = platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(platformNotificationsServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -94,11 +94,11 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 
 			// end-common
 
-			Expect(distributionListService).ToNot(BeNil())
+			Expect(platformNotificationsService).ToNot(BeNil())
 		})
 	})
 
-	Describe(`DistributionListV1 request examples`, func() {
+	Describe(`PlatformNotificationsV1 request examples`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -106,11 +106,11 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 			fmt.Println("\nListDistributionListDestinations() result:")
 			// begin-list_distribution_list_destinations
 
-			listDistributionListDestinationsOptions := distributionListService.NewListDistributionListDestinationsOptions(
+			listDistributionListDestinationsOptions := platformNotificationsService.NewListDistributionListDestinationsOptions(
 				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
 			)
 
-			addDestinationCollection, response, err := distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
+			addDestinationCollection, response, err := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -127,17 +127,17 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 			fmt.Println("\nCreateDistributionListDestination() result:")
 			// begin-create_distribution_list_destination
 
-			addDestinationPrototypeModel := &distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
+			addDestinationPrototypeModel := &platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
 				DestinationID: CreateMockUUID("12345678-1234-1234-1234-123456789012"),
 				DestinationType: core.StringPtr("event_notifications"),
 			}
 
-			createDistributionListDestinationOptions := distributionListService.NewCreateDistributionListDestinationOptions(
+			createDistributionListDestinationOptions := platformNotificationsService.NewCreateDistributionListDestinationOptions(
 				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
 				addDestinationPrototypeModel,
 			)
 
-			addDestination, response, err := distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptions)
+			addDestination, response, err := platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -154,12 +154,12 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 			fmt.Println("\nGetDistributionListDestination() result:")
 			// begin-get_distribution_list_destination
 
-			getDistributionListDestinationOptions := distributionListService.NewGetDistributionListDestinationOptions(
+			getDistributionListDestinationOptions := platformNotificationsService.NewGetDistributionListDestinationOptions(
 				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
 				"12345678-1234-1234-1234-123456789012",
 			)
 
-			addDestination, response, err := distributionListService.GetDistributionListDestination(getDistributionListDestinationOptions)
+			addDestination, response, err := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -176,18 +176,18 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 			fmt.Println("\nTestDistributionListDestination() result:")
 			// begin-test_distribution_list_destination
 
-			testDestinationRequestBodyPrototypeModel := &distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination{
+			testDestinationRequestBodyPrototypeModel := &platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
 				DestinationType: core.StringPtr("event_notifications"),
 				NotificationType: core.StringPtr("incident"),
 			}
 
-			testDistributionListDestinationOptions := distributionListService.NewTestDistributionListDestinationOptions(
+			testDistributionListDestinationOptions := platformNotificationsService.NewTestDistributionListDestinationOptions(
 				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
 				"12345678-1234-1234-1234-123456789012",
 				testDestinationRequestBodyPrototypeModel,
 			)
 
-			testDestinationResponseBody, response, err := distributionListService.TestDistributionListDestination(testDistributionListDestinationOptions)
+			testDestinationResponseBody, response, err := platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -203,12 +203,12 @@ var _ = Describe(`DistributionListV1 Examples Tests`, func() {
 		It(`DeleteDistributionListDestination request example`, func() {
 			// begin-delete_distribution_list_destination
 
-			deleteDistributionListDestinationOptions := distributionListService.NewDeleteDistributionListDestinationOptions(
+			deleteDistributionListDestinationOptions := platformNotificationsService.NewDeleteDistributionListDestinationOptions(
 				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
 				"12345678-1234-1234-1234-123456789012",
 			)
 
-			response, err := distributionListService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
+			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
 			if err != nil {
 				panic(err)
 			}
