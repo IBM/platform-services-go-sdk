@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1440,7 +1440,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}], "display_name": "DisplayName"}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully with retries`, func() {
@@ -1501,7 +1501,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}], "display_name": "DisplayName"}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
@@ -1668,7 +1668,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}`)
+					fmt.Fprintf(res, "%s", `{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}], "display_name": "DisplayName"}`)
 				}))
 			})
 			It(`Invoke GetServicerefTarget successfully with retries`, func() {
@@ -1728,7 +1728,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}`)
+					fmt.Fprintf(res, "%s", `{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}], "display_name": "DisplayName"}`)
 				}))
 			})
 			It(`Invoke GetServicerefTarget successfully`, func() {
