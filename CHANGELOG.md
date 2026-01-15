@@ -1,3 +1,10 @@
+## [0.93.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.93.0...v0.93.1) (2026-01-15)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** add display name to service ref response ([#420](https://github.com/IBM/platform-services-go-sdk/issues/420)) ([54e024f](https://github.com/IBM/platform-services-go-sdk/commit/54e024f89ea86c2e277ff34ca8f3a19bfcbae80e))
+
 # [0.93.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.92.0...v0.93.0) (2026-01-13)
 
 
