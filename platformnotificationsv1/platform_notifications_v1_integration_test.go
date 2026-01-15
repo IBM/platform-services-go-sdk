@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package distributionlistv1_test
+package platformnotificationsv1_test
 
 import (
 	"fmt"
@@ -25,25 +25,25 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/distributionlistv1"
+	"github.com/IBM/platform-services-go-sdk/platformnotificationsv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 /**
- * This file contains an integration test for the distributionlistv1 package.
+ * This file contains an integration test for the platformnotificationsv1 package.
  *
  * Notes:
  *
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`DistributionListV1 Integration Tests`, func() {
-	const externalConfigFile = "../distribution_list_v1.env"
+var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
+	const externalConfigFile = "../platform_notifications_v1.env"
 
 	var (
 		err          error
-		distributionListService *distributionlistv1.DistributionListV1
+		platformNotificationsService *platformnotificationsv1.PlatformNotificationsV1
 		serviceURL   string
 		config       map[string]string
 	)
@@ -60,7 +60,7 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(distributionlistv1.DefaultServiceName)
+			config, err = core.GetServiceProperties(platformnotificationsv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
@@ -79,15 +79,15 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			distributionListServiceOptions := &distributionlistv1.DistributionListV1Options{}
+			platformNotificationsServiceOptions := &platformnotificationsv1.PlatformNotificationsV1Options{}
 
-			distributionListService, err = distributionlistv1.NewDistributionListV1UsingExternalConfig(distributionListServiceOptions)
+			platformNotificationsService, err = platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(platformNotificationsServiceOptions)
 			Expect(err).To(BeNil())
-			Expect(distributionListService).ToNot(BeNil())
-			Expect(distributionListService.Service.Options.URL).To(Equal(serviceURL))
+			Expect(platformNotificationsService).ToNot(BeNil())
+			Expect(platformNotificationsService.Service.Options.URL).To(Equal(serviceURL))
 
 			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
-			distributionListService.EnableRetries(4, 30*time.Second)
+			platformNotificationsService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -96,11 +96,11 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions)`, func() {
-			listDistributionListDestinationsOptions := &distributionlistv1.ListDistributionListDestinationsOptions{
+			listDistributionListDestinationsOptions := &platformnotificationsv1.ListDistributionListDestinationsOptions{
 				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
 			}
 
-			addDestinationCollection, response, err := distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
+			addDestinationCollection, response, err := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(addDestinationCollection).ToNot(BeNil())
@@ -112,17 +112,17 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions)`, func() {
-			addDestinationPrototypeModel := &distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
+			addDestinationPrototypeModel := &platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
 				DestinationID: CreateMockUUID("12345678-1234-1234-1234-123456789012"),
 				DestinationType: core.StringPtr("event_notifications"),
 			}
 
-			createDistributionListDestinationOptions := &distributionlistv1.CreateDistributionListDestinationOptions{
+			createDistributionListDestinationOptions := &platformnotificationsv1.CreateDistributionListDestinationOptions{
 				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
 				AddDestinationPrototype: addDestinationPrototypeModel,
 			}
 
-			addDestination, response, err := distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptions)
+			addDestination, response, err := platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(addDestination).ToNot(BeNil())
@@ -134,12 +134,12 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions)`, func() {
-			getDistributionListDestinationOptions := &distributionlistv1.GetDistributionListDestinationOptions{
+			getDistributionListDestinationOptions := &platformnotificationsv1.GetDistributionListDestinationOptions{
 				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
 				DestinationID: core.StringPtr("12345678-1234-1234-1234-123456789012"),
 			}
 
-			addDestination, response, err := distributionListService.GetDistributionListDestination(getDistributionListDestinationOptions)
+			addDestination, response, err := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(addDestination).ToNot(BeNil())
@@ -151,18 +151,18 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions)`, func() {
-			testDestinationRequestBodyPrototypeModel := &distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination{
+			testDestinationRequestBodyPrototypeModel := &platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
 				DestinationType: core.StringPtr("event_notifications"),
 				NotificationType: core.StringPtr("incident"),
 			}
 
-			testDistributionListDestinationOptions := &distributionlistv1.TestDistributionListDestinationOptions{
+			testDistributionListDestinationOptions := &platformnotificationsv1.TestDistributionListDestinationOptions{
 				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
 				DestinationID: core.StringPtr("12345678-1234-1234-1234-123456789012"),
 				TestDestinationRequestBodyPrototype: testDestinationRequestBodyPrototypeModel,
 			}
 
-			testDestinationResponseBody, response, err := distributionListService.TestDistributionListDestination(testDistributionListDestinationOptions)
+			testDestinationResponseBody, response, err := platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(testDestinationResponseBody).ToNot(BeNil())
@@ -174,12 +174,12 @@ var _ = Describe(`DistributionListV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions)`, func() {
-			deleteDistributionListDestinationOptions := &distributionlistv1.DeleteDistributionListDestinationOptions{
+			deleteDistributionListDestinationOptions := &platformnotificationsv1.DeleteDistributionListDestinationOptions{
 				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
 				DestinationID: core.StringPtr("12345678-1234-1234-1234-123456789012"),
 			}
 
-			response, err := distributionListService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
+			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})

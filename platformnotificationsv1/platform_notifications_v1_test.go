@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package distributionlistv1_test
+package platformnotificationsv1_test
 
 import (
 	"bytes"
@@ -29,38 +29,38 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/distributionlistv1"
+	"github.com/IBM/platform-services-go-sdk/platformnotificationsv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe(`DistributionListV1`, func() {
+var _ = Describe(`PlatformNotificationsV1`, func() {
 	var testServer *httptest.Server
 	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(distributionListService).ToNot(BeNil())
+			Expect(platformNotificationsService).ToNot(BeNil())
 			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(distributionListService).To(BeNil())
+			Expect(platformNotificationsService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
-				URL: "https://distributionlistv1/api",
+			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+				URL: "https://platformnotificationsv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(distributionListService).To(BeNil())
+			Expect(platformNotificationsService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
@@ -68,71 +68,71 @@ var _ = Describe(`DistributionListV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DISTRIBUTION_LIST_URL": "https://distributionlistv1/api",
-				"DISTRIBUTION_LIST_AUTH_TYPE": "noauth",
+				"PLATFORM_NOTIFICATIONS_URL": "https://platformnotificationsv1/api",
+				"PLATFORM_NOTIFICATIONS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1UsingExternalConfig(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
 				})
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 
-				clone := distributionListService.Clone()
+				clone := platformNotificationsService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != distributionListService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(distributionListService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(distributionListService.Service.Options.Authenticator))
+				Expect(clone.Service != platformNotificationsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(platformNotificationsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(platformNotificationsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1UsingExternalConfig(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(platformNotificationsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 
-				clone := distributionListService.Clone()
+				clone := platformNotificationsService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != distributionListService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(distributionListService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(distributionListService.Service.Options.Authenticator))
+				Expect(clone.Service != platformNotificationsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(platformNotificationsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(platformNotificationsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1UsingExternalConfig(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
 				})
-				err := distributionListService.SetServiceURL("https://testService/api")
+				err := platformNotificationsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(platformNotificationsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 
-				clone := distributionListService.Clone()
+				clone := platformNotificationsService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != distributionListService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(distributionListService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(distributionListService.Service.Options.Authenticator))
+				Expect(clone.Service != platformNotificationsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(platformNotificationsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(platformNotificationsService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DISTRIBUTION_LIST_URL": "https://distributionlistv1/api",
-				"DISTRIBUTION_LIST_AUTH_TYPE": "someOtherAuth",
+				"PLATFORM_NOTIFICATIONS_URL": "https://platformnotificationsv1/api",
+				"PLATFORM_NOTIFICATIONS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			distributionListService, serviceErr := distributionlistv1.NewDistributionListV1UsingExternalConfig(&distributionlistv1.DistributionListV1Options{
+			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(distributionListService).To(BeNil())
+				Expect(platformNotificationsService).To(BeNil())
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
@@ -140,16 +140,16 @@ var _ = Describe(`DistributionListV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DISTRIBUTION_LIST_AUTH_TYPE":   "NOAuth",
+				"PLATFORM_NOTIFICATIONS_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			distributionListService, serviceErr := distributionlistv1.NewDistributionListV1UsingExternalConfig(&distributionlistv1.DistributionListV1Options{
+			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(distributionListService).To(BeNil())
+				Expect(platformNotificationsService).To(BeNil())
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
@@ -159,14 +159,14 @@ var _ = Describe(`DistributionListV1`, func() {
 		It(`GetServiceURLForRegion(region string)`, func() {
 			var url string
 			var err error
-			url, err = distributionlistv1.GetServiceURLForRegion("INVALID_REGION")
+			url, err = platformnotificationsv1.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) - Operation response error`, func() {
-		listDistributionListDestinationsPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
+		listDistributionListDestinationsPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -181,26 +181,26 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke ListDistributionListDestinations with error: Operation response processing error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the ListDistributionListDestinationsOptions model
-				listDistributionListDestinationsOptionsModel := new(distributionlistv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel := new(platformnotificationsv1.ListDistributionListDestinationsOptions)
 				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
+				result, response, operationErr := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				distributionListService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -211,7 +211,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions)`, func() {
-		listDistributionListDestinationsPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
+		listDistributionListDestinationsPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -231,29 +231,29 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke ListDistributionListDestinations successfully with retries`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
-				distributionListService.EnableRetries(0, 0)
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
 
 				// Construct an instance of the ListDistributionListDestinationsOptions model
-				listDistributionListDestinationsOptionsModel := new(distributionlistv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel := new(platformnotificationsv1.ListDistributionListDestinationsOptions)
 				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListService.ListDistributionListDestinationsWithContext(ctx, listDistributionListDestinationsOptionsModel)
+				_, _, operationErr := platformNotificationsService.ListDistributionListDestinationsWithContext(ctx, listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				distributionListService.DisableRetries()
-				result, response, operationErr := distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -261,7 +261,7 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListService.ListDistributionListDestinationsWithContext(ctx, listDistributionListDestinationsOptionsModel)
+				_, _, operationErr = platformNotificationsService.ListDistributionListDestinationsWithContext(ctx, listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -285,55 +285,55 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke ListDistributionListDestinations successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListService.ListDistributionListDestinations(nil)
+				result, response, operationErr := platformNotificationsService.ListDistributionListDestinations(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ListDistributionListDestinationsOptions model
-				listDistributionListDestinationsOptionsModel := new(distributionlistv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel := new(platformnotificationsv1.ListDistributionListDestinationsOptions)
 				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
+				result, response, operationErr = platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke ListDistributionListDestinations with error: Operation validation and request error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the ListDistributionListDestinationsOptions model
-				listDistributionListDestinationsOptionsModel := new(distributionlistv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel := new(platformnotificationsv1.ListDistributionListDestinationsOptions)
 				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := distributionListService.SetServiceURL("")
+				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
+				result, response, operationErr := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the ListDistributionListDestinationsOptions model with no property values
-				listDistributionListDestinationsOptionsModelNew := new(distributionlistv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModelNew := new(platformnotificationsv1.ListDistributionListDestinationsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModelNew)
+				result, response, operationErr = platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -352,20 +352,20 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke ListDistributionListDestinations successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the ListDistributionListDestinationsOptions model
-				listDistributionListDestinationsOptionsModel := new(distributionlistv1.ListDistributionListDestinationsOptions)
+				listDistributionListDestinationsOptionsModel := new(platformnotificationsv1.ListDistributionListDestinationsOptions)
 				listDistributionListDestinationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				listDistributionListDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
+				result, response, operationErr := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -378,7 +378,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions) - Operation response error`, func() {
-		createDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
+		createDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -393,32 +393,32 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke CreateDistributionListDestination with error: Operation response processing error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the AddDestinationPrototypeEventNotificationDestinationPrototype model
-				addDestinationPrototypeModel := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+				addDestinationPrototypeModel := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 				addDestinationPrototypeModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
 				// Construct an instance of the CreateDistributionListDestinationOptions model
-				createDistributionListDestinationOptionsModel := new(distributionlistv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel := new(platformnotificationsv1.CreateDistributionListDestinationOptions)
 				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
 				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				distributionListService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -429,7 +429,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions)`, func() {
-		createDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
+		createDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -465,21 +465,21 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke CreateDistributionListDestination successfully with retries`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
-				distributionListService.EnableRetries(0, 0)
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
 
 				// Construct an instance of the AddDestinationPrototypeEventNotificationDestinationPrototype model
-				addDestinationPrototypeModel := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+				addDestinationPrototypeModel := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 				addDestinationPrototypeModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
 				// Construct an instance of the CreateDistributionListDestinationOptions model
-				createDistributionListDestinationOptionsModel := new(distributionlistv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel := new(platformnotificationsv1.CreateDistributionListDestinationOptions)
 				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
 				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -487,13 +487,13 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListService.CreateDistributionListDestinationWithContext(ctx, createDistributionListDestinationOptionsModel)
+				_, _, operationErr := platformNotificationsService.CreateDistributionListDestinationWithContext(ctx, createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				distributionListService.DisableRetries()
-				result, response, operationErr := distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -501,7 +501,7 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListService.CreateDistributionListDestinationWithContext(ctx, createDistributionListDestinationOptionsModel)
+				_, _, operationErr = platformNotificationsService.CreateDistributionListDestinationWithContext(ctx, createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -541,67 +541,67 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke CreateDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListService.CreateDistributionListDestination(nil)
+				result, response, operationErr := platformNotificationsService.CreateDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the AddDestinationPrototypeEventNotificationDestinationPrototype model
-				addDestinationPrototypeModel := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+				addDestinationPrototypeModel := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 				addDestinationPrototypeModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
 				// Construct an instance of the CreateDistributionListDestinationOptions model
-				createDistributionListDestinationOptionsModel := new(distributionlistv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel := new(platformnotificationsv1.CreateDistributionListDestinationOptions)
 				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
 				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				result, response, operationErr = platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke CreateDistributionListDestination with error: Operation validation and request error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the AddDestinationPrototypeEventNotificationDestinationPrototype model
-				addDestinationPrototypeModel := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+				addDestinationPrototypeModel := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 				addDestinationPrototypeModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
 				// Construct an instance of the CreateDistributionListDestinationOptions model
-				createDistributionListDestinationOptionsModel := new(distributionlistv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel := new(platformnotificationsv1.CreateDistributionListDestinationOptions)
 				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
 				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := distributionListService.SetServiceURL("")
+				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the CreateDistributionListDestinationOptions model with no property values
-				createDistributionListDestinationOptionsModelNew := new(distributionlistv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModelNew := new(platformnotificationsv1.CreateDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModelNew)
+				result, response, operationErr = platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -620,26 +620,26 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke CreateDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the AddDestinationPrototypeEventNotificationDestinationPrototype model
-				addDestinationPrototypeModel := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+				addDestinationPrototypeModel := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 				addDestinationPrototypeModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 
 				// Construct an instance of the CreateDistributionListDestinationOptions model
-				createDistributionListDestinationOptionsModel := new(distributionlistv1.CreateDistributionListDestinationOptions)
+				createDistributionListDestinationOptionsModel := new(platformnotificationsv1.CreateDistributionListDestinationOptions)
 				createDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				createDistributionListDestinationOptionsModel.AddDestinationPrototype = addDestinationPrototypeModel
 				createDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.CreateDistributionListDestination(createDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -652,7 +652,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions) - Operation response error`, func() {
-		getDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
+		getDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -667,27 +667,27 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke GetDistributionListDestination with error: Operation response processing error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the GetDistributionListDestinationOptions model
-				getDistributionListDestinationOptionsModel := new(distributionlistv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel := new(platformnotificationsv1.GetDistributionListDestinationOptions)
 				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				distributionListService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -698,7 +698,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions)`, func() {
-		getDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
+		getDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -718,16 +718,16 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke GetDistributionListDestination successfully with retries`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
-				distributionListService.EnableRetries(0, 0)
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetDistributionListDestinationOptions model
-				getDistributionListDestinationOptionsModel := new(distributionlistv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel := new(platformnotificationsv1.GetDistributionListDestinationOptions)
 				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -735,13 +735,13 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListService.GetDistributionListDestinationWithContext(ctx, getDistributionListDestinationOptionsModel)
+				_, _, operationErr := platformNotificationsService.GetDistributionListDestinationWithContext(ctx, getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				distributionListService.DisableRetries()
-				result, response, operationErr := distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -749,7 +749,7 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListService.GetDistributionListDestinationWithContext(ctx, getDistributionListDestinationOptionsModel)
+				_, _, operationErr = platformNotificationsService.GetDistributionListDestinationWithContext(ctx, getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -773,57 +773,57 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke GetDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListService.GetDistributionListDestination(nil)
+				result, response, operationErr := platformNotificationsService.GetDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetDistributionListDestinationOptions model
-				getDistributionListDestinationOptionsModel := new(distributionlistv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel := new(platformnotificationsv1.GetDistributionListDestinationOptions)
 				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
+				result, response, operationErr = platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetDistributionListDestination with error: Operation validation and request error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the GetDistributionListDestinationOptions model
-				getDistributionListDestinationOptionsModel := new(distributionlistv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel := new(platformnotificationsv1.GetDistributionListDestinationOptions)
 				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := distributionListService.SetServiceURL("")
+				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetDistributionListDestinationOptions model with no property values
-				getDistributionListDestinationOptionsModelNew := new(distributionlistv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModelNew := new(platformnotificationsv1.GetDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModelNew)
+				result, response, operationErr = platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -842,21 +842,21 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke GetDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the GetDistributionListDestinationOptions model
-				getDistributionListDestinationOptionsModel := new(distributionlistv1.GetDistributionListDestinationOptions)
+				getDistributionListDestinationOptionsModel := new(platformnotificationsv1.GetDistributionListDestinationOptions)
 				getDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				getDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -869,7 +869,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions)`, func() {
-		deleteDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
+		deleteDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -883,53 +883,53 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := distributionListService.DeleteDistributionListDestination(nil)
+				response, operationErr := platformNotificationsService.DeleteDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
 				// Construct an instance of the DeleteDistributionListDestinationOptions model
-				deleteDistributionListDestinationOptionsModel := new(distributionlistv1.DeleteDistributionListDestinationOptions)
+				deleteDistributionListDestinationOptionsModel := new(platformnotificationsv1.DeleteDistributionListDestinationOptions)
 				deleteDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				deleteDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				deleteDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = distributionListService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModel)
+				response, operationErr = platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteDistributionListDestination with error: Operation validation and request error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteDistributionListDestinationOptions model
-				deleteDistributionListDestinationOptionsModel := new(distributionlistv1.DeleteDistributionListDestinationOptions)
+				deleteDistributionListDestinationOptionsModel := new(platformnotificationsv1.DeleteDistributionListDestinationOptions)
 				deleteDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				deleteDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				deleteDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := distributionListService.SetServiceURL("")
+				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := distributionListService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModel)
+				response, operationErr := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the DeleteDistributionListDestinationOptions model with no property values
-				deleteDistributionListDestinationOptionsModelNew := new(distributionlistv1.DeleteDistributionListDestinationOptions)
+				deleteDistributionListDestinationOptionsModelNew := new(platformnotificationsv1.DeleteDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = distributionListService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModelNew)
+				response, operationErr = platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -939,7 +939,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions) - Operation response error`, func() {
-		testDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test"
+		testDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -954,33 +954,33 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke TestDistributionListDestination with error: Operation response processing error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
-				testDestinationRequestBodyPrototypeModel := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype model
+				testDestinationRequestBodyPrototypeModel := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
 				// Construct an instance of the TestDistributionListDestinationOptions model
-				testDistributionListDestinationOptionsModel := new(distributionlistv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel := new(platformnotificationsv1.TestDistributionListDestinationOptions)
 				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				testDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
 				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				distributionListService.EnableRetries(0, 0)
-				result, response, operationErr = distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -991,7 +991,7 @@ var _ = Describe(`DistributionListV1`, func() {
 		})
 	})
 	Describe(`TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions)`, func() {
-		testDistributionListDestinationPath := "/v2/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test"
+		testDistributionListDestinationPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations/12345678-1234-1234-1234-123456789012/test"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1027,21 +1027,21 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke TestDistributionListDestination successfully with retries`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
-				distributionListService.EnableRetries(0, 0)
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
 
-				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
-				testDestinationRequestBodyPrototypeModel := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype model
+				testDestinationRequestBodyPrototypeModel := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
 				// Construct an instance of the TestDistributionListDestinationOptions model
-				testDistributionListDestinationOptionsModel := new(distributionlistv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel := new(platformnotificationsv1.TestDistributionListDestinationOptions)
 				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				testDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
@@ -1050,13 +1050,13 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := distributionListService.TestDistributionListDestinationWithContext(ctx, testDistributionListDestinationOptionsModel)
+				_, _, operationErr := platformNotificationsService.TestDistributionListDestinationWithContext(ctx, testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				distributionListService.DisableRetries()
-				result, response, operationErr := distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1064,7 +1064,7 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = distributionListService.TestDistributionListDestinationWithContext(ctx, testDistributionListDestinationOptionsModel)
+				_, _, operationErr = platformNotificationsService.TestDistributionListDestinationWithContext(ctx, testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1104,69 +1104,69 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke TestDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := distributionListService.TestDistributionListDestination(nil)
+				result, response, operationErr := platformNotificationsService.TestDistributionListDestination(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
-				testDestinationRequestBodyPrototypeModel := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype model
+				testDestinationRequestBodyPrototypeModel := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
 				// Construct an instance of the TestDistributionListDestinationOptions model
-				testDistributionListDestinationOptionsModel := new(distributionlistv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel := new(platformnotificationsv1.TestDistributionListDestinationOptions)
 				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				testDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
 				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
+				result, response, operationErr = platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke TestDistributionListDestination with error: Operation validation and request error`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
-				testDestinationRequestBodyPrototypeModel := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype model
+				testDestinationRequestBodyPrototypeModel := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
 				// Construct an instance of the TestDistributionListDestinationOptions model
-				testDistributionListDestinationOptionsModel := new(distributionlistv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel := new(platformnotificationsv1.TestDistributionListDestinationOptions)
 				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				testDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
 				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := distributionListService.SetServiceURL("")
+				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the TestDistributionListDestinationOptions model with no property values
-				testDistributionListDestinationOptionsModelNew := new(distributionlistv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModelNew := new(platformnotificationsv1.TestDistributionListDestinationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModelNew)
+				result, response, operationErr = platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1185,27 +1185,27 @@ var _ = Describe(`DistributionListV1`, func() {
 				}))
 			})
 			It(`Invoke TestDistributionListDestination successfully`, func() {
-				distributionListService, serviceErr := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(distributionListService).ToNot(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
-				testDestinationRequestBodyPrototypeModel := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype model
+				testDestinationRequestBodyPrototypeModel := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
 
 				// Construct an instance of the TestDistributionListDestinationOptions model
-				testDistributionListDestinationOptionsModel := new(distributionlistv1.TestDistributionListDestinationOptions)
+				testDistributionListDestinationOptionsModel := new(platformnotificationsv1.TestDistributionListDestinationOptions)
 				testDistributionListDestinationOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				testDistributionListDestinationOptionsModel.DestinationID = core.StringPtr("12345678-1234-1234-1234-123456789012")
 				testDistributionListDestinationOptionsModel.TestDestinationRequestBodyPrototype = testDestinationRequestBodyPrototypeModel
 				testDistributionListDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := distributionListService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
+				result, response, operationErr := platformNotificationsService.TestDistributionListDestination(testDistributionListDestinationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1219,13 +1219,13 @@ var _ = Describe(`DistributionListV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			distributionListService, _ := distributionlistv1.NewDistributionListV1(&distributionlistv1.DistributionListV1Options{
-				URL:           "http://distributionlistv1modelgenerator.com",
+			platformNotificationsService, _ := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+				URL:           "http://platformnotificationsv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewCreateDistributionListDestinationOptions successfully`, func() {
 				// Construct an instance of the AddDestinationPrototypeEventNotificationDestinationPrototype model
-				addDestinationPrototypeModel := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+				addDestinationPrototypeModel := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 				Expect(addDestinationPrototypeModel).ToNot(BeNil())
 				addDestinationPrototypeModel.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				addDestinationPrototypeModel.DestinationType = core.StringPtr("event_notifications")
@@ -1234,8 +1234,8 @@ var _ = Describe(`DistributionListV1`, func() {
 
 				// Construct an instance of the CreateDistributionListDestinationOptions model
 				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
-				var addDestinationPrototype distributionlistv1.AddDestinationPrototypeIntf = nil
-				createDistributionListDestinationOptionsModel := distributionListService.NewCreateDistributionListDestinationOptions(accountID, addDestinationPrototype)
+				var addDestinationPrototype platformnotificationsv1.AddDestinationPrototypeIntf = nil
+				createDistributionListDestinationOptionsModel := platformNotificationsService.NewCreateDistributionListDestinationOptions(accountID, addDestinationPrototype)
 				createDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				createDistributionListDestinationOptionsModel.SetAddDestinationPrototype(addDestinationPrototypeModel)
 				createDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -1248,7 +1248,7 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Construct an instance of the DeleteDistributionListDestinationOptions model
 				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
 				destinationID := "12345678-1234-1234-1234-123456789012"
-				deleteDistributionListDestinationOptionsModel := distributionListService.NewDeleteDistributionListDestinationOptions(accountID, destinationID)
+				deleteDistributionListDestinationOptionsModel := platformNotificationsService.NewDeleteDistributionListDestinationOptions(accountID, destinationID)
 				deleteDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				deleteDistributionListDestinationOptionsModel.SetDestinationID("12345678-1234-1234-1234-123456789012")
 				deleteDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -1261,7 +1261,7 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Construct an instance of the GetDistributionListDestinationOptions model
 				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
 				destinationID := "12345678-1234-1234-1234-123456789012"
-				getDistributionListDestinationOptionsModel := distributionListService.NewGetDistributionListDestinationOptions(accountID, destinationID)
+				getDistributionListDestinationOptionsModel := platformNotificationsService.NewGetDistributionListDestinationOptions(accountID, destinationID)
 				getDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getDistributionListDestinationOptionsModel.SetDestinationID("12345678-1234-1234-1234-123456789012")
 				getDistributionListDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -1273,7 +1273,7 @@ var _ = Describe(`DistributionListV1`, func() {
 			It(`Invoke NewListDistributionListDestinationsOptions successfully`, func() {
 				// Construct an instance of the ListDistributionListDestinationsOptions model
 				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
-				listDistributionListDestinationsOptionsModel := distributionListService.NewListDistributionListDestinationsOptions(accountID)
+				listDistributionListDestinationsOptionsModel := platformNotificationsService.NewListDistributionListDestinationsOptions(accountID)
 				listDistributionListDestinationsOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				listDistributionListDestinationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listDistributionListDestinationsOptionsModel).ToNot(BeNil())
@@ -1281,8 +1281,8 @@ var _ = Describe(`DistributionListV1`, func() {
 				Expect(listDistributionListDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewTestDistributionListDestinationOptions successfully`, func() {
-				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestination model
-				testDestinationRequestBodyPrototypeModel := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+				// Construct an instance of the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype model
+				testDestinationRequestBodyPrototypeModel := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 				Expect(testDestinationRequestBodyPrototypeModel).ToNot(BeNil())
 				testDestinationRequestBodyPrototypeModel.DestinationType = core.StringPtr("event_notifications")
 				testDestinationRequestBodyPrototypeModel.NotificationType = core.StringPtr("incident")
@@ -1292,8 +1292,8 @@ var _ = Describe(`DistributionListV1`, func() {
 				// Construct an instance of the TestDistributionListDestinationOptions model
 				accountID := "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
 				destinationID := "12345678-1234-1234-1234-123456789012"
-				var testDestinationRequestBodyPrototype distributionlistv1.TestDestinationRequestBodyPrototypeIntf = nil
-				testDistributionListDestinationOptionsModel := distributionListService.NewTestDistributionListDestinationOptions(accountID, destinationID, testDestinationRequestBodyPrototype)
+				var testDestinationRequestBodyPrototype platformnotificationsv1.TestDestinationRequestBodyPrototypeIntf = nil
+				testDistributionListDestinationOptionsModel := platformNotificationsService.NewTestDistributionListDestinationOptions(accountID, destinationID, testDestinationRequestBodyPrototype)
 				testDistributionListDestinationOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				testDistributionListDestinationOptionsModel.SetDestinationID("12345678-1234-1234-1234-123456789012")
 				testDistributionListDestinationOptionsModel.SetTestDestinationRequestBodyPrototype(testDestinationRequestBodyPrototypeModel)
@@ -1307,14 +1307,14 @@ var _ = Describe(`DistributionListV1`, func() {
 			It(`Invoke NewAddDestinationPrototypeEventNotificationDestinationPrototype successfully`, func() {
 				destinationID := CreateMockUUID("12345678-1234-1234-1234-123456789012")
 				destinationType := "event_notifications"
-				_model, err := distributionListService.NewAddDestinationPrototypeEventNotificationDestinationPrototype(destinationID, destinationType)
+				_model, err := platformNotificationsService.NewAddDestinationPrototypeEventNotificationDestinationPrototype(destinationID, destinationType)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewTestDestinationRequestBodyPrototypeTestEventNotificationDestination successfully`, func() {
+			It(`Invoke NewTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype successfully`, func() {
 				destinationType := "event_notifications"
 				notificationType := "incident"
-				_model, err := distributionListService.NewTestDestinationRequestBodyPrototypeTestEventNotificationDestination(destinationType, notificationType)
+				_model, err := platformNotificationsService.NewTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype(destinationType, notificationType)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -1323,7 +1323,7 @@ var _ = Describe(`DistributionListV1`, func() {
 	Describe(`Model unmarshaling tests`, func() {
 		It(`Invoke UnmarshalAddDestinationPrototype successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistv1.AddDestinationPrototype)
+			model := new(platformnotificationsv1.AddDestinationPrototype)
 			model.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 			model.DestinationType = core.StringPtr("event_notifications")
 
@@ -1335,13 +1335,13 @@ var _ = Describe(`DistributionListV1`, func() {
 			Expect(err).To(BeNil())
 
 			var result interface{}
-			err = distributionlistv1.UnmarshalAddDestinationPrototype(raw, &result)
+			err = platformnotificationsv1.UnmarshalAddDestinationPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 		})
 		It(`Invoke UnmarshalTestDestinationRequestBodyPrototype successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistv1.TestDestinationRequestBodyPrototype)
+			model := new(platformnotificationsv1.TestDestinationRequestBodyPrototype)
 			model.DestinationType = core.StringPtr("event_notifications")
 			model.NotificationType = core.StringPtr("incident")
 
@@ -1353,13 +1353,13 @@ var _ = Describe(`DistributionListV1`, func() {
 			Expect(err).To(BeNil())
 
 			var result interface{}
-			err = distributionlistv1.UnmarshalTestDestinationRequestBodyPrototype(raw, &result)
+			err = platformnotificationsv1.UnmarshalTestDestinationRequestBodyPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 		})
 		It(`Invoke UnmarshalAddDestinationPrototypeEventNotificationDestinationPrototype successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
+			model := new(platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype)
 			model.DestinationID = CreateMockUUID("12345678-1234-1234-1234-123456789012")
 			model.DestinationType = core.StringPtr("event_notifications")
 
@@ -1370,15 +1370,15 @@ var _ = Describe(`DistributionListV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *distributionlistv1.AddDestinationPrototypeEventNotificationDestinationPrototype
-			err = distributionlistv1.UnmarshalAddDestinationPrototypeEventNotificationDestinationPrototype(raw, &result)
+			var result *platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype
+			err = platformnotificationsv1.UnmarshalAddDestinationPrototypeEventNotificationDestinationPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
-		It(`Invoke UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination successfully`, func() {
+		It(`Invoke UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype successfully`, func() {
 			// Construct an instance of the model.
-			model := new(distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination)
+			model := new(platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype)
 			model.DestinationType = core.StringPtr("event_notifications")
 			model.NotificationType = core.StringPtr("incident")
 
@@ -1389,8 +1389,8 @@ var _ = Describe(`DistributionListV1`, func() {
 			err = json.Unmarshal(b, &raw)
 			Expect(err).To(BeNil())
 
-			var result *distributionlistv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestination
-			err = distributionlistv1.UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestination(raw, &result)
+			var result *platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype
+			err = platformnotificationsv1.UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
