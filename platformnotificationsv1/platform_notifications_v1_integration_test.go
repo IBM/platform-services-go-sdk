@@ -42,10 +42,12 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 	const externalConfigFile = "../platform_notifications_v1.env"
 
 	var (
-		err          error
+		err                          error
 		platformNotificationsService *platformnotificationsv1.PlatformNotificationsV1
-		serviceURL   string
-		config       map[string]string
+		serviceURL                   string
+		config                       map[string]string
+		accountID                    string
+		instanceID                   string
 	)
 
 	var shouldSkipTest = func() {
@@ -69,7 +71,20 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
+			// Load test account ID and instance ID from config
+			accountID = config["TEST_ACCOUNT_ID"]
+			if accountID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_ACCOUNT_ID not found in configuration, skipping tests")
+			}
+
+			instanceID = config["TEST_INSTANCE_ID"]
+			if instanceID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_INSTANCE_ID not found in configuration, skipping tests")
+			}
+
 			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Account ID: %v\n", accountID)
+			fmt.Fprintf(GinkgoWriter, "Instance ID: %v\n", instanceID)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -97,7 +112,7 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 		It(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions)`, func() {
 			listDistributionListDestinationsOptions := &platformnotificationsv1.ListDistributionListDestinationsOptions{
-				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
+				AccountID: core.StringPtr(accountID),
 			}
 
 			addDestinationCollection, response, err := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
@@ -113,12 +128,12 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 		It(`CreateDistributionListDestination(createDistributionListDestinationOptions *CreateDistributionListDestinationOptions)`, func() {
 			addDestinationPrototypeModel := &platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
-				DestinationID: CreateMockUUID("12345678-1234-1234-1234-123456789012"),
+				DestinationID:   CreateMockUUID(instanceID),
 				DestinationType: core.StringPtr("event_notifications"),
 			}
 
 			createDistributionListDestinationOptions := &platformnotificationsv1.CreateDistributionListDestinationOptions{
-				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
+				AccountID:               core.StringPtr(accountID),
 				AddDestinationPrototype: addDestinationPrototypeModel,
 			}
 
@@ -135,8 +150,8 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 		It(`GetDistributionListDestination(getDistributionListDestinationOptions *GetDistributionListDestinationOptions)`, func() {
 			getDistributionListDestinationOptions := &platformnotificationsv1.GetDistributionListDestinationOptions{
-				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-				DestinationID: core.StringPtr("12345678-1234-1234-1234-123456789012"),
+				AccountID:     core.StringPtr(accountID),
+				DestinationID: core.StringPtr(instanceID),
 			}
 
 			addDestination, response, err := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptions)
@@ -152,13 +167,13 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 		It(`TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions)`, func() {
 			testDestinationRequestBodyPrototypeModel := &platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
-				DestinationType: core.StringPtr("event_notifications"),
+				DestinationType:  core.StringPtr("event_notifications"),
 				NotificationType: core.StringPtr("incident"),
 			}
 
 			testDistributionListDestinationOptions := &platformnotificationsv1.TestDistributionListDestinationOptions{
-				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-				DestinationID: core.StringPtr("12345678-1234-1234-1234-123456789012"),
+				AccountID:                           core.StringPtr(accountID),
+				DestinationID:                       core.StringPtr(instanceID),
 				TestDestinationRequestBodyPrototype: testDestinationRequestBodyPrototypeModel,
 			}
 
@@ -175,8 +190,8 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 		It(`DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions)`, func() {
 			deleteDistributionListDestinationOptions := &platformnotificationsv1.DeleteDistributionListDestinationOptions{
-				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-				DestinationID: core.StringPtr("12345678-1234-1234-1234-123456789012"),
+				AccountID:     core.StringPtr(accountID),
+				DestinationID: core.StringPtr(instanceID),
 			}
 
 			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
