@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Platform Notifications service.
 //
 // The following configuration properties are assumed to be defined:
@@ -37,18 +36,21 @@ import (
 // PLATFORM_NOTIFICATIONS_AUTH_TYPE=iam
 // PLATFORM_NOTIFICATIONS_APIKEY=<IAM apikey>
 // PLATFORM_NOTIFICATIONS_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// PLATFORM_NOTIFICATIONS_TEST_ACCOUNT_ID=<account id to test>
+// PLATFORM_NOTIFICATIONS_TEST_INSTANCE_ID=<ID of destination to test>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 	const externalConfigFile = "../platform_notifications_v1.env"
 
 	var (
 		platformNotificationsService *platformnotificationsv1.PlatformNotificationsV1
-		config       map[string]string
+		config                       map[string]string
+		accountID                    string
+		instanceID                   string
 	)
 
 	var shouldSkipTest = func() {
@@ -69,6 +71,17 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 				Skip("Error loading service properties, skipping examples: " + err.Error())
 			} else if len(config) == 0 {
 				Skip("Unable to load service properties, skipping examples")
+			}
+
+			// Load test account ID and instance ID from config
+			accountID = config["TEST_ACCOUNT_ID"]
+			if accountID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_ACCOUNT_ID not found in configuration, skipping examples")
+			}
+
+			instanceID = config["TEST_INSTANCE_ID"]
+			if instanceID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_INSTANCE_ID not found in configuration, skipping examples")
 			}
 
 			shouldSkipTest = func() {}
@@ -107,7 +120,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-list_distribution_list_destinations
 
 			listDistributionListDestinationsOptions := platformNotificationsService.NewListDistributionListDestinationsOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+				accountID,
 			)
 
 			addDestinationCollection, response, err := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
@@ -128,12 +141,12 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-create_distribution_list_destination
 
 			addDestinationPrototypeModel := &platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
-				DestinationID: CreateMockUUID("12345678-1234-1234-1234-123456789012"),
+				DestinationID:   CreateMockUUID(instanceID),
 				DestinationType: core.StringPtr("event_notifications"),
 			}
 
 			createDistributionListDestinationOptions := platformNotificationsService.NewCreateDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+				accountID,
 				addDestinationPrototypeModel,
 			)
 
@@ -155,8 +168,8 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-get_distribution_list_destination
 
 			getDistributionListDestinationOptions := platformNotificationsService.NewGetDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-				"12345678-1234-1234-1234-123456789012",
+				accountID,
+				instanceID,
 			)
 
 			addDestination, response, err := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptions)
@@ -177,13 +190,13 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-test_distribution_list_destination
 
 			testDestinationRequestBodyPrototypeModel := &platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
-				DestinationType: core.StringPtr("event_notifications"),
+				DestinationType:  core.StringPtr("event_notifications"),
 				NotificationType: core.StringPtr("incident"),
 			}
 
 			testDistributionListDestinationOptions := platformNotificationsService.NewTestDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-				"12345678-1234-1234-1234-123456789012",
+				accountID,
+				instanceID,
 				testDestinationRequestBodyPrototypeModel,
 			)
 
@@ -204,8 +217,8 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-delete_distribution_list_destination
 
 			deleteDistributionListDestinationOptions := platformNotificationsService.NewDeleteDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-				"12345678-1234-1234-1234-123456789012",
+				accountID,
+				instanceID,
 			)
 
 			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
