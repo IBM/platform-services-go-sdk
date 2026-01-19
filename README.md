@@ -64,7 +64,7 @@ Service Name | Package name
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
 [Partner Center Sell](https://test.cloud.ibm.com/apidocs/partner-center-sell?code=go) | partnercentersellv1
 [Partner Management APIs](https://cloud.ibm.com/apidocs/partner-apis/partner?code=go) | partnermanagementv1
-[Platform Notifications](https://cloud.ibm.com/apidocs/notification-api?code=go) | platformnotificationsv1
+[Platform Notifications](https://cloud.ibm.com/apidocs/platform-notifications?code=go) | platformnotificationsv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
 [Usage Metering](https://cloud.ibm.com/apidocs/usage-metering?code=go) | usagemeteringv4
