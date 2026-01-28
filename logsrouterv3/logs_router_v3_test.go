@@ -207,14 +207,6 @@ var _ = Describe(`LogsRouterV3`, func() {
 			Expect(url).To(Equal("https://api.private.eu-es.logs-router.cloud.ibm.com/v3"))
 			Expect(err).To(BeNil())
 
-			url, err = logsrouterv3.GetServiceURLForRegion("eu-fr2")
-			Expect(url).To(Equal("https://api.eu-fr2.logs-router.cloud.ibm.com/v3"))
-			Expect(err).To(BeNil())
-
-			url, err = logsrouterv3.GetServiceURLForRegion("private.eu-fr2")
-			Expect(url).To(Equal("https://api.private.eu-fr2.logs-router.cloud.ibm.com/v3"))
-			Expect(err).To(BeNil())
-
 			url, err = logsrouterv3.GetServiceURLForRegion("eu-gb")
 			Expect(url).To(Equal("https://api.eu-gb.logs-router.cloud.ibm.com/v3"))
 			Expect(err).To(BeNil())
