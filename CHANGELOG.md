@@ -1,3 +1,10 @@
+# [0.94.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.93.1...v0.94.0) (2026-01-28)
+
+
+### Features
+
+* **Platform Notifications:** add new service to the project ([#426](https://github.com/IBM/platform-services-go-sdk/issues/426)) ([9d933c0](https://github.com/IBM/platform-services-go-sdk/commit/9d933c090c6a80ddf72bbcf3243e29253d7687df))
+
 ## [0.93.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.93.0...v0.93.1) (2026-01-15)
 
 
