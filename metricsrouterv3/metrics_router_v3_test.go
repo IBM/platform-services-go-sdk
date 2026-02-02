@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -212,6 +212,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			Expect(url).To(Equal("https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
+			url, err = metricsrouterv3.GetServiceURLForRegion("in-che")
+			Expect(url).To(Equal("https://in-che.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.in-che")
+			Expect(url).To(Equal("https://private.in-che.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
 			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
 			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
@@ -339,7 +347,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully with retries`, func() {
@@ -412,7 +420,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -578,7 +586,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully with retries`, func() {
@@ -631,7 +639,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -779,7 +787,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -833,7 +841,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -1009,7 +1017,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}`)
 				}))
 			})
 			It(`Invoke UpdateTarget successfully with retries`, func() {
@@ -1081,7 +1089,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "{\\"message\\":\\"AUTH0001:Authorization\\",\\"reason\\":\\"S2S token not authorized\\"}"}}`)
 				}))
 			})
 			It(`Invoke UpdateTarget successfully`, func() {
