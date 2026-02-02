@@ -132,10 +132,10 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-es":    "https://private.eu-es.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-es region.
 		"eu-fr2":           "https://eu-fr2.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.
 		"private.eu-fr2":   "https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.s
-		"in-che":           "https://in-che.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the in-che region.
-		"private.in-che":   "https://private.in-che.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the in-che region.
 		"eu-gb":            "https://eu-gb.metrics-router.cloud.ibm.com/api/v3",            // The public endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
 		"private.eu-gb":    "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
+		"in-che":           "https://in-che.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the in-che region.
+		"private.in-che":   "https://private.in-che.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the in-che region.
 		"jp-osa":           "https://jp-osa.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
 		"private.jp-osa":   "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
 		"jp-tok":           "https://jp-tok.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
