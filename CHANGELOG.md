@@ -1,3 +1,10 @@
+## [0.94.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.0...v0.94.1) (2026-02-03)
+
+
+### Bug Fixes
+
+* **Logs Router:** remove `eu-fr2` endpoints ([#428](https://github.com/IBM/platform-services-go-sdk/issues/428)) ([4b608b8](https://github.com/IBM/platform-services-go-sdk/commit/4b608b8f1f0028ce9c8059513ee45a9480246bcc))
+
 # [0.94.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.93.1...v0.94.0) (2026-01-28)
 
 
