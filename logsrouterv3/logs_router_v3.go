@@ -130,8 +130,6 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-de": "https://api.private.eu-de.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-de region.
 		"eu-es": "https://api.eu-es.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-es region.
 		"private.eu-es": "https://api.private.eu-es.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-es region.
-		"eu-fr2": "https://api.eu-fr2.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-fr2 region.
-		"private.eu-fr2": "https://api.private.eu-fr2.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-fr2 region.s
 		"eu-gb": "https://api.eu-gb.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the eu-gb region.
 		"private.eu-gb": "https://api.private.eu-gb.logs-router.cloud.ibm.com/v3", // The private endpoint for IBM Cloud Logs Routing Service in the eu-gb region.
 		"jp-osa": "https://api.jp-osa.logs-router.cloud.ibm.com/v3", // The public endpoint for IBM Cloud Logs Routing Service in the jp-osa region.
