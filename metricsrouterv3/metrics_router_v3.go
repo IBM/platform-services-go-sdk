@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,6 +134,8 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-fr2":   "https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the eu-fr2 region.s
 		"eu-gb":            "https://eu-gb.metrics-router.cloud.ibm.com/api/v3",            // The public endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
 		"private.eu-gb":    "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
+		"in-che":           "https://in-che.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the in-che region.
+		"private.in-che":   "https://private.in-che.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the in-che region.
 		"jp-osa":           "https://jp-osa.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
 		"private.jp-osa":   "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
 		"jp-tok":           "https://jp-tok.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.
@@ -1774,6 +1776,9 @@ type Target struct {
 	// Present when the target is enterprise-managed (`managed_by: enterprise`). For account-managed targets this field is
 	// omitted.
 	ManagedBy *string `json:"managed_by" validate:"required"`
+
+	// The status of the write attempt to the target.
+	WriteStatus *WriteStatus `json:"write_status" validate:"required"`
 }
 
 // Constants associated with the Target.TargetType property.
@@ -1836,6 +1841,11 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "managed_by", &obj.ManagedBy)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "managed_by-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "write_status", &obj.WriteStatus, UnmarshalWriteStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "write_status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -2095,4 +2105,45 @@ func (_options *UpdateTargetOptions) SetDestinationCRN(destinationCRN string) *U
 func (options *UpdateTargetOptions) SetHeaders(param map[string]string) *UpdateTargetOptions {
 	options.Headers = param
 	return options
+}
+
+// WriteStatus : The status of the write attempt to the target.
+type WriteStatus struct {
+	// The status such as failed or success.
+	Status *string `json:"status" validate:"required"`
+
+	// The timestamp of the failure.
+	LastFailure *strfmt.DateTime `json:"last_failure,omitempty"`
+
+	// Detailed description of the cause of the failure.
+	ReasonForLastFailure *string `json:"reason_for_last_failure,omitempty"`
+}
+
+// Constants associated with the WriteStatus.Status property.
+// The status such as failed or success.
+const (
+	WriteStatusStatusFailedConst  = "failed"
+	WriteStatusStatusSuccessConst = "success"
+)
+
+// UnmarshalWriteStatus unmarshals an instance of WriteStatus from the specified map of raw messages.
+func UnmarshalWriteStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(WriteStatus)
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_failure", &obj.LastFailure)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_failure-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason_for_last_failure", &obj.ReasonForLastFailure)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "reason_for_last_failure-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
