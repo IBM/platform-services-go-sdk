@@ -1,3 +1,10 @@
+## [0.94.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.1...v0.94.2) (2026-02-04)
+
+
+### Bug Fixes
+
+* **Metrics Router:** add new `in-che` region and `write_status` attribute ([#430](https://github.com/IBM/platform-services-go-sdk/issues/430)) ([f41c5f0](https://github.com/IBM/platform-services-go-sdk/commit/f41c5f0263075c5cbfbc141b61418f5ac95b2263))
+
 ## [0.94.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.0...v0.94.1) (2026-02-03)
 
 
