@@ -137,7 +137,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_AUTH_TYPE":   "NOAuth",
+				"GLOBAL_TAGGING_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
