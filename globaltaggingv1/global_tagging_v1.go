@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.105.0-3c13b041-20250605-193116
+ * IBM OpenAPI SDK Code Generator Version: 3.111.0-1bfb72c2-20260206-185521
  */
 
 // Package globaltaggingv1 : Operations and models for the GlobalTaggingV1 service
@@ -203,12 +203,12 @@ func (globalTagging *GlobalTaggingV1) ListTagsWithContext(ctx context.Context, l
 		return
 	}
 
-	for headerName, headerValue := range listTagsOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "ListTags")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "ListTags")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range listTagsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -307,12 +307,12 @@ func (globalTagging *GlobalTaggingV1) CreateTagWithContext(ctx context.Context, 
 		return
 	}
 
-	for headerName, headerValue := range createTagOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "CreateTag")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "CreateTag")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range createTagOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -391,12 +391,12 @@ func (globalTagging *GlobalTaggingV1) DeleteTagAllWithContext(ctx context.Contex
 		return
 	}
 
-	for headerName, headerValue := range deleteTagAllOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "DeleteTagAll")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "DeleteTagAll")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTagAllOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -476,12 +476,12 @@ func (globalTagging *GlobalTaggingV1) DeleteTagWithContext(ctx context.Context, 
 		return
 	}
 
-	for headerName, headerValue := range deleteTagOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "DeleteTag")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "DeleteTag")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range deleteTagOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -558,12 +558,12 @@ func (globalTagging *GlobalTaggingV1) AttachTagWithContext(ctx context.Context, 
 		return
 	}
 
-	for headerName, headerValue := range attachTagOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "AttachTag")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "AttachTag")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range attachTagOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -662,12 +662,12 @@ func (globalTagging *GlobalTaggingV1) DetachTagWithContext(ctx context.Context, 
 		return
 	}
 
-	for headerName, headerValue := range detachTagOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "DetachTag")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "DetachTag")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range detachTagOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
@@ -789,9 +789,9 @@ type AttachTagOptions struct {
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources.
 const (
-	AttachTagOptionsTagTypeAccessConst  = "access"
+	AttachTagOptionsTagTypeAccessConst = "access"
 	AttachTagOptionsTagTypeServiceConst = "service"
-	AttachTagOptionsTagTypeUserConst    = "user"
+	AttachTagOptionsTagTypeUserConst = "user"
 )
 
 // NewAttachTagOptions : Instantiate AttachTagOptions
@@ -1024,16 +1024,16 @@ type DeleteTagAllOptions struct {
 // Select a provider. Supported values are `ghost` and `ims`.
 const (
 	DeleteTagAllOptionsProvidersGhostConst = "ghost"
-	DeleteTagAllOptionsProvidersImsConst   = "ims"
+	DeleteTagAllOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the DeleteTagAllOptions.TagType property.
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources (`providers` parameter set to `ims`).
 const (
-	DeleteTagAllOptionsTagTypeAccessConst  = "access"
+	DeleteTagAllOptionsTagTypeAccessConst = "access"
 	DeleteTagAllOptionsTagTypeServiceConst = "service"
-	DeleteTagAllOptionsTagTypeUserConst    = "user"
+	DeleteTagAllOptionsTagTypeUserConst = "user"
 )
 
 // NewDeleteTagAllOptions : Instantiate DeleteTagAllOptions
@@ -1116,16 +1116,16 @@ type DeleteTagOptions struct {
 // Constants associated with the DeleteTagOptions.Providers property.
 const (
 	DeleteTagOptionsProvidersGhostConst = "ghost"
-	DeleteTagOptionsProvidersImsConst   = "ims"
+	DeleteTagOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the DeleteTagOptions.TagType property.
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources (`providers` parameter set to `ims`).
 const (
-	DeleteTagOptionsTagTypeAccessConst  = "access"
+	DeleteTagOptionsTagTypeAccessConst = "access"
 	DeleteTagOptionsTagTypeServiceConst = "service"
-	DeleteTagOptionsTagTypeUserConst    = "user"
+	DeleteTagOptionsTagTypeUserConst = "user"
 )
 
 // NewDeleteTagOptions : Instantiate DeleteTagOptions
@@ -1212,7 +1212,7 @@ type DeleteTagResultsItem struct {
 // The provider of the tag.
 const (
 	DeleteTagResultsItemProviderGhostConst = "ghost"
-	DeleteTagResultsItemProviderImsConst   = "ims"
+	DeleteTagResultsItemProviderImsConst = "ims"
 )
 
 // SetProperty allows the user to set an arbitrary property on an instance of DeleteTagResultsItem.
@@ -1395,9 +1395,9 @@ type DetachTagOptions struct {
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources.
 const (
-	DetachTagOptionsTagTypeAccessConst  = "access"
+	DetachTagOptionsTagTypeAccessConst = "access"
 	DetachTagOptionsTagTypeServiceConst = "service"
-	DetachTagOptionsTagTypeUserConst    = "user"
+	DetachTagOptionsTagTypeUserConst = "user"
 )
 
 // NewDetachTagOptions : Instantiate DetachTagOptions
@@ -1522,21 +1522,21 @@ type ListTagsOptions struct {
 // Constants associated with the ListTagsOptions.TagType property.
 // The type of the tag you want to list. Supported values are `user`, `service` and `access`.
 const (
-	ListTagsOptionsTagTypeAccessConst  = "access"
+	ListTagsOptionsTagTypeAccessConst = "access"
 	ListTagsOptionsTagTypeServiceConst = "service"
-	ListTagsOptionsTagTypeUserConst    = "user"
+	ListTagsOptionsTagTypeUserConst = "user"
 )
 
 // Constants associated with the ListTagsOptions.Providers property.
 const (
 	ListTagsOptionsProvidersGhostConst = "ghost"
-	ListTagsOptionsProvidersImsConst   = "ims"
+	ListTagsOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the ListTagsOptions.OrderByName property.
 // Order the output by tag name.
 const (
-	ListTagsOptionsOrderByNameAscConst  = "asc"
+	ListTagsOptionsOrderByNameAscConst = "asc"
 	ListTagsOptionsOrderByNameDescConst = "desc"
 )
 
