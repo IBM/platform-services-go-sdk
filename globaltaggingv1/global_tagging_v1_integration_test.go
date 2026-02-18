@@ -381,8 +381,9 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(deleteTagResults).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "\nDeleteTag(user) response:\n%s\n", common.ToJSON(deleteTagResults))
 
+			// tags are already deleted at detach time if not attached to any resource
 			for _, elem := range deleteTagResults.Results {
-				Expect(*elem.IsError).To(Equal(false))
+				Expect(*elem.IsError).To(Equal(true))
 			}
 		})
 
