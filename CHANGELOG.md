@@ -1,3 +1,10 @@
+## [0.94.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.2...v0.94.3) (2026-02-19)
+
+
+### Bug Fixes
+
+* **Global Tagging:** add `message` field to `TagResultsItem` ([#432](https://github.com/IBM/platform-services-go-sdk/issues/432)) ([b66d7e9](https://github.com/IBM/platform-services-go-sdk/commit/b66d7e94976b6c5de07b86c2267791c268862c0d))
+
 ## [0.94.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.1...v0.94.2) (2026-02-04)
 
 
