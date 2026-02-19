@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1356,7 +1356,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false, "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke AttachTag successfully with retries`, func() {
@@ -1452,7 +1452,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false, "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke AttachTag successfully`, func() {
@@ -1701,7 +1701,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false, "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DetachTag successfully with retries`, func() {
@@ -1793,7 +1793,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false, "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DetachTag successfully`, func() {
