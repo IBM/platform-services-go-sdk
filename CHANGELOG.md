@@ -1,3 +1,10 @@
+# [0.95.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.3...v0.95.0) (2026-02-26)
+
+
+### Features
+
+* **Account Management:** add new service to the project ([#433](https://github.com/IBM/platform-services-go-sdk/issues/433)) ([0353590](https://github.com/IBM/platform-services-go-sdk/commit/035359073d5b67b981a43d9c450bc8d665d5dd4e))
+
 ## [0.94.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.2...v0.94.3) (2026-02-19)
 
 
