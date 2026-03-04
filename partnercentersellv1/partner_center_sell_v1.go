@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.107.1-41b0fbd0-20250825-080732
+ * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -2583,11 +2583,11 @@ func getServiceComponentInfo() *core.ProblemComponent {
 
 // Bookmark : The page reference information.
 type Bookmark struct {
-	// The URL of the next or previous page.
+	// The URL of the page.
 	Href *string `json:"href,omitempty"`
 
 	// The reference ID of the first item on the page.
-	Start *strfmt.UUID `json:"start,omitempty"`
+	Start *string `json:"start,omitempty"`
 }
 
 // UnmarshalBookmark unmarshals an instance of Bookmark from the specified map of raw messages.
@@ -5172,6 +5172,9 @@ type GlobalCatalogDeploymentMetadataServicePrototypePatch struct {
 	// Indicates service credentials support and controls the Service Credential tab on Resource Details page.
 	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
 
+	// Indicates plan update support and controls the Plan tab on the Resource Details page.
+	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+
 	Parameters []GlobalCatalogMetadataServiceCustomParameters `json:"parameters,omitempty"`
 }
 
@@ -5191,6 +5194,11 @@ func UnmarshalGlobalCatalogDeploymentMetadataServicePrototypePatch(m map[string]
 	err = core.UnmarshalPrimitive(m, "service_key_supported", &obj.ServiceKeySupported)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "service_key_supported-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_updateable-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "parameters", &obj.Parameters, UnmarshalGlobalCatalogMetadataServiceCustomParameters)
@@ -5213,6 +5221,9 @@ func (globalCatalogDeploymentMetadataServicePrototypePatch *GlobalCatalogDeploym
 	}
 	if !core.IsNil(globalCatalogDeploymentMetadataServicePrototypePatch.ServiceKeySupported) {
 		_patch["service_key_supported"] = globalCatalogDeploymentMetadataServicePrototypePatch.ServiceKeySupported
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataServicePrototypePatch.PlanUpdateable) {
+		_patch["plan_updateable"] = globalCatalogDeploymentMetadataServicePrototypePatch.PlanUpdateable
 	}
 	if !core.IsNil(globalCatalogDeploymentMetadataServicePrototypePatch.Parameters) {
 		var parametersPatches []map[string]interface{}
@@ -6700,7 +6711,7 @@ func (globalCatalogPlanMetadataOtherTargetPlansItem *GlobalCatalogPlanMetadataOt
 
 // GlobalCatalogPlanMetadataPlan : Metadata controlling Plan related settings.
 type GlobalCatalogPlanMetadataPlan struct {
-	// Controls if IBMers are allowed to provision this plan.
+	// Allow internal users for a plan.
 	AllowInternalUsers *bool `json:"allow_internal_users,omitempty"`
 
 	// Deprecated. Controls the Connections tab on the Resource Details page.
@@ -7457,6 +7468,9 @@ type GlobalCatalogProductMetadataOtherCompositeChild struct {
 
 	// The name of the composite child.
 	Name *string `json:"name,omitempty"`
+
+	// The id of the composite child.
+	ID *string `json:"id,omitempty"`
 }
 
 // Constants associated with the GlobalCatalogProductMetadataOtherCompositeChild.Kind property.
@@ -7479,6 +7493,11 @@ func UnmarshalGlobalCatalogProductMetadataOtherCompositeChild(m map[string]json.
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -7491,6 +7510,9 @@ func (globalCatalogProductMetadataOtherCompositeChild *GlobalCatalogProductMetad
 	}
 	if !core.IsNil(globalCatalogProductMetadataOtherCompositeChild.Name) {
 		_patch["name"] = globalCatalogProductMetadataOtherCompositeChild.Name
+	}
+	if !core.IsNil(globalCatalogProductMetadataOtherCompositeChild.ID) {
+		_patch["id"] = globalCatalogProductMetadataOtherCompositeChild.ID
 	}
 
 	return
@@ -9364,7 +9386,7 @@ type ListProductBadgesOptions struct {
 	// The maximum number of results returned in the response.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The reference ID of the first item on the page.
+	// Bookmark to use.
 	Start *strfmt.UUID `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests.
@@ -9820,17 +9842,14 @@ type ProductBadgeCollection struct {
 	// The maximum number of results returned in this response.
 	Limit *int64 `json:"limit" validate:"required"`
 
-	// The maximum number of results returned in this response.
-	Offset *int64 `json:"offset" validate:"required"`
-
 	// The total number of results.
-	TotalCount *int64 `json:"total_count" validate:"required"`
+	TotalCount *int64 `json:"total_count,omitempty"`
 
 	// The page reference information.
 	First *Bookmark `json:"first,omitempty"`
 
 	// The page reference information.
-	Next *Bookmark `json:"next,omitempty"`
+	Next *Bookmark `json:"next" validate:"required"`
 
 	// The page reference information.
 	Previous *Bookmark `json:"previous,omitempty"`
@@ -9848,11 +9867,6 @@ func UnmarshalProductBadgeCollection(m map[string]json.RawMessage, result interf
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "offset-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
