@@ -450,6 +450,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			globalCatalogProductMetadataOtherCompositeChildModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{
 				Kind: core.StringPtr("service"),
 				Name: core.StringPtr("test.string"),
+				ID:   core.StringPtr("test.id"),
 			}
 
 			globalCatalogProductMetadataOtherCompositeModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherComposite{
@@ -696,6 +697,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			globalCatalogProductMetadataOtherCompositeChildModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{
 				Kind: core.StringPtr("service"),
 				Name: core.StringPtr("testString"),
+				ID:   core.StringPtr("test.id"),
 			}
 
 			globalCatalogProductMetadataOtherCompositeModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherComposite{
@@ -1487,6 +1489,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
+		It(`Waiting for 25 seconds...`, func() {
+			fmt.Println("Waiting for 25 seconds...")
+			time.Sleep(20 * time.Second)
+		})
 		It(`UpdateIamRegistration(updateIamRegistrationOptions *UpdateIamRegistrationOptions)`, func() {
 			var randomInteger = strconv.Itoa(rand.Intn(10000))
 			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
@@ -1948,7 +1954,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				BadgeID: CreateMockUUID(badgeId),
 			}
 
-			productBadge, response, err := partnerCenterSellService.GetProductBadge(getProductBadgeOptions)
+			productBadge, response, err := partnerCenterSellServiceAlt.GetProductBadge(getProductBadgeOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(productBadge).ToNot(BeNil())
@@ -2010,6 +2016,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 	Describe(`DeleteIamRegistration - Delete IAM registration for your service`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`Waiting for 25 seconds...`, func() {
+			fmt.Println("Waiting for 25 seconds...")
+			time.Sleep(20 * time.Second)
 		})
 		It(`DeleteIamRegistration(deleteIamRegistrationOptions *DeleteIamRegistrationOptions)`, func() {
 			deleteIamRegistrationOptions := &partnercentersellv1.DeleteIamRegistrationOptions{

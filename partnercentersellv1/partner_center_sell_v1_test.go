@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,13 +68,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+				})
 				Expect(partnerCenterSellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+				})
 				err := partnerCenterSellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerCenterSellService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerCenterSellService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_AUTH_TYPE": "NOAuth",
+				"PARTNER_CENTER_SELL_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2275,6 +2278,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -2362,7 +2366,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name", "id": "ID"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2567,6 +2571,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -2657,7 +2662,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name", "id": "ID"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2867,6 +2872,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -3111,6 +3117,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -3376,6 +3383,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -3491,7 +3499,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name", "id": "ID"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3548,7 +3556,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name", "id": "ID"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3867,6 +3875,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -3957,7 +3966,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name", "id": "ID"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -4162,6 +4171,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -4255,7 +4265,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}, "group": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "pricing_tags": ["PricingTags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "title": "Title"}], "media": [{"caption": "Caption", "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "navigation_items": [{"id": "ID", "url": "URL", "label": "Label"}]}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15, "embeddable_dashboard": "EmbeddableDashboard", "accessible_during_provision": false, "primary_offering_id": "PrimaryOfferingID"}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "custom_create_page_hybrid_enabled": false, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name", "id": "ID"}]}}}, "group": false}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -4465,6 +4475,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -4712,6 +4723,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -4980,6 +4992,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -7128,19 +7141,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("brokerunique1234")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -7314,19 +7328,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("brokerunique1234")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -7508,19 +7523,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("brokerunique1234")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -7646,19 +7662,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("brokerunique1234")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -7805,19 +7822,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("brokerunique1234")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -8200,19 +8218,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("another-broker")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -8389,19 +8408,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("another-broker")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -8586,19 +8606,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("another-broker")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -8727,19 +8748,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("another-broker")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -8889,19 +8911,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("another-broker")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3cf")
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -12757,7 +12780,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "offset": 0, "total_count": 0, "first": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "next": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "previous": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "last": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "product_badges": [{"id": "ID", "label": "Label", "description": "Description", "internal_description": "InternalDescription", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "get_started_link": "GetStartedLink", "tag": "Tag"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "product_badges": [{"id": "ID", "label": "Label", "description": "Description", "internal_description": "InternalDescription", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "get_started_link": "GetStartedLink", "tag": "Tag"}]}`)
 				}))
 			})
 			It(`Invoke ListProductBadges successfully with retries`, func() {
@@ -12814,7 +12837,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "offset": 0, "total_count": 0, "first": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "next": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "previous": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "last": {"href": "Href", "start": "9fab83da-98cb-4f18-a7ba-b6f0435c9673"}, "product_badges": [{"id": "ID", "label": "Label", "description": "Description", "internal_description": "InternalDescription", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "get_started_link": "GetStartedLink", "tag": "Tag"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "product_badges": [{"id": "ID", "label": "Label", "description": "Description", "internal_description": "InternalDescription", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "get_started_link": "GetStartedLink", "tag": "Tag"}]}`)
 				}))
 			})
 			It(`Invoke ListProductBadges successfully`, func() {
@@ -13269,19 +13292,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported = core.BoolPtr(true)
+				globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters = []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}
 				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.RcProvisionable).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.IamCompatible).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogDeploymentMetadataServicePrototypePatchModel.Parameters).To(Equal([]partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel}))
 
 				// Construct an instance of the GlobalCatalogMetadataDeploymentBroker model
 				globalCatalogMetadataDeploymentBrokerModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentBroker)
 				Expect(globalCatalogMetadataDeploymentBrokerModel).ToNot(BeNil())
 				globalCatalogMetadataDeploymentBrokerModel.Name = core.StringPtr("brokerunique1234")
-				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
+				globalCatalogMetadataDeploymentBrokerModel.Guid = core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")
 				Expect(globalCatalogMetadataDeploymentBrokerModel.Name).To(Equal(core.StringPtr("brokerunique1234")))
-				Expect(globalCatalogMetadataDeploymentBrokerModel.Guid).To(Equal(core.StringPtr("crn%3Av1%3Astaging%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")))
+				Expect(globalCatalogMetadataDeploymentBrokerModel.Guid).To(Equal(core.StringPtr("crn%3Av1%3Abluemix%3Apublic%3Aresource-controller%3A%3Aa%2F4a5c3c51b97a446fbb1d0e1ef089823b%3A%3Aresource-broker%3A5fb34e97-74f6-47a6-900c-07eed308d3c2")))
 
 				// Construct an instance of the GlobalCatalogMetadataDeployment model
 				globalCatalogMetadataDeploymentModel := new(partnercentersellv1.GlobalCatalogMetadataDeployment)
@@ -13289,11 +13314,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.Broker = globalCatalogMetadataDeploymentBrokerModel
 				globalCatalogMetadataDeploymentModel.Location = core.StringPtr("eu-gb")
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
-				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")
+				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 				Expect(globalCatalogMetadataDeploymentModel.Broker).To(Equal(globalCatalogMetadataDeploymentBrokerModel))
 				Expect(globalCatalogMetadataDeploymentModel.Location).To(Equal(core.StringPtr("eu-gb")))
 				Expect(globalCatalogMetadataDeploymentModel.LocationURL).To(Equal(core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")))
-				Expect(globalCatalogMetadataDeploymentModel.TargetCrn).To(Equal(core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb")))
+				Expect(globalCatalogMetadataDeploymentModel.TargetCrn).To(Equal(core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")))
 
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
@@ -13881,8 +13906,10 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogProductMetadataOtherCompositeChildModel).ToNot(BeNil())
 				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
 				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeChildModel.ID = core.StringPtr("testString")
 				Expect(globalCatalogProductMetadataOtherCompositeChildModel.Kind).To(Equal(core.StringPtr("service")))
 				Expect(globalCatalogProductMetadataOtherCompositeChildModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogProductMetadataOtherCompositeChildModel.ID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
 				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
@@ -14923,6 +14950,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.RcProvisionable = core.BoolPtr(true)
 			model.IamCompatible = core.BoolPtr(true)
 			model.ServiceKeySupported = core.BoolPtr(true)
+			model.PlanUpdateable = core.BoolPtr(true)
 			model.Parameters = nil
 
 			b, err := json.Marshal(model)
@@ -15547,6 +15575,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
 			model.Kind = core.StringPtr("service")
 			model.Name = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
