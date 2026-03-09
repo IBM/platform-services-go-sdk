@@ -1,3 +1,10 @@
+# [0.96.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.95.0...v0.96.0) (2026-03-09)
+
+
+### Features
+
+* **Partner Center Sell:** add `id` and `plan_updatable` options ([#434](https://github.com/IBM/platform-services-go-sdk/issues/434)) ([08174cf](https://github.com/IBM/platform-services-go-sdk/commit/08174cf61255c6bc07f48ff731089953a3ad12d4))
+
 # [0.95.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.94.3...v0.95.0) (2026-02-26)
 
 
