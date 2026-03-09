@@ -599,7 +599,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateIamRegistration() result:")
 
 			// begin-update_iam_registration
-
 			iamServiceRegistrationPatchModel := &partnercentersellv1.IamServiceRegistrationPatch{}
 			iamServiceRegistrationPatchModelAsPatch, asPatchErr := iamServiceRegistrationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
@@ -932,7 +931,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				CreateMockUUID(badgeId),
 			)
 
-			productBadge, response, err := partnerCenterSellService.GetProductBadge(getProductBadgeOptions)
+			productBadge, response, err := partnerCenterSellServiceAlt.GetProductBadge(getProductBadgeOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -1017,7 +1016,6 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`DeleteIamRegistration request example`, func() {
 
 			// begin-delete_iam_registration
-
 			deleteIamRegistrationOptions := partnerCenterSellService.NewDeleteIamRegistrationOptions(
 				productIdWithApprovedProgrammaticName,
 				programmaticNameLink,
