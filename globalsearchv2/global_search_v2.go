@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.100.0-2ad7a784-20250212-162551
+ * IBM OpenAPI SDK Code Generator Version: 3.113.1-d76630af-20260320-135953
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -218,12 +218,12 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 		return
 	}
 
-	for headerName, headerValue := range searchOptions.Headers {
+	sdkHeaders := common.GetSdkHeaders("global_search", "V2", "Search")
+	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("global_search", "V2", "Search")
-	for headerName, headerValue := range sdkHeaders {
+	for headerName, headerValue := range searchOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
