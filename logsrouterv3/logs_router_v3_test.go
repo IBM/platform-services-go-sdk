@@ -3145,7 +3145,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(migrateActionsPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["action"]).To(Equal([]string{"complete"}))
+					Expect(req.URL.Query()["action"]).To(Equal([]string{"generate"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3161,7 +3161,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := logsRouterService.MigrateActions(migrateActionsOptionsModel)
@@ -3192,7 +3192,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(migrateActionsPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					Expect(req.URL.Query()["action"]).To(Equal([]string{"complete"}))
+					Expect(req.URL.Query()["action"]).To(Equal([]string{"generate"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3213,7 +3213,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3250,7 +3250,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(migrateActionsPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					Expect(req.URL.Query()["action"]).To(Equal([]string{"complete"}))
+					Expect(req.URL.Query()["action"]).To(Equal([]string{"generate"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3273,7 +3273,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3293,7 +3293,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := logsRouterService.SetServiceURL("")
@@ -3334,11 +3334,411 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
 				result, response, operationErr := logsRouterService.MigrateActions(migrateActionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMigrationStatus(getMigrationStatusOptions *GetMigrationStatusOptions) - Operation response error`, func() {
+		getMigrationStatusPath := "/migrate"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMigrationStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetMigrationStatus with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMigrationStatus(getMigrationStatusOptions *GetMigrationStatusOptions)`, func() {
+		getMigrationStatusPath := "/migrate"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMigrationStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"version": "1", "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke GetMigrationStatus successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.GetMigrationStatusWithContext(ctx, getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.GetMigrationStatusWithContext(ctx, getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMigrationStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"version": "1", "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke GetMigrationStatus successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.GetMigrationStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetMigrationStatus with error: Operation request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetMigrationStatus successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ResetMigration(resetMigrationOptions *ResetMigrationOptions) - Operation response error`, func() {
+		resetMigrationPath := "/migrate"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(resetMigrationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ResetMigration with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ResetMigration(resetMigrationOptions *ResetMigrationOptions)`, func() {
+		resetMigrationPath := "/migrate"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(resetMigrationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"version": "1", "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke ResetMigration successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.ResetMigrationWithContext(ctx, resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.ResetMigrationWithContext(ctx, resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(resetMigrationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"version": "1", "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke ResetMigration successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.ResetMigration(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ResetMigration with error: Operation request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ResetMigration successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3440,6 +3840,13 @@ var _ = Describe(`LogsRouterV3`, func() {
 				Expect(deleteTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetMigrationStatusOptions successfully`, func() {
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := logsRouterService.NewGetMigrationStatusOptions()
+				getMigrationStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getMigrationStatusOptionsModel).ToNot(BeNil())
+				Expect(getMigrationStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetRouteOptions successfully`, func() {
 				// Construct an instance of the GetRouteOptions model
 				id := "testString"
@@ -3491,12 +3898,12 @@ var _ = Describe(`LogsRouterV3`, func() {
 			})
 			It(`Invoke NewMigrateActionsOptions successfully`, func() {
 				// Construct an instance of the MigrateActionsOptions model
-				action := "complete"
+				action := "generate"
 				migrateActionsOptionsModel := logsRouterService.NewMigrateActionsOptions(action)
-				migrateActionsOptionsModel.SetAction("complete")
+				migrateActionsOptionsModel.SetAction("generate")
 				migrateActionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(migrateActionsOptionsModel).ToNot(BeNil())
-				Expect(migrateActionsOptionsModel.Action).To(Equal(core.StringPtr("complete")))
+				Expect(migrateActionsOptionsModel.Action).To(Equal(core.StringPtr("generate")))
 				Expect(migrateActionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewQueryDestinationsOptions successfully`, func() {
@@ -3515,10 +3922,16 @@ var _ = Describe(`LogsRouterV3`, func() {
 				Expect(queryDestinationsOptionsModel.Crns).To(Equal([]logsrouterv3.CRNPrototype{*crnPrototypeModel}))
 				Expect(queryDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewResetMigrationOptions successfully`, func() {
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := logsRouterService.NewResetMigrationOptions()
+				resetMigrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(resetMigrationOptionsModel).ToNot(BeNil())
+				Expect(resetMigrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewRulePrototype successfully`, func() {
 				targets := []logsrouterv3.TargetIdentity{}
-				inclusionFilters := []logsrouterv3.InclusionFilterPrototype{}
-				_model, err := logsRouterService.NewRulePrototype(targets, inclusionFilters)
+				_model, err := logsRouterService.NewRulePrototype(targets)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

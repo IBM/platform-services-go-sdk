@@ -139,15 +139,8 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 				ID: &targetIDLink,
 			}
 
-			inclusionFilterPrototypeModel := &logsrouterv3.InclusionFilterPrototype{
-				Operand: core.StringPtr("location"),
-				Operator: core.StringPtr("is"),
-				Values: []string{"us-south"},
-			}
-
 			rulePrototypeModel := &logsrouterv3.RulePrototype{
 				Targets: []logsrouterv3.TargetIdentity{*targetIdentityModel},
-				InclusionFilters: []logsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 
 			createRouteOptions := logsRouterService.NewCreateRouteOptions(
@@ -361,7 +354,7 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			// begin-migrate_actions
 
 			migrateActionsOptions := logsRouterService.NewMigrateActionsOptions(
-				"complete",
+				"generate",
 			)
 
 			migrationComplete, response, err := logsRouterService.MigrateActions(migrateActionsOptions)
@@ -376,6 +369,25 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(migrationComplete).ToNot(BeNil())
+		})
+		It(`GetMigrationStatus request example`, func() {
+			fmt.Println("\nGetMigrationStatus() result:")
+			// begin-get_migration_status
+
+			getMigrationStatusOptions := logsRouterService.NewGetMigrationStatusOptions()
+
+			migrationState, response, err := logsRouterService.GetMigrationStatus(getMigrationStatusOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(migrationState, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_migration_status
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(migrationState).ToNot(BeNil())
 		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
@@ -416,6 +428,25 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`ResetMigration request example`, func() {
+			fmt.Println("\nResetMigration() result:")
+			// begin-reset_migration
+
+			resetMigrationOptions := logsRouterService.NewResetMigrationOptions()
+
+			migrationState, response, err := logsRouterService.ResetMigration(resetMigrationOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(migrationState, "", "  ")
+			fmt.Println(string(b))
+
+			// end-reset_migration
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(migrationState).ToNot(BeNil())
 		})
 	})
 })

@@ -1159,8 +1159,9 @@ func (logsRouter *LogsRouterV3) QueryDestinationsWithContext(ctx context.Context
 }
 
 // MigrateActions : Migrate from old API version to version 3
-// Users are required to invoke this API endpoint to switch from old API version to the version 3 API before v3
-// resources get evaluated and applied.
+// Initiates or completes the migration from old API version to version 3. Use action=generate to start the migration
+// process (returns 202 Accepted if state is BEFORE), or action=complete to finalize the migration (returns 200 OK if
+// state is PENDING_COMPLETION).
 func (logsRouter *LogsRouterV3) MigrateActions(migrateActionsOptions *MigrateActionsOptions) (result *MigrationComplete, response *core.DetailedResponse, err error) {
 	result, response, err = logsRouter.MigrateActionsWithContext(context.Background(), migrateActionsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1216,6 +1217,128 @@ func (logsRouter *LogsRouterV3) MigrateActionsWithContext(ctx context.Context, m
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMigrationComplete)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetMigrationStatus : Get migration status
+// Retrieves the current migration state and version information. Possible states are: COMPLETE, BEFORE, IN_PROGRESS,
+// and PENDING_COMPLETION.
+func (logsRouter *LogsRouterV3) GetMigrationStatus(getMigrationStatusOptions *GetMigrationStatusOptions) (result *MigrationState, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.GetMigrationStatusWithContext(context.Background(), getMigrationStatusOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetMigrationStatusWithContext is an alternate form of the GetMigrationStatus method which supports a Context parameter
+func (logsRouter *LogsRouterV3) GetMigrationStatusWithContext(ctx context.Context, getMigrationStatusOptions *GetMigrationStatusOptions) (result *MigrationState, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getMigrationStatusOptions, "getMigrationStatusOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/migrate`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "GetMigrationStatus")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getMigrationStatusOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_migration_status", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMigrationState)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ResetMigration : Reset migration state
+// Deletes all v3 routes and targets and resets the migration state to BEFORE. Only allowed when state is
+// PENDING_COMPLETION or BEFORE. Returns 405 Method Not Allowed if state is IN_PROGRESS or COMPLETE.
+func (logsRouter *LogsRouterV3) ResetMigration(resetMigrationOptions *ResetMigrationOptions) (result *MigrationState, response *core.DetailedResponse, err error) {
+	result, response, err = logsRouter.ResetMigrationWithContext(context.Background(), resetMigrationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ResetMigrationWithContext is an alternate form of the ResetMigration method which supports a Context parameter
+func (logsRouter *LogsRouterV3) ResetMigrationWithContext(ctx context.Context, resetMigrationOptions *ResetMigrationOptions) (result *MigrationState, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(resetMigrationOptions, "resetMigrationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = logsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(logsRouter.Service.Options.URL, `/migrate`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("logs_router", "V3", "ResetMigration")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range resetMigrationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = logsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "reset_migration", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMigrationState)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -1595,6 +1718,24 @@ func UnmarshalDestinationsQuery(m map[string]json.RawMessage, result interface{}
 	return
 }
 
+// GetMigrationStatusOptions : The GetMigrationStatus options.
+type GetMigrationStatusOptions struct {
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetMigrationStatusOptions : Instantiate GetMigrationStatusOptions
+func (*LogsRouterV3) NewGetMigrationStatusOptions() *GetMigrationStatusOptions {
+	return &GetMigrationStatusOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetMigrationStatusOptions) SetHeaders(param map[string]string) *GetMigrationStatusOptions {
+	options.Headers = param
+	return options
+}
+
 // GetRouteOptions : The GetRoute options.
 type GetRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
@@ -1819,6 +1960,8 @@ func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTarg
 
 // MigrateActionsOptions : The MigrateActions options.
 type MigrateActionsOptions struct {
+	// The migration action to perform. Use 'generate' to start async migration process (state must be BEFORE), or
+	// 'complete' to finalize migration (state must be PENDING_COMPLETION).
 	Action *string `json:"action" validate:"required"`
 
 	// Allows users to set headers on API requests.
@@ -1826,8 +1969,11 @@ type MigrateActionsOptions struct {
 }
 
 // Constants associated with the MigrateActionsOptions.Action property.
+// The migration action to perform. Use 'generate' to start async migration process (state must be BEFORE), or
+// 'complete' to finalize migration (state must be PENDING_COMPLETION).
 const (
 	MigrateActionsOptionsActionCompleteConst = "complete"
+	MigrateActionsOptionsActionGenerateConst = "generate"
 )
 
 // NewMigrateActionsOptions : Instantiate MigrateActionsOptions
@@ -1875,6 +2021,49 @@ func UnmarshalMigrationComplete(m map[string]json.RawMessage, result interface{}
 	return
 }
 
+// MigrationState : Migration state information.
+type MigrationState struct {
+	// API version currently in use for IBM Cloud Logs Routing service under the account.
+	Version *string `json:"version" validate:"required"`
+
+	// Current migration state.
+	State *string `json:"state" validate:"required"`
+
+	// Additional information about the migration state.
+	Message *string `json:"message" validate:"required"`
+}
+
+// Constants associated with the MigrationState.State property.
+// Current migration state.
+const (
+	MigrationStateStateBeforeConst = "BEFORE"
+	MigrationStateStateCompleteConst = "COMPLETE"
+	MigrationStateStateInProgressConst = "IN_PROGRESS"
+	MigrationStateStatePendingCompletionConst = "PENDING_COMPLETION"
+)
+
+// UnmarshalMigrationState unmarshals an instance of MigrationState from the specified map of raw messages.
+func UnmarshalMigrationState(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MigrationState)
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // QueryDestinationsOptions : The QueryDestinations options.
 type QueryDestinationsOptions struct {
 	// List of resource CRNs that will be queried.
@@ -1899,6 +2088,24 @@ func (_options *QueryDestinationsOptions) SetCrns(crns []CRNPrototype) *QueryDes
 
 // SetHeaders : Allow user to set Headers
 func (options *QueryDestinationsOptions) SetHeaders(param map[string]string) *QueryDestinationsOptions {
+	options.Headers = param
+	return options
+}
+
+// ResetMigrationOptions : The ResetMigration options.
+type ResetMigrationOptions struct {
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewResetMigrationOptions : Instantiate ResetMigrationOptions
+func (*LogsRouterV3) NewResetMigrationOptions() *ResetMigrationOptions {
+	return &ResetMigrationOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ResetMigrationOptions) SetHeaders(param map[string]string) *ResetMigrationOptions {
 	options.Headers = param
 	return options
 }
@@ -2006,7 +2213,7 @@ type Rule struct {
 	Targets []TargetReference `json:"targets" validate:"required"`
 
 	// A list of conditions to be satisfied for routing platform logs to pre-defined target.
-	InclusionFilters []InclusionFilter `json:"inclusion_filters" validate:"required"`
+	InclusionFilters []InclusionFilter `json:"inclusion_filters,omitempty"`
 }
 
 // Constants associated with the Rule.Action property.
@@ -2047,7 +2254,7 @@ type RulePrototype struct {
 	Targets []TargetIdentity `json:"targets" validate:"required"`
 
 	// A list of conditions to be satisfied for routing platform logs to pre-defined target.
-	InclusionFilters []InclusionFilterPrototype `json:"inclusion_filters" validate:"required"`
+	InclusionFilters []InclusionFilterPrototype `json:"inclusion_filters,omitempty"`
 }
 
 // Constants associated with the RulePrototype.Action property.
@@ -2058,10 +2265,9 @@ const (
 )
 
 // NewRulePrototype : Instantiate RulePrototype (Generic Model Constructor)
-func (*LogsRouterV3) NewRulePrototype(targets []TargetIdentity, inclusionFilters []InclusionFilterPrototype) (_model *RulePrototype, err error) {
+func (*LogsRouterV3) NewRulePrototype(targets []TargetIdentity) (_model *RulePrototype, err error) {
 	_model = &RulePrototype{
 		Targets: targets,
-		InclusionFilters: inclusionFilters,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {

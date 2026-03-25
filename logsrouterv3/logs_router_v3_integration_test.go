@@ -42,13 +42,13 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 	const externalConfigFile = "../logs_router_v3.env"
 
 	var (
-		err               error
+		err          error
 		logsRouterService *logsrouterv3.LogsRouterV3
-		serviceURL        string
-		config            map[string]string
+		serviceURL   string
+		config       map[string]string
 
 		// Variables to hold link values
-		routeIDLink  string
+		routeIDLink string
 		targetIDLink string
 	)
 
@@ -100,23 +100,11 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
-			// Manual code to configure setting first
-			updateSettingsOptions := &logsrouterv3.UpdateSettingsOptions{
-				PermittedTargetRegions: []string{"us-south", "us-east"},
-				PrimaryMetadataRegion:  core.StringPtr("us-south"),
-				BackupMetadataRegion:   core.StringPtr("us-east"),
-				PrivateAPIEndpointOnly: core.BoolPtr(false),
-			}
-			setting, response, err := logsRouterService.UpdateSettings(updateSettingsOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(setting).ToNot(BeNil())
-
 			createTargetOptions := &logsrouterv3.CreateTargetOptions{
-				Name:           core.StringPtr("my-lr-target"),
-				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Region:         core.StringPtr("us-south"),
-				ManagedBy:      core.StringPtr("enterprise"),
+				Name: core.StringPtr("my-lr-target"),
+				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"),
+				Region: core.StringPtr("us-south"),
+				ManagedBy: core.StringPtr("enterprise"),
 			}
 
 			target, response, err := logsRouterService.CreateTarget(createTargetOptions)
@@ -139,20 +127,20 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			}
 
 			inclusionFilterPrototypeModel := &logsrouterv3.InclusionFilterPrototype{
-				Operand:  core.StringPtr("location"),
+				Operand: core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Values:   []string{"us-south"},
+				Values: []string{"us-south"},
 			}
 
 			rulePrototypeModel := &logsrouterv3.RulePrototype{
-				Action:           core.StringPtr("send"),
-				Targets:          []logsrouterv3.TargetIdentity{*targetIdentityModel},
+				Action: core.StringPtr("send"),
+				Targets: []logsrouterv3.TargetIdentity{*targetIdentityModel},
 				InclusionFilters: []logsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 
 			createRouteOptions := &logsrouterv3.CreateRouteOptions{
-				Name:      core.StringPtr("my-route"),
-				Rules:     []logsrouterv3.RulePrototype{*rulePrototypeModel},
+				Name: core.StringPtr("my-route"),
+				Rules: []logsrouterv3.RulePrototype{*rulePrototypeModel},
 				ManagedBy: core.StringPtr("enterprise"),
 			}
 
@@ -171,7 +159,8 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
-			listTargetsOptions := &logsrouterv3.ListTargetsOptions{}
+			listTargetsOptions := &logsrouterv3.ListTargetsOptions{
+			}
 
 			targetCollection, response, err := logsRouterService.ListTargets(listTargetsOptions)
 			Expect(err).To(BeNil())
@@ -202,9 +191,9 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 		})
 		It(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
 			updateTargetOptions := &logsrouterv3.UpdateTargetOptions{
-				ID:             &targetIDLink,
-				Name:           core.StringPtr("my-lr-target"),
-				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				ID: &targetIDLink,
+				Name: core.StringPtr("my-lr-target"),
+				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"),
 			}
 
 			target, response, err := logsRouterService.UpdateTarget(updateTargetOptions)
@@ -219,7 +208,8 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListRoutes(listRoutesOptions *ListRoutesOptions)`, func() {
-			listRoutesOptions := &logsrouterv3.ListRoutesOptions{}
+			listRoutesOptions := &logsrouterv3.ListRoutesOptions{
+			}
 
 			routeCollection, response, err := logsRouterService.ListRoutes(listRoutesOptions)
 			Expect(err).To(BeNil())
@@ -254,20 +244,20 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			}
 
 			inclusionFilterPrototypeModel := &logsrouterv3.InclusionFilterPrototype{
-				Operand:  core.StringPtr("location"),
+				Operand: core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Values:   []string{"us-south"},
+				Values: []string{"us-south"},
 			}
 
 			rulePrototypeModel := &logsrouterv3.RulePrototype{
-				Action:           core.StringPtr("send"),
-				Targets:          []logsrouterv3.TargetIdentity{*targetIdentityModel},
+				Action: core.StringPtr("send"),
+				Targets: []logsrouterv3.TargetIdentity{*targetIdentityModel},
 				InclusionFilters: []logsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 
 			updateRouteOptions := &logsrouterv3.UpdateRouteOptions{
-				ID:    &routeIDLink,
-				Name:  core.StringPtr("my-route"),
+				ID: &routeIDLink,
+				Name: core.StringPtr("my-route"),
 				Rules: []logsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
 
@@ -283,7 +273,8 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
-			getSettingsOptions := &logsrouterv3.GetSettingsOptions{}
+			getSettingsOptions := &logsrouterv3.GetSettingsOptions{
+			}
 
 			setting, response, err := logsRouterService.GetSettings(getSettingsOptions)
 			Expect(err).To(BeNil())
@@ -297,30 +288,15 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
-			// Manual code: create a target without enterprise so that it can be used as default target
-			createTargetOptions := &logsrouterv3.CreateTargetOptions{
-				Name:           core.StringPtr("lr-target2"),
-				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Region:         core.StringPtr("us-south"),
-			}
-
-			target, response, err := logsRouterService.CreateTarget(createTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(target).ToNot(BeNil())
-
-			defaultTargetIDLink := *target.ID
-			// End of manual code
-
 			targetIdentityModel := &logsrouterv3.TargetIdentity{
-				ID: &defaultTargetIDLink,
+				ID: &targetIDLink,
 			}
 
 			updateSettingsOptions := &logsrouterv3.UpdateSettingsOptions{
-				DefaultTargets:         []logsrouterv3.TargetIdentity{*targetIdentityModel},
+				DefaultTargets: []logsrouterv3.TargetIdentity{*targetIdentityModel},
 				PermittedTargetRegions: []string{"us-south"},
-				PrimaryMetadataRegion:  core.StringPtr("us-south"),
-				BackupMetadataRegion:   core.StringPtr("us-east"),
+				PrimaryMetadataRegion: core.StringPtr("us-south"),
+				BackupMetadataRegion: core.StringPtr("us-east"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
 			}
 
@@ -337,7 +313,7 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 		})
 		It(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions)`, func() {
 			crnPrototypeModel := &logsrouterv3.CRNPrototype{
-				CRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/6a1d10334a2e4dd197d4e301e8f87df9:22222222-2222-2222-2222-222222222222::"),
+				CRN: core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"),
 			}
 
 			queryDestinationsOptions := &logsrouterv3.QueryDestinationsOptions{
@@ -348,6 +324,37 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(destinationsQuery).ToNot(BeNil())
+		})
+	})
+
+	Describe(`MigrateActions - Migrate from old API version to version 3`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`MigrateActions(migrateActionsOptions *MigrateActionsOptions)`, func() {
+			migrateActionsOptions := &logsrouterv3.MigrateActionsOptions{
+				Action: core.StringPtr("generate"),
+			}
+
+			migrationComplete, response, err := logsRouterService.MigrateActions(migrateActionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(migrationComplete).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetMigrationStatus - Get migration status`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetMigrationStatus(getMigrationStatusOptions *GetMigrationStatusOptions)`, func() {
+			getMigrationStatusOptions := &logsrouterv3.GetMigrationStatusOptions{
+			}
+
+			migrationState, response, err := logsRouterService.GetMigrationStatus(getMigrationStatusOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(migrationState).ToNot(BeNil())
 		})
 	})
 
@@ -378,6 +385,21 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			response, err := logsRouterService.DeleteTarget(deleteTargetOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`ResetMigration - Reset migration state`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ResetMigration(resetMigrationOptions *ResetMigrationOptions)`, func() {
+			resetMigrationOptions := &logsrouterv3.ResetMigrationOptions{
+			}
+
+			migrationState, response, err := logsRouterService.ResetMigration(resetMigrationOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(migrationState).ToNot(BeNil())
 		})
 	})
 })
