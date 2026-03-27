@@ -2719,6 +2719,46 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`GetAccountLimits - Get account entity limits`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccountLimits(getAccountLimitsOptions *GetAccountLimitsOptions)`, func() {
+			getAccountLimitsOptions := &iamidentityv1.GetAccountLimitsOptions{
+				AccountID: &accountID,
+			}
+
+			identityLimitsUsageResponse, response, err := iamIdentityService.GetAccountLimits(getAccountLimitsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(identityLimitsUsageResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`BulkListAccountEntityConsumption - Get account entity limits via POST request`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptions *BulkListAccountEntityConsumptionOptions)`, func() {
+			bulkListAccountEntityConsumptionOptions := &iamidentityv1.BulkListAccountEntityConsumptionOptions{
+				AccountID:                   &accountID,
+				ServiceidGroups:             core.BoolPtr(true),
+				ServiceidsPerGroup:          []string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc"},
+				Profiles:                    core.BoolPtr(true),
+				ApikeysPerIdentity:          []string{"iam-ServiceId-12345678-1234-1234-1234-123456789def"},
+				Templates:                   core.BoolPtr(true),
+				TemplateVersionsPerTemplate: []string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc"},
+				Idps:                        core.BoolPtr(true),
+				ClaimRulesPerGroup:          []string{"AccessGroupId-12345678-1234-1234-1234-123456789abc"},
+			}
+
+			identityLimitsUsageResponse, response, err := iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(identityLimitsUsageResponse).ToNot(BeNil())
+		})
+	})
+
 	AfterSuite(func() {
 		fmt.Println("\nBeginning teardown.")
 		cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2, enterpriseAccountID, profileTemplateName, &profileTemplateAssignmentEtag, accountSettingsTemplateName, &accountSettingsTemplateAssignmentEtag)

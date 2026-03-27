@@ -2027,6 +2027,52 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
+		It(`GetAccountLimits request example`, func() {
+			fmt.Println("\nGetAccountLimits() result:")
+			// begin-getAccountLimits
+
+			getAccountLimitsOptions := iamIdentityService.NewGetAccountLimitsOptions(
+				accountID,
+			)
+
+			identityLimitsUsageResponse, response, err := iamIdentityService.GetAccountLimits(getAccountLimitsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(identityLimitsUsageResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-getAccountLimits
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(identityLimitsUsageResponse).ToNot(BeNil())
+		})
+		It(`BulkListAccountEntityConsumption request example`, func() {
+			fmt.Println("\nBulkListAccountEntityConsumption() result:")
+			// begin-bulkListAccountEntityConsumption
+
+			bulkListAccountEntityConsumptionOptions := iamIdentityService.NewBulkListAccountEntityConsumptionOptions(
+				accountID,
+			)
+			bulkListAccountEntityConsumptionOptions.SetServiceidGroups(true)
+			bulkListAccountEntityConsumptionOptions.SetProfiles(true)
+			bulkListAccountEntityConsumptionOptions.SetTemplates(true)
+			bulkListAccountEntityConsumptionOptions.SetIdps(true)
+
+			identityLimitsUsageResponse, response, err := iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(identityLimitsUsageResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-bulkListAccountEntityConsumption
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(identityLimitsUsageResponse).ToNot(BeNil())
+		})
 		It(`UpdatePreferenceOnScopeAccount request example`, func() {
 			fmt.Println("\nUpdatePreferenceOnScopeAccount() result:")
 
