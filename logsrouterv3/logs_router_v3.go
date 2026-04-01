@@ -1461,15 +1461,18 @@ func UnmarshalCRNPrototype(m map[string]json.RawMessage, result interface{}) (er
 
 // CreateRouteOptions : The CreateRoute options.
 type CreateRouteOptions struct {
-	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
-	// `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
+	// The name of the route. The maximum length is 1000 characters. The minimum length is 1 character. The name cannot
+	// include any special characters other than '(space) - . _ :'. Do not include any personal identifying information
+	// (PII) in any resource names.
 	Name *string `json:"name" validate:"required"`
 
-	// Routing rules that will be evaluated in their order of the array.
+	// Routing rules that will be evaluated in the order in which they are configured. It should be a JSON string or a path
+	// to a JSON file. The maximum length is 10 rules. The minimum length is 1 rule.".
 	Rules []RulePrototype `json:"rules" validate:"required"`
 
-	// Identifies who manages this route. Optional at create time. If not provided, the default is `account`. The
-	// managed_by value is immutable and you cannot mingle account-managed and enterprise-managed resources.
+	// Identifies how a route is managed. A route can be managed locally in the account where is created by setting the
+	// default value account or can be managed by the enterprise account by setting the value enterprise. Valid values are:
+	// enterprise, or account. The default value is 'account'. You cannot change this value after the route is created.
 	ManagedBy *string `json:"managed_by,omitempty"`
 
 	// Allows users to set headers on API requests.
@@ -1477,8 +1480,9 @@ type CreateRouteOptions struct {
 }
 
 // Constants associated with the CreateRouteOptions.ManagedBy property.
-// Identifies who manages this route. Optional at create time. If not provided, the default is `account`. The managed_by
-// value is immutable and you cannot mingle account-managed and enterprise-managed resources.
+// Identifies how a route is managed. A route can be managed locally in the account where is created by setting the
+// default value account or can be managed by the enterprise account by setting the value enterprise. Valid values are:
+// enterprise, or account. The default value is 'account'. You cannot change this value after the route is created.
 const (
 	CreateRouteOptionsManagedByAccountConst = "account"
 	CreateRouteOptionsManagedByEnterpriseConst = "enterprise"
