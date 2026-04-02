@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: ['1.25', '1.26']
+        go-version: ['1.24', '1.25']
 
     steps:
       - name: Checkout repository
@@ -57,7 +57,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v2.11.4
+          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v2.6.2
           golangci-lint version
           go install golang.org/x/tools/cmd/goimports@latest
 
