@@ -119,32 +119,32 @@ func NewAtrackerV2(options *AtrackerV2Options) (service *AtrackerV2, err error) 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"us-south":         "https://us-south.atracker.cloud.ibm.com",         // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"us-south": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
 		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
-		"us-east":          "https://us-east.atracker.cloud.ibm.com",          // The server for IBM Cloud Activity Tracker Service in the us-east region.
-		"private.us-east":  "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service in the us-east region.
-		"eu-de":            "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-de region.
-		"private.eu-de":    "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-de region.
-		"eu-gb":            "https://eu-gb.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
-		"private.eu-gb":    "https://private.eu-gb.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
-		"eu-es":            "https://eu-es.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-es region.
-		"private.eu-es":    "https://private.eu-es.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-es region.
-		"au-syd":           "https://au-syd.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the au-syd region.
-		"private.au-syd":   "https://private.au-syd.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the au-syd region.
-		"ca-mon":           "https://ca-mon.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the ca-mon region.
-		"private.ca-mon":   "https://private.ca-mon.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the ca-mon region.
-		"ca-tor":           "https://ca-tor.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
-		"private.ca-tor":   "https://private.ca-tor.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
-		"br-sao":           "https://br-sao.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the br-sao region.
-		"private.br-sao":   "https://private.br-sao.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the br-sao region.
-		"eu-fr2":           "https://eu-fr2.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
-		"private.eu-fr2":   "https://private.eu-fr2.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
-		"jp-tok":           "https://jp-tok.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
-		"private.jp-tok":   "https://private.jp-tok.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
-		"jp-osa":           "https://jp-osa.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
-		"private.jp-osa":   "https://private.jp-osa.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
-		"in-che":           "https://in-che.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the in-che region.
-		"private.in-che":   "https://private.in-che.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the in-che region.
+		"us-east": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"eu-de": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"private.eu-de": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"eu-gb": "https://eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"private.eu-gb": "https://private.eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"eu-es": "https://eu-es.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-es region.
+		"private.eu-es": "https://private.eu-es.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-es region.
+		"au-syd": "https://au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
+		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
+		"ca-mon": "https://ca-mon.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-mon region.
+		"private.ca-mon": "https://private.ca-mon.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-mon region.
+		"ca-tor": "https://ca-tor.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
+		"private.ca-tor": "https://private.ca-tor.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
+		"br-sao": "https://br-sao.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the br-sao region.
+		"private.br-sao": "https://private.br-sao.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the br-sao region.
+		"eu-fr2": "https://eu-fr2.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
+		"private.eu-fr2": "https://private.eu-fr2.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
+		"jp-tok": "https://jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
+		"private.jp-tok": "https://private.jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
+		"jp-osa": "https://jp-osa.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
+		"private.jp-osa": "https://private.jp-osa.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
+		"in-che": "https://in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the in-che region.
+		"private.in-che": "https://private.in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the in-che region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -311,8 +311,7 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 //
 // **Enterprise management** - The response will include the `managed_by` field. - The `managed_by` attribute is
 // immutable; it cannot be changed after creation. This endpoint only
-//
-//	reads/returns targets and does not modify their state.
+//   reads/returns targets and does not modify their state.
 func (atracker *AtrackerV2) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetList, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.ListTargetsWithContext(context.Background(), listTargetsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1363,9 +1362,9 @@ type CosEndpointPrototype struct {
 // NewCosEndpointPrototype : Instantiate CosEndpointPrototype (Generic Model Constructor)
 func (*AtrackerV2) NewCosEndpointPrototype(endpoint string, targetCRN string, bucket string) (_model *CosEndpointPrototype, err error) {
 	_model = &CosEndpointPrototype{
-		Endpoint:  core.StringPtr(endpoint),
+		Endpoint: core.StringPtr(endpoint),
 		TargetCRN: core.StringPtr(targetCRN),
-		Bucket:    core.StringPtr(bucket),
+		Bucket: core.StringPtr(bucket),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -1427,14 +1426,14 @@ type CreateRouteOptions struct {
 // Identifies who manages this route. Optional at create time. The managed_by value is immutable and you cannot mingle
 // account-managed and enterprise-managed resources.
 const (
-	CreateRouteOptionsManagedByAccountConst    = "account"
+	CreateRouteOptionsManagedByAccountConst = "account"
 	CreateRouteOptionsManagedByEnterpriseConst = "enterprise"
 )
 
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*AtrackerV2) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
 	return &CreateRouteOptions{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -1502,10 +1501,10 @@ type CreateTargetOptions struct {
 // The type of the target. It can be cloud_object_storage, event_streams, cloud_logs, or app_config. Based on this type
 // you must include cos_endpoint, eventstreams_endpoint, cloudlogs_endpoint, or appconfig_endpoint.
 const (
-	CreateTargetOptionsTargetTypeAppConfigConst          = "app_config"
-	CreateTargetOptionsTargetTypeCloudLogsConst          = "cloud_logs"
+	CreateTargetOptionsTargetTypeAppConfigConst = "app_config"
+	CreateTargetOptionsTargetTypeCloudLogsConst = "cloud_logs"
 	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	CreateTargetOptionsTargetTypeEventStreamsConst       = "event_streams"
+	CreateTargetOptionsTargetTypeEventStreamsConst = "event_streams"
 )
 
 // Constants associated with the CreateTargetOptions.ManagedBy property.
@@ -1513,14 +1512,14 @@ const (
 // enterprise-managed and can only be modified by identities authorized for the enterprise actions. If omitted or set to
 // `account`, the target is managed by the child account. This value is immutable after creation.
 const (
-	CreateTargetOptionsManagedByAccountConst    = "account"
+	CreateTargetOptionsManagedByAccountConst = "account"
 	CreateTargetOptionsManagedByEnterpriseConst = "enterprise"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
 func (*AtrackerV2) NewCreateTargetOptions(name string, targetType string) *CreateTargetOptions {
 	return &CreateTargetOptions{
-		Name:       core.StringPtr(name),
+		Name: core.StringPtr(name),
 		TargetType: core.StringPtr(targetType),
 	}
 }
@@ -1710,8 +1709,8 @@ type EventstreamsEndpointPrototype struct {
 func (*AtrackerV2) NewEventstreamsEndpointPrototype(targetCRN string, brokers []string, topic string) (_model *EventstreamsEndpointPrototype, err error) {
 	_model = &EventstreamsEndpointPrototype{
 		TargetCRN: core.StringPtr(targetCRN),
-		Brokers:   brokers,
-		Topic:     core.StringPtr(topic),
+		Brokers: brokers,
+		Topic: core.StringPtr(topic),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -1895,7 +1894,7 @@ type PutSettingsOptions struct {
 // NewPutSettingsOptions : Instantiate PutSettingsOptions
 func (*AtrackerV2) NewPutSettingsOptions(metadataRegionPrimary string, privateAPIEndpointOnly bool) *PutSettingsOptions {
 	return &PutSettingsOptions{
-		MetadataRegionPrimary:  core.StringPtr(metadataRegionPrimary),
+		MetadataRegionPrimary: core.StringPtr(metadataRegionPrimary),
 		PrivateAPIEndpointOnly: core.BoolPtr(privateAPIEndpointOnly),
 	}
 }
@@ -1960,15 +1959,15 @@ type ReplaceRouteOptions struct {
 // Identifies who manages this route. Optional at create time. The managed_by value is immutable and you cannot mingle
 // account-managed and enterprise-managed resources.
 const (
-	ReplaceRouteOptionsManagedByAccountConst    = "account"
+	ReplaceRouteOptionsManagedByAccountConst = "account"
 	ReplaceRouteOptionsManagedByEnterpriseConst = "enterprise"
 )
 
 // NewReplaceRouteOptions : Instantiate ReplaceRouteOptions
 func (*AtrackerV2) NewReplaceRouteOptions(id string, name string, rules []RulePrototype) *ReplaceRouteOptions {
 	return &ReplaceRouteOptions{
-		ID:    core.StringPtr(id),
-		Name:  core.StringPtr(name),
+		ID: core.StringPtr(id),
+		Name: core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -2109,13 +2108,13 @@ type Route struct {
 	Message *string `json:"message,omitempty"`
 
 	// Present when the route is enterprise-managed (`managed_by: enterprise`).
-	ManagedBy *string `json:"managed_by,omitempty"`
+	ManagedBy *string `json:"managed_by" validate:"required"`
 }
 
 // Constants associated with the Route.ManagedBy property.
 // Present when the route is enterprise-managed (`managed_by: enterprise`).
 const (
-	RouteManagedByAccountConst    = "account"
+	RouteManagedByAccountConst = "account"
 	RouteManagedByEnterpriseConst = "enterprise"
 )
 
@@ -2381,16 +2380,16 @@ type Target struct {
 // Constants associated with the Target.TargetType property.
 // The type of the target.
 const (
-	TargetTargetTypeAppConfigConst          = "app_config"
-	TargetTargetTypeCloudLogsConst          = "cloud_logs"
+	TargetTargetTypeAppConfigConst = "app_config"
+	TargetTargetTypeCloudLogsConst = "cloud_logs"
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	TargetTargetTypeEventStreamsConst       = "event_streams"
+	TargetTargetTypeEventStreamsConst = "event_streams"
 )
 
 // Constants associated with the Target.ManagedBy property.
 // Identifies who manages the target.
 const (
-	TargetManagedByAccountConst    = "account"
+	TargetManagedByAccountConst = "account"
 	TargetManagedByEnterpriseConst = "enterprise"
 )
 
@@ -2557,7 +2556,7 @@ type WarningReport struct {
 	Trace *string `json:"trace,omitempty"`
 
 	// The warning array triggered by the API request.
-	Warnings []Warning `json:"warnings,omitempty"`
+	Warnings []Warning `json:"warnings" validate:"required"`
 }
 
 // UnmarshalWarningReport unmarshals an instance of WarningReport from the specified map of raw messages.
