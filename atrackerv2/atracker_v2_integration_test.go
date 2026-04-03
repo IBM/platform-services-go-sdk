@@ -233,6 +233,29 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved cloud logs targetIDLink4 value: %v\n", targetIDLink4)
 		})
 
+		It(`CreateTarget(createTargetOptions *CreateTargetOptions) for Appconfig destination`, func() {
+
+			appconfigEndpointPrototypeModel := &atrackerv2.AppconfigEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+			}
+
+			createTargetOptions := &atrackerv2.CreateTargetOptions{
+				Name:              core.StringPtr("my-app-config-target"),
+				TargetType:        core.StringPtr("app_config"),
+				AppconfigEndpoint: appconfigEndpointPrototypeModel,
+				Region:            core.StringPtr("us-south"),
+				ManagedBy:         core.StringPtr("enterprise"),
+			}
+
+			target, response, err := atrackerService.CreateTarget(createTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(target).ToNot(BeNil())
+			targetIDLink4 = *target.ID
+			fmt.Fprintf(GinkgoWriter, "Saved app configuration targetIDLink5 value: %v\n", targetIDLink4)
+		})
+
 		It(`Returns 400 when backend input validation fails`, func() {
 			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
 				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
@@ -410,6 +433,19 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(target).ToNot(BeNil())
 		})
 
+		It(`GetTarget(getTargetOptions *GetTargetOptions) for Appconfig target`, func() {
+
+			getTargetOptions := &atrackerv2.GetTargetOptions{
+				ID: &targetIDLink5,
+			}
+
+			target, response, err := atrackerService.GetTarget(getTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
 		It(`Returns 403 when user is not authorized`, func() {
 
 			getTargetOptions := &atrackerv2.GetTargetOptions{
@@ -500,6 +536,24 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(target).ToNot(BeNil())
 		})
 
+		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for Appconfig target`, func() {
+
+			appconfigEndpointPrototypeModel := &atrackerv2.AppconfigEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+			}
+
+			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
+				ID:                &targetIDLink4,
+				Name:              core.StringPtr("my-app-config-target-modified"),
+				AppconfigEndpoint: appconfigEndpointPrototypeModel,
+			}
+
+			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
 		It(`Returns 404 when target id is not found`, func() {
 
 			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
@@ -556,6 +610,19 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			validateTargetOptions := &atrackerv2.ValidateTargetOptions{
 				ID: &targetIDLink4,
+			}
+
+			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions) for Appconfig target`, func() {
+
+			validateTargetOptions := &atrackerv2.ValidateTargetOptions{
+				ID: &targetIDLink5,
 			}
 
 			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
@@ -863,6 +930,16 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
 				ID: &targetIDLink4,
+			}
+
+			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions) Appconfig target`, func() {
+
+			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
+				ID: &targetIDLink5,
 			}
 
 			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
