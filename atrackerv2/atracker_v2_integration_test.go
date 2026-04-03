@@ -61,6 +61,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		targetIDLink        string
 		targetIDLink3       string
 		targetIDLink4       string
+		targetIDLink5       string
 		targetIDDefaultLink string
 	)
 
@@ -252,8 +253,8 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(target).ToNot(BeNil())
-			targetIDLink4 = *target.ID
-			fmt.Fprintf(GinkgoWriter, "Saved app configuration targetIDLink5 value: %v\n", targetIDLink4)
+			targetIDLink5 = *target.ID
+			fmt.Fprintf(GinkgoWriter, "Saved app configuration targetIDLink5 value: %v\n", targetIDLink5)
 		})
 
 		It(`Returns 400 when backend input validation fails`, func() {
