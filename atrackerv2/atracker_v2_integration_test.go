@@ -814,7 +814,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
 				DefaultTargets:         []string{targetIDDefaultLink},
 				PermittedTargetRegions: []string{"us-south"},
-				MetadataRegionBackup:   core.StringPtr("eu-de"),
+				MetadataRegionBackup:   core.StringPtr("us-east"),
 			}
 
 			settings, response, err := atrackerService.PutSettings(putSettingsOptions)
