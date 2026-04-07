@@ -1,3 +1,10 @@
+# [0.97.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.96.0...v0.97.0) (2026-04-07)
+
+
+### Features
+
+* **IAM Identity:** add support for limits/cross account ([#439](https://github.com/IBM/platform-services-go-sdk/issues/439)) ([4e9c8e2](https://github.com/IBM/platform-services-go-sdk/commit/4e9c8e2605f20ca83475b596f3f3b556f762f69c))
+
 # [0.96.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.95.0...v0.96.0) (2026-03-09)
 
 

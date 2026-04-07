@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.107.1-41b0fbd0-20250825-080732
+ * IBM OpenAPI SDK Code Generator Version: 3.113.0-3f9df07a-20260317-160650
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -2681,6 +2681,9 @@ func (iamIdentity *IamIdentityV1) CreateLinkWithContext(ctx context.Context, cre
 	}
 	if createLinkOptions.Name != nil {
 		body["name"] = createLinkOptions.Name
+	}
+	if createLinkOptions.IsCrossAccount != nil {
+		body["is_cross_account"] = createLinkOptions.IsCrossAccount
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -6702,8 +6705,259 @@ func (iamIdentity *IamIdentityV1) UpdateAccountSettingsAssignmentWithContext(ctx
 
 	return
 }
+
+// GetAccountLimits : Get account entity limits
+// Returns the details of an account's entity limits with query parameters for consumption details.
+func (iamIdentity *IamIdentityV1) GetAccountLimits(getAccountLimitsOptions *GetAccountLimitsOptions) (result *IdentityLimitsUsageResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.GetAccountLimitsWithContext(context.Background(), getAccountLimitsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAccountLimitsWithContext is an alternate form of the GetAccountLimits method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetAccountLimitsWithContext(ctx context.Context, getAccountLimitsOptions *GetAccountLimitsOptions) (result *IdentityLimitsUsageResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountLimitsOptions, "getAccountLimitsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getAccountLimitsOptions, "getAccountLimitsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getAccountLimitsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/accounts/{account_id}/limits/identity`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetAccountLimits")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getAccountLimitsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getAccountLimitsOptions.ServiceidGroups != nil {
+		builder.AddQuery("serviceid_groups", fmt.Sprint(*getAccountLimitsOptions.ServiceidGroups))
+	}
+	if getAccountLimitsOptions.ServiceidsPerGroup != nil {
+		builder.AddQuery("serviceids_per_group", fmt.Sprint(*getAccountLimitsOptions.ServiceidsPerGroup))
+	}
+	if getAccountLimitsOptions.Profiles != nil {
+		builder.AddQuery("profiles", fmt.Sprint(*getAccountLimitsOptions.Profiles))
+	}
+	if getAccountLimitsOptions.ApikeysPerIdentity != nil {
+		builder.AddQuery("apikeys_per_identity", fmt.Sprint(*getAccountLimitsOptions.ApikeysPerIdentity))
+	}
+	if getAccountLimitsOptions.Templates != nil {
+		builder.AddQuery("templates", fmt.Sprint(*getAccountLimitsOptions.Templates))
+	}
+	if getAccountLimitsOptions.TemplateVersionsPerTemplate != nil {
+		builder.AddQuery("template_versions_per_template", fmt.Sprint(*getAccountLimitsOptions.TemplateVersionsPerTemplate))
+	}
+	if getAccountLimitsOptions.Idps != nil {
+		builder.AddQuery("idps", fmt.Sprint(*getAccountLimitsOptions.Idps))
+	}
+	if getAccountLimitsOptions.ClaimRulesPerGroup != nil {
+		builder.AddQuery("claim_rules_per_group", fmt.Sprint(*getAccountLimitsOptions.ClaimRulesPerGroup))
+	}
+	if getAccountLimitsOptions.ClaimRulesPerProfile != nil {
+		builder.AddQuery("claim_rules_per_profile", fmt.Sprint(*getAccountLimitsOptions.ClaimRulesPerProfile))
+	}
+	if getAccountLimitsOptions.CrLinks != nil {
+		builder.AddQuery("cr_links", fmt.Sprint(*getAccountLimitsOptions.CrLinks))
+	}
+	if getAccountLimitsOptions.CrLinksPerProfile != nil {
+		builder.AddQuery("cr_links_per_profile", fmt.Sprint(*getAccountLimitsOptions.CrLinksPerProfile))
+	}
+	if getAccountLimitsOptions.CrRules != nil {
+		builder.AddQuery("cr_rules", fmt.Sprint(*getAccountLimitsOptions.CrRules))
+	}
+	if getAccountLimitsOptions.CrRulesPerProfile != nil {
+		builder.AddQuery("cr_rules_per_profile", fmt.Sprint(*getAccountLimitsOptions.CrRulesPerProfile))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "getAccountLimits", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalIdentityLimitsUsageResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// BulkListAccountEntityConsumption : Get account entity limits via POST request
+// Returns the details of an account's entity limits using a body for larger list of parameters for consumption details.
+func (iamIdentity *IamIdentityV1) BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptions *BulkListAccountEntityConsumptionOptions) (result *IdentityLimitsUsageResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.BulkListAccountEntityConsumptionWithContext(context.Background(), bulkListAccountEntityConsumptionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// BulkListAccountEntityConsumptionWithContext is an alternate form of the BulkListAccountEntityConsumption method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) BulkListAccountEntityConsumptionWithContext(ctx context.Context, bulkListAccountEntityConsumptionOptions *BulkListAccountEntityConsumptionOptions) (result *IdentityLimitsUsageResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(bulkListAccountEntityConsumptionOptions, "bulkListAccountEntityConsumptionOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(bulkListAccountEntityConsumptionOptions, "bulkListAccountEntityConsumptionOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *bulkListAccountEntityConsumptionOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/accounts/{account_id}/limits/identity`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "BulkListAccountEntityConsumption")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range bulkListAccountEntityConsumptionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if bulkListAccountEntityConsumptionOptions.ServiceidGroups != nil {
+		body["serviceid_groups"] = bulkListAccountEntityConsumptionOptions.ServiceidGroups
+	}
+	if bulkListAccountEntityConsumptionOptions.ServiceidsPerGroup != nil {
+		body["serviceids_per_group"] = bulkListAccountEntityConsumptionOptions.ServiceidsPerGroup
+	}
+	if bulkListAccountEntityConsumptionOptions.Profiles != nil {
+		body["profiles"] = bulkListAccountEntityConsumptionOptions.Profiles
+	}
+	if bulkListAccountEntityConsumptionOptions.ApikeysPerIdentity != nil {
+		body["apikeys_per_identity"] = bulkListAccountEntityConsumptionOptions.ApikeysPerIdentity
+	}
+	if bulkListAccountEntityConsumptionOptions.Templates != nil {
+		body["templates"] = bulkListAccountEntityConsumptionOptions.Templates
+	}
+	if bulkListAccountEntityConsumptionOptions.TemplateVersionsPerTemplate != nil {
+		body["template_versions_per_template"] = bulkListAccountEntityConsumptionOptions.TemplateVersionsPerTemplate
+	}
+	if bulkListAccountEntityConsumptionOptions.Idps != nil {
+		body["idps"] = bulkListAccountEntityConsumptionOptions.Idps
+	}
+	if bulkListAccountEntityConsumptionOptions.ClaimRulesPerGroup != nil {
+		body["claim_rules_per_group"] = bulkListAccountEntityConsumptionOptions.ClaimRulesPerGroup
+	}
+	if bulkListAccountEntityConsumptionOptions.ClaimRulesPerProfile != nil {
+		body["claim_rules_per_profile"] = bulkListAccountEntityConsumptionOptions.ClaimRulesPerProfile
+	}
+	if bulkListAccountEntityConsumptionOptions.CrLinks != nil {
+		body["cr_links"] = bulkListAccountEntityConsumptionOptions.CrLinks
+	}
+	if bulkListAccountEntityConsumptionOptions.CrLinksPerProfile != nil {
+		body["cr_links_per_profile"] = bulkListAccountEntityConsumptionOptions.CrLinksPerProfile
+	}
+	if bulkListAccountEntityConsumptionOptions.CrRules != nil {
+		body["cr_rules"] = bulkListAccountEntityConsumptionOptions.CrRules
+	}
+	if bulkListAccountEntityConsumptionOptions.CrRulesPerProfile != nil {
+		body["cr_rules_per_profile"] = bulkListAccountEntityConsumptionOptions.CrRulesPerProfile
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "bulkListAccountEntityConsumption", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalIdentityLimitsUsageResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0.0")
+}
+
+// AccessGroupCount : Claim rule count for a specific access group.
+type AccessGroupCount struct {
+	// Access group identifier.
+	GroupID *string `json:"group_id,omitempty"`
+
+	// Number of claim rules for the access group.
+	Count *int64 `json:"count,omitempty"`
+}
+
+// UnmarshalAccessGroupCount unmarshals an instance of AccessGroupCount from the specified map of raw messages.
+func UnmarshalAccessGroupCount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccessGroupCount)
+	err = core.UnmarshalPrimitive(m, "group_id", &obj.GroupID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "group_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "count-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // AccountBasedMfaEnrollment : AccountBasedMfaEnrollment struct
@@ -6780,7 +7034,7 @@ type AccountSettingsAssignedTemplatesSection struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa,omitempty"`
 
 	// Defines the session expiration in seconds for the account. Valid values:
@@ -6855,7 +7109,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	AccountSettingsAssignedTemplatesSectionMfaLevel1Const     = "LEVEL1"
 	AccountSettingsAssignedTemplatesSectionMfaLevel2Const     = "LEVEL2"
@@ -6993,7 +7247,7 @@ type AccountSettingsEffectiveSection struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa,omitempty"`
 
 	// List of users that are exempted from the MFA requirement of the account.
@@ -7070,7 +7324,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	AccountSettingsEffectiveSectionMfaLevel1Const     = "LEVEL1"
 	AccountSettingsEffectiveSectionMfaLevel2Const     = "LEVEL2"
@@ -7181,7 +7435,7 @@ type AccountSettingsResponse struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa" validate:"required"`
 
 	// Defines the session expiration in seconds for the account. Valid values:
@@ -7257,7 +7511,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	AccountSettingsResponseMfaLevel1Const     = "LEVEL1"
 	AccountSettingsResponseMfaLevel2Const     = "LEVEL2"
@@ -7616,7 +7870,7 @@ type AccountSettingsUserMfaResponse struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa" validate:"required"`
 
 	// name of the user account.
@@ -7640,7 +7894,7 @@ type AccountSettingsUserMfaResponse struct {
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	AccountSettingsUserMfaResponseMfaLevel1Const     = "LEVEL1"
 	AccountSettingsUserMfaResponseMfaLevel2Const     = "LEVEL2"
@@ -7912,7 +8166,9 @@ type APIKey struct {
 	// Defines the action to take when API key is leaked, valid values are 'none', 'disable' and 'delete'.
 	ActionWhenLeaked *string `json:"action_when_leaked,omitempty"`
 
-	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'.
+	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'. **WARNING**
+	// An API key will be permanently and irrevocably deleted when both the expires_at and modified_at timestamps are more
+	// than ninety (90) days in the past, regardless of the key’s locked status or any other state.
 	ExpiresAt *string `json:"expires_at,omitempty"`
 
 	// The optional description of the API key. The 'description' property is only available if a description was provided
@@ -8064,7 +8320,9 @@ type APIKeyInsideCreateServiceIDRequest struct {
 	// Defines the action to take when API key is leaked, valid values are 'none', 'disable' and 'delete'.
 	ActionWhenLeaked *string `json:"action_when_leaked,omitempty"`
 
-	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'.
+	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'. **WARNING**
+	// An API key will be permanently and irrevocably deleted when both the expires_at and modified_at timestamps are more
+	// than ninety (90) days in the past, regardless of the key’s locked status or any other state.
 	ExpiresAt *string `json:"expires_at,omitempty"`
 }
 
@@ -8335,6 +8593,151 @@ func UnmarshalAssignedTemplatesAccountSettingsRestrictUserDomains(m map[string]j
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// BulkListAccountEntityConsumptionOptions : The BulkListAccountEntityConsumption options.
+type BulkListAccountEntityConsumptionOptions struct {
+	// Unique ID of the account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Flag to include service ID groups usage.
+	ServiceidGroups *bool `json:"serviceid_groups,omitempty"`
+
+	// List of service ID group IDs to get usage for.
+	ServiceidsPerGroup []string `json:"serviceids_per_group,omitempty"`
+
+	// Flag to include trusted profiles usage.
+	Profiles *bool `json:"profiles,omitempty"`
+
+	// List of identity IDs to get API key usage for.
+	ApikeysPerIdentity []string `json:"apikeys_per_identity,omitempty"`
+
+	// Flag to include templates usage.
+	Templates *bool `json:"templates,omitempty"`
+
+	// List of template IDs to get version usage for.
+	TemplateVersionsPerTemplate []string `json:"template_versions_per_template,omitempty"`
+
+	// Flag to include identity providers usage.
+	Idps *bool `json:"idps,omitempty"`
+
+	// List of access group IDs to get claim rules usage for.
+	ClaimRulesPerGroup []string `json:"claim_rules_per_group,omitempty"`
+
+	// List of profile IDs to get claim rules usage for.
+	ClaimRulesPerProfile []string `json:"claim_rules_per_profile,omitempty"`
+
+	// Flag to include compute resource links usage.
+	CrLinks *bool `json:"cr_links,omitempty"`
+
+	// List of profile IDs to get compute resource links usage for.
+	CrLinksPerProfile []string `json:"cr_links_per_profile,omitempty"`
+
+	// Flag to include compute resource rules usage.
+	CrRules *bool `json:"cr_rules,omitempty"`
+
+	// List of profile IDs to get compute resource rules usage for.
+	CrRulesPerProfile []string `json:"cr_rules_per_profile,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewBulkListAccountEntityConsumptionOptions : Instantiate BulkListAccountEntityConsumptionOptions
+func (*IamIdentityV1) NewBulkListAccountEntityConsumptionOptions(accountID string) *BulkListAccountEntityConsumptionOptions {
+	return &BulkListAccountEntityConsumptionOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *BulkListAccountEntityConsumptionOptions) SetAccountID(accountID string) *BulkListAccountEntityConsumptionOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetServiceidGroups : Allow user to set ServiceidGroups
+func (_options *BulkListAccountEntityConsumptionOptions) SetServiceidGroups(serviceidGroups bool) *BulkListAccountEntityConsumptionOptions {
+	_options.ServiceidGroups = core.BoolPtr(serviceidGroups)
+	return _options
+}
+
+// SetServiceidsPerGroup : Allow user to set ServiceidsPerGroup
+func (_options *BulkListAccountEntityConsumptionOptions) SetServiceidsPerGroup(serviceidsPerGroup []string) *BulkListAccountEntityConsumptionOptions {
+	_options.ServiceidsPerGroup = serviceidsPerGroup
+	return _options
+}
+
+// SetProfiles : Allow user to set Profiles
+func (_options *BulkListAccountEntityConsumptionOptions) SetProfiles(profiles bool) *BulkListAccountEntityConsumptionOptions {
+	_options.Profiles = core.BoolPtr(profiles)
+	return _options
+}
+
+// SetApikeysPerIdentity : Allow user to set ApikeysPerIdentity
+func (_options *BulkListAccountEntityConsumptionOptions) SetApikeysPerIdentity(apikeysPerIdentity []string) *BulkListAccountEntityConsumptionOptions {
+	_options.ApikeysPerIdentity = apikeysPerIdentity
+	return _options
+}
+
+// SetTemplates : Allow user to set Templates
+func (_options *BulkListAccountEntityConsumptionOptions) SetTemplates(templates bool) *BulkListAccountEntityConsumptionOptions {
+	_options.Templates = core.BoolPtr(templates)
+	return _options
+}
+
+// SetTemplateVersionsPerTemplate : Allow user to set TemplateVersionsPerTemplate
+func (_options *BulkListAccountEntityConsumptionOptions) SetTemplateVersionsPerTemplate(templateVersionsPerTemplate []string) *BulkListAccountEntityConsumptionOptions {
+	_options.TemplateVersionsPerTemplate = templateVersionsPerTemplate
+	return _options
+}
+
+// SetIdps : Allow user to set Idps
+func (_options *BulkListAccountEntityConsumptionOptions) SetIdps(idps bool) *BulkListAccountEntityConsumptionOptions {
+	_options.Idps = core.BoolPtr(idps)
+	return _options
+}
+
+// SetClaimRulesPerGroup : Allow user to set ClaimRulesPerGroup
+func (_options *BulkListAccountEntityConsumptionOptions) SetClaimRulesPerGroup(claimRulesPerGroup []string) *BulkListAccountEntityConsumptionOptions {
+	_options.ClaimRulesPerGroup = claimRulesPerGroup
+	return _options
+}
+
+// SetClaimRulesPerProfile : Allow user to set ClaimRulesPerProfile
+func (_options *BulkListAccountEntityConsumptionOptions) SetClaimRulesPerProfile(claimRulesPerProfile []string) *BulkListAccountEntityConsumptionOptions {
+	_options.ClaimRulesPerProfile = claimRulesPerProfile
+	return _options
+}
+
+// SetCrLinks : Allow user to set CrLinks
+func (_options *BulkListAccountEntityConsumptionOptions) SetCrLinks(crLinks bool) *BulkListAccountEntityConsumptionOptions {
+	_options.CrLinks = core.BoolPtr(crLinks)
+	return _options
+}
+
+// SetCrLinksPerProfile : Allow user to set CrLinksPerProfile
+func (_options *BulkListAccountEntityConsumptionOptions) SetCrLinksPerProfile(crLinksPerProfile []string) *BulkListAccountEntityConsumptionOptions {
+	_options.CrLinksPerProfile = crLinksPerProfile
+	return _options
+}
+
+// SetCrRules : Allow user to set CrRules
+func (_options *BulkListAccountEntityConsumptionOptions) SetCrRules(crRules bool) *BulkListAccountEntityConsumptionOptions {
+	_options.CrRules = core.BoolPtr(crRules)
+	return _options
+}
+
+// SetCrRulesPerProfile : Allow user to set CrRulesPerProfile
+func (_options *BulkListAccountEntityConsumptionOptions) SetCrRulesPerProfile(crRulesPerProfile []string) *BulkListAccountEntityConsumptionOptions {
+	_options.CrRulesPerProfile = crRulesPerProfile
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *BulkListAccountEntityConsumptionOptions) SetHeaders(param map[string]string) *BulkListAccountEntityConsumptionOptions {
+	options.Headers = param
+	return options
 }
 
 // CommitAccountSettingsTemplateOptions : The CommitAccountSettingsTemplate options.
@@ -8631,7 +9034,9 @@ type CreateAPIKeyOptions struct {
 	// Defines the action to take when API key is leaked, valid values are 'none', 'disable' and 'delete'.
 	ActionWhenLeaked *string `json:"action_when_leaked,omitempty"`
 
-	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'.
+	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'. **WARNING**
+	// An API key will be permanently and irrevocably deleted when both the expires_at and modified_at timestamps are more
+	// than ninety (90) days in the past, regardless of the key’s locked status or any other state.
 	ExpiresAt *string `json:"expires_at,omitempty"`
 
 	// Indicates if the API key is locked for further write operations. False by default.
@@ -8833,6 +9238,10 @@ type CreateLinkOptions struct {
 	// Optional name of the Link.
 	Name *string `json:"name,omitempty"`
 
+	// Flag to indicate that the link provides cross account access. If not provided then the account scope of the CRN must
+	// match the Profile's account.
+	IsCrossAccount *bool `json:"is_cross_account,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -8867,6 +9276,12 @@ func (_options *CreateLinkOptions) SetLink(link *CreateProfileLinkRequestLink) *
 // SetName : Allow user to set Name
 func (_options *CreateLinkOptions) SetName(name string) *CreateLinkOptions {
 	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetIsCrossAccount : Allow user to set IsCrossAccount
+func (_options *CreateLinkOptions) SetIsCrossAccount(isCrossAccount bool) *CreateLinkOptions {
+	_options.IsCrossAccount = core.BoolPtr(isCrossAccount)
 	return _options
 }
 
@@ -10298,6 +10713,151 @@ func UnmarshalExceptionResponse(m map[string]json.RawMessage, result interface{}
 	return
 }
 
+// GetAccountLimitsOptions : The GetAccountLimits options.
+type GetAccountLimitsOptions struct {
+	// Unique ID of the account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Boolean to include serviceid group consumption.
+	ServiceidGroups *bool `json:"serviceid_groups,omitempty"`
+
+	// Comma seperated list of ServiceID groups to include for consumption.
+	ServiceidsPerGroup *string `json:"serviceids_per_group,omitempty"`
+
+	// Boolean to include trusted profiles consumption.
+	Profiles *string `json:"profiles,omitempty"`
+
+	// Comma seperated list of IAM IDs to include for API key consumption.
+	ApikeysPerIdentity *string `json:"apikeys_per_identity,omitempty"`
+
+	// Boolean to include template consumption.
+	Templates *string `json:"templates,omitempty"`
+
+	// Comma seperated list of template IDs to include for template version consumption.
+	TemplateVersionsPerTemplate *string `json:"template_versions_per_template,omitempty"`
+
+	// Boolean to include identity provider consumption.
+	Idps *string `json:"idps,omitempty"`
+
+	// Comma seperated list of access groups to include for claim rules consumption.
+	ClaimRulesPerGroup *string `json:"claim_rules_per_group,omitempty"`
+
+	// Comma seperated list of profiles to include for claim rules consumption.
+	ClaimRulesPerProfile *string `json:"claim_rules_per_profile,omitempty"`
+
+	// Boolean to include compute resource links consumption.
+	CrLinks *string `json:"cr_links,omitempty"`
+
+	// Comma seperated list of profile IDs to include for cr links consumption.
+	CrLinksPerProfile *string `json:"cr_links_per_profile,omitempty"`
+
+	// Boolean to include compute resource rules consumption.
+	CrRules *string `json:"cr_rules,omitempty"`
+
+	// Comma seperated list of profile IDs to include for cr rules consumption.
+	CrRulesPerProfile *string `json:"cr_rules_per_profile,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetAccountLimitsOptions : Instantiate GetAccountLimitsOptions
+func (*IamIdentityV1) NewGetAccountLimitsOptions(accountID string) *GetAccountLimitsOptions {
+	return &GetAccountLimitsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetAccountLimitsOptions) SetAccountID(accountID string) *GetAccountLimitsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetServiceidGroups : Allow user to set ServiceidGroups
+func (_options *GetAccountLimitsOptions) SetServiceidGroups(serviceidGroups bool) *GetAccountLimitsOptions {
+	_options.ServiceidGroups = core.BoolPtr(serviceidGroups)
+	return _options
+}
+
+// SetServiceidsPerGroup : Allow user to set ServiceidsPerGroup
+func (_options *GetAccountLimitsOptions) SetServiceidsPerGroup(serviceidsPerGroup string) *GetAccountLimitsOptions {
+	_options.ServiceidsPerGroup = core.StringPtr(serviceidsPerGroup)
+	return _options
+}
+
+// SetProfiles : Allow user to set Profiles
+func (_options *GetAccountLimitsOptions) SetProfiles(profiles string) *GetAccountLimitsOptions {
+	_options.Profiles = core.StringPtr(profiles)
+	return _options
+}
+
+// SetApikeysPerIdentity : Allow user to set ApikeysPerIdentity
+func (_options *GetAccountLimitsOptions) SetApikeysPerIdentity(apikeysPerIdentity string) *GetAccountLimitsOptions {
+	_options.ApikeysPerIdentity = core.StringPtr(apikeysPerIdentity)
+	return _options
+}
+
+// SetTemplates : Allow user to set Templates
+func (_options *GetAccountLimitsOptions) SetTemplates(templates string) *GetAccountLimitsOptions {
+	_options.Templates = core.StringPtr(templates)
+	return _options
+}
+
+// SetTemplateVersionsPerTemplate : Allow user to set TemplateVersionsPerTemplate
+func (_options *GetAccountLimitsOptions) SetTemplateVersionsPerTemplate(templateVersionsPerTemplate string) *GetAccountLimitsOptions {
+	_options.TemplateVersionsPerTemplate = core.StringPtr(templateVersionsPerTemplate)
+	return _options
+}
+
+// SetIdps : Allow user to set Idps
+func (_options *GetAccountLimitsOptions) SetIdps(idps string) *GetAccountLimitsOptions {
+	_options.Idps = core.StringPtr(idps)
+	return _options
+}
+
+// SetClaimRulesPerGroup : Allow user to set ClaimRulesPerGroup
+func (_options *GetAccountLimitsOptions) SetClaimRulesPerGroup(claimRulesPerGroup string) *GetAccountLimitsOptions {
+	_options.ClaimRulesPerGroup = core.StringPtr(claimRulesPerGroup)
+	return _options
+}
+
+// SetClaimRulesPerProfile : Allow user to set ClaimRulesPerProfile
+func (_options *GetAccountLimitsOptions) SetClaimRulesPerProfile(claimRulesPerProfile string) *GetAccountLimitsOptions {
+	_options.ClaimRulesPerProfile = core.StringPtr(claimRulesPerProfile)
+	return _options
+}
+
+// SetCrLinks : Allow user to set CrLinks
+func (_options *GetAccountLimitsOptions) SetCrLinks(crLinks string) *GetAccountLimitsOptions {
+	_options.CrLinks = core.StringPtr(crLinks)
+	return _options
+}
+
+// SetCrLinksPerProfile : Allow user to set CrLinksPerProfile
+func (_options *GetAccountLimitsOptions) SetCrLinksPerProfile(crLinksPerProfile string) *GetAccountLimitsOptions {
+	_options.CrLinksPerProfile = core.StringPtr(crLinksPerProfile)
+	return _options
+}
+
+// SetCrRules : Allow user to set CrRules
+func (_options *GetAccountLimitsOptions) SetCrRules(crRules string) *GetAccountLimitsOptions {
+	_options.CrRules = core.StringPtr(crRules)
+	return _options
+}
+
+// SetCrRulesPerProfile : Allow user to set CrRulesPerProfile
+func (_options *GetAccountLimitsOptions) SetCrRulesPerProfile(crRulesPerProfile string) *GetAccountLimitsOptions {
+	_options.CrRulesPerProfile = core.StringPtr(crRulesPerProfile)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetAccountLimitsOptions) SetHeaders(param map[string]string) *GetAccountLimitsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetAccountSettingsAssignmentOptions : The GetAccountSettingsAssignment options.
 type GetAccountSettingsAssignmentOptions struct {
 	// ID of the Assignment Record.
@@ -11215,7 +11775,7 @@ type IDBasedMfaEnrollment struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	TraitAccountDefault *string `json:"trait_account_default" validate:"required"`
 
 	// MFA trait definitions as follows:
@@ -11225,7 +11785,7 @@ type IDBasedMfaEnrollment struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	TraitUserSpecific *string `json:"trait_user_specific,omitempty"`
 
 	// MFA trait definitions as follows:
@@ -11235,7 +11795,7 @@ type IDBasedMfaEnrollment struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	TraitEffective *string `json:"trait_effective" validate:"required"`
 
 	// The enrollment complies to the effective requirement.
@@ -11257,7 +11817,7 @@ type IDBasedMfaEnrollment struct {
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	IDBasedMfaEnrollmentTraitAccountDefaultLevel1Const     = "LEVEL1"
 	IDBasedMfaEnrollmentTraitAccountDefaultLevel2Const     = "LEVEL2"
@@ -11276,7 +11836,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	IDBasedMfaEnrollmentTraitUserSpecificLevel1Const     = "LEVEL1"
 	IDBasedMfaEnrollmentTraitUserSpecificLevel2Const     = "LEVEL2"
@@ -11295,7 +11855,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	IDBasedMfaEnrollmentTraitEffectiveLevel1Const     = "LEVEL1"
 	IDBasedMfaEnrollmentTraitEffectiveLevel2Const     = "LEVEL2"
@@ -11345,6 +11905,336 @@ func UnmarshalIDBasedMfaEnrollment(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "comply_state", &obj.ComplyState)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "comply_state-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityCount : API key count for a specific identity.
+type IdentityCount struct {
+	// IAM identifier of the identity.
+	IamID *string `json:"iam_id,omitempty"`
+
+	// Number of API keys for the identity.
+	Count *int64 `json:"count,omitempty"`
+}
+
+// UnmarshalIdentityCount unmarshals an instance of IdentityCount from the specified map of raw messages.
+func UnmarshalIdentityCount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityCount)
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "count-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponse : Response body format for identity limits usage.
+type IdentityLimitsUsageResponse struct {
+	// Limit and current usage count for a resource.
+	ServiceidGroups *LimitCount `json:"serviceid_groups,omitempty"`
+
+	// Usage count for service IDs per group.
+	ServiceidsPerGroup *IdentityLimitsUsageResponseServiceidsPerGroup `json:"serviceids_per_group,omitempty"`
+
+	// Limit and current usage count for a resource.
+	Profiles *LimitCount `json:"profiles,omitempty"`
+
+	// Usage count for API keys per identity.
+	ApikeysPerIdentity *IdentityLimitsUsageResponseApikeysPerIdentity `json:"apikeys_per_identity,omitempty"`
+
+	// Limit and current usage count for a resource.
+	ProfileTemplates *LimitCount `json:"profile_templates,omitempty"`
+
+	// Limit and current usage count for a resource.
+	AccountSettingsTemplates *LimitCount `json:"account_settings_templates,omitempty"`
+
+	// Usage count for template versions per template.
+	TemplateVersionsPerTemplate *IdentityLimitsUsageResponseTemplateVersionsPerTemplate `json:"template_versions_per_template,omitempty"`
+
+	// Limit and current usage count for a resource.
+	Idps *LimitCount `json:"idps,omitempty"`
+
+	// Usage count for claim rules per access group.
+	ClaimRulesPerGroup *IdentityLimitsUsageResponseClaimRulesPerGroup `json:"claim_rules_per_group,omitempty"`
+
+	// Usage count for claim rules per profile.
+	ClaimRulesPerProfile *IdentityLimitsUsageResponseClaimRulesPerProfile `json:"claim_rules_per_profile,omitempty"`
+
+	// Limit and current usage count for a resource.
+	CrLinks *LimitCount `json:"cr_links,omitempty"`
+
+	// Usage count for compute resource links per profile.
+	CrLinksPerProfile *IdentityLimitsUsageResponseCrLinksPerProfile `json:"cr_links_per_profile,omitempty"`
+
+	// Limit and current usage count for a resource.
+	CrRules *LimitCount `json:"cr_rules,omitempty"`
+
+	// Usage count for compute resource rules per profile.
+	CrRulesPerProfile *IdentityLimitsUsageResponseCrRulesPerProfile `json:"cr_rules_per_profile,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponse unmarshals an instance of IdentityLimitsUsageResponse from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponse)
+	err = core.UnmarshalModel(m, "serviceid_groups", &obj.ServiceidGroups, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceid_groups-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "serviceids_per_group", &obj.ServiceidsPerGroup, UnmarshalIdentityLimitsUsageResponseServiceidsPerGroup)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceids_per_group-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "profiles", &obj.Profiles, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "profiles-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "apikeys_per_identity", &obj.ApikeysPerIdentity, UnmarshalIdentityLimitsUsageResponseApikeysPerIdentity)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "apikeys_per_identity-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "profile_templates", &obj.ProfileTemplates, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "profile_templates-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "account_settings_templates", &obj.AccountSettingsTemplates, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_settings_templates-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "template_versions_per_template", &obj.TemplateVersionsPerTemplate, UnmarshalIdentityLimitsUsageResponseTemplateVersionsPerTemplate)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_versions_per_template-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "idps", &obj.Idps, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idps-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "claim_rules_per_group", &obj.ClaimRulesPerGroup, UnmarshalIdentityLimitsUsageResponseClaimRulesPerGroup)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "claim_rules_per_group-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "claim_rules_per_profile", &obj.ClaimRulesPerProfile, UnmarshalIdentityLimitsUsageResponseClaimRulesPerProfile)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "claim_rules_per_profile-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "cr_links", &obj.CrLinks, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cr_links-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "cr_links_per_profile", &obj.CrLinksPerProfile, UnmarshalIdentityLimitsUsageResponseCrLinksPerProfile)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cr_links_per_profile-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "cr_rules", &obj.CrRules, UnmarshalLimitCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cr_rules-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "cr_rules_per_profile", &obj.CrRulesPerProfile, UnmarshalIdentityLimitsUsageResponseCrRulesPerProfile)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cr_rules_per_profile-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseApikeysPerIdentity : Usage count for API keys per identity.
+type IdentityLimitsUsageResponseApikeysPerIdentity struct {
+	// Maximum allowed API keys per identity.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of identities with their API key usage counts.
+	Identities []IdentityCount `json:"identities,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseApikeysPerIdentity unmarshals an instance of IdentityLimitsUsageResponseApikeysPerIdentity from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseApikeysPerIdentity(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseApikeysPerIdentity)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "identities", &obj.Identities, UnmarshalIdentityCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "identities-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseClaimRulesPerGroup : Usage count for claim rules per access group.
+type IdentityLimitsUsageResponseClaimRulesPerGroup struct {
+	// Maximum allowed claim rules per access group.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of access groups with their claim rules usage counts.
+	AccessGroups []AccessGroupCount `json:"access_groups,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseClaimRulesPerGroup unmarshals an instance of IdentityLimitsUsageResponseClaimRulesPerGroup from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseClaimRulesPerGroup(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseClaimRulesPerGroup)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "access_groups", &obj.AccessGroups, UnmarshalAccessGroupCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "access_groups-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseClaimRulesPerProfile : Usage count for claim rules per profile.
+type IdentityLimitsUsageResponseClaimRulesPerProfile struct {
+	// Maximum allowed claim rules per profile.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of profiles with their claim rules usage counts.
+	Profiles []ProfileCount `json:"profiles,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseClaimRulesPerProfile unmarshals an instance of IdentityLimitsUsageResponseClaimRulesPerProfile from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseClaimRulesPerProfile(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseClaimRulesPerProfile)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "profiles", &obj.Profiles, UnmarshalProfileCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "profiles-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseCrLinksPerProfile : Usage count for compute resource links per profile.
+type IdentityLimitsUsageResponseCrLinksPerProfile struct {
+	// Maximum allowed compute resource links per profile.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of profiles with their compute resource links usage counts.
+	Profiles []ProfileCount `json:"profiles,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseCrLinksPerProfile unmarshals an instance of IdentityLimitsUsageResponseCrLinksPerProfile from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseCrLinksPerProfile(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseCrLinksPerProfile)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "profiles", &obj.Profiles, UnmarshalProfileCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "profiles-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseCrRulesPerProfile : Usage count for compute resource rules per profile.
+type IdentityLimitsUsageResponseCrRulesPerProfile struct {
+	// Maximum allowed compute resource rules per profile.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of profiles with their compute resource rules usage counts.
+	Profiles []ProfileCount `json:"profiles,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseCrRulesPerProfile unmarshals an instance of IdentityLimitsUsageResponseCrRulesPerProfile from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseCrRulesPerProfile(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseCrRulesPerProfile)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "profiles", &obj.Profiles, UnmarshalProfileCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "profiles-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseServiceidsPerGroup : Usage count for service IDs per group.
+type IdentityLimitsUsageResponseServiceidsPerGroup struct {
+	// Maximum allowed service IDs per group.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of service ID groups with their usage counts.
+	ServiceidGroups []ServiceIDGroupCount `json:"serviceid_groups,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseServiceidsPerGroup unmarshals an instance of IdentityLimitsUsageResponseServiceidsPerGroup from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseServiceidsPerGroup(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseServiceidsPerGroup)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "serviceid_groups", &obj.ServiceidGroups, UnmarshalServiceIDGroupCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceid_groups-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityLimitsUsageResponseTemplateVersionsPerTemplate : Usage count for template versions per template.
+type IdentityLimitsUsageResponseTemplateVersionsPerTemplate struct {
+	// Maximum allowed versions per template.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// List of templates with their version usage counts.
+	Templates []TemplateCount `json:"templates,omitempty"`
+}
+
+// UnmarshalIdentityLimitsUsageResponseTemplateVersionsPerTemplate unmarshals an instance of IdentityLimitsUsageResponseTemplateVersionsPerTemplate from the specified map of raw messages.
+func UnmarshalIdentityLimitsUsageResponseTemplateVersionsPerTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityLimitsUsageResponseTemplateVersionsPerTemplate)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "templates", &obj.Templates, UnmarshalTemplateCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "templates-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11423,6 +12313,32 @@ func UnmarshalIdentityPreferencesResponse(m map[string]json.RawMessage, result i
 	err = core.UnmarshalModel(m, "preferences", &obj.Preferences, UnmarshalIdentityPreferenceResponse)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "preferences-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// LimitCount : Limit and current usage count for a resource.
+type LimitCount struct {
+	// Maximum allowed value for the resource.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Current usage count for the resource.
+	Count *int64 `json:"count,omitempty"`
+}
+
+// UnmarshalLimitCount unmarshals an instance of LimitCount from the specified map of raw messages.
+func UnmarshalLimitCount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(LimitCount)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "count-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12764,6 +13680,32 @@ func UnmarshalProfileClaimRuleList(m map[string]json.RawMessage, result interfac
 	return
 }
 
+// ProfileCount : Resource count for a specific profile.
+type ProfileCount struct {
+	// Profile identifier.
+	ProfileID *string `json:"profile_id,omitempty"`
+
+	// Number of resources associated with the profile.
+	Count *int64 `json:"count,omitempty"`
+}
+
+// UnmarshalProfileCount unmarshals an instance of ProfileCount from the specified map of raw messages.
+func UnmarshalProfileCount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileCount)
+	err = core.UnmarshalPrimitive(m, "profile_id", &obj.ProfileID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "profile_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "count-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProfileIdentitiesResponse : ProfileIdentitiesResponse struct
 type ProfileIdentitiesResponse struct {
 	// Entity tag of the profile identities response.
@@ -12939,6 +13881,10 @@ type ProfileLink struct {
 	// The compute resource type. Valid values are VSI, BMS, IKS_SA, ROKS_SA, CE.
 	CrType *string `json:"cr_type" validate:"required"`
 
+	// Flag to indicate that the link provides cross account access. If not provided then the account scope of the CRN must
+	// match the Profile's account.
+	IsCrossAccount *bool `json:"is_cross_account,omitempty"`
+
 	Link *ProfileLinkLink `json:"link" validate:"required"`
 }
 
@@ -12973,6 +13919,11 @@ func UnmarshalProfileLink(m map[string]json.RawMessage, result interface{}) (err
 	err = core.UnmarshalPrimitive(m, "cr_type", &obj.CrType)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cr_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "is_cross_account", &obj.IsCrossAccount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "is_cross_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "link", &obj.Link, UnmarshalProfileLinkLink)
@@ -13532,6 +14483,32 @@ func UnmarshalServiceIDGroup(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// ServiceIDGroupCount : Service ID count for a specific group.
+type ServiceIDGroupCount struct {
+	// Service ID group identifier.
+	GroupID *string `json:"group_id,omitempty"`
+
+	// Number of service IDs in the group.
+	Count *int64 `json:"count,omitempty"`
+}
+
+// UnmarshalServiceIDGroupCount unmarshals an instance of ServiceIDGroupCount from the specified map of raw messages.
+func UnmarshalServiceIDGroupCount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceIDGroupCount)
+	err = core.UnmarshalPrimitive(m, "group_id", &obj.GroupID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "group_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "count-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ServiceIDGroupList : ServiceIDGroupList struct
 type ServiceIDGroupList struct {
 	// List of Service ID groups based on the query parameter.
@@ -13789,7 +14766,7 @@ type TemplateAccountSettings struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa,omitempty"`
 
 	// List of users that are exempted from the MFA requirement of the account.
@@ -13864,7 +14841,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	TemplateAccountSettingsMfaLevel1Const     = "LEVEL1"
 	TemplateAccountSettingsMfaLevel2Const     = "LEVEL2"
@@ -14333,6 +15310,32 @@ func UnmarshalTemplateAssignmentResponseResourceDetail(m map[string]json.RawMess
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TemplateCount : Version count for a specific template.
+type TemplateCount struct {
+	// Template identifier.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// Number of versions for the template.
+	Count *int64 `json:"count,omitempty"`
+}
+
+// UnmarshalTemplateCount unmarshals an instance of TemplateCount from the specified map of raw messages.
+func UnmarshalTemplateCount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TemplateCount)
+	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "count-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -15104,7 +16107,7 @@ type UpdateAccountSettingsOptions struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa,omitempty"`
 
 	// List of users that are exempted from the MFA requirement of the account.
@@ -15183,7 +16186,7 @@ const (
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	UpdateAccountSettingsOptionsMfaLevel1Const     = "LEVEL1"
 	UpdateAccountSettingsOptionsMfaLevel2Const     = "LEVEL2"
@@ -15415,7 +16418,9 @@ type UpdateAPIKeyOptions struct {
 	// Defines the action to take when API key is leaked, valid values are 'none', 'disable' and 'delete'.
 	ActionWhenLeaked *string `json:"action_when_leaked,omitempty"`
 
-	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'.
+	// Date and time when the API key becomes invalid, ISO 8601 datetime in the format 'yyyy-MM-ddTHH:mm+0000'. **WARNING**
+	// An API key will be permanently and irrevocably deleted when both the expires_at and modified_at timestamps are more
+	// than ninety (90) days in the past, regardless of the key’s locked status or any other state.
 	ExpiresAt *string `json:"expires_at,omitempty"`
 
 	// Allows users to set headers on API requests.
@@ -16100,7 +17105,7 @@ type UserMfa struct {
 	//   * TOTP4ALL - For all users
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
-	//   * LEVEL3 - U2F MFA for all users.
+	//   * LEVEL3 - Security Key MFA for all users.
 	Mfa *string `json:"mfa,omitempty"`
 }
 
@@ -16112,7 +17117,7 @@ type UserMfa struct {
 //   - TOTP4ALL - For all users
 //   - LEVEL1 - Email-based MFA for all users
 //   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   - LEVEL3 - Security Key MFA for all users.
 const (
 	UserMfaMfaLevel1Const     = "LEVEL1"
 	UserMfaMfaLevel2Const     = "LEVEL2"

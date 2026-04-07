@@ -6559,6 +6559,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createLinkOptionsModel.CrType = core.StringPtr("testString")
 				createLinkOptionsModel.Link = createProfileLinkRequestLinkModel
 				createLinkOptionsModel.Name = core.StringPtr("testString")
+				createLinkOptionsModel.IsCrossAccount = core.BoolPtr(true)
 				createLinkOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.CreateLink(createLinkOptionsModel)
@@ -6611,7 +6612,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "is_cross_account": true, "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke CreateLink successfully with retries`, func() {
@@ -6637,6 +6638,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createLinkOptionsModel.CrType = core.StringPtr("testString")
 				createLinkOptionsModel.Link = createProfileLinkRequestLinkModel
 				createLinkOptionsModel.Name = core.StringPtr("testString")
+				createLinkOptionsModel.IsCrossAccount = core.BoolPtr(true)
 				createLinkOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6692,7 +6694,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "is_cross_account": true, "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke CreateLink successfully`, func() {
@@ -6723,6 +6725,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createLinkOptionsModel.CrType = core.StringPtr("testString")
 				createLinkOptionsModel.Link = createProfileLinkRequestLinkModel
 				createLinkOptionsModel.Name = core.StringPtr("testString")
+				createLinkOptionsModel.IsCrossAccount = core.BoolPtr(true)
 				createLinkOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6754,6 +6757,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createLinkOptionsModel.CrType = core.StringPtr("testString")
 				createLinkOptionsModel.Link = createProfileLinkRequestLinkModel
 				createLinkOptionsModel.Name = core.StringPtr("testString")
+				createLinkOptionsModel.IsCrossAccount = core.BoolPtr(true)
 				createLinkOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -6806,6 +6810,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createLinkOptionsModel.CrType = core.StringPtr("testString")
 				createLinkOptionsModel.Link = createProfileLinkRequestLinkModel
 				createLinkOptionsModel.Name = core.StringPtr("testString")
+				createLinkOptionsModel.IsCrossAccount = core.BoolPtr(true)
 				createLinkOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6883,7 +6888,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}]}`)
+					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "is_cross_account": true, "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}]}`)
 				}))
 			})
 			It(`Invoke ListLinks successfully with retries`, func() {
@@ -6937,7 +6942,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}]}`)
+					fmt.Fprintf(res, "%s", `{"links": [{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "is_cross_account": true, "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}]}`)
 				}))
 			})
 			It(`Invoke ListLinks successfully`, func() {
@@ -7182,7 +7187,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "is_cross_account": true, "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke GetLink successfully with retries`, func() {
@@ -7237,7 +7242,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "cr_type": "CrType", "is_cross_account": true, "link": {"crn": "CRN", "namespace": "Namespace", "name": "Name", "component_type": "ComponentType", "component_name": "ComponentName"}}`)
 				}))
 			})
 			It(`Invoke GetLink successfully`, func() {
@@ -18871,6 +18876,631 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`GetAccountLimits(getAccountLimitsOptions *GetAccountLimitsOptions) - Operation response error`, func() {
+		getAccountLimitsPath := "/v1/accounts/testString/limits/identity"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountLimitsPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for serviceid_groups query parameter
+					Expect(req.URL.Query()["serviceids_per_group"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["profiles"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["apikeys_per_identity"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["templates"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_versions_per_template"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["idps"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["claim_rules_per_group"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["claim_rules_per_profile"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_links"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_links_per_profile"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_rules"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_rules_per_profile"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAccountLimits with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountLimitsOptions model
+				getAccountLimitsOptionsModel := new(iamidentityv1.GetAccountLimitsOptions)
+				getAccountLimitsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				getAccountLimitsOptionsModel.ServiceidsPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Profiles = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ApikeysPerIdentity = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Templates = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.TemplateVersionsPerTemplate = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Idps = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinks = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinksPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRules = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAccountLimits(getAccountLimitsOptions *GetAccountLimitsOptions)`, func() {
+		getAccountLimitsPath := "/v1/accounts/testString/limits/identity"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountLimitsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for serviceid_groups query parameter
+					Expect(req.URL.Query()["serviceids_per_group"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["profiles"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["apikeys_per_identity"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["templates"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_versions_per_template"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["idps"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["claim_rules_per_group"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["claim_rules_per_profile"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_links"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_links_per_profile"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_rules"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_rules_per_profile"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"serviceid_groups": {"limit": 5, "count": 5}, "serviceids_per_group": {"limit": 5, "serviceid_groups": [{"group_id": "GroupID", "count": 5}]}, "profiles": {"limit": 5, "count": 5}, "apikeys_per_identity": {"limit": 5, "identities": [{"iam_id": "IamID", "count": 5}]}, "profile_templates": {"limit": 5, "count": 5}, "account_settings_templates": {"limit": 5, "count": 5}, "template_versions_per_template": {"limit": 5, "templates": [{"template_id": "TemplateID", "count": 5}]}, "idps": {"limit": 5, "count": 5}, "claim_rules_per_group": {"limit": 5, "access_groups": [{"group_id": "GroupID", "count": 5}]}, "claim_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_links": {"limit": 5, "count": 5}, "cr_links_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_rules": {"limit": 5, "count": 5}, "cr_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}}`)
+				}))
+			})
+			It(`Invoke GetAccountLimits successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAccountLimitsOptions model
+				getAccountLimitsOptionsModel := new(iamidentityv1.GetAccountLimitsOptions)
+				getAccountLimitsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				getAccountLimitsOptionsModel.ServiceidsPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Profiles = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ApikeysPerIdentity = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Templates = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.TemplateVersionsPerTemplate = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Idps = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinks = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinksPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRules = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetAccountLimitsWithContext(ctx, getAccountLimitsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetAccountLimitsWithContext(ctx, getAccountLimitsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountLimitsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for serviceid_groups query parameter
+					Expect(req.URL.Query()["serviceids_per_group"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["profiles"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["apikeys_per_identity"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["templates"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_versions_per_template"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["idps"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["claim_rules_per_group"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["claim_rules_per_profile"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_links"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_links_per_profile"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_rules"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["cr_rules_per_profile"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"serviceid_groups": {"limit": 5, "count": 5}, "serviceids_per_group": {"limit": 5, "serviceid_groups": [{"group_id": "GroupID", "count": 5}]}, "profiles": {"limit": 5, "count": 5}, "apikeys_per_identity": {"limit": 5, "identities": [{"iam_id": "IamID", "count": 5}]}, "profile_templates": {"limit": 5, "count": 5}, "account_settings_templates": {"limit": 5, "count": 5}, "template_versions_per_template": {"limit": 5, "templates": [{"template_id": "TemplateID", "count": 5}]}, "idps": {"limit": 5, "count": 5}, "claim_rules_per_group": {"limit": 5, "access_groups": [{"group_id": "GroupID", "count": 5}]}, "claim_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_links": {"limit": 5, "count": 5}, "cr_links_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_rules": {"limit": 5, "count": 5}, "cr_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}}`)
+				}))
+			})
+			It(`Invoke GetAccountLimits successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetAccountLimits(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAccountLimitsOptions model
+				getAccountLimitsOptionsModel := new(iamidentityv1.GetAccountLimitsOptions)
+				getAccountLimitsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				getAccountLimitsOptionsModel.ServiceidsPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Profiles = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ApikeysPerIdentity = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Templates = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.TemplateVersionsPerTemplate = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Idps = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinks = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinksPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRules = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAccountLimits with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountLimitsOptions model
+				getAccountLimitsOptionsModel := new(iamidentityv1.GetAccountLimitsOptions)
+				getAccountLimitsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				getAccountLimitsOptionsModel.ServiceidsPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Profiles = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ApikeysPerIdentity = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Templates = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.TemplateVersionsPerTemplate = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Idps = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinks = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinksPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRules = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAccountLimitsOptions model with no property values
+				getAccountLimitsOptionsModelNew := new(iamidentityv1.GetAccountLimitsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccountLimits successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountLimitsOptions model
+				getAccountLimitsOptionsModel := new(iamidentityv1.GetAccountLimitsOptions)
+				getAccountLimitsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				getAccountLimitsOptionsModel.ServiceidsPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Profiles = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ApikeysPerIdentity = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Templates = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.TemplateVersionsPerTemplate = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Idps = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerGroup = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.ClaimRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinks = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrLinksPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRules = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.CrRulesPerProfile = core.StringPtr("testString")
+				getAccountLimitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAccountLimits(getAccountLimitsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptions *BulkListAccountEntityConsumptionOptions) - Operation response error`, func() {
+		bulkListAccountEntityConsumptionPath := "/v1/accounts/testString/limits/identity"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(bulkListAccountEntityConsumptionPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke BulkListAccountEntityConsumption with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the BulkListAccountEntityConsumptionOptions model
+				bulkListAccountEntityConsumptionOptionsModel := new(iamidentityv1.BulkListAccountEntityConsumptionOptions)
+				bulkListAccountEntityConsumptionOptionsModel.AccountID = core.StringPtr("testString")
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidsPerGroup = []string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Profiles = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ApikeysPerIdentity = []string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"}
+				bulkListAccountEntityConsumptionOptionsModel.Templates = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.TemplateVersionsPerTemplate = []string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Idps = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerGroup = []string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrLinks = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrLinksPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrRules = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptions *BulkListAccountEntityConsumptionOptions)`, func() {
+		bulkListAccountEntityConsumptionPath := "/v1/accounts/testString/limits/identity"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(bulkListAccountEntityConsumptionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"serviceid_groups": {"limit": 5, "count": 5}, "serviceids_per_group": {"limit": 5, "serviceid_groups": [{"group_id": "GroupID", "count": 5}]}, "profiles": {"limit": 5, "count": 5}, "apikeys_per_identity": {"limit": 5, "identities": [{"iam_id": "IamID", "count": 5}]}, "profile_templates": {"limit": 5, "count": 5}, "account_settings_templates": {"limit": 5, "count": 5}, "template_versions_per_template": {"limit": 5, "templates": [{"template_id": "TemplateID", "count": 5}]}, "idps": {"limit": 5, "count": 5}, "claim_rules_per_group": {"limit": 5, "access_groups": [{"group_id": "GroupID", "count": 5}]}, "claim_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_links": {"limit": 5, "count": 5}, "cr_links_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_rules": {"limit": 5, "count": 5}, "cr_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}}`)
+				}))
+			})
+			It(`Invoke BulkListAccountEntityConsumption successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the BulkListAccountEntityConsumptionOptions model
+				bulkListAccountEntityConsumptionOptionsModel := new(iamidentityv1.BulkListAccountEntityConsumptionOptions)
+				bulkListAccountEntityConsumptionOptionsModel.AccountID = core.StringPtr("testString")
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidsPerGroup = []string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Profiles = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ApikeysPerIdentity = []string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"}
+				bulkListAccountEntityConsumptionOptionsModel.Templates = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.TemplateVersionsPerTemplate = []string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Idps = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerGroup = []string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrLinks = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrLinksPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrRules = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.BulkListAccountEntityConsumptionWithContext(ctx, bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.BulkListAccountEntityConsumptionWithContext(ctx, bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(bulkListAccountEntityConsumptionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"serviceid_groups": {"limit": 5, "count": 5}, "serviceids_per_group": {"limit": 5, "serviceid_groups": [{"group_id": "GroupID", "count": 5}]}, "profiles": {"limit": 5, "count": 5}, "apikeys_per_identity": {"limit": 5, "identities": [{"iam_id": "IamID", "count": 5}]}, "profile_templates": {"limit": 5, "count": 5}, "account_settings_templates": {"limit": 5, "count": 5}, "template_versions_per_template": {"limit": 5, "templates": [{"template_id": "TemplateID", "count": 5}]}, "idps": {"limit": 5, "count": 5}, "claim_rules_per_group": {"limit": 5, "access_groups": [{"group_id": "GroupID", "count": 5}]}, "claim_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_links": {"limit": 5, "count": 5}, "cr_links_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}, "cr_rules": {"limit": 5, "count": 5}, "cr_rules_per_profile": {"limit": 5, "profiles": [{"profile_id": "ProfileID", "count": 5}]}}`)
+				}))
+			})
+			It(`Invoke BulkListAccountEntityConsumption successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.BulkListAccountEntityConsumption(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the BulkListAccountEntityConsumptionOptions model
+				bulkListAccountEntityConsumptionOptionsModel := new(iamidentityv1.BulkListAccountEntityConsumptionOptions)
+				bulkListAccountEntityConsumptionOptionsModel.AccountID = core.StringPtr("testString")
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidsPerGroup = []string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Profiles = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ApikeysPerIdentity = []string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"}
+				bulkListAccountEntityConsumptionOptionsModel.Templates = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.TemplateVersionsPerTemplate = []string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Idps = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerGroup = []string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrLinks = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrLinksPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrRules = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke BulkListAccountEntityConsumption with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the BulkListAccountEntityConsumptionOptions model
+				bulkListAccountEntityConsumptionOptionsModel := new(iamidentityv1.BulkListAccountEntityConsumptionOptions)
+				bulkListAccountEntityConsumptionOptionsModel.AccountID = core.StringPtr("testString")
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidsPerGroup = []string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Profiles = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ApikeysPerIdentity = []string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"}
+				bulkListAccountEntityConsumptionOptionsModel.Templates = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.TemplateVersionsPerTemplate = []string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Idps = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerGroup = []string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrLinks = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrLinksPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrRules = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the BulkListAccountEntityConsumptionOptions model with no property values
+				bulkListAccountEntityConsumptionOptionsModelNew := new(iamidentityv1.BulkListAccountEntityConsumptionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke BulkListAccountEntityConsumption successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the BulkListAccountEntityConsumptionOptions model
+				bulkListAccountEntityConsumptionOptionsModel := new(iamidentityv1.BulkListAccountEntityConsumptionOptions)
+				bulkListAccountEntityConsumptionOptionsModel.AccountID = core.StringPtr("testString")
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidGroups = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ServiceidsPerGroup = []string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Profiles = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ApikeysPerIdentity = []string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"}
+				bulkListAccountEntityConsumptionOptionsModel.Templates = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.TemplateVersionsPerTemplate = []string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Idps = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerGroup = []string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrLinks = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrLinksPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.CrRules = core.BoolPtr(true)
+				bulkListAccountEntityConsumptionOptionsModel.CrRulesPerProfile = []string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}
+				bulkListAccountEntityConsumptionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.BulkListAccountEntityConsumption(bulkListAccountEntityConsumptionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamIdentityService, _ := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -18915,6 +19545,42 @@ var _ = Describe(`IamIdentityV1`, func() {
 				_model, err := iamIdentityService.NewAPIKeyInsideCreateServiceIDRequest(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewBulkListAccountEntityConsumptionOptions successfully`, func() {
+				// Construct an instance of the BulkListAccountEntityConsumptionOptions model
+				accountID := "testString"
+				bulkListAccountEntityConsumptionOptionsModel := iamIdentityService.NewBulkListAccountEntityConsumptionOptions(accountID)
+				bulkListAccountEntityConsumptionOptionsModel.SetAccountID("testString")
+				bulkListAccountEntityConsumptionOptionsModel.SetServiceidGroups(true)
+				bulkListAccountEntityConsumptionOptionsModel.SetServiceidsPerGroup([]string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"})
+				bulkListAccountEntityConsumptionOptionsModel.SetProfiles(true)
+				bulkListAccountEntityConsumptionOptionsModel.SetApikeysPerIdentity([]string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"})
+				bulkListAccountEntityConsumptionOptionsModel.SetTemplates(true)
+				bulkListAccountEntityConsumptionOptionsModel.SetTemplateVersionsPerTemplate([]string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"})
+				bulkListAccountEntityConsumptionOptionsModel.SetIdps(true)
+				bulkListAccountEntityConsumptionOptionsModel.SetClaimRulesPerGroup([]string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"})
+				bulkListAccountEntityConsumptionOptionsModel.SetClaimRulesPerProfile([]string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"})
+				bulkListAccountEntityConsumptionOptionsModel.SetCrLinks(true)
+				bulkListAccountEntityConsumptionOptionsModel.SetCrLinksPerProfile([]string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"})
+				bulkListAccountEntityConsumptionOptionsModel.SetCrRules(true)
+				bulkListAccountEntityConsumptionOptionsModel.SetCrRulesPerProfile([]string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"})
+				bulkListAccountEntityConsumptionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(bulkListAccountEntityConsumptionOptionsModel).ToNot(BeNil())
+				Expect(bulkListAccountEntityConsumptionOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.ServiceidGroups).To(Equal(core.BoolPtr(true)))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.ServiceidsPerGroup).To(Equal([]string{"ServiceIdGroup-12345678-1234-1234-1234-123456789abc", "ServiceIdGroup-12345678-1234-1234-1234-123456789def"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.Profiles).To(Equal(core.BoolPtr(true)))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.ApikeysPerIdentity).To(Equal([]string{"iam-ServiceId-12345678-1234-1234-1234-123456789def", "IBMid-1234567ABC"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.Templates).To(Equal(core.BoolPtr(true)))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.TemplateVersionsPerTemplate).To(Equal([]string{"AccountSettingsTemplate-12345678-1234-1234-1234-123456789abc", "ProfileTemplate-12345678-1234-1234-1234-123456789def"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.Idps).To(Equal(core.BoolPtr(true)))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerGroup).To(Equal([]string{"AccessGroupId-12345678-1234-1234-1234-123456789abc", "AccessGroupId-12345678-1234-1234-1234-123456789def"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.ClaimRulesPerProfile).To(Equal([]string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.CrLinks).To(Equal(core.BoolPtr(true)))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.CrLinksPerProfile).To(Equal([]string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.CrRules).To(Equal(core.BoolPtr(true)))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.CrRulesPerProfile).To(Equal([]string{"Profile-12345678-1234-1234-123456789abc", "Profile-12345678-1234-1234-123456789def"}))
+				Expect(bulkListAccountEntityConsumptionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCommitAccountSettingsTemplateOptions successfully`, func() {
 				// Construct an instance of the CommitAccountSettingsTemplateOptions model
@@ -19219,12 +19885,14 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createLinkOptionsModel.SetCrType("testString")
 				createLinkOptionsModel.SetLink(createProfileLinkRequestLinkModel)
 				createLinkOptionsModel.SetName("testString")
+				createLinkOptionsModel.SetIsCrossAccount(true)
 				createLinkOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createLinkOptionsModel).ToNot(BeNil())
 				Expect(createLinkOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(createLinkOptionsModel.CrType).To(Equal(core.StringPtr("testString")))
 				Expect(createLinkOptionsModel.Link).To(Equal(createProfileLinkRequestLinkModel))
 				Expect(createLinkOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createLinkOptionsModel.IsCrossAccount).To(Equal(core.BoolPtr(true)))
 				Expect(createLinkOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateMfaReportOptions successfully`, func() {
@@ -19785,6 +20453,42 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(enableAPIKeyOptionsModel).ToNot(BeNil())
 				Expect(enableAPIKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(enableAPIKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetAccountLimitsOptions successfully`, func() {
+				// Construct an instance of the GetAccountLimitsOptions model
+				accountID := "testString"
+				getAccountLimitsOptionsModel := iamIdentityService.NewGetAccountLimitsOptions(accountID)
+				getAccountLimitsOptionsModel.SetAccountID("testString")
+				getAccountLimitsOptionsModel.SetServiceidGroups(true)
+				getAccountLimitsOptionsModel.SetServiceidsPerGroup("testString")
+				getAccountLimitsOptionsModel.SetProfiles("testString")
+				getAccountLimitsOptionsModel.SetApikeysPerIdentity("testString")
+				getAccountLimitsOptionsModel.SetTemplates("testString")
+				getAccountLimitsOptionsModel.SetTemplateVersionsPerTemplate("testString")
+				getAccountLimitsOptionsModel.SetIdps("testString")
+				getAccountLimitsOptionsModel.SetClaimRulesPerGroup("testString")
+				getAccountLimitsOptionsModel.SetClaimRulesPerProfile("testString")
+				getAccountLimitsOptionsModel.SetCrLinks("testString")
+				getAccountLimitsOptionsModel.SetCrLinksPerProfile("testString")
+				getAccountLimitsOptionsModel.SetCrRules("testString")
+				getAccountLimitsOptionsModel.SetCrRulesPerProfile("testString")
+				getAccountLimitsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAccountLimitsOptionsModel).ToNot(BeNil())
+				Expect(getAccountLimitsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.ServiceidGroups).To(Equal(core.BoolPtr(true)))
+				Expect(getAccountLimitsOptionsModel.ServiceidsPerGroup).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.Profiles).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.ApikeysPerIdentity).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.Templates).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.TemplateVersionsPerTemplate).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.Idps).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.ClaimRulesPerGroup).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.ClaimRulesPerProfile).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.CrLinks).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.CrLinksPerProfile).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.CrRules).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.CrRulesPerProfile).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountLimitsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccountSettingsAssignmentOptions successfully`, func() {
 				// Construct an instance of the GetAccountSettingsAssignmentOptions model
