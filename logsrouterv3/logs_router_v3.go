@@ -1158,18 +1158,18 @@ func (logsRouter *LogsRouterV3) QueryDestinationsWithContext(ctx context.Context
 	return
 }
 
-// MigrateActions : Migrate from old API version to version 3
-// Initiates or completes the migration from old API version to version 3. Use action=generate to start the migration
+// MigrateActions : Migrate from API version 1 to version 3
+// Initiates or completes the migration from API version 1 to version 3. Use action=generate to start the migration
 // process (returns 202 Accepted if state is BEFORE), or action=complete to finalize the migration (returns 200 OK if
 // state is PENDING_COMPLETION).
-func (logsRouter *LogsRouterV3) MigrateActions(migrateActionsOptions *MigrateActionsOptions) (result *MigrationComplete, response *core.DetailedResponse, err error) {
+func (logsRouter *LogsRouterV3) MigrateActions(migrateActionsOptions *MigrateActionsOptions) (result *MigrationState, response *core.DetailedResponse, err error) {
 	result, response, err = logsRouter.MigrateActionsWithContext(context.Background(), migrateActionsOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // MigrateActionsWithContext is an alternate form of the MigrateActions method which supports a Context parameter
-func (logsRouter *LogsRouterV3) MigrateActionsWithContext(ctx context.Context, migrateActionsOptions *MigrateActionsOptions) (result *MigrationComplete, response *core.DetailedResponse, err error) {
+func (logsRouter *LogsRouterV3) MigrateActionsWithContext(ctx context.Context, migrateActionsOptions *MigrateActionsOptions) (result *MigrationState, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(migrateActionsOptions, "migrateActionsOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1216,7 +1216,7 @@ func (logsRouter *LogsRouterV3) MigrateActionsWithContext(ctx context.Context, m
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMigrationComplete)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMigrationState)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -1999,36 +1999,10 @@ func (options *MigrateActionsOptions) SetHeaders(param map[string]string) *Migra
 	return options
 }
 
-// MigrationComplete : Migration complete action is successful.
-type MigrationComplete struct {
-	// API version used for IBM Cloud Logs Routing service under the account.
-	APIVersion *int64 `json:"api_version" validate:"required"`
-
-	// Migration completed message.
-	Message *string `json:"message,omitempty"`
-}
-
-// UnmarshalMigrationComplete unmarshals an instance of MigrationComplete from the specified map of raw messages.
-func UnmarshalMigrationComplete(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(MigrationComplete)
-	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // MigrationState : Migration state information.
 type MigrationState struct {
 	// API version currently in use for IBM Cloud Logs Routing service under the account.
-	Version *string `json:"version" validate:"required"`
+	APIVersion *string `json:"api_version" validate:"required"`
 
 	// Current migration state.
 	State *string `json:"state" validate:"required"`
@@ -2049,9 +2023,9 @@ const (
 // UnmarshalMigrationState unmarshals an instance of MigrationState from the specified map of raw messages.
 func UnmarshalMigrationState(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(MigrationState)
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "api_version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)

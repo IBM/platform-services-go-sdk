@@ -327,7 +327,7 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`MigrateActions - Migrate from old API version to version 3`, func() {
+	Describe(`MigrateActions - Migrate from API version 1 to version 3`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -336,10 +336,10 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 				Action: core.StringPtr("generate"),
 			}
 
-			migrationComplete, response, err := logsRouterService.MigrateActions(migrateActionsOptions)
+			migrationState, response, err := logsRouterService.MigrateActions(migrateActionsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(migrationComplete).ToNot(BeNil())
+			Expect(migrationState).ToNot(BeNil())
 		})
 	})
 

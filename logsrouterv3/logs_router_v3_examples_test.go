@@ -357,18 +357,18 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 				"generate",
 			)
 
-			migrationComplete, response, err := logsRouterService.MigrateActions(migrateActionsOptions)
+			migrationState, response, err := logsRouterService.MigrateActions(migrateActionsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(migrationComplete, "", "  ")
+			b, _ := json.MarshalIndent(migrationState, "", "  ")
 			fmt.Println(string(b))
 
 			// end-migrate_actions
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(migrationComplete).ToNot(BeNil())
+			Expect(migrationState).ToNot(BeNil())
 		})
 		It(`GetMigrationStatus request example`, func() {
 			fmt.Println("\nGetMigrationStatus() result:")
