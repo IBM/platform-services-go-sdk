@@ -3199,7 +3199,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": "1", "state": "BEFORE", "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke MigrateActions successfully with retries`, func() {
@@ -3254,7 +3254,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": "1", "state": "BEFORE", "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke MigrateActions successfully`, func() {
@@ -3411,7 +3411,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": "1", "state": "BEFORE", "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke GetMigrationStatus successfully with retries`, func() {
@@ -3464,7 +3464,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": "1", "state": "BEFORE", "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke GetMigrationStatus successfully`, func() {
@@ -3611,7 +3611,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": "1", "state": "BEFORE", "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke ResetMigration successfully with retries`, func() {
@@ -3664,7 +3664,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": "1", "state": "BEFORE", "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke ResetMigration successfully`, func() {

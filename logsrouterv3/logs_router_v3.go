@@ -2002,7 +2002,7 @@ func (options *MigrateActionsOptions) SetHeaders(param map[string]string) *Migra
 // MigrationState : Migration state information.
 type MigrationState struct {
 	// API version currently in use for IBM Cloud Logs Routing service under the account.
-	APIVersion *string `json:"api_version" validate:"required"`
+	APIVersion *int64 `json:"api_version" validate:"required"`
 
 	// Current migration state.
 	State *string `json:"state" validate:"required"`
