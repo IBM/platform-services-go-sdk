@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
+ * IBM OpenAPI SDK Code Generator Version: 3.113.1-d76630af-20260320-135953
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -266,6 +266,9 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 	if createTargetOptions.CloudlogsEndpoint != nil {
 		body["cloudlogs_endpoint"] = createTargetOptions.CloudlogsEndpoint
 	}
+	if createTargetOptions.AppconfigEndpoint != nil {
+		body["appconfig_endpoint"] = createTargetOptions.AppconfigEndpoint
+	}
 	if createTargetOptions.Region != nil {
 		body["region"] = createTargetOptions.Region
 	}
@@ -504,6 +507,9 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 	}
 	if replaceTargetOptions.CloudlogsEndpoint != nil {
 		body["cloudlogs_endpoint"] = replaceTargetOptions.CloudlogsEndpoint
+	}
+	if replaceTargetOptions.AppconfigEndpoint != nil {
+		body["appconfig_endpoint"] = replaceTargetOptions.AppconfigEndpoint
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1195,6 +1201,54 @@ func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "2.0.0")
 }
 
+// AppconfigEndpoint : Property values for the IBM Cloud App Configuration endpoint in responses.
+type AppconfigEndpoint struct {
+	// The CRN of the IBM Cloud App Configuration instance.
+	TargetCRN *string `json:"target_crn" validate:"required"`
+}
+
+// UnmarshalAppconfigEndpoint unmarshals an instance of AppconfigEndpoint from the specified map of raw messages.
+func UnmarshalAppconfigEndpoint(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppconfigEndpoint)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AppconfigEndpointPrototype : Property values for an IBM Cloud App Configuration endpoint in requests.
+type AppconfigEndpointPrototype struct {
+	// The CRN of the IBM Cloud App Configuration instance.
+	TargetCRN *string `json:"target_crn" validate:"required"`
+}
+
+// NewAppconfigEndpointPrototype : Instantiate AppconfigEndpointPrototype (Generic Model Constructor)
+func (*AtrackerV2) NewAppconfigEndpointPrototype(targetCRN string) (_model *AppconfigEndpointPrototype, err error) {
+	_model = &AppconfigEndpointPrototype{
+		TargetCRN: core.StringPtr(targetCRN),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalAppconfigEndpointPrototype unmarshals an instance of AppconfigEndpointPrototype from the specified map of raw messages.
+func UnmarshalAppconfigEndpointPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppconfigEndpointPrototype)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_crn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CloudLogsEndpoint : Property values for the IBM Cloud Logs endpoint in responses.
 type CloudLogsEndpoint struct {
 	// The CRN of the IBM Cloud Logs instance.
@@ -1415,8 +1469,8 @@ type CreateTargetOptions struct {
 	// than `(space) - . _ :`. Do not include any personal identifying information (PII) in any resource names.
 	Name *string `json:"name" validate:"required"`
 
-	// The type of the target. It can be cloud_object_storage, event_streams, or cloud_logs. Based on this type you must
-	// include cos_endpoint, eventstreams_endpoint or cloudlogs_endpoint.
+	// The type of the target. It can be cloud_object_storage, event_streams, cloud_logs, or app_config. Based on this type
+	// you must include cos_endpoint, eventstreams_endpoint, cloudlogs_endpoint, or appconfig_endpoint.
 	TargetType *string `json:"target_type" validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint in requests.
@@ -1427,6 +1481,9 @@ type CreateTargetOptions struct {
 
 	// Property values for an IBM Cloud Logs endpoint in requests.
 	CloudlogsEndpoint *CloudLogsEndpointPrototype `json:"cloudlogs_endpoint,omitempty"`
+
+	// Property values for an IBM Cloud App Configuration endpoint in requests.
+	AppconfigEndpoint *AppconfigEndpointPrototype `json:"appconfig_endpoint,omitempty"`
 
 	// Include this optional field if you want to create a target in a different region other than the one you are
 	// connected.
@@ -1442,9 +1499,10 @@ type CreateTargetOptions struct {
 }
 
 // Constants associated with the CreateTargetOptions.TargetType property.
-// The type of the target. It can be cloud_object_storage, event_streams, or cloud_logs. Based on this type you must
-// include cos_endpoint, eventstreams_endpoint or cloudlogs_endpoint.
+// The type of the target. It can be cloud_object_storage, event_streams, cloud_logs, or app_config. Based on this type
+// you must include cos_endpoint, eventstreams_endpoint, cloudlogs_endpoint, or appconfig_endpoint.
 const (
+	CreateTargetOptionsTargetTypeAppConfigConst          = "app_config"
 	CreateTargetOptionsTargetTypeCloudLogsConst          = "cloud_logs"
 	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 	CreateTargetOptionsTargetTypeEventStreamsConst       = "event_streams"
@@ -1494,6 +1552,12 @@ func (_options *CreateTargetOptions) SetEventstreamsEndpoint(eventstreamsEndpoin
 // SetCloudlogsEndpoint : Allow user to set CloudlogsEndpoint
 func (_options *CreateTargetOptions) SetCloudlogsEndpoint(cloudlogsEndpoint *CloudLogsEndpointPrototype) *CreateTargetOptions {
 	_options.CloudlogsEndpoint = cloudlogsEndpoint
+	return _options
+}
+
+// SetAppconfigEndpoint : Allow user to set AppconfigEndpoint
+func (_options *CreateTargetOptions) SetAppconfigEndpoint(appconfigEndpoint *AppconfigEndpointPrototype) *CreateTargetOptions {
+	_options.AppconfigEndpoint = appconfigEndpoint
 	return _options
 }
 
@@ -1957,6 +2021,9 @@ type ReplaceTargetOptions struct {
 	// Property values for an IBM Cloud Logs endpoint in requests.
 	CloudlogsEndpoint *CloudLogsEndpointPrototype `json:"cloudlogs_endpoint,omitempty"`
 
+	// Property values for an IBM Cloud App Configuration endpoint in requests.
+	AppconfigEndpoint *AppconfigEndpointPrototype `json:"appconfig_endpoint,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -1998,6 +2065,12 @@ func (_options *ReplaceTargetOptions) SetCloudlogsEndpoint(cloudlogsEndpoint *Cl
 	return _options
 }
 
+// SetAppconfigEndpoint : Allow user to set AppconfigEndpoint
+func (_options *ReplaceTargetOptions) SetAppconfigEndpoint(appconfigEndpoint *AppconfigEndpointPrototype) *ReplaceTargetOptions {
+	_options.AppconfigEndpoint = appconfigEndpoint
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ReplaceTargetOptions) SetHeaders(param map[string]string) *ReplaceTargetOptions {
 	options.Headers = param
@@ -2036,7 +2109,7 @@ type Route struct {
 	Message *string `json:"message,omitempty"`
 
 	// Present when the route is enterprise-managed (`managed_by: enterprise`).
-	ManagedBy *string `json:"managed_by,omitempty"`
+	ManagedBy *string `json:"managed_by" validate:"required"`
 }
 
 // Constants associated with the Route.ManagedBy property.
@@ -2283,6 +2356,9 @@ type Target struct {
 	// Property values for the IBM Cloud Logs endpoint in responses.
 	CloudlogsEndpoint *CloudLogsEndpoint `json:"cloudlogs_endpoint,omitempty"`
 
+	// Property values for the IBM Cloud App Configuration endpoint in responses.
+	AppconfigEndpoint *AppconfigEndpoint `json:"appconfig_endpoint,omitempty"`
+
 	// The status of the write attempt to the target with the provided endpoint parameters.
 	WriteStatus *WriteStatus `json:"write_status" validate:"required"`
 
@@ -2305,6 +2381,7 @@ type Target struct {
 // Constants associated with the Target.TargetType property.
 // The type of the target.
 const (
+	TargetTargetTypeAppConfigConst          = "app_config"
 	TargetTargetTypeCloudLogsConst          = "cloud_logs"
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 	TargetTargetTypeEventStreamsConst       = "event_streams"
@@ -2358,6 +2435,11 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalModel(m, "cloudlogs_endpoint", &obj.CloudlogsEndpoint, UnmarshalCloudLogsEndpoint)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cloudlogs_endpoint-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "appconfig_endpoint", &obj.AppconfigEndpoint, UnmarshalAppconfigEndpoint)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "appconfig_endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "write_status", &obj.WriteStatus, UnmarshalWriteStatus)
@@ -2475,7 +2557,7 @@ type WarningReport struct {
 	Trace *string `json:"trace,omitempty"`
 
 	// The warning array triggered by the API request.
-	Warnings []Warning `json:"warnings,omitempty"`
+	Warnings []Warning `json:"warnings" validate:"required"`
 }
 
 // UnmarshalWarningReport unmarshals an instance of WarningReport from the specified map of raw messages.

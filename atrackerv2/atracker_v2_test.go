@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -309,6 +309,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv2.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
@@ -316,6 +320,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				createTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
 				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -370,7 +375,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully with retries`, func() {
@@ -402,6 +407,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv2.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
@@ -409,6 +418,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				createTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
 				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -466,7 +476,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -503,6 +513,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv2.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
@@ -510,6 +524,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				createTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
 				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -549,6 +564,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv2.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
@@ -556,6 +575,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				createTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
 				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -616,6 +636,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv2.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
@@ -623,6 +647,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				createTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				createTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				createTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				createTargetOptionsModel.Region = core.StringPtr("us-south")
 				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -704,7 +729,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully with retries`, func() {
@@ -759,7 +784,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -910,7 +935,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -964,7 +989,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -1103,6 +1128,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv2.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
@@ -1110,6 +1139,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				replaceTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				replaceTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				replaceTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := atrackerService.ReplaceTarget(replaceTargetOptionsModel)
@@ -1162,7 +1192,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully with retries`, func() {
@@ -1194,6 +1224,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv2.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
@@ -1201,6 +1235,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				replaceTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				replaceTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				replaceTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1256,7 +1291,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully`, func() {
@@ -1293,6 +1328,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv2.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
@@ -1300,6 +1339,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				replaceTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				replaceTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				replaceTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1337,6 +1377,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv2.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
@@ -1344,6 +1388,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				replaceTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				replaceTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				replaceTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := atrackerService.SetServiceURL("")
@@ -1402,6 +1447,10 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel := new(atrackerv2.CloudLogsEndpointPrototype)
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv2.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
@@ -1409,6 +1458,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				replaceTargetOptionsModel.EventstreamsEndpoint = eventstreamsEndpointPrototypeModel
 				replaceTargetOptionsModel.CloudlogsEndpoint = cloudLogsEndpointPrototypeModel
+				replaceTargetOptionsModel.AppconfigEndpoint = appconfigEndpointPrototypeModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1698,7 +1748,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ValidateTarget successfully with retries`, func() {
@@ -1752,7 +1802,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "eventstreams_endpoint": {"target_crn": "crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "brokers": ["kafka-x:9094"], "topic": "my-topic", "api_key": "xxxxxxxxxxxxxx", "service_to_service_enabled": false}, "cloudlogs_endpoint": {"target_crn": "crn:v1:bluemix:public:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "appconfig_endpoint": {"target_crn": "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "message": "This is a valid target. However, there is another target already defined with the same target endpoint.", "api_version": 2, "managed_by": "enterprise"}`)
 				}))
 			})
 			It(`Invoke ValidateTarget successfully`, func() {
@@ -3361,6 +3411,12 @@ var _ = Describe(`AtrackerV2`, func() {
 				URL:           "http://atrackerv2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
+			It(`Invoke NewAppconfigEndpointPrototype successfully`, func() {
+				targetCRN := "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"
+				_model, err := atrackerService.NewAppconfigEndpointPrototype(targetCRN)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewCloudLogsEndpointPrototype successfully`, func() {
 				targetCRN := "crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"
 				_model, err := atrackerService.NewCloudLogsEndpointPrototype(targetCRN)
@@ -3433,6 +3489,12 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				Expect(cloudLogsEndpointPrototypeModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				Expect(appconfigEndpointPrototypeModel).ToNot(BeNil())
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				Expect(appconfigEndpointPrototypeModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
+
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsName := "my-cos-target"
 				createTargetOptionsTargetType := "cloud_object_storage"
@@ -3442,6 +3504,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				createTargetOptionsModel.SetCosEndpoint(cosEndpointPrototypeModel)
 				createTargetOptionsModel.SetEventstreamsEndpoint(eventstreamsEndpointPrototypeModel)
 				createTargetOptionsModel.SetCloudlogsEndpoint(cloudLogsEndpointPrototypeModel)
+				createTargetOptionsModel.SetAppconfigEndpoint(appconfigEndpointPrototypeModel)
 				createTargetOptionsModel.SetRegion("us-south")
 				createTargetOptionsModel.SetManagedBy("enterprise")
 				createTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3451,6 +3514,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				Expect(createTargetOptionsModel.CosEndpoint).To(Equal(cosEndpointPrototypeModel))
 				Expect(createTargetOptionsModel.EventstreamsEndpoint).To(Equal(eventstreamsEndpointPrototypeModel))
 				Expect(createTargetOptionsModel.CloudlogsEndpoint).To(Equal(cloudLogsEndpointPrototypeModel))
+				Expect(createTargetOptionsModel.AppconfigEndpoint).To(Equal(appconfigEndpointPrototypeModel))
 				Expect(createTargetOptionsModel.Region).To(Equal(core.StringPtr("us-south")))
 				Expect(createTargetOptionsModel.ManagedBy).To(Equal(core.StringPtr("enterprise")))
 				Expect(createTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -3606,6 +3670,12 @@ var _ = Describe(`AtrackerV2`, func() {
 				cloudLogsEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				Expect(cloudLogsEndpointPrototypeModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:logs:eu-es:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
 
+				// Construct an instance of the AppconfigEndpointPrototype model
+				appconfigEndpointPrototypeModel := new(atrackerv2.AppconfigEndpointPrototype)
+				Expect(appconfigEndpointPrototypeModel).ToNot(BeNil())
+				appconfigEndpointPrototypeModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				Expect(appconfigEndpointPrototypeModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
+
 				// Construct an instance of the ReplaceTargetOptions model
 				id := "testString"
 				replaceTargetOptionsModel := atrackerService.NewReplaceTargetOptions(id)
@@ -3614,6 +3684,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.SetCosEndpoint(cosEndpointPrototypeModel)
 				replaceTargetOptionsModel.SetEventstreamsEndpoint(eventstreamsEndpointPrototypeModel)
 				replaceTargetOptionsModel.SetCloudlogsEndpoint(cloudLogsEndpointPrototypeModel)
+				replaceTargetOptionsModel.SetAppconfigEndpoint(appconfigEndpointPrototypeModel)
 				replaceTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceTargetOptionsModel).ToNot(BeNil())
 				Expect(replaceTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
@@ -3621,6 +3692,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				Expect(replaceTargetOptionsModel.CosEndpoint).To(Equal(cosEndpointPrototypeModel))
 				Expect(replaceTargetOptionsModel.EventstreamsEndpoint).To(Equal(eventstreamsEndpointPrototypeModel))
 				Expect(replaceTargetOptionsModel.CloudlogsEndpoint).To(Equal(cloudLogsEndpointPrototypeModel))
+				Expect(replaceTargetOptionsModel.AppconfigEndpoint).To(Equal(appconfigEndpointPrototypeModel))
 				Expect(replaceTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRulePrototype successfully`, func() {
@@ -3642,6 +3714,24 @@ var _ = Describe(`AtrackerV2`, func() {
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAppconfigEndpointPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(atrackerv2.AppconfigEndpointPrototype)
+			model.TargetCRN = core.StringPtr("crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *atrackerv2.AppconfigEndpointPrototype
+			err = atrackerv2.UnmarshalAppconfigEndpointPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalCloudLogsEndpointPrototype successfully`, func() {
 			// Construct an instance of the model.
 			model := new(atrackerv2.CloudLogsEndpointPrototype)
