@@ -1,3 +1,10 @@
+## [0.97.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.0...v0.97.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* **ATracker:** add new `app_config` target ([#440](https://github.com/IBM/platform-services-go-sdk/issues/440)) ([f1316ae](https://github.com/IBM/platform-services-go-sdk/commit/f1316ae3443c08c51aa259d26cb454000f6aff95))
+
 # [0.97.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.96.0...v0.97.0) (2026-04-07)
 
 
