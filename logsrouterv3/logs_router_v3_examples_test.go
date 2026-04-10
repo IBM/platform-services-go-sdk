@@ -304,7 +304,7 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			// end-migrate_actions
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(202))
 			Expect(migrationState).ToNot(BeNil())
 		})
 		It(`GetMigrationStatus request example`, func() {
