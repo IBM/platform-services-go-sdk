@@ -68,14 +68,13 @@ var _ = Describe(`LogsRouterV3`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"LOGS_ROUTER_URL": "https://logsrouterv3/api",
+				"LOGS_ROUTER_URL":       "https://logsrouterv3/api",
 				"LOGS_ROUTER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3UsingExternalConfig(&logsrouterv3.LogsRouterV3Options{
-				})
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3UsingExternalConfig(&logsrouterv3.LogsRouterV3Options{})
 				Expect(logsRouterService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3UsingExternalConfig(&logsrouterv3.LogsRouterV3Options{
-				})
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3UsingExternalConfig(&logsrouterv3.LogsRouterV3Options{})
 				err := logsRouterService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(logsRouterService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`LogsRouterV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"LOGS_ROUTER_URL": "https://logsrouterv3/api",
+				"LOGS_ROUTER_URL":       "https://logsrouterv3/api",
 				"LOGS_ROUTER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3UsingExternalConfig(&logsrouterv3.LogsRouterV3Options{
-			})
+			logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3UsingExternalConfig(&logsrouterv3.LogsRouterV3Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(logsRouterService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"LOGS_ROUTER_AUTH_TYPE":   "NOAuth",
+				"LOGS_ROUTER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -251,999 +248,6 @@ var _ = Describe(`LogsRouterV3`, func() {
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
-		})
-	})
-	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions) - Operation response error`, func() {
-		createTargetPath := "/targets"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createTargetPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateTarget with error: Operation response processing error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the CreateTargetOptions model
-				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
-				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				createTargetOptionsModel.Region = core.StringPtr("us-south")
-				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
-				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				logsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = logsRouterService.CreateTarget(createTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
-		createTargetPath := "/targets"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createTargetPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
-				}))
-			})
-			It(`Invoke CreateTarget successfully with retries`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-				logsRouterService.EnableRetries(0, 0)
-
-				// Construct an instance of the CreateTargetOptions model
-				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
-				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				createTargetOptionsModel.Region = core.StringPtr("us-south")
-				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
-				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := logsRouterService.CreateTargetWithContext(ctx, createTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				logsRouterService.DisableRetries()
-				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = logsRouterService.CreateTargetWithContext(ctx, createTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createTargetPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
-				}))
-			})
-			It(`Invoke CreateTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := logsRouterService.CreateTarget(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateTargetOptions model
-				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
-				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				createTargetOptionsModel.Region = core.StringPtr("us-south")
-				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
-				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = logsRouterService.CreateTarget(createTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateTarget with error: Operation validation and request error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the CreateTargetOptions model
-				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
-				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				createTargetOptionsModel.Region = core.StringPtr("us-south")
-				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
-				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := logsRouterService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateTargetOptions model with no property values
-				createTargetOptionsModelNew := new(logsrouterv3.CreateTargetOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = logsRouterService.CreateTarget(createTargetOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the CreateTargetOptions model
-				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
-				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				createTargetOptionsModel.Region = core.StringPtr("us-south")
-				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
-				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions) - Operation response error`, func() {
-		listTargetsPath := "/targets"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listTargetsPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListTargets with error: Operation response processing error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the ListTargetsOptions model
-				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
-				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				logsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = logsRouterService.ListTargets(listTargetsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
-		listTargetsPath := "/targets"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listTargetsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
-				}))
-			})
-			It(`Invoke ListTargets successfully with retries`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-				logsRouterService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListTargetsOptions model
-				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
-				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := logsRouterService.ListTargetsWithContext(ctx, listTargetsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				logsRouterService.DisableRetries()
-				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = logsRouterService.ListTargetsWithContext(ctx, listTargetsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listTargetsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
-				}))
-			})
-			It(`Invoke ListTargets successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := logsRouterService.ListTargets(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListTargetsOptions model
-				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
-				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = logsRouterService.ListTargets(listTargetsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListTargets with error: Operation request error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the ListTargetsOptions model
-				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
-				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := logsRouterService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListTargets successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the ListTargetsOptions model
-				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
-				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetTarget(getTargetOptions *GetTargetOptions) - Operation response error`, func() {
-		getTargetPath := "/targets/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getTargetPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetTarget with error: Operation response processing error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the GetTargetOptions model
-				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
-				getTargetOptionsModel.ID = core.StringPtr("testString")
-				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				logsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = logsRouterService.GetTarget(getTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
-		getTargetPath := "/targets/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getTargetPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
-				}))
-			})
-			It(`Invoke GetTarget successfully with retries`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-				logsRouterService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetTargetOptions model
-				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
-				getTargetOptionsModel.ID = core.StringPtr("testString")
-				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := logsRouterService.GetTargetWithContext(ctx, getTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				logsRouterService.DisableRetries()
-				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = logsRouterService.GetTargetWithContext(ctx, getTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getTargetPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
-				}))
-			})
-			It(`Invoke GetTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := logsRouterService.GetTarget(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetTargetOptions model
-				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
-				getTargetOptionsModel.ID = core.StringPtr("testString")
-				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = logsRouterService.GetTarget(getTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetTarget with error: Operation validation and request error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the GetTargetOptions model
-				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
-				getTargetOptionsModel.ID = core.StringPtr("testString")
-				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := logsRouterService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetTargetOptions model with no property values
-				getTargetOptionsModelNew := new(logsrouterv3.GetTargetOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = logsRouterService.GetTarget(getTargetOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the GetTargetOptions model
-				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
-				getTargetOptionsModel.ID = core.StringPtr("testString")
-				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateTarget(updateTargetOptions *UpdateTargetOptions) - Operation response error`, func() {
-		updateTargetPath := "/targets/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateTarget with error: Operation response processing error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateTargetOptions model
-				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
-				updateTargetOptionsModel.ID = core.StringPtr("testString")
-				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				logsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = logsRouterService.UpdateTarget(updateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
-		updateTargetPath := "/targets/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
-				}))
-			})
-			It(`Invoke UpdateTarget successfully with retries`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-				logsRouterService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateTargetOptions model
-				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
-				updateTargetOptionsModel.ID = core.StringPtr("testString")
-				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := logsRouterService.UpdateTargetWithContext(ctx, updateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				logsRouterService.DisableRetries()
-				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = logsRouterService.UpdateTargetWithContext(ctx, updateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
-				}))
-			})
-			It(`Invoke UpdateTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := logsRouterService.UpdateTarget(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateTargetOptions model
-				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
-				updateTargetOptionsModel.ID = core.StringPtr("testString")
-				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = logsRouterService.UpdateTarget(updateTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateTarget with error: Operation validation and request error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateTargetOptions model
-				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
-				updateTargetOptionsModel.ID = core.StringPtr("testString")
-				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := logsRouterService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateTargetOptions model with no property values
-				updateTargetOptionsModelNew := new(logsrouterv3.UpdateTargetOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = logsRouterService.UpdateTarget(updateTargetOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateTargetOptions model
-				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
-				updateTargetOptionsModel.ID = core.StringPtr("testString")
-				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
-				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-		deleteTargetPath := "/targets/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke DeleteTarget successfully`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := logsRouterService.DeleteTarget(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteTargetOptions model
-				deleteTargetOptionsModel := new(logsrouterv3.DeleteTargetOptions)
-				deleteTargetOptionsModel.ID = core.StringPtr("testString")
-				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = logsRouterService.DeleteTarget(deleteTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteTarget with error: Operation validation and request error`, func() {
-				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(logsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteTargetOptions model
-				deleteTargetOptionsModel := new(logsrouterv3.DeleteTargetOptions)
-				deleteTargetOptionsModel.ID = core.StringPtr("testString")
-				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := logsRouterService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := logsRouterService.DeleteTarget(deleteTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteTargetOptions model with no property values
-				deleteTargetOptionsModelNew := new(logsrouterv3.DeleteTargetOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = logsRouterService.DeleteTarget(deleteTargetOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
 		})
 	})
 	Describe(`CreateRoute(createRouteOptions *CreateRouteOptions) - Operation response error`, func() {
@@ -3145,7 +2149,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(migrateActionsPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["action"]).To(Equal([]string{"complete"}))
+					Expect(req.URL.Query()["action"]).To(Equal([]string{"generate"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3161,7 +2165,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := logsRouterService.MigrateActions(migrateActionsOptionsModel)
@@ -3192,14 +2196,14 @@ var _ = Describe(`LogsRouterV3`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(migrateActionsPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					Expect(req.URL.Query()["action"]).To(Equal([]string{"complete"}))
+					Expect(req.URL.Query()["action"]).To(Equal([]string{"generate"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": 3, "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke MigrateActions successfully with retries`, func() {
@@ -3213,7 +2217,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3250,11 +2254,11 @@ var _ = Describe(`LogsRouterV3`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(migrateActionsPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					Expect(req.URL.Query()["action"]).To(Equal([]string{"complete"}))
+					Expect(req.URL.Query()["action"]).To(Equal([]string{"generate"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_version": 3, "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
 				}))
 			})
 			It(`Invoke MigrateActions successfully`, func() {
@@ -3273,7 +2277,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3293,7 +2297,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := logsRouterService.SetServiceURL("")
@@ -3334,7 +2338,7 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Construct an instance of the MigrateActionsOptions model
 				migrateActionsOptionsModel := new(logsrouterv3.MigrateActionsOptions)
-				migrateActionsOptionsModel.Action = core.StringPtr("complete")
+				migrateActionsOptionsModel.Action = core.StringPtr("generate")
 				migrateActionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3344,6 +2348,1399 @@ var _ = Describe(`LogsRouterV3`, func() {
 
 				// Verify a nil result
 				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMigrationStatus(getMigrationStatusOptions *GetMigrationStatusOptions) - Operation response error`, func() {
+		getMigrationStatusPath := "/migrate"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMigrationStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetMigrationStatus with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMigrationStatus(getMigrationStatusOptions *GetMigrationStatusOptions)`, func() {
+		getMigrationStatusPath := "/migrate"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMigrationStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke GetMigrationStatus successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.GetMigrationStatusWithContext(ctx, getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.GetMigrationStatusWithContext(ctx, getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMigrationStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke GetMigrationStatus successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.GetMigrationStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetMigrationStatus with error: Operation request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetMigrationStatus successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := new(logsrouterv3.GetMigrationStatusOptions)
+				getMigrationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.GetMigrationStatus(getMigrationStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ResetMigration(resetMigrationOptions *ResetMigrationOptions) - Operation response error`, func() {
+		resetMigrationPath := "/migrate"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(resetMigrationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ResetMigration with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ResetMigration(resetMigrationOptions *ResetMigrationOptions)`, func() {
+		resetMigrationPath := "/migrate"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(resetMigrationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke ResetMigration successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.ResetMigrationWithContext(ctx, resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.ResetMigrationWithContext(ctx, resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(resetMigrationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_version": 1, "state": "BEFORE", "message": "Message"}`)
+				}))
+			})
+			It(`Invoke ResetMigration successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.ResetMigration(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ResetMigration with error: Operation request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ResetMigration successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := new(logsrouterv3.ResetMigrationOptions)
+				resetMigrationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.ResetMigration(resetMigrationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions) - Operation response error`, func() {
+		createTargetPath := "/targets"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTargetPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateTarget with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTargetOptions model
+				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
+				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
+				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
+		createTargetPath := "/targets"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTargetPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+				}))
+			})
+			It(`Invoke CreateTarget successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateTargetOptions model
+				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
+				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
+				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.CreateTargetWithContext(ctx, createTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.CreateTargetWithContext(ctx, createTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTargetPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+				}))
+			})
+			It(`Invoke CreateTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.CreateTarget(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateTargetOptions model
+				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
+				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
+				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateTarget with error: Operation validation and request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTargetOptions model
+				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
+				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
+				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateTargetOptions model with no property values
+				createTargetOptionsModelNew := new(logsrouterv3.CreateTargetOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = logsRouterService.CreateTarget(createTargetOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTargetOptions model
+				createTargetOptionsModel := new(logsrouterv3.CreateTargetOptions)
+				createTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				createTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				createTargetOptionsModel.Region = core.StringPtr("us-south")
+				createTargetOptionsModel.ManagedBy = core.StringPtr("enterprise")
+				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions) - Operation response error`, func() {
+		listTargetsPath := "/targets"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTargetsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListTargets with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ListTargetsOptions model
+				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
+				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
+		listTargetsPath := "/targets"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTargetsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
+				}))
+			})
+			It(`Invoke ListTargets successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListTargetsOptions model
+				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
+				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.ListTargetsWithContext(ctx, listTargetsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.ListTargetsWithContext(ctx, listTargetsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTargetsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}]}`)
+				}))
+			})
+			It(`Invoke ListTargets successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.ListTargets(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListTargetsOptions model
+				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
+				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListTargets with error: Operation request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ListTargetsOptions model
+				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
+				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListTargets successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the ListTargetsOptions model
+				listTargetsOptionsModel := new(logsrouterv3.ListTargetsOptions)
+				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetTarget(getTargetOptions *GetTargetOptions) - Operation response error`, func() {
+		getTargetPath := "/targets/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTargetPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetTarget with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetTargetOptions model
+				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
+				getTargetOptionsModel.ID = core.StringPtr("testString")
+				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
+		getTargetPath := "/targets/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTargetPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+				}))
+			})
+			It(`Invoke GetTarget successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetTargetOptions model
+				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
+				getTargetOptionsModel.ID = core.StringPtr("testString")
+				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.GetTargetWithContext(ctx, getTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.GetTargetWithContext(ctx, getTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTargetPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+				}))
+			})
+			It(`Invoke GetTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.GetTarget(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetTargetOptions model
+				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
+				getTargetOptionsModel.ID = core.StringPtr("testString")
+				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetTarget with error: Operation validation and request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetTargetOptions model
+				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
+				getTargetOptionsModel.ID = core.StringPtr("testString")
+				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetTargetOptions model with no property values
+				getTargetOptionsModelNew := new(logsrouterv3.GetTargetOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = logsRouterService.GetTarget(getTargetOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the GetTargetOptions model
+				getTargetOptionsModel := new(logsrouterv3.GetTargetOptions)
+				getTargetOptionsModel.ID = core.StringPtr("testString")
+				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateTarget(updateTargetOptions *UpdateTargetOptions) - Operation response error`, func() {
+		updateTargetPath := "/targets/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateTarget with error: Operation response processing error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				logsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = logsRouterService.UpdateTarget(updateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
+		updateTargetPath := "/targets/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+				}))
+			})
+			It(`Invoke UpdateTarget successfully with retries`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+				logsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := logsRouterService.UpdateTargetWithContext(ctx, updateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				logsRouterService.DisableRetries()
+				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = logsRouterService.UpdateTargetWithContext(ctx, updateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-lr-target-us-south", "crn": "crn:v1:bluemix:public:logs-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "cloud_logs", "region": "us-south", "write_status": {"status": "success", "last_failure": "2025-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "managed_by": "enterprise"}`)
+				}))
+			})
+			It(`Invoke UpdateTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := logsRouterService.UpdateTarget(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = logsRouterService.UpdateTarget(updateTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateTarget with error: Operation validation and request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateTargetOptions model with no property values
+				updateTargetOptionsModelNew := new(logsrouterv3.UpdateTargetOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = logsRouterService.UpdateTarget(updateTargetOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(logsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-lr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := logsRouterService.UpdateTarget(updateTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+		deleteTargetPath := "/targets/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteTarget successfully`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := logsRouterService.DeleteTarget(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteTargetOptions model
+				deleteTargetOptionsModel := new(logsrouterv3.DeleteTargetOptions)
+				deleteTargetOptionsModel.ID = core.StringPtr("testString")
+				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = logsRouterService.DeleteTarget(deleteTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteTarget with error: Operation validation and request error`, func() {
+				logsRouterService, serviceErr := logsrouterv3.NewLogsRouterV3(&logsrouterv3.LogsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(logsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTargetOptions model
+				deleteTargetOptionsModel := new(logsrouterv3.DeleteTargetOptions)
+				deleteTargetOptionsModel.ID = core.StringPtr("testString")
+				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := logsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := logsRouterService.DeleteTarget(deleteTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteTargetOptions model with no property values
+				deleteTargetOptionsModelNew := new(logsrouterv3.DeleteTargetOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = logsRouterService.DeleteTarget(deleteTargetOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -3440,6 +3837,13 @@ var _ = Describe(`LogsRouterV3`, func() {
 				Expect(deleteTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetMigrationStatusOptions successfully`, func() {
+				// Construct an instance of the GetMigrationStatusOptions model
+				getMigrationStatusOptionsModel := logsRouterService.NewGetMigrationStatusOptions()
+				getMigrationStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getMigrationStatusOptionsModel).ToNot(BeNil())
+				Expect(getMigrationStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetRouteOptions successfully`, func() {
 				// Construct an instance of the GetRouteOptions model
 				id := "testString"
@@ -3491,12 +3895,12 @@ var _ = Describe(`LogsRouterV3`, func() {
 			})
 			It(`Invoke NewMigrateActionsOptions successfully`, func() {
 				// Construct an instance of the MigrateActionsOptions model
-				action := "complete"
+				action := "generate"
 				migrateActionsOptionsModel := logsRouterService.NewMigrateActionsOptions(action)
-				migrateActionsOptionsModel.SetAction("complete")
+				migrateActionsOptionsModel.SetAction("generate")
 				migrateActionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(migrateActionsOptionsModel).ToNot(BeNil())
-				Expect(migrateActionsOptionsModel.Action).To(Equal(core.StringPtr("complete")))
+				Expect(migrateActionsOptionsModel.Action).To(Equal(core.StringPtr("generate")))
 				Expect(migrateActionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewQueryDestinationsOptions successfully`, func() {
@@ -3515,10 +3919,16 @@ var _ = Describe(`LogsRouterV3`, func() {
 				Expect(queryDestinationsOptionsModel.Crns).To(Equal([]logsrouterv3.CRNPrototype{*crnPrototypeModel}))
 				Expect(queryDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewResetMigrationOptions successfully`, func() {
+				// Construct an instance of the ResetMigrationOptions model
+				resetMigrationOptionsModel := logsRouterService.NewResetMigrationOptions()
+				resetMigrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(resetMigrationOptionsModel).ToNot(BeNil())
+				Expect(resetMigrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewRulePrototype successfully`, func() {
 				targets := []logsrouterv3.TargetIdentity{}
-				inclusionFilters := []logsrouterv3.InclusionFilterPrototype{}
-				_model, err := logsRouterService.NewRulePrototype(targets, inclusionFilters)
+				_model, err := logsRouterService.NewRulePrototype(targets)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
