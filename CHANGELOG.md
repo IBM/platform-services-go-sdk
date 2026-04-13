@@ -1,3 +1,10 @@
+## [0.97.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.1...v0.97.2) (2026-04-13)
+
+
+### Bug Fixes
+
+* **Logs Router:** add changes for migration apis ([#435](https://github.com/IBM/platform-services-go-sdk/issues/435)) ([67a04dd](https://github.com/IBM/platform-services-go-sdk/commit/67a04dd2beeb01512b2fb15a15d89f915708062f))
+
 ## [0.97.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.0...v0.97.1) (2026-04-09)
 
 
