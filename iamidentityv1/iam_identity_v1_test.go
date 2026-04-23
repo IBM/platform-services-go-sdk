@@ -68,13 +68,14 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+				})
 				Expect(iamIdentityService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+				})
 				err := iamIdentityService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamIdentityService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_AUTH_TYPE": "NOAuth",
+				"IAM_IDENTITY_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -9187,7 +9190,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
@@ -9280,7 +9283,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
@@ -9381,7 +9384,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
@@ -9425,7 +9428,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
@@ -9490,7 +9493,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
@@ -15510,7 +15513,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -15611,7 +15614,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -15720,7 +15723,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -15774,7 +15777,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -15842,7 +15845,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -16457,7 +16460,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -16559,7 +16562,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -16669,7 +16672,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -16724,7 +16727,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -16800,7 +16803,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -17103,7 +17106,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -17209,7 +17212,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -17323,7 +17326,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -17380,7 +17383,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -17458,7 +17461,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Construct an instance of the AccountSettingsUserDomainRestriction model
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -19640,10 +19643,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				Expect(accountSettingsUserDomainRestrictionModel).ToNot(BeNil())
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 				Expect(accountSettingsUserDomainRestrictionModel.RealmID).To(Equal(core.StringPtr("IBMid")))
-				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{"*.*@company.com"}))
+				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{*.*@company.com}))
 				Expect(accountSettingsUserDomainRestrictionModel.RestrictInvitation).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -19709,10 +19712,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				Expect(accountSettingsUserDomainRestrictionModel).ToNot(BeNil())
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 				Expect(accountSettingsUserDomainRestrictionModel.RealmID).To(Equal(core.StringPtr("IBMid")))
-				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{"*.*@company.com"}))
+				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{*.*@company.com}))
 				Expect(accountSettingsUserDomainRestrictionModel.RestrictInvitation).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -21177,10 +21180,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				Expect(accountSettingsUserDomainRestrictionModel).ToNot(BeNil())
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 				Expect(accountSettingsUserDomainRestrictionModel.RealmID).To(Equal(core.StringPtr("IBMid")))
-				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{"*.*@company.com"}))
+				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{*.*@company.com}))
 				Expect(accountSettingsUserDomainRestrictionModel.RestrictInvitation).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
@@ -21232,10 +21235,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				accountSettingsUserDomainRestrictionModel := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 				Expect(accountSettingsUserDomainRestrictionModel).ToNot(BeNil())
 				accountSettingsUserDomainRestrictionModel.RealmID = core.StringPtr("IBMid")
-				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+				accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns = []string{*.*@company.com}
 				accountSettingsUserDomainRestrictionModel.RestrictInvitation = core.BoolPtr(true)
 				Expect(accountSettingsUserDomainRestrictionModel.RealmID).To(Equal(core.StringPtr("IBMid")))
-				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{"*.*@company.com"}))
+				Expect(accountSettingsUserDomainRestrictionModel.InvitationEmailAllowPatterns).To(Equal([]string{*.*@company.com}))
 				Expect(accountSettingsUserDomainRestrictionModel.RestrictInvitation).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the TemplateAccountSettingsRestrictUserDomains model
@@ -21613,7 +21616,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 			// Construct an instance of the model.
 			model := new(iamidentityv1.AccountSettingsUserDomainRestriction)
 			model.RealmID = core.StringPtr("IBMid")
-			model.InvitationEmailAllowPatterns = []string{"*.*@company.com"}
+			model.InvitationEmailAllowPatterns = []string{*.*@company.com}
 			model.RestrictInvitation = core.BoolPtr(true)
 
 			b, err := json.Marshal(model)
