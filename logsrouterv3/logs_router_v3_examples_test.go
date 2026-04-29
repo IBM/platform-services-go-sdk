@@ -162,6 +162,67 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			routeIDLink = *route.ID
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
 		})
+		It(`ListTargets request example`, func() {
+			fmt.Println("\nListTargets() result:")
+			// begin-list_targets
+
+			listTargetsOptions := logsRouterService.NewListTargetsOptions()
+
+			targetCollection, response, err := logsRouterService.ListTargets(listTargetsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(targetCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_targets
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(targetCollection).ToNot(BeNil())
+		})
+		It(`GetTarget request example`, func() {
+			fmt.Println("\nGetTarget() result:")
+			// begin-get_target
+
+			getTargetOptions := logsRouterService.NewGetTargetOptions(
+				targetIDLink,
+			)
+
+			target, response, err := logsRouterService.GetTarget(getTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(target, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_target
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+		It(`UpdateTarget request example`, func() {
+			fmt.Println("\nUpdateTarget() result:")
+			// begin-update_target
+
+			updateTargetOptions := logsRouterService.NewUpdateTargetOptions(
+				targetIDLink,
+			)
+
+			target, response, err := logsRouterService.UpdateTarget(updateTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(target, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_target
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
 		It(`ListRoutes request example`, func() {
 			fmt.Println("\nListRoutes() result:")
 			// begin-list_routes
@@ -304,7 +365,7 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			// end-migrate_actions
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
+			Expect(response.StatusCode).To(Equal(200))
 			Expect(migrationState).ToNot(BeNil())
 		})
 		It(`GetMigrationStatus request example`, func() {
@@ -326,67 +387,6 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(migrationState).ToNot(BeNil())
 		})
-		It(`ListTargets request example`, func() {
-			fmt.Println("\nListTargets() result:")
-			// begin-list_targets
-
-			listTargetsOptions := logsRouterService.NewListTargetsOptions()
-
-			targetCollection, response, err := logsRouterService.ListTargets(listTargetsOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(targetCollection, "", "  ")
-			fmt.Println(string(b))
-
-			// end-list_targets
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(targetCollection).ToNot(BeNil())
-		})
-		It(`GetTarget request example`, func() {
-			fmt.Println("\nGetTarget() result:")
-			// begin-get_target
-
-			getTargetOptions := logsRouterService.NewGetTargetOptions(
-				targetIDLink,
-			)
-
-			target, response, err := logsRouterService.GetTarget(getTargetOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_target
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
-		It(`UpdateTarget request example`, func() {
-			fmt.Println("\nUpdateTarget() result:")
-			// begin-update_target
-
-			updateTargetOptions := logsRouterService.NewUpdateTargetOptions(
-				targetIDLink,
-			)
-
-			target, response, err := logsRouterService.UpdateTarget(updateTargetOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Println(string(b))
-
-			// end-update_target
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
 
@@ -403,6 +403,26 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			}
 
 			// end-delete_route
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTarget request example`, func() {
+			// begin-delete_target
+
+			deleteTargetOptions := logsRouterService.NewDeleteTargetOptions(
+				targetIDLink,
+			)
+
+			response, err := logsRouterService.DeleteTarget(deleteTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTarget(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_target
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -425,26 +445,6 @@ var _ = Describe(`LogsRouterV3 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(migrationState).ToNot(BeNil())
-		})
-		It(`DeleteTarget request example`, func() {
-			// begin-delete_target
-
-			deleteTargetOptions := logsRouterService.NewDeleteTargetOptions(
-				targetIDLink,
-			)
-
-			response, err := logsRouterService.DeleteTarget(deleteTargetOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteTarget(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_target
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
