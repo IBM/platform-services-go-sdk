@@ -1,3 +1,10 @@
+## [0.97.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.2...v0.97.3) (2026-04-29)
+
+
+### Bug Fixes
+
+* **Logs Router:** re-gen project after API changes for v3 ([#443](https://github.com/IBM/platform-services-go-sdk/issues/443)) ([32796d8](https://github.com/IBM/platform-services-go-sdk/commit/32796d8301ac5ef6a2c493d653db8c3525009156))
+
 ## [0.97.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.1...v0.97.2) (2026-04-13)
 
 
