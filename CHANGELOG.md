@@ -1,3 +1,10 @@
+## [0.97.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.3...v0.97.4) (2026-04-29)
+
+
+### Bug Fixes
+
+* **ATracker:** add new regions `in-mum` ([#445](https://github.com/IBM/platform-services-go-sdk/issues/445)) ([6578818](https://github.com/IBM/platform-services-go-sdk/commit/65788181839a49b4729d93567ef2cf6e50436eb7))
+
 ## [0.97.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.2...v0.97.3) (2026-04-29)
 
 
