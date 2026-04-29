@@ -154,6 +154,54 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListTargets - List targets`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
+			listTargetsOptions := &logsrouterv3.ListTargetsOptions{}
+
+			targetCollection, response, err := logsRouterService.ListTargets(listTargetsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(targetCollection).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetTarget - Get details of a target`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
+			getTargetOptions := &logsrouterv3.GetTargetOptions{
+				ID: &targetIDLink,
+			}
+
+			target, response, err := logsRouterService.GetTarget(getTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateTarget - Update a target`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
+			updateTargetOptions := &logsrouterv3.UpdateTargetOptions{
+				ID:             &targetIDLink,
+				Name:           core.StringPtr("my-lr-target"),
+				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"),
+			}
+
+			target, response, err := logsRouterService.UpdateTarget(updateTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListRoutes - List routes`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -247,6 +295,7 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 				PrimaryMetadataRegion:  core.StringPtr("us-south"),
 				BackupMetadataRegion:   core.StringPtr("us-east"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
+				APIVersion:             core.Int64Ptr(int64(3)),
 			}
 
 			setting, response, err := logsRouterService.UpdateSettings(updateSettingsOptions)
@@ -306,54 +355,6 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListTargets - List targets`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
-			listTargetsOptions := &logsrouterv3.ListTargetsOptions{}
-
-			targetCollection, response, err := logsRouterService.ListTargets(listTargetsOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(targetCollection).ToNot(BeNil())
-		})
-	})
-
-	Describe(`GetTarget - Get details of a target`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
-			getTargetOptions := &logsrouterv3.GetTargetOptions{
-				ID: &targetIDLink,
-			}
-
-			target, response, err := logsRouterService.GetTarget(getTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
-	})
-
-	Describe(`UpdateTarget - Update a target`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
-			updateTargetOptions := &logsrouterv3.UpdateTargetOptions{
-				ID:             &targetIDLink,
-				Name:           core.StringPtr("my-lr-target"),
-				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:logs:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"),
-			}
-
-			target, response, err := logsRouterService.UpdateTarget(updateTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
-	})
-
 	Describe(`DeleteRoute - Delete a route`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -364,6 +365,21 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			}
 
 			response, err := logsRouterService.DeleteRoute(deleteRouteOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteTarget - Delete a target`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+			deleteTargetOptions := &logsrouterv3.DeleteTargetOptions{
+				ID: &targetIDLink,
+			}
+
+			response, err := logsRouterService.DeleteTarget(deleteTargetOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
@@ -380,21 +396,6 @@ var _ = Describe(`LogsRouterV3 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(migrationState).ToNot(BeNil())
-		})
-	})
-
-	Describe(`DeleteTarget - Delete a target`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-			deleteTargetOptions := &logsrouterv3.DeleteTargetOptions{
-				ID: &targetIDLink,
-			}
-
-			response, err := logsRouterService.DeleteTarget(deleteTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
