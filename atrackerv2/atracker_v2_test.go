@@ -3894,4 +3894,3 @@ func ClearTestEnvironment(testEnvironment map[string]string) {
 		os.Unsetenv(key)
 	}
 }
-
