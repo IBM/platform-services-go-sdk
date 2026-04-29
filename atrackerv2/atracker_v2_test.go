@@ -260,6 +260,14 @@ var _ = Describe(`AtrackerV2`, func() {
 			Expect(url).To(Equal("https://private.in-che.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
+			url, err = atrackerv2.GetServiceURLForRegion("in-mum")
+			Expect(url).To(Equal("https://in-mum.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.in-mum")
+			Expect(url).To(Equal("https://private.in-mum.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
 			url, err = atrackerv2.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
@@ -3886,3 +3894,4 @@ func ClearTestEnvironment(testEnvironment map[string]string) {
 		os.Unsetenv(key)
 	}
 }
+

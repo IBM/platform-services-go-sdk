@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.113.1-d76630af-20260320-135953
+ * IBM OpenAPI SDK Code Generator Version: 3.114.0-a902401e-20260427-192904
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -145,6 +145,8 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.jp-osa":   "https://private.jp-osa.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
 		"in-che":           "https://in-che.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the in-che region.
 		"private.in-che":   "https://private.in-che.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the in-che region.
+		"in-mum": 			"https://in-mum.atracker.cloud.ibm.com",		   // The server for IBM Cloud Activity Tracker Service in the in-mum region.
+		"private.in-mum": 	"https://private.in-mum.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the in-mum region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -311,8 +313,7 @@ func (atracker *AtrackerV2) CreateTargetWithContext(ctx context.Context, createT
 //
 // **Enterprise management** - The response will include the `managed_by` field. - The `managed_by` attribute is
 // immutable; it cannot be changed after creation. This endpoint only
-//
-//	reads/returns targets and does not modify their state.
+//   reads/returns targets and does not modify their state.
 func (atracker *AtrackerV2) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetList, response *core.DetailedResponse, err error) {
 	result, response, err = atracker.ListTargetsWithContext(context.Background(), listTargetsOptions)
 	err = core.RepurposeSDKProblem(err, "")
