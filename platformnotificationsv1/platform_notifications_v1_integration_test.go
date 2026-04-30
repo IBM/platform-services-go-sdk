@@ -47,6 +47,7 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		serviceURL                   string
 		config                       map[string]string
 		accountID                    string
+		IamID                        string
 		instanceID                   string
 	)
 
@@ -80,6 +81,11 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 			instanceID = config["TEST_INSTANCE_ID"]
 			if instanceID == "" {
 				Skip("PLATFORM_NOTIFICATIONS_TEST_INSTANCE_ID not found in configuration, skipping tests")
+			}
+
+			IamID = config["TEST_IAM_ID"]
+			if IamID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_IAM_ID not found in configuration, skipping tests")
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
@@ -184,6 +190,220 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`CreatePreferences - Create communication preferences`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePreferences(createPreferencesOptions *CreatePreferencesOptions)`, func() {
+			preferenceValueWithUpdatesModel := &platformnotificationsv1.PreferenceValueWithUpdates{
+				Channels: []string{"email"},
+				Updates:  core.BoolPtr(true),
+			}
+
+			preferenceValueWithoutUpdatesModel := &platformnotificationsv1.PreferenceValueWithoutUpdates{
+				Channels: []string{"email"},
+			}
+
+			createPreferencesOptions := &platformnotificationsv1.CreatePreferencesOptions{
+				IamID:                   core.StringPtr(IamID),
+				IncidentSeverity1:       preferenceValueWithUpdatesModel,
+				IncidentSeverity2:       preferenceValueWithUpdatesModel,
+				IncidentSeverity3:       preferenceValueWithUpdatesModel,
+				IncidentSeverity4:       preferenceValueWithUpdatesModel,
+				MaintenanceHigh:         preferenceValueWithUpdatesModel,
+				MaintenanceMedium:       preferenceValueWithUpdatesModel,
+				MaintenanceLow:          preferenceValueWithUpdatesModel,
+				AnnouncementsMajor:      preferenceValueWithoutUpdatesModel,
+				AnnouncementsMinor:      preferenceValueWithoutUpdatesModel,
+				SecurityNormal:          preferenceValueWithoutUpdatesModel,
+				AccountNormal:           preferenceValueWithoutUpdatesModel,
+				BillingAndUsageOrder:    preferenceValueWithoutUpdatesModel,
+				BillingAndUsageInvoices: preferenceValueWithoutUpdatesModel,
+				BillingAndUsagePayments: preferenceValueWithoutUpdatesModel,
+				BillingAndUsageSubscriptionsAndPromoCodes: preferenceValueWithoutUpdatesModel,
+				BillingAndUsageSpendingAlerts:             preferenceValueWithoutUpdatesModel,
+				ResourceactivityNormal:                    preferenceValueWithoutUpdatesModel,
+				OrderingReview:                            preferenceValueWithoutUpdatesModel,
+				OrderingApproved:                          preferenceValueWithoutUpdatesModel,
+				OrderingApprovedVsi:                       preferenceValueWithoutUpdatesModel,
+				OrderingApprovedServer:                    preferenceValueWithoutUpdatesModel,
+				ProvisioningReloadComplete:                preferenceValueWithoutUpdatesModel,
+				ProvisioningCompleteVsi:                   preferenceValueWithoutUpdatesModel,
+				ProvisioningCompleteServer:                preferenceValueWithoutUpdatesModel,
+				AccountID:                                 core.StringPtr(accountID),
+			}
+
+			preferencesObject, response, err := platformNotificationsService.CreatePreferences(createPreferencesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(preferencesObject).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetPreferences - Get all communication preferences for a user in an account`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPreferences(getPreferencesOptions *GetPreferencesOptions)`, func() {
+			getPreferencesOptions := &platformnotificationsv1.GetPreferencesOptions{
+				IamID:     core.StringPtr(IamID),
+				AccountID: core.StringPtr(accountID),
+			}
+
+			preferencesObject, response, err := platformNotificationsService.GetPreferences(getPreferencesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preferencesObject).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ReplaceNotificationPreferences - Update communication preferences`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceNotificationPreferences(replaceNotificationPreferencesOptions *ReplaceNotificationPreferencesOptions)`, func() {
+			preferenceValueWithUpdatesModel := &platformnotificationsv1.PreferenceValueWithUpdates{
+				Channels: []string{"email"},
+				Updates:  core.BoolPtr(true),
+			}
+
+			preferenceValueWithoutUpdatesModel := &platformnotificationsv1.PreferenceValueWithoutUpdates{
+				Channels: []string{"email"},
+			}
+
+			replaceNotificationPreferencesOptions := &platformnotificationsv1.ReplaceNotificationPreferencesOptions{
+				IamID:                   core.StringPtr(IamID),
+				IncidentSeverity1:       preferenceValueWithUpdatesModel,
+				IncidentSeverity2:       preferenceValueWithUpdatesModel,
+				IncidentSeverity3:       preferenceValueWithUpdatesModel,
+				IncidentSeverity4:       preferenceValueWithUpdatesModel,
+				MaintenanceHigh:         preferenceValueWithUpdatesModel,
+				MaintenanceMedium:       preferenceValueWithUpdatesModel,
+				MaintenanceLow:          preferenceValueWithUpdatesModel,
+				AnnouncementsMajor:      preferenceValueWithoutUpdatesModel,
+				AnnouncementsMinor:      preferenceValueWithoutUpdatesModel,
+				SecurityNormal:          preferenceValueWithoutUpdatesModel,
+				AccountNormal:           preferenceValueWithoutUpdatesModel,
+				BillingAndUsageOrder:    preferenceValueWithoutUpdatesModel,
+				BillingAndUsageInvoices: preferenceValueWithoutUpdatesModel,
+				BillingAndUsagePayments: preferenceValueWithoutUpdatesModel,
+				BillingAndUsageSubscriptionsAndPromoCodes: preferenceValueWithoutUpdatesModel,
+				BillingAndUsageSpendingAlerts:             preferenceValueWithoutUpdatesModel,
+				ResourceactivityNormal:                    preferenceValueWithoutUpdatesModel,
+				OrderingReview:                            preferenceValueWithoutUpdatesModel,
+				OrderingApproved:                          preferenceValueWithoutUpdatesModel,
+				OrderingApprovedVsi:                       preferenceValueWithoutUpdatesModel,
+				OrderingApprovedServer:                    preferenceValueWithoutUpdatesModel,
+				ProvisioningReloadComplete:                preferenceValueWithoutUpdatesModel,
+				ProvisioningCompleteVsi:                   preferenceValueWithoutUpdatesModel,
+				ProvisioningCompleteServer:                preferenceValueWithoutUpdatesModel,
+				AccountID:                                 core.StringPtr(accountID),
+			}
+
+			preferencesObject, response, err := platformNotificationsService.ReplaceNotificationPreferences(replaceNotificationPreferencesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preferencesObject).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListNotifications - Get user notifications`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) with pagination`, func() {
+			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
+				AccountID: core.StringPtr(accountID),
+				Start:     core.StringPtr("3fe78a36b9aa7f26"),
+				Limit:     core.Int64Ptr(int64(50)),
+			}
+
+			listNotificationsOptions.Start = nil
+			listNotificationsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []platformnotificationsv1.Notification
+			for {
+				notificationCollection, response, err := platformNotificationsService.ListNotifications(listNotificationsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(notificationCollection).ToNot(BeNil())
+				allResults = append(allResults, notificationCollection.Notifications...)
+
+				listNotificationsOptions.Start, err = notificationCollection.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listNotificationsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) using NotificationsPager`, func() {
+			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
+				AccountID: core.StringPtr(accountID),
+				Limit:     core.Int64Ptr(int64(50)),
+			}
+
+			// Test GetNext().
+			pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []platformnotificationsv1.Notification
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListNotifications() returned a total of %d item(s) using NotificationsPager.\n", len(allResults))
+		})
+	})
+
+	// Describe(`GetAcknowledgment - Get user's last acknowledged notification Id`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`GetAcknowledgment(getAcknowledgmentOptions *GetAcknowledgmentOptions)`, func() {
+	// 		getAcknowledgmentOptions := &platformnotificationsv1.GetAcknowledgmentOptions{
+	// 			AccountID: core.StringPtr(accountID),
+	// 		}
+
+	// 		acknowledgment, response, err := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptions)
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(acknowledgment).ToNot(BeNil())
+	// 	})
+	// })
+
+	// Describe(`ReplaceNotificationAcknowledgment - Update user's last acknowledged notification`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions *ReplaceNotificationAcknowledgmentOptions)`, func() {
+	// 		replaceNotificationAcknowledgmentOptions := &platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions{
+	// 			LastAcknowledgedID: core.StringPtr("1772804159452"),
+	// 			AccountID:          core.StringPtr(accountID),
+	// 		}
+
+	// 		acknowledgment, response, err := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions)
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(acknowledgment).ToNot(BeNil())
+	// 	})
+	// })
+
 	Describe(`DeleteDistributionListDestination - Delete destination entry`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -195,6 +415,22 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 			}
 
 			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteNotificationPreferences - Resets all preferences to their default values`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteNotificationPreferences(deleteNotificationPreferencesOptions *DeleteNotificationPreferencesOptions)`, func() {
+			deleteNotificationPreferencesOptions := &platformnotificationsv1.DeleteNotificationPreferencesOptions{
+				IamID:     core.StringPtr(IamID),
+				AccountID: core.StringPtr(accountID),
+			}
+
+			response, err := platformNotificationsService.DeleteNotificationPreferences(deleteNotificationPreferencesOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
