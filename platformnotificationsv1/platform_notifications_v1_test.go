@@ -2657,15 +2657,15 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 		})
 	})
-	Describe(`GetAcknowledgment(getAcknowledgmentOptions *GetAcknowledgmentOptions) - Operation response error`, func() {
-		getAcknowledgmentPath := "/v1/notifications/acknowledgment"
+	Describe(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions) - Operation response error`, func() {
+		getAcknowledgementPath := "/v1/notifications/acknowledgement"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
 					res.Header().Set("Content-type", "application/json")
@@ -2673,7 +2673,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetAcknowledgment with error: Operation response processing error`, func() {
+			It(`Invoke GetAcknowledgement with error: Operation response processing error`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2681,19 +2681,19 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the GetAcknowledgmentOptions model
-				getAcknowledgmentOptionsModel := new(platformnotificationsv1.GetAcknowledgmentOptions)
-				getAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				platformNotificationsService.EnableRetries(0, 0)
-				result, response, operationErr = platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptionsModel)
+				result, response, operationErr = platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2703,15 +2703,15 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 		})
 	})
-	Describe(`GetAcknowledgment(getAcknowledgmentOptions *GetAcknowledgmentOptions)`, func() {
-		getAcknowledgmentPath := "/v1/notifications/acknowledgment"
+	Describe(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions)`, func() {
+		getAcknowledgementPath := "/v1/notifications/acknowledgement"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
@@ -2724,7 +2724,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
 				}))
 			})
-			It(`Invoke GetAcknowledgment successfully with retries`, func() {
+			It(`Invoke GetAcknowledgement successfully with retries`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2733,21 +2733,21 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(platformNotificationsService).ToNot(BeNil())
 				platformNotificationsService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetAcknowledgmentOptions model
-				getAcknowledgmentOptionsModel := new(platformnotificationsv1.GetAcknowledgmentOptions)
-				getAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := platformNotificationsService.GetAcknowledgmentWithContext(ctx, getAcknowledgmentOptionsModel)
+				_, _, operationErr := platformNotificationsService.GetAcknowledgementWithContext(ctx, getAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				platformNotificationsService.DisableRetries()
-				result, response, operationErr := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2755,7 +2755,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = platformNotificationsService.GetAcknowledgmentWithContext(ctx, getAcknowledgmentOptionsModel)
+				_, _, operationErr = platformNotificationsService.GetAcknowledgementWithContext(ctx, getAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2769,7 +2769,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
@@ -2779,7 +2779,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
 				}))
 			})
-			It(`Invoke GetAcknowledgment successfully`, func() {
+			It(`Invoke GetAcknowledgement successfully`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2788,24 +2788,24 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := platformNotificationsService.GetAcknowledgment(nil)
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetAcknowledgmentOptions model
-				getAcknowledgmentOptionsModel := new(platformnotificationsv1.GetAcknowledgmentOptions)
-				getAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptionsModel)
+				result, response, operationErr = platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetAcknowledgment with error: Operation request error`, func() {
+			It(`Invoke GetAcknowledgement with error: Operation request error`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2813,14 +2813,14 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the GetAcknowledgmentOptions model
-				getAcknowledgmentOptionsModel := new(platformnotificationsv1.GetAcknowledgmentOptions)
-				getAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2839,7 +2839,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke GetAcknowledgment successfully`, func() {
+			It(`Invoke GetAcknowledgement successfully`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2847,13 +2847,13 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the GetAcknowledgmentOptions model
-				getAcknowledgmentOptionsModel := new(platformnotificationsv1.GetAcknowledgmentOptions)
-				getAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2865,15 +2865,15 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions *ReplaceNotificationAcknowledgmentOptions) - Operation response error`, func() {
-		replaceNotificationAcknowledgmentPath := "/v1/notifications/acknowledgment"
+	Describe(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) - Operation response error`, func() {
+		replaceNotificationAcknowledgementPath := "/v1/notifications/acknowledgement"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
 					res.Header().Set("Content-type", "application/json")
@@ -2881,7 +2881,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceNotificationAcknowledgment with error: Operation response processing error`, func() {
+			It(`Invoke ReplaceNotificationAcknowledgement with error: Operation response processing error`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2889,20 +2889,20 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceNotificationAcknowledgmentOptions model
-				replaceNotificationAcknowledgmentOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions)
-				replaceNotificationAcknowledgmentOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				platformNotificationsService.EnableRetries(0, 0)
-				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModel)
+				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2912,15 +2912,15 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions *ReplaceNotificationAcknowledgmentOptions)`, func() {
-		replaceNotificationAcknowledgmentPath := "/v1/notifications/acknowledgment"
+	Describe(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions)`, func() {
+		replaceNotificationAcknowledgementPath := "/v1/notifications/acknowledgement"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -2949,7 +2949,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
 				}))
 			})
-			It(`Invoke ReplaceNotificationAcknowledgment successfully with retries`, func() {
+			It(`Invoke ReplaceNotificationAcknowledgement successfully with retries`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2958,22 +2958,22 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(platformNotificationsService).ToNot(BeNil())
 				platformNotificationsService.EnableRetries(0, 0)
 
-				// Construct an instance of the ReplaceNotificationAcknowledgmentOptions model
-				replaceNotificationAcknowledgmentOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions)
-				replaceNotificationAcknowledgmentOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgmentWithContext(ctx, replaceNotificationAcknowledgmentOptionsModel)
+				_, _, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgementWithContext(ctx, replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				platformNotificationsService.DisableRetries()
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2981,7 +2981,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgmentWithContext(ctx, replaceNotificationAcknowledgmentOptionsModel)
+				_, _, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgementWithContext(ctx, replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2995,7 +2995,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3021,7 +3021,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
 				}))
 			})
-			It(`Invoke ReplaceNotificationAcknowledgment successfully`, func() {
+			It(`Invoke ReplaceNotificationAcknowledgement successfully`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3030,25 +3030,25 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(platformNotificationsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgment(nil)
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ReplaceNotificationAcknowledgmentOptions model
-				replaceNotificationAcknowledgmentOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions)
-				replaceNotificationAcknowledgmentOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModel)
+				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ReplaceNotificationAcknowledgment with error: Operation validation and request error`, func() {
+			It(`Invoke ReplaceNotificationAcknowledgement with error: Operation validation and request error`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3056,23 +3056,23 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceNotificationAcknowledgmentOptions model
-				replaceNotificationAcknowledgmentOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions)
-				replaceNotificationAcknowledgmentOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := platformNotificationsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceNotificationAcknowledgmentOptions model with no property values
-				replaceNotificationAcknowledgmentOptionsModelNew := new(platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions)
+				// Construct a second instance of the ReplaceNotificationAcknowledgementOptions model with no property values
+				replaceNotificationAcknowledgementOptionsModelNew := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModelNew)
+				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3090,7 +3090,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ReplaceNotificationAcknowledgment successfully`, func() {
+			It(`Invoke ReplaceNotificationAcknowledgement successfully`, func() {
 				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3098,14 +3098,14 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceNotificationAcknowledgmentOptions model
-				replaceNotificationAcknowledgmentOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions)
-				replaceNotificationAcknowledgmentOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgmentOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptionsModel)
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3243,14 +3243,14 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(deleteNotificationPreferencesOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
 				Expect(deleteNotificationPreferencesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetAcknowledgmentOptions successfully`, func() {
-				// Construct an instance of the GetAcknowledgmentOptions model
-				getAcknowledgmentOptionsModel := platformNotificationsService.NewGetAcknowledgmentOptions()
-				getAcknowledgmentOptionsModel.SetAccountID("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getAcknowledgmentOptionsModel).ToNot(BeNil())
-				Expect(getAcknowledgmentOptionsModel.AccountID).To(Equal(core.StringPtr("1369339417d906e5620b8d861d40cfd7")))
-				Expect(getAcknowledgmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewGetAcknowledgementOptions successfully`, func() {
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := platformNotificationsService.NewGetAcknowledgementOptions()
+				getAcknowledgementOptionsModel.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAcknowledgementOptionsModel).ToNot(BeNil())
+				Expect(getAcknowledgementOptionsModel.AccountID).To(Equal(core.StringPtr("1369339417d906e5620b8d861d40cfd7")))
+				Expect(getAcknowledgementOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetDistributionListDestinationOptions successfully`, func() {
 				// Construct an instance of the GetDistributionListDestinationOptions model
@@ -3312,17 +3312,17 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewReplaceNotificationAcknowledgmentOptions successfully`, func() {
-				// Construct an instance of the ReplaceNotificationAcknowledgmentOptions model
-				replaceNotificationAcknowledgmentOptionsLastAcknowledgedID := "1772804159452"
-				replaceNotificationAcknowledgmentOptionsModel := platformNotificationsService.NewReplaceNotificationAcknowledgmentOptions(replaceNotificationAcknowledgmentOptionsLastAcknowledgedID)
-				replaceNotificationAcknowledgmentOptionsModel.SetLastAcknowledgedID("1772804159452")
-				replaceNotificationAcknowledgmentOptionsModel.SetAccountID("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceNotificationAcknowledgmentOptionsModel).ToNot(BeNil())
-				Expect(replaceNotificationAcknowledgmentOptionsModel.LastAcknowledgedID).To(Equal(core.StringPtr("1772804159452")))
-				Expect(replaceNotificationAcknowledgmentOptionsModel.AccountID).To(Equal(core.StringPtr("1369339417d906e5620b8d861d40cfd7")))
-				Expect(replaceNotificationAcknowledgmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewReplaceNotificationAcknowledgementOptions successfully`, func() {
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsLastAcknowledgedID := "1772804159452"
+				replaceNotificationAcknowledgementOptionsModel := platformNotificationsService.NewReplaceNotificationAcknowledgementOptions(replaceNotificationAcknowledgementOptionsLastAcknowledgedID)
+				replaceNotificationAcknowledgementOptionsModel.SetLastAcknowledgedID("1772804159452")
+				replaceNotificationAcknowledgementOptionsModel.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceNotificationAcknowledgementOptionsModel).ToNot(BeNil())
+				Expect(replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID).To(Equal(core.StringPtr("1772804159452")))
+				Expect(replaceNotificationAcknowledgementOptionsModel.AccountID).To(Equal(core.StringPtr("1369339417d906e5620b8d861d40cfd7")))
+				Expect(replaceNotificationAcknowledgementOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceNotificationPreferencesOptions successfully`, func() {
 				// Construct an instance of the PreferenceValueWithUpdates model

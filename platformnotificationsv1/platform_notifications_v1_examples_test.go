@@ -313,47 +313,47 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 			// end-list_notifications
 		})
-		It(`GetAcknowledgment request example`, func() {
-			fmt.Println("\nGetAcknowledgment() result:")
-			// begin-get_acknowledgment
+		It(`GetAcknowledgement request example`, func() {
+			fmt.Println("\nGetAcknowledgement() result:")
+			// begin-get_acknowledgement
 
-			getAcknowledgmentOptions := platformNotificationsService.NewGetAcknowledgmentOptions()
-			getAcknowledgmentOptions.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+			getAcknowledgementOptions := platformNotificationsService.NewGetAcknowledgementOptions()
+			getAcknowledgementOptions.SetAccountID("1369339417d906e5620b8d861d40cfd7")
 
-			acknowledgment, response, err := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptions)
+			acknowledgement, response, err := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(acknowledgment, "", "  ")
+			b, _ := json.MarshalIndent(acknowledgement, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_acknowledgment
+			// end-get_acknowledgement
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(acknowledgment).ToNot(BeNil())
+			Expect(acknowledgement).ToNot(BeNil())
 		})
-		It(`ReplaceNotificationAcknowledgment request example`, func() {
-			fmt.Println("\nReplaceNotificationAcknowledgment() result:")
-			// begin-replace_notification_acknowledgment
+		It(`ReplaceNotificationAcknowledgement request example`, func() {
+			fmt.Println("\nReplaceNotificationAcknowledgement() result:")
+			// begin-replace_notification_acknowledgement
 
-			replaceNotificationAcknowledgmentOptions := platformNotificationsService.NewReplaceNotificationAcknowledgmentOptions(
+			replaceNotificationAcknowledgementOptions := platformNotificationsService.NewReplaceNotificationAcknowledgementOptions(
 				"1772804159452",
 			)
-			replaceNotificationAcknowledgmentOptions.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+			replaceNotificationAcknowledgementOptions.SetAccountID("1369339417d906e5620b8d861d40cfd7")
 
-			acknowledgment, response, err := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions)
+			acknowledgement, response, err := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(acknowledgment, "", "  ")
+			b, _ := json.MarshalIndent(acknowledgement, "", "  ")
 			fmt.Println(string(b))
 
-			// end-replace_notification_acknowledgment
+			// end-replace_notification_acknowledgement
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(acknowledgment).ToNot(BeNil())
+			Expect(acknowledgement).ToNot(BeNil())
 		})
 		It(`DeleteDistributionListDestination request example`, func() {
 			// begin-delete_distribution_list_destination

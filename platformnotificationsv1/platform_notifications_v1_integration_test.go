@@ -371,38 +371,38 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 	})
 
-	// Describe(`GetAcknowledgment - Get user's last acknowledged notification Id`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`GetAcknowledgment(getAcknowledgmentOptions *GetAcknowledgmentOptions)`, func() {
-	// 		getAcknowledgmentOptions := &platformnotificationsv1.GetAcknowledgmentOptions{
-	// 			AccountID: core.StringPtr(accountID),
-	// 		}
+	Describe(`GetAcknowledgement - Get user's last acknowledged notification Id`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions)`, func() {
+			getAcknowledgementOptions := &platformnotificationsv1.GetAcknowledgementOptions{
+				AccountID: core.StringPtr(accountID),
+			}
 
-	// 		acknowledgment, response, err := platformNotificationsService.GetAcknowledgment(getAcknowledgmentOptions)
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(acknowledgment).ToNot(BeNil())
-	// 	})
-	// })
+			acknowledgement, response, err := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(acknowledgement).ToNot(BeNil())
+		})
+	})
 
-	// Describe(`ReplaceNotificationAcknowledgment - Update user's last acknowledged notification`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions *ReplaceNotificationAcknowledgmentOptions)`, func() {
-	// 		replaceNotificationAcknowledgmentOptions := &platformnotificationsv1.ReplaceNotificationAcknowledgmentOptions{
-	// 			LastAcknowledgedID: core.StringPtr("1772804159452"),
-	// 			AccountID:          core.StringPtr(accountID),
-	// 		}
+	Describe(`ReplaceNotificationAcknowledgement - Update user's last acknowledged notification`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions)`, func() {
+			replaceNotificationAcknowledgementOptions := &platformnotificationsv1.ReplaceNotificationAcknowledgementOptions{
+				LastAcknowledgedID: core.StringPtr("1777966417243"),
+				AccountID:          core.StringPtr(accountID),
+			}
 
-	// 		acknowledgment, response, err := platformNotificationsService.ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions)
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(acknowledgment).ToNot(BeNil())
-	// 	})
-	// })
+			acknowledgement, response, err := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(acknowledgement).ToNot(BeNil())
+		})
+	})
 
 	Describe(`DeleteDistributionListDestination - Delete destination entry`, func() {
 		BeforeEach(func() {

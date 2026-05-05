@@ -1040,17 +1040,17 @@ func (platformNotifications *PlatformNotificationsV1) ListNotificationsWithConte
 	return
 }
 
-// GetAcknowledgment : Get user's last acknowledged notification Id
+// GetAcknowledgement : Get user's last acknowledged notification Id
 // Retrieve the ID of the last notification acknowledged by the user for a specific account.
-func (platformNotifications *PlatformNotificationsV1) GetAcknowledgment(getAcknowledgmentOptions *GetAcknowledgmentOptions) (result *Acknowledgment, response *core.DetailedResponse, err error) {
-	result, response, err = platformNotifications.GetAcknowledgmentWithContext(context.Background(), getAcknowledgmentOptions)
+func (platformNotifications *PlatformNotificationsV1) GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.GetAcknowledgementWithContext(context.Background(), getAcknowledgementOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// GetAcknowledgmentWithContext is an alternate form of the GetAcknowledgment method which supports a Context parameter
-func (platformNotifications *PlatformNotificationsV1) GetAcknowledgmentWithContext(ctx context.Context, getAcknowledgmentOptions *GetAcknowledgmentOptions) (result *Acknowledgment, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(getAcknowledgmentOptions, "getAcknowledgmentOptions")
+// GetAcknowledgementWithContext is an alternate form of the GetAcknowledgement method which supports a Context parameter
+func (platformNotifications *PlatformNotificationsV1) GetAcknowledgementWithContext(ctx context.Context, getAcknowledgementOptions *GetAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getAcknowledgementOptions, "getAcknowledgementOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
@@ -1059,24 +1059,24 @@ func (platformNotifications *PlatformNotificationsV1) GetAcknowledgmentWithConte
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgment`, nil)
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgement`, nil)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetAcknowledgment")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetAcknowledgement")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	for headerName, headerValue := range getAcknowledgmentOptions.Headers {
+	for headerName, headerValue := range getAcknowledgementOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if getAcknowledgmentOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*getAcknowledgmentOptions.AccountID))
+	if getAcknowledgementOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*getAcknowledgementOptions.AccountID))
 	}
 
 	request, err := builder.Build()
@@ -1088,12 +1088,12 @@ func (platformNotifications *PlatformNotificationsV1) GetAcknowledgmentWithConte
 	var rawResponse map[string]json.RawMessage
 	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_acknowledgment", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "get_acknowledgement", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgment)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgement)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -1104,22 +1104,22 @@ func (platformNotifications *PlatformNotificationsV1) GetAcknowledgmentWithConte
 	return
 }
 
-// ReplaceNotificationAcknowledgment : Update user's last acknowledged notification
+// ReplaceNotificationAcknowledgement : Update user's last acknowledged notification
 // Update the ID of the last notification acknowledged by the user for a specific account.
-func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgment(replaceNotificationAcknowledgmentOptions *ReplaceNotificationAcknowledgmentOptions) (result *Acknowledgment, response *core.DetailedResponse, err error) {
-	result, response, err = platformNotifications.ReplaceNotificationAcknowledgmentWithContext(context.Background(), replaceNotificationAcknowledgmentOptions)
+func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.ReplaceNotificationAcknowledgementWithContext(context.Background(), replaceNotificationAcknowledgementOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// ReplaceNotificationAcknowledgmentWithContext is an alternate form of the ReplaceNotificationAcknowledgment method which supports a Context parameter
-func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgmentWithContext(ctx context.Context, replaceNotificationAcknowledgmentOptions *ReplaceNotificationAcknowledgmentOptions) (result *Acknowledgment, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(replaceNotificationAcknowledgmentOptions, "replaceNotificationAcknowledgmentOptions cannot be nil")
+// ReplaceNotificationAcknowledgementWithContext is an alternate form of the ReplaceNotificationAcknowledgement method which supports a Context parameter
+func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgementWithContext(ctx context.Context, replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(replaceNotificationAcknowledgementOptions, "replaceNotificationAcknowledgementOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(replaceNotificationAcknowledgmentOptions, "replaceNotificationAcknowledgmentOptions")
+	err = core.ValidateStruct(replaceNotificationAcknowledgementOptions, "replaceNotificationAcknowledgementOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
@@ -1128,30 +1128,30 @@ func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowl
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgment`, nil)
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgement`, nil)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ReplaceNotificationAcknowledgment")
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ReplaceNotificationAcknowledgement")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	for headerName, headerValue := range replaceNotificationAcknowledgmentOptions.Headers {
+	for headerName, headerValue := range replaceNotificationAcknowledgementOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	if replaceNotificationAcknowledgmentOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*replaceNotificationAcknowledgmentOptions.AccountID))
+	if replaceNotificationAcknowledgementOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*replaceNotificationAcknowledgementOptions.AccountID))
 	}
 
 	body := make(map[string]interface{})
-	if replaceNotificationAcknowledgmentOptions.LastAcknowledgedID != nil {
-		body["last_acknowledged_id"] = replaceNotificationAcknowledgmentOptions.LastAcknowledgedID
+	if replaceNotificationAcknowledgementOptions.LastAcknowledgedID != nil {
+		body["last_acknowledged_id"] = replaceNotificationAcknowledgementOptions.LastAcknowledgedID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1168,12 +1168,12 @@ func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowl
 	var rawResponse map[string]json.RawMessage
 	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "replace_notification_acknowledgment", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "replace_notification_acknowledgement", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgment)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgement)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -1185,40 +1185,6 @@ func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowl
 }
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0.0")
-}
-
-// Acknowledgment : Status indicating whether the user has unread notifications.
-type Acknowledgment struct {
-	// Indicates whether the user has unread notifications.
-	HasUnread *bool `json:"has_unread" validate:"required"`
-
-	// The ID of the most recent notification available to the user.
-	LatestNotificationID *string `json:"latest_notification_id" validate:"required"`
-
-	// The ID of the last notification acknowledged by the user.
-	LastAcknowledgedID *string `json:"last_acknowledged_id" validate:"required"`
-}
-
-// UnmarshalAcknowledgment unmarshals an instance of Acknowledgment from the specified map of raw messages.
-func UnmarshalAcknowledgment(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Acknowledgment)
-	err = core.UnmarshalPrimitive(m, "has_unread", &obj.HasUnread)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "has_unread-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "latest_notification_id", &obj.LatestNotificationID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "latest_notification_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_acknowledged_id", &obj.LastAcknowledgedID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_acknowledged_id-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // AddDestination : AddDestination struct
@@ -1704,28 +1670,28 @@ func (options *DeleteNotificationPreferencesOptions) SetHeaders(param map[string
 	return options
 }
 
-// GetAcknowledgmentOptions : The GetAcknowledgment options.
-type GetAcknowledgmentOptions struct {
-	// The account ID to retrieve acknowledgment for.
+// GetAcknowledgementOptions : The GetAcknowledgement options.
+type GetAcknowledgementOptions struct {
+	// The account ID to retrieve acknowledgement for.
 	AccountID *string `json:"account_id,omitempty"`
 
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
-// NewGetAcknowledgmentOptions : Instantiate GetAcknowledgmentOptions
-func (*PlatformNotificationsV1) NewGetAcknowledgmentOptions() *GetAcknowledgmentOptions {
-	return &GetAcknowledgmentOptions{}
+// NewGetAcknowledgementOptions : Instantiate GetAcknowledgementOptions
+func (*PlatformNotificationsV1) NewGetAcknowledgementOptions() *GetAcknowledgementOptions {
+	return &GetAcknowledgementOptions{}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (_options *GetAcknowledgmentOptions) SetAccountID(accountID string) *GetAcknowledgmentOptions {
+func (_options *GetAcknowledgementOptions) SetAccountID(accountID string) *GetAcknowledgementOptions {
 	_options.AccountID = core.StringPtr(accountID)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetAcknowledgmentOptions) SetHeaders(param map[string]string) *GetAcknowledgmentOptions {
+func (options *GetAcknowledgementOptions) SetHeaders(param map[string]string) *GetAcknowledgementOptions {
 	options.Headers = param
 	return options
 }
@@ -2480,39 +2446,39 @@ func UnmarshalPreferencesObject(m map[string]json.RawMessage, result interface{}
 	return
 }
 
-// ReplaceNotificationAcknowledgmentOptions : The ReplaceNotificationAcknowledgment options.
-type ReplaceNotificationAcknowledgmentOptions struct {
+// ReplaceNotificationAcknowledgementOptions : The ReplaceNotificationAcknowledgement options.
+type ReplaceNotificationAcknowledgementOptions struct {
 	// The ID of a notification.
 	LastAcknowledgedID *string `json:"last_acknowledged_id" validate:"required"`
 
-	// The account ID to update acknowledgment for.
+	// The account ID to update acknowledgement for.
 	AccountID *string `json:"account_id,omitempty"`
 
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
-// NewReplaceNotificationAcknowledgmentOptions : Instantiate ReplaceNotificationAcknowledgmentOptions
-func (*PlatformNotificationsV1) NewReplaceNotificationAcknowledgmentOptions(lastAcknowledgedID string) *ReplaceNotificationAcknowledgmentOptions {
-	return &ReplaceNotificationAcknowledgmentOptions{
+// NewReplaceNotificationAcknowledgementOptions : Instantiate ReplaceNotificationAcknowledgementOptions
+func (*PlatformNotificationsV1) NewReplaceNotificationAcknowledgementOptions(lastAcknowledgedID string) *ReplaceNotificationAcknowledgementOptions {
+	return &ReplaceNotificationAcknowledgementOptions{
 		LastAcknowledgedID: core.StringPtr(lastAcknowledgedID),
 	}
 }
 
 // SetLastAcknowledgedID : Allow user to set LastAcknowledgedID
-func (_options *ReplaceNotificationAcknowledgmentOptions) SetLastAcknowledgedID(lastAcknowledgedID string) *ReplaceNotificationAcknowledgmentOptions {
+func (_options *ReplaceNotificationAcknowledgementOptions) SetLastAcknowledgedID(lastAcknowledgedID string) *ReplaceNotificationAcknowledgementOptions {
 	_options.LastAcknowledgedID = core.StringPtr(lastAcknowledgedID)
 	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (_options *ReplaceNotificationAcknowledgmentOptions) SetAccountID(accountID string) *ReplaceNotificationAcknowledgmentOptions {
+func (_options *ReplaceNotificationAcknowledgementOptions) SetAccountID(accountID string) *ReplaceNotificationAcknowledgementOptions {
 	_options.AccountID = core.StringPtr(accountID)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ReplaceNotificationAcknowledgmentOptions) SetHeaders(param map[string]string) *ReplaceNotificationAcknowledgmentOptions {
+func (options *ReplaceNotificationAcknowledgementOptions) SetHeaders(param map[string]string) *ReplaceNotificationAcknowledgementOptions {
 	options.Headers = param
 	return options
 }
@@ -2894,6 +2860,40 @@ func (_options *TestDistributionListDestinationOptions) SetTestDestinationReques
 func (options *TestDistributionListDestinationOptions) SetHeaders(param map[string]string) *TestDistributionListDestinationOptions {
 	options.Headers = param
 	return options
+}
+
+// Acknowledgement : Status indicating whether the user has unread notifications.
+type Acknowledgement struct {
+	// Indicates whether the user has unread notifications.
+	HasUnread *bool `json:"has_unread" validate:"required"`
+
+	// The ID of the most recent notification available to the user.
+	LatestNotificationID *string `json:"latest_notification_id" validate:"required"`
+
+	// The ID of the last notification acknowledged by the user.
+	LastAcknowledgedID *string `json:"last_acknowledged_id" validate:"required"`
+}
+
+// UnmarshalAcknowledgement unmarshals an instance of Acknowledgement from the specified map of raw messages.
+func UnmarshalAcknowledgement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Acknowledgement)
+	err = core.UnmarshalPrimitive(m, "has_unread", &obj.HasUnread)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "has_unread-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "latest_notification_id", &obj.LatestNotificationID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "latest_notification_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_acknowledged_id", &obj.LastAcknowledgedID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_acknowledged_id-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // AddDestinationPrototypeEventNotificationDestinationPrototype : Prototype for creating an Event Notifications destination entry.
