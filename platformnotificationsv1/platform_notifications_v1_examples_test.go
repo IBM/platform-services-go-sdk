@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Platform Notifications service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,14 +40,17 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 	const externalConfigFile = "../platform_notifications_v1.env"
 
 	var (
 		platformNotificationsService *platformnotificationsv1.PlatformNotificationsV1
-		config       map[string]string
+		serviceURL                   string
+		config                       map[string]string
+		accountID                    string
+		IamID                        string
+		instanceID                   string
 	)
 
 	var shouldSkipTest = func() {
@@ -66,11 +68,32 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(platformnotificationsv1.DefaultServiceName)
 			if err != nil {
-				Skip("Error loading service properties, skipping examples: " + err.Error())
-			} else if len(config) == 0 {
-				Skip("Unable to load service properties, skipping examples")
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
+			// Load test account ID and instance ID from config
+			accountID = config["TEST_ACCOUNT_ID"]
+			if accountID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_ACCOUNT_ID not found in configuration, skipping tests")
+			}
+
+			instanceID = config["TEST_INSTANCE_ID"]
+			if instanceID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_INSTANCE_ID not found in configuration, skipping tests")
+			}
+
+			IamID = config["TEST_IAM_ID"]
+			if IamID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_TEST_IAM_ID not found in configuration, skipping tests")
+			}
+
+			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Account ID: %v\n", accountID)
+			fmt.Fprintf(GinkgoWriter, "Instance ID: %v\n", instanceID)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -107,7 +130,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-list_distribution_list_destinations
 
 			listDistributionListDestinationsOptions := platformNotificationsService.NewListDistributionListDestinationsOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+				accountID,
 			)
 
 			addDestinationCollection, response, err := platformNotificationsService.ListDistributionListDestinations(listDistributionListDestinationsOptions)
@@ -128,12 +151,12 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-create_distribution_list_destination
 
 			addDestinationPrototypeModel := &platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
-				DestinationID: CreateMockUUID("12345678-1234-1234-1234-123456789012"),
+				DestinationID:   CreateMockUUID(instanceID),
 				DestinationType: core.StringPtr("event_notifications"),
 			}
 
 			createDistributionListDestinationOptions := platformNotificationsService.NewCreateDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+				accountID,
 				addDestinationPrototypeModel,
 			)
 
@@ -155,8 +178,8 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-get_distribution_list_destination
 
 			getDistributionListDestinationOptions := platformNotificationsService.NewGetDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-				"12345678-1234-1234-1234-123456789012",
+				accountID,
+				instanceID,
 			)
 
 			addDestination, response, err := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptions)
@@ -177,13 +200,13 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-test_distribution_list_destination
 
 			testDestinationRequestBodyPrototypeModel := &platformnotificationsv1.TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
-				DestinationType: core.StringPtr("event_notifications"),
+				DestinationType:  core.StringPtr("event_notifications"),
 				NotificationType: core.StringPtr("incident"),
 			}
 
 			testDistributionListDestinationOptions := platformNotificationsService.NewTestDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-				"12345678-1234-1234-1234-123456789012",
+				accountID,
+				instanceID,
 				testDestinationRequestBodyPrototypeModel,
 			)
 
@@ -206,7 +229,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 			preferenceValueWithUpdatesModel := &platformnotificationsv1.PreferenceValueWithUpdates{
 				Channels: []string{"email"},
-				Updates: core.BoolPtr(true),
+				Updates:  core.BoolPtr(true),
 			}
 
 			preferenceValueWithoutUpdatesModel := &platformnotificationsv1.PreferenceValueWithoutUpdates{
@@ -214,11 +237,11 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			}
 
 			createPreferencesOptions := platformNotificationsService.NewCreatePreferencesOptions(
-				"IBMid-1234567890",
+				IamID,
 			)
 			createPreferencesOptions.SetIncidentSeverity1(preferenceValueWithUpdatesModel)
 			createPreferencesOptions.SetOrderingReview(preferenceValueWithoutUpdatesModel)
-			createPreferencesOptions.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+			createPreferencesOptions.SetAccountID(accountID)
 
 			preferencesObject, response, err := platformNotificationsService.CreatePreferences(createPreferencesOptions)
 			if err != nil {
@@ -238,9 +261,9 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-get_preferences
 
 			getPreferencesOptions := platformNotificationsService.NewGetPreferencesOptions(
-				"IBMid-1234567890",
+				IamID,
 			)
-			getPreferencesOptions.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+			getPreferencesOptions.SetAccountID(accountID)
 
 			preferencesObject, response, err := platformNotificationsService.GetPreferences(getPreferencesOptions)
 			if err != nil {
@@ -261,7 +284,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 			preferenceValueWithUpdatesModel := &platformnotificationsv1.PreferenceValueWithUpdates{
 				Channels: []string{"email"},
-				Updates: core.BoolPtr(true),
+				Updates:  core.BoolPtr(true),
 			}
 
 			preferenceValueWithoutUpdatesModel := &platformnotificationsv1.PreferenceValueWithoutUpdates{
@@ -269,11 +292,11 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			}
 
 			replaceNotificationPreferencesOptions := platformNotificationsService.NewReplaceNotificationPreferencesOptions(
-				"IBMid-1234567890",
+				IamID,
 			)
 			replaceNotificationPreferencesOptions.SetIncidentSeverity1(preferenceValueWithUpdatesModel)
 			replaceNotificationPreferencesOptions.SetOrderingReview(preferenceValueWithoutUpdatesModel)
-			replaceNotificationPreferencesOptions.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+			replaceNotificationPreferencesOptions.SetAccountID(accountID)
 
 			preferencesObject, response, err := platformNotificationsService.ReplaceNotificationPreferences(replaceNotificationPreferencesOptions)
 			if err != nil {
@@ -292,8 +315,8 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			fmt.Println("\nListNotifications() result:")
 			// begin-list_notifications
 			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
-				AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-				Limit: core.Int64Ptr(int64(50)),
+				AccountID: core.StringPtr(accountID),
+				Limit:     core.Int64Ptr(int64(50)),
 			}
 
 			pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
@@ -318,7 +341,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-get_acknowledgement
 
 			getAcknowledgementOptions := platformNotificationsService.NewGetAcknowledgementOptions()
-			getAcknowledgementOptions.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+			getAcknowledgementOptions.SetAccountID(accountID)
 
 			acknowledgement, response, err := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptions)
 			if err != nil {
@@ -340,7 +363,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			replaceNotificationAcknowledgementOptions := platformNotificationsService.NewReplaceNotificationAcknowledgementOptions(
 				"1772804159452",
 			)
-			replaceNotificationAcknowledgementOptions.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+			replaceNotificationAcknowledgementOptions.SetAccountID(accountID)
 
 			acknowledgement, response, err := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions)
 			if err != nil {
@@ -359,8 +382,8 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-delete_distribution_list_destination
 
 			deleteDistributionListDestinationOptions := platformNotificationsService.NewDeleteDistributionListDestinationOptions(
-				"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-				"12345678-1234-1234-1234-123456789012",
+				accountID,
+				instanceID,
 			)
 
 			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
@@ -380,9 +403,9 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-delete_notification_preferences
 
 			deleteNotificationPreferencesOptions := platformNotificationsService.NewDeleteNotificationPreferencesOptions(
-				"IBMid-1234567890",
+				IamID,
 			)
-			deleteNotificationPreferencesOptions.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+			deleteNotificationPreferencesOptions.SetAccountID(accountID)
 
 			response, err := platformNotificationsService.DeleteNotificationPreferences(deleteNotificationPreferencesOptions)
 			if err != nil {
