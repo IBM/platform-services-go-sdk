@@ -1144,7 +1144,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`GetEffectiveAccountSettings request example`, func() {
 			fmt.Println("\nGetEffectiveAccountSettings() result:")
-			// begin-getEffectiveAccountSettings
+			// begin-get_effective_account_settings
 
 			getEffectiveAccountSettingsOptions := iamIdentityService.NewGetEffectiveAccountSettingsOptions(accountID)
 
@@ -1155,7 +1155,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(effectiveAccountSettingsResponse, "", "  ")
 			fmt.Println(string(b))
 
-			// end-getEffectiveAccountSettings
+			// end-get_effective_account_settings
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
