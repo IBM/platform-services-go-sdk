@@ -1,3 +1,10 @@
+# [0.98.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.5...v0.98.0) (2026-05-27)
+
+
+### Features
+
+* **IAM Identity:** add PowerVS compute resource type support ([#448](https://github.com/IBM/platform-services-go-sdk/issues/448)) ([a87c38e](https://github.com/IBM/platform-services-go-sdk/commit/a87c38e5b2edee09acf64849818902a5ce45c741))
+
 ## [0.97.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.4...v0.97.5) (2026-05-27)
 
 
