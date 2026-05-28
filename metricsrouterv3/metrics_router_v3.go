@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
+ * IBM OpenAPI SDK Code Generator Version: 3.114.0-a902401e-20260427-192904
  */
 
 // Package metricsrouterv3 : Operations and models for the MetricsRouterV3 service
@@ -136,6 +136,8 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-gb":    "https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3",    // The private endpoint for IBM Cloud Metrics Routing Service in the eu-gb region.
 		"in-che":           "https://in-che.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the in-che region.
 		"private.in-che":   "https://private.in-che.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the in-che region.
+		"in-mum":           "https://in-mum.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the in-mum region.
+		"private.in-mum":   "https://private.in-mum.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the in-mum region.
 		"jp-osa":           "https://jp-osa.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
 		"private.jp-osa":   "https://private.jp-osa.metrics-router.cloud.ibm.com/api/v3",   // The private endpoint for IBM Cloud Metrics Routing Service in the jp-osa region.
 		"jp-tok":           "https://jp-tok.metrics-router.cloud.ibm.com/api/v3",           // The public endpoint for IBM Cloud Metrics Routing Service in the jp-tok region.

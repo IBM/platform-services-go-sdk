@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.113.0-3f9df07a-20260317-160650
+ * IBM OpenAPI SDK Code Generator Version: 3.113.1-d76630af-20260320-135953
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -9151,7 +9151,7 @@ type CreateClaimRuleOptions struct {
 	RealmName *string `json:"realm_name,omitempty"`
 
 	// The compute resource type the rule applies to, required only if type is specified as 'Profile-CR'. Valid values are
-	// VSI, IKS_SA, ROKS_SA.
+	// VSI, PVS, IKS_SA, ROKS_SA.
 	CrType *string `json:"cr_type,omitempty"`
 
 	// Session expiration in seconds, only required if type is 'Profile-SAML'.
@@ -9229,7 +9229,7 @@ type CreateLinkOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// The compute resource type. Valid values are VSI, IKS_SA, ROKS_SA.
+	// The compute resource type. Valid values are VSI, PVS, IKS_SA, ROKS_SA.
 	CrType *string `json:"cr_type" validate:"required"`
 
 	// Link details.
@@ -10050,7 +10050,7 @@ type DeleteLinkByParametersOptions struct {
 	// The unique ID of the Trusted Profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// The compute resource type. Valid values are VSI, BMS, IKS_SA, ROKS_SA, CE.
+	// The compute resource type. Valid values are VSI, PVS, BMS, IKS_SA, ROKS_SA, CE.
 	Type *string `json:"type" validate:"required"`
 
 	// CRN of the compute resource (IKS/ROKS/VSI/BMS).
@@ -12259,8 +12259,8 @@ type IdentityPreferenceResponse struct {
 	// present.
 	ValueString *string `json:"value_string,omitempty"`
 
-	// List of value of the preference, only one value property is set, either 'value_string' or 'value_list_of_strings' is
-	// present.
+	// List of values of the preference, only one value property is set, either 'value_string' or 'value_list_of_strings'
+	// is present.
 	ValueListOfStrings []string `json:"value_list_of_strings,omitempty"`
 }
 
@@ -13540,7 +13540,7 @@ type ProfileClaimRule struct {
 	// Session expiration in seconds.
 	Expiration *int64 `json:"expiration" validate:"required"`
 
-	// The compute resource type. Not required if type is Profile-SAML. Valid values are VSI, IKS_SA, ROKS_SA.
+	// The compute resource type. Not required if type is Profile-SAML. Valid values are VSI, PVS, IKS_SA, ROKS_SA.
 	CrType *string `json:"cr_type,omitempty"`
 
 	// Conditions of this claim rule.
@@ -13878,7 +13878,7 @@ type ProfileLink struct {
 	// Optional name of the Link.
 	Name *string `json:"name,omitempty"`
 
-	// The compute resource type. Valid values are VSI, BMS, IKS_SA, ROKS_SA, CE.
+	// The compute resource type. Valid values are VSI, PVS, BMS, IKS_SA, ROKS_SA, CE.
 	CrType *string `json:"cr_type" validate:"required"`
 
 	// Flag to indicate that the link provides cross account access. If not provided then the account scope of the CRN must
@@ -16513,7 +16513,7 @@ type UpdateClaimRuleOptions struct {
 	RealmName *string `json:"realm_name,omitempty"`
 
 	// The compute resource type the rule applies to, required only if type is specified as 'Profile-CR'. Valid values are
-	// VSI, IKS_SA, ROKS_SA.
+	// VSI, PVS, IKS_SA, ROKS_SA.
 	CrType *string `json:"cr_type,omitempty"`
 
 	// Session expiration in seconds, only required if type is 'Profile-SAML'.
@@ -16616,7 +16616,7 @@ type UpdatePreferenceOnScopeAccountOptions struct {
 
 	// contains a string value of the preference. only one value property is set, either 'value_string' or
 	// 'value_list_of_strings' is present.
-	ValueString *string `json:"value_string" validate:"required"`
+	ValueString *string `json:"value_string,omitempty"`
 
 	// contains a list of string values of the preference. only one value property is set, either 'value_string' or
 	// 'value_list_of_strings' is present.
@@ -16627,13 +16627,12 @@ type UpdatePreferenceOnScopeAccountOptions struct {
 }
 
 // NewUpdatePreferenceOnScopeAccountOptions : Instantiate UpdatePreferenceOnScopeAccountOptions
-func (*IamIdentityV1) NewUpdatePreferenceOnScopeAccountOptions(accountID string, iamID string, service string, preferenceID string, valueString string) *UpdatePreferenceOnScopeAccountOptions {
+func (*IamIdentityV1) NewUpdatePreferenceOnScopeAccountOptions(accountID string, iamID string, service string, preferenceID string) *UpdatePreferenceOnScopeAccountOptions {
 	return &UpdatePreferenceOnScopeAccountOptions{
 		AccountID:    core.StringPtr(accountID),
 		IamID:        core.StringPtr(iamID),
 		Service:      core.StringPtr(service),
 		PreferenceID: core.StringPtr(preferenceID),
-		ValueString:  core.StringPtr(valueString),
 	}
 }
 

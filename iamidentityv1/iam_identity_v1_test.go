@@ -21394,8 +21394,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				iamID := "testString"
 				service := "testString"
 				preferenceID := "testString"
-				updatePreferenceOnScopeAccountOptionsValueString := "testString"
-				updatePreferenceOnScopeAccountOptionsModel := iamIdentityService.NewUpdatePreferenceOnScopeAccountOptions(accountID, iamID, service, preferenceID, updatePreferenceOnScopeAccountOptionsValueString)
+				updatePreferenceOnScopeAccountOptionsModel := iamIdentityService.NewUpdatePreferenceOnScopeAccountOptions(accountID, iamID, service, preferenceID)
 				updatePreferenceOnScopeAccountOptionsModel.SetAccountID("testString")
 				updatePreferenceOnScopeAccountOptionsModel.SetIamID("testString")
 				updatePreferenceOnScopeAccountOptionsModel.SetService("testString")

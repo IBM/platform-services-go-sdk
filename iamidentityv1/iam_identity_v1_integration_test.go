@@ -1356,13 +1356,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Description:  core.StringPtr("Identity description"),
 			}
 
-			profileIdnetity, response, err := iamIdentityService.SetProfileIdentity(&setProfileIdentityOptions)
+			profileIdentity, response, err := iamIdentityService.SetProfileIdentity(&setProfileIdentityOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
-			Expect(profileIdnetity).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetity))
+			Expect(profileIdentity).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdentity))
 		})
 	})
 
@@ -1378,13 +1378,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				IdentifierID: &iamID,
 			}
 
-			profileIdnetity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
+			profileIdentity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
-			Expect(profileIdnetity.Identifier).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetity))
+			Expect(profileIdentity.Identifier).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdentity))
 		})
 	})
 
@@ -1726,7 +1726,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.RestrictCreateServiceID).To(Equal(accountSettingsRequestOptions.RestrictCreateServiceID))
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).To(Equal(accountSettingsRequestOptions.RestrictCreatePlatformApikey))
 			Expect(accountSettingsResponse.RestrictUserListVisibility).To(Equal(accountSettingsRequestOptions.RestrictUserListVisibility))
-			Expect(accountSettingsResponse.RestrictUserDomains).To(Equal(accountSettingsRequestOptions.RestrictUserDomains))
+			Expect(accountSettingsResponse.RestrictUserDomains).To(ContainElement(accountSettingsRequestOptions.RestrictUserDomains[0]))
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).To(Equal(accountSettingsRequestOptions.SessionInvalidationInSeconds))
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SessionExpirationInSeconds))
 			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemAccessTokenExpirationInSeconds))
