@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
+ * IBM OpenAPI SDK Code Generator Version: 3.114.2-b2884bfd-20260601-185447
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -36,7 +36,7 @@ import (
 
 // PartnerCenterSellV1 : This API is experimental and is likely to change in the future.
 //
-// API Version: 1.5.0
+// API Version: 1.6.0
 type PartnerCenterSellV1 struct {
 	Service *core.BaseService
 }
@@ -2223,6 +2223,76 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateResourceBrokerWithContext(ct
 	return
 }
 
+// ListResourceBrokers : Create a broker
+// Create a new broker that manages the lifecycle of your service and its metering integration.
+func (partnerCenterSell *PartnerCenterSellV1) ListResourceBrokers(listResourceBrokersOptions *ListResourceBrokersOptions) (result *ListBrokers, response *core.DetailedResponse, err error) {
+	result, response, err = partnerCenterSell.ListResourceBrokersWithContext(context.Background(), listResourceBrokersOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListResourceBrokersWithContext is an alternate form of the ListResourceBrokers method which supports a Context parameter
+func (partnerCenterSell *PartnerCenterSellV1) ListResourceBrokersWithContext(ctx context.Context, listResourceBrokersOptions *ListResourceBrokersOptions) (result *ListBrokers, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listResourceBrokersOptions, "listResourceBrokersOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = partnerCenterSell.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(partnerCenterSell.Service.Options.URL, `/brokers`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("partner_center_sell", "V1", "ListResourceBrokers")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listResourceBrokersOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listResourceBrokersOptions.Env != nil {
+		builder.AddQuery("env", fmt.Sprint(*listResourceBrokersOptions.Env))
+	}
+	if listResourceBrokersOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listResourceBrokersOptions.Limit))
+	}
+	if listResourceBrokersOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceBrokersOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = partnerCenterSell.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_resource_brokers", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListBrokers)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // UpdateResourceBroker : Update broker details
 // Update your service broker details, including the username, password, name, or the URL of the broker.
 func (partnerCenterSell *PartnerCenterSellV1) UpdateResourceBroker(updateResourceBrokerOptions *UpdateResourceBrokerOptions) (result *Broker, response *core.DetailedResponse, err error) {
@@ -2578,7 +2648,7 @@ func (partnerCenterSell *PartnerCenterSellV1) GetProductBadgeWithContext(ctx con
 	return
 }
 func getServiceComponentInfo() *core.ProblemComponent {
-	return core.NewProblemComponent(DefaultServiceName, "1.5.0")
+	return core.NewProblemComponent(DefaultServiceName, "1.6.0")
 }
 
 // Bookmark : The page reference information.
@@ -5022,6 +5092,9 @@ type GlobalCatalogDeploymentMetadata struct {
 
 	// The global catalog metadata of the deployment.
 	Deployment *GlobalCatalogMetadataDeployment `json:"deployment,omitempty"`
+
+	// Additional deployment metadata for "other" location type.
+	Other *GlobalCatalogMetadataDeploymentOther `json:"other,omitempty"`
 }
 
 // UnmarshalGlobalCatalogDeploymentMetadata unmarshals an instance of GlobalCatalogDeploymentMetadata from the specified map of raw messages.
@@ -5042,6 +5115,11 @@ func UnmarshalGlobalCatalogDeploymentMetadata(m map[string]json.RawMessage, resu
 		err = core.SDKErrorf(err, "", "deployment-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "other", &obj.Other, UnmarshalGlobalCatalogMetadataDeploymentOther)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "other-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5056,6 +5134,9 @@ type GlobalCatalogDeploymentMetadataPrototypePatch struct {
 
 	// The global catalog metadata of the deployment.
 	Deployment *GlobalCatalogMetadataDeployment `json:"deployment,omitempty"`
+
+	// Additional deployment metadata for "other" location type.
+	Other *GlobalCatalogMetadataDeploymentOther `json:"other,omitempty"`
 }
 
 // UnmarshalGlobalCatalogDeploymentMetadataPrototypePatch unmarshals an instance of GlobalCatalogDeploymentMetadataPrototypePatch from the specified map of raw messages.
@@ -5076,6 +5157,11 @@ func UnmarshalGlobalCatalogDeploymentMetadataPrototypePatch(m map[string]json.Ra
 		err = core.SDKErrorf(err, "", "deployment-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "other", &obj.Other, UnmarshalGlobalCatalogMetadataDeploymentOther)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "other-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5091,6 +5177,9 @@ func (globalCatalogDeploymentMetadataPrototypePatch *GlobalCatalogDeploymentMeta
 	}
 	if !core.IsNil(globalCatalogDeploymentMetadataPrototypePatch.Deployment) {
 		_patch["deployment"] = globalCatalogDeploymentMetadataPrototypePatch.Deployment.asPatch()
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataPrototypePatch.Other) {
+		_patch["other"] = globalCatalogDeploymentMetadataPrototypePatch.Other.asPatch()
 	}
 
 	return
@@ -5416,6 +5505,34 @@ func (globalCatalogMetadataDeploymentBroker *GlobalCatalogMetadataDeploymentBrok
 	}
 	if !core.IsNil(globalCatalogMetadataDeploymentBroker.Guid) {
 		_patch["guid"] = globalCatalogMetadataDeploymentBroker.Guid
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataDeploymentOther : Additional deployment metadata for "other" location type.
+type GlobalCatalogMetadataDeploymentOther struct {
+	// The region that proxies this deployment location.
+	LocationProxiedBy *string `json:"location_proxied_by,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataDeploymentOther unmarshals an instance of GlobalCatalogMetadataDeploymentOther from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataDeploymentOther(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataDeploymentOther)
+	err = core.UnmarshalPrimitive(m, "location_proxied_by", &obj.LocationProxiedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "location_proxied_by-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataDeploymentOther
+func (globalCatalogMetadataDeploymentOther *GlobalCatalogMetadataDeploymentOther) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataDeploymentOther.LocationProxiedBy) {
+		_patch["location_proxied_by"] = globalCatalogMetadataDeploymentOther.LocationProxiedBy
 	}
 
 	return
@@ -9146,6 +9263,10 @@ func (iamServiceRegistrationSupportedNetwork *IamServiceRegistrationSupportedNet
 type IamServiceRegistrationSupportedNetworkOperations struct {
 	// The environment attribute for support.
 	ApiTypes []IamServiceRegistrationSupportedNetworkOperationsApiTypeItems `json:"api_types,omitempty"`
+
+	// Specifies default supported network operation behavior that applies when an API type does not explicitly set a
+	// value.
+	Defaults *IamServiceRegistrationSupportedNetworkOperationsDefaults `json:"defaults,omitempty"`
 }
 
 // UnmarshalIamServiceRegistrationSupportedNetworkOperations unmarshals an instance of IamServiceRegistrationSupportedNetworkOperations from the specified map of raw messages.
@@ -9154,6 +9275,11 @@ func UnmarshalIamServiceRegistrationSupportedNetworkOperations(m map[string]json
 	err = core.UnmarshalModel(m, "api_types", &obj.ApiTypes, UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "api_types-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "defaults", &obj.Defaults, UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "defaults-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9170,6 +9296,9 @@ func (iamServiceRegistrationSupportedNetworkOperations *IamServiceRegistrationSu
 		}
 		_patch["api_types"] = apiTypesPatches
 	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperations.Defaults) {
+		_patch["defaults"] = iamServiceRegistrationSupportedNetworkOperations.Defaults.asPatch()
+	}
 
 	return
 }
@@ -9181,6 +9310,9 @@ type IamServiceRegistrationSupportedNetworkOperationsApiTypeItems struct {
 
 	// The enforcement method used for the API type.
 	EnforcementMethod []string `json:"enforcement_method,omitempty"`
+
+	// Specifies the event publishing state.
+	EventPublishing *IamServiceRegistrationSupportedNetworkOperationsEventPublishing `json:"event_publishing,omitempty"`
 
 	// The display name of the object.
 	DisplayName *IamServiceRegistrationDisplayNameObject `json:"display_name,omitempty"`
@@ -9200,6 +9332,11 @@ func UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems(m map
 	err = core.UnmarshalPrimitive(m, "enforcement_method", &obj.EnforcementMethod)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enforcement_method-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "event_publishing", &obj.EventPublishing, UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "event_publishing-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "display_name", &obj.DisplayName, UnmarshalIamServiceRegistrationDisplayNameObject)
@@ -9225,11 +9362,88 @@ func (iamServiceRegistrationSupportedNetworkOperationsApiTypeItems *IamServiceRe
 	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EnforcementMethod) {
 		_patch["enforcement_method"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EnforcementMethod
 	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EventPublishing) {
+		_patch["event_publishing"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EventPublishing.asPatch()
+	}
 	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.DisplayName) {
 		_patch["display_name"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.DisplayName.asPatch()
 	}
 	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Description) {
 		_patch["description"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Description.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkOperationsDefaults : Specifies default supported network operation behavior that applies when an API type does not explicitly set a value.
+type IamServiceRegistrationSupportedNetworkOperationsDefaults struct {
+	// The default enforcement method used for API types.
+	EnforcementMethod []string `json:"enforcement_method,omitempty"`
+
+	// Specifies the event publishing state.
+	EventPublishing *IamServiceRegistrationSupportedNetworkOperationsEventPublishing `json:"event_publishing,omitempty"`
+}
+
+// UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults unmarshals an instance of IamServiceRegistrationSupportedNetworkOperationsDefaults from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkOperationsDefaults)
+	err = core.UnmarshalPrimitive(m, "enforcement_method", &obj.EnforcementMethod)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "enforcement_method-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "event_publishing", &obj.EventPublishing, UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "event_publishing-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkOperationsDefaults
+func (iamServiceRegistrationSupportedNetworkOperationsDefaults *IamServiceRegistrationSupportedNetworkOperationsDefaults) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsDefaults.EnforcementMethod) {
+		_patch["enforcement_method"] = iamServiceRegistrationSupportedNetworkOperationsDefaults.EnforcementMethod
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsDefaults.EventPublishing) {
+		_patch["event_publishing"] = iamServiceRegistrationSupportedNetworkOperationsDefaults.EventPublishing.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkOperationsEventPublishing : Specifies the event publishing state.
+type IamServiceRegistrationSupportedNetworkOperationsEventPublishing struct {
+	// The event publishing state.
+	State *string `json:"state,omitempty"`
+}
+
+// Constants associated with the IamServiceRegistrationSupportedNetworkOperationsEventPublishing.State property.
+// The event publishing state.
+const (
+	IamServiceRegistrationSupportedNetworkOperationsEventPublishing_State_Disabled = "disabled"
+	IamServiceRegistrationSupportedNetworkOperationsEventPublishing_State_Enabled  = "enabled"
+)
+
+// UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing unmarshals an instance of IamServiceRegistrationSupportedNetworkOperationsEventPublishing from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing
+func (iamServiceRegistrationSupportedNetworkOperationsEventPublishing *IamServiceRegistrationSupportedNetworkOperationsEventPublishing) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsEventPublishing.State) {
+		_patch["state"] = iamServiceRegistrationSupportedNetworkOperationsEventPublishing.State
 	}
 
 	return
@@ -9381,6 +9595,294 @@ func UnmarshalLearnMoreLinks(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// ListBrokers : A list of brokers owned by this account.
+type ListBrokers struct {
+	// The maximum number of results returned in this response.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// The total number of results.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The page reference information.
+	First *Bookmark `json:"first,omitempty"`
+
+	// The page reference information.
+	Next *Bookmark `json:"next" validate:"required"`
+
+	// The page reference information.
+	Previous *Bookmark `json:"previous,omitempty"`
+
+	// The page reference information.
+	Last *Bookmark `json:"last,omitempty"`
+
+	// A list of brokers.
+	Plans []ListBrokersPlansItem `json:"plans,omitempty"`
+}
+
+// UnmarshalListBrokers unmarshals an instance of ListBrokers from the specified map of raw messages.
+func UnmarshalListBrokers(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListBrokers)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalBookmark)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalBookmark)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalBookmark)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "previous-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalBookmark)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "plans", &obj.Plans, UnmarshalListBrokersPlansItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plans-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ListBrokersPlansItem : The URL of the object.
+type ListBrokersPlansItem struct {
+	// The authentication username to reach the broker.
+	AuthUsername *string `json:"auth_username,omitempty"`
+
+	// The authentication password to reach the broker.
+	AuthPassword *string `json:"auth_password,omitempty"`
+
+	// The supported authentication scheme for the broker.
+	AuthScheme *string `json:"auth_scheme,omitempty"`
+
+	// The cloud resource name of the resource group.
+	ResourceGroupCrn *string `json:"resource_group_crn,omitempty"`
+
+	// The state of the broker.
+	State *string `json:"state,omitempty"`
+
+	// The URL associated with the broker application.
+	BrokerURL *string `json:"broker_url,omitempty"`
+
+	// Whether the resource controller will call the broker for any context changes to the instance. Currently, the only
+	// context related change is an instance name update.
+	AllowContextUpdates *bool `json:"allow_context_updates,omitempty"`
+
+	// To enable the provisioning of your broker, set this parameter value to `service`.
+	CatalogType *string `json:"catalog_type,omitempty"`
+
+	// The type of the provisioning model.
+	Type *string `json:"type,omitempty"`
+
+	// The name of the broker.
+	Name *string `json:"name,omitempty"`
+
+	// The region where the pricing plan is available.
+	Region *string `json:"region,omitempty"`
+
+	// The ID of the account in which you manage the broker.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The cloud resource name (CRN) of the broker.
+	Crn *string `json:"crn,omitempty"`
+
+	// The time when the service broker was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The time when the service broker was updated.
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// The time when the service broker was deleted.
+	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
+	// The details of the user who created this broker.
+	CreatedBy *BrokerEventCreatedByUser `json:"created_by,omitempty"`
+
+	// The details of the user who updated this broker.
+	UpdatedBy *BrokerEventUpdatedByUser `json:"updated_by,omitempty"`
+
+	// The details of the user who deleted this broker.
+	DeletedBy *BrokerEventDeletedByUser `json:"deleted_by,omitempty"`
+
+	// The globally unique identifier of the broker.
+	Guid *string `json:"guid,omitempty"`
+
+	// The identifier of the broker.
+	ID *string `json:"id,omitempty"`
+
+	// The URL associated with the broker.
+	URL *string `json:"url,omitempty"`
+
+	// A URL.
+	Href *string `json:"href,omitempty"`
+}
+
+// Constants associated with the ListBrokersPlansItem.AuthUsername property.
+// The authentication username to reach the broker.
+const (
+	ListBrokersPlansItem_AuthUsername_Apikey = "apikey"
+)
+
+// Constants associated with the ListBrokersPlansItem.AuthScheme property.
+// The supported authentication scheme for the broker.
+const (
+	ListBrokersPlansItem_AuthScheme_Bearer    = "bearer"
+	ListBrokersPlansItem_AuthScheme_BearerCrn = "bearer-crn"
+)
+
+// Constants associated with the ListBrokersPlansItem.State property.
+// The state of the broker.
+const (
+	ListBrokersPlansItem_State_Active  = "active"
+	ListBrokersPlansItem_State_Removed = "removed"
+)
+
+// Constants associated with the ListBrokersPlansItem.Type property.
+// The type of the provisioning model.
+const (
+	ListBrokersPlansItem_Type_ProvisionBehind  = "provision_behind"
+	ListBrokersPlansItem_Type_ProvisionThrough = "provision_through"
+)
+
+// UnmarshalListBrokersPlansItem unmarshals an instance of ListBrokersPlansItem from the specified map of raw messages.
+func UnmarshalListBrokersPlansItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListBrokersPlansItem)
+	err = core.UnmarshalPrimitive(m, "auth_username", &obj.AuthUsername)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "auth_username-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "auth_password", &obj.AuthPassword)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "auth_password-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "auth_scheme", &obj.AuthScheme)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "auth_scheme-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_crn", &obj.ResourceGroupCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "broker_url", &obj.BrokerURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "broker_url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allow_context_updates", &obj.AllowContextUpdates)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "allow_context_updates-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_type", &obj.CatalogType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "catalog_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "deleted_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "created_by", &obj.CreatedBy, UnmarshalBrokerEventCreatedByUser)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "updated_by", &obj.UpdatedBy, UnmarshalBrokerEventUpdatedByUser)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "updated_by-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "deleted_by", &obj.DeletedBy, UnmarshalBrokerEventDeletedByUser)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "deleted_by-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "guid-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ListProductBadgesOptions : The ListProductBadges options.
 type ListProductBadgesOptions struct {
 	// The maximum number of results returned in the response.
@@ -9412,6 +9914,50 @@ func (_options *ListProductBadgesOptions) SetStart(start *strfmt.UUID) *ListProd
 
 // SetHeaders : Allow user to set Headers
 func (options *ListProductBadgesOptions) SetHeaders(param map[string]string) *ListProductBadgesOptions {
+	options.Headers = param
+	return options
+}
+
+// ListResourceBrokersOptions : The ListResourceBrokers options.
+type ListResourceBrokersOptions struct {
+	// The environment to fetch this object from.
+	Env *string `json:"env,omitempty"`
+
+	// The maximum number of results returned in the response.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Bookmark to use.
+	Start *strfmt.UUID `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListResourceBrokersOptions : Instantiate ListResourceBrokersOptions
+func (*PartnerCenterSellV1) NewListResourceBrokersOptions() *ListResourceBrokersOptions {
+	return &ListResourceBrokersOptions{}
+}
+
+// SetEnv : Allow user to set Env
+func (_options *ListResourceBrokersOptions) SetEnv(env string) *ListResourceBrokersOptions {
+	_options.Env = core.StringPtr(env)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListResourceBrokersOptions) SetLimit(limit int64) *ListResourceBrokersOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListResourceBrokersOptions) SetStart(start *strfmt.UUID) *ListResourceBrokersOptions {
+	_options.Start = start
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListResourceBrokersOptions) SetHeaders(param map[string]string) *ListResourceBrokersOptions {
 	options.Headers = param
 	return options
 }
@@ -9462,6 +10008,9 @@ type OnboardingProduct struct {
 
 	// The support information that is not displayed in the catalog, but available in ServiceNow.
 	Support *OnboardingProductSupport `json:"support,omitempty"`
+
+	// The ID of the OSS record connected to the product.
+	OssID *string `json:"oss_id,omitempty"`
 }
 
 // Constants associated with the OnboardingProduct.Type property.
@@ -9548,6 +10097,11 @@ func UnmarshalOnboardingProduct(m map[string]json.RawMessage, result interface{}
 	err = core.UnmarshalModel(m, "support", &obj.Support, UnmarshalOnboardingProductSupport)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "support-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "oss_id", &obj.OssID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "oss_id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
