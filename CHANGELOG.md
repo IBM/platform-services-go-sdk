@@ -1,3 +1,10 @@
+# [0.99.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.98.0...v0.99.0) (2026-06-04)
+
+
+### Features
+
+* **Partner Center Sell:** extending IAM and Deployment objects with new parameters ([#449](https://github.com/IBM/platform-services-go-sdk/issues/449)) ([be5979c](https://github.com/IBM/platform-services-go-sdk/commit/be5979c0be56a7701441713b21f3b01ba2124142))
+
 # [0.98.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.5...v0.98.0) (2026-05-27)
 
 
