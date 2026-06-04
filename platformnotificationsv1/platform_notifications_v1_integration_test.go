@@ -112,6 +112,102 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListNotifications - Get user notifications`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) with pagination`, func() {
+			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
+				AccountID: core.StringPtr(accountID),
+				Limit:     core.Int64Ptr(int64(50)),
+			}
+
+			listNotificationsOptions.Start = nil
+			listNotificationsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []platformnotificationsv1.Notification
+			for {
+				notificationCollection, response, err := platformNotificationsService.ListNotifications(listNotificationsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(notificationCollection).ToNot(BeNil())
+				allResults = append(allResults, notificationCollection.Notifications...)
+
+				listNotificationsOptions.Start, err = notificationCollection.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listNotificationsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) using NotificationsPager`, func() {
+			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
+				AccountID: core.StringPtr(accountID),
+				Limit:     core.Int64Ptr(int64(50)),
+			}
+
+			// Test GetNext().
+			pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []platformnotificationsv1.Notification
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListNotifications() returned a total of %d item(s) using NotificationsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetAcknowledgement - Get acknowledgement`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions)`, func() {
+			getAcknowledgementOptions := &platformnotificationsv1.GetAcknowledgementOptions{
+				AccountID: core.StringPtr(accountID),
+			}
+
+			acknowledgement, response, err := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(acknowledgement).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ReplaceNotificationAcknowledgement - Update acknowledgement`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions)`, func() {
+			replaceNotificationAcknowledgementOptions := &platformnotificationsv1.ReplaceNotificationAcknowledgementOptions{
+				LastAcknowledged: core.Int64Ptr(int64(1772804159452)),
+				AccountID:        core.StringPtr(accountID),
+			}
+
+			acknowledgement, response, err := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(acknowledgement).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListDistributionListDestinations - Get all destination entries`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -167,7 +263,7 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`TestDistributionListDestination - Test destination entry`, func() {
+	Describe(`TestDistributionListDestination - Test a destination entry`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -307,104 +403,7 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListNotifications - Get user notifications`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) with pagination`, func() {
-			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
-				AccountID: core.StringPtr(accountID),
-				Start:     core.StringPtr("3fe78a36b9aa7f26"),
-				Limit:     core.Int64Ptr(int64(50)),
-			}
-
-			listNotificationsOptions.Start = nil
-			listNotificationsOptions.Limit = core.Int64Ptr(1)
-
-			var allResults []platformnotificationsv1.Notification
-			for {
-				notificationCollection, response, err := platformNotificationsService.ListNotifications(listNotificationsOptions)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(notificationCollection).ToNot(BeNil())
-				allResults = append(allResults, notificationCollection.Notifications...)
-
-				listNotificationsOptions.Start, err = notificationCollection.GetNextStart()
-				Expect(err).To(BeNil())
-
-				if listNotificationsOptions.Start == nil {
-					break
-				}
-			}
-			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
-		})
-		It(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) using NotificationsPager`, func() {
-			listNotificationsOptions := &platformnotificationsv1.ListNotificationsOptions{
-				AccountID: core.StringPtr(accountID),
-				Limit:     core.Int64Ptr(int64(50)),
-			}
-
-			// Test GetNext().
-			pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			var allResults []platformnotificationsv1.Notification
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				Expect(err).To(BeNil())
-				Expect(nextPage).ToNot(BeNil())
-				allResults = append(allResults, nextPage...)
-			}
-
-			// Test GetAll().
-			pager, err = platformNotificationsService.NewNotificationsPager(listNotificationsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			allItems, err := pager.GetAll()
-			Expect(err).To(BeNil())
-			Expect(allItems).ToNot(BeNil())
-
-			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListNotifications() returned a total of %d item(s) using NotificationsPager.\n", len(allResults))
-		})
-	})
-
-	Describe(`GetAcknowledgement - Get user's last acknowledged notification Id`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions)`, func() {
-			getAcknowledgementOptions := &platformnotificationsv1.GetAcknowledgementOptions{
-				AccountID: core.StringPtr(accountID),
-			}
-
-			acknowledgement, response, err := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(acknowledgement).ToNot(BeNil())
-		})
-	})
-
-	Describe(`ReplaceNotificationAcknowledgement - Update user's last acknowledged notification`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions)`, func() {
-			replaceNotificationAcknowledgementOptions := &platformnotificationsv1.ReplaceNotificationAcknowledgementOptions{
-				LastAcknowledgedID: core.StringPtr("1777966417243"),
-				AccountID:          core.StringPtr(accountID),
-			}
-
-			acknowledgement, response, err := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(acknowledgement).ToNot(BeNil())
-		})
-	})
-
-	Describe(`DeleteDistributionListDestination - Delete destination entry`, func() {
+	Describe(`DeleteDistributionListDestination - Delete a destination entry`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -420,7 +419,7 @@ var _ = Describe(`PlatformNotificationsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteNotificationPreferences - Resets all preferences to their default values`, func() {
+	Describe(`DeleteNotificationPreferences - Reset all preferences to their default values`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})

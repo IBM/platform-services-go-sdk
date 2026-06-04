@@ -34,9 +34,11 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// PlatformNotificationsV1 : **This API is currently in beta and subject to change.**
-//
-// API for managing notification distribution lists for IBM Cloud accounts.
+// PlatformNotificationsV1 : API for IBM Cloud account notifications, providing capabilities to:
+// - View notifications
+// - Get and update acknowledgements
+// - Manage user communication preferences
+// - Manage notification distribution lists
 //
 // API Version: 1.0.0
 type PlatformNotificationsV1 struct {
@@ -170,6 +172,220 @@ func (platformNotifications *PlatformNotificationsV1) EnableRetries(maxRetries i
 // DisableRetries disables automatic retries for requests invoked for this service instance.
 func (platformNotifications *PlatformNotificationsV1) DisableRetries() {
 	platformNotifications.Service.DisableRetries()
+}
+
+// ListNotifications : Get user notifications
+// Retrieve all notifications for the requested user.
+func (platformNotifications *PlatformNotificationsV1) ListNotifications(listNotificationsOptions *ListNotificationsOptions) (result *NotificationCollection, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.ListNotificationsWithContext(context.Background(), listNotificationsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListNotificationsWithContext is an alternate form of the ListNotifications method which supports a Context parameter
+func (platformNotifications *PlatformNotificationsV1) ListNotificationsWithContext(ctx context.Context, listNotificationsOptions *ListNotificationsOptions) (result *NotificationCollection, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listNotificationsOptions, "listNotificationsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ListNotifications")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listNotificationsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listNotificationsOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*listNotificationsOptions.AccountID))
+	}
+	if listNotificationsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listNotificationsOptions.Start))
+	}
+	if listNotificationsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listNotificationsOptions.Limit))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_notifications", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationCollection)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetAcknowledgement : Get acknowledgement
+// Retrieve the ID of the last notification acknowledged by the user for a specific account.
+func (platformNotifications *PlatformNotificationsV1) GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.GetAcknowledgementWithContext(context.Background(), getAcknowledgementOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAcknowledgementWithContext is an alternate form of the GetAcknowledgement method which supports a Context parameter
+func (platformNotifications *PlatformNotificationsV1) GetAcknowledgementWithContext(ctx context.Context, getAcknowledgementOptions *GetAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getAcknowledgementOptions, "getAcknowledgementOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgement`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetAcknowledgement")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getAcknowledgementOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getAcknowledgementOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*getAcknowledgementOptions.AccountID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_acknowledgement", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgement)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ReplaceNotificationAcknowledgement : Update acknowledgement
+// Update the ID of the last notification acknowledged by the user for a specific account.
+func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.ReplaceNotificationAcknowledgementWithContext(context.Background(), replaceNotificationAcknowledgementOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ReplaceNotificationAcknowledgementWithContext is an alternate form of the ReplaceNotificationAcknowledgement method which supports a Context parameter
+func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgementWithContext(ctx context.Context, replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(replaceNotificationAcknowledgementOptions, "replaceNotificationAcknowledgementOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(replaceNotificationAcknowledgementOptions, "replaceNotificationAcknowledgementOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgement`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ReplaceNotificationAcknowledgement")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range replaceNotificationAcknowledgementOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if replaceNotificationAcknowledgementOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*replaceNotificationAcknowledgementOptions.AccountID))
+	}
+
+	body := make(map[string]interface{})
+	if replaceNotificationAcknowledgementOptions.LastAcknowledged != nil {
+		body["last_acknowledged"] = replaceNotificationAcknowledgementOptions.LastAcknowledged
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_notification_acknowledgement", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgement)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
 }
 
 // ListDistributionListDestinations : Get all destination entries
@@ -390,7 +606,7 @@ func (platformNotifications *PlatformNotificationsV1) GetDistributionListDestina
 	return
 }
 
-// DeleteDistributionListDestination : Delete destination entry
+// DeleteDistributionListDestination : Delete a destination entry
 // Remove a destination entry.
 func (platformNotifications *PlatformNotificationsV1) DeleteDistributionListDestination(deleteDistributionListDestinationOptions *DeleteDistributionListDestinationOptions) (response *core.DetailedResponse, err error) {
 	response, err = platformNotifications.DeleteDistributionListDestinationWithContext(context.Background(), deleteDistributionListDestinationOptions)
@@ -450,7 +666,7 @@ func (platformNotifications *PlatformNotificationsV1) DeleteDistributionListDest
 	return
 }
 
-// TestDistributionListDestination : Test destination entry
+// TestDistributionListDestination : Test a destination entry
 // Send a test notification to a destination in the distribution list. This allows you to verify that the destination is
 // properly configured and can receive notifications.
 func (platformNotifications *PlatformNotificationsV1) TestDistributionListDestination(testDistributionListDestinationOptions *TestDistributionListDestinationOptions) (result *TestDestinationResponseBody, response *core.DetailedResponse, err error) {
@@ -518,6 +734,79 @@ func (platformNotifications *PlatformNotificationsV1) TestDistributionListDestin
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTestDestinationResponseBody)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetPreferences : Get all communication preferences
+// Retrieve all communication preferences of a user in an account.
+func (platformNotifications *PlatformNotificationsV1) GetPreferences(getPreferencesOptions *GetPreferencesOptions) (result *PreferencesObject, response *core.DetailedResponse, err error) {
+	result, response, err = platformNotifications.GetPreferencesWithContext(context.Background(), getPreferencesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetPreferencesWithContext is an alternate form of the GetPreferences method which supports a Context parameter
+func (platformNotifications *PlatformNotificationsV1) GetPreferencesWithContext(ctx context.Context, getPreferencesOptions *GetPreferencesOptions) (result *PreferencesObject, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getPreferencesOptions, "getPreferencesOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getPreferencesOptions, "getPreferencesOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"iam_id": *getPreferencesOptions.IamID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/{iam_id}/preferences`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetPreferences")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getPreferencesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getPreferencesOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*getPreferencesOptions.AccountID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = platformNotifications.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_preferences", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPreferencesObject)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -666,79 +955,6 @@ func (platformNotifications *PlatformNotificationsV1) CreatePreferencesWithConte
 	response, err = platformNotifications.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "create_preferences", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPreferencesObject)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// GetPreferences : Get all communication preferences for a user in an account
-// Retrieve all communication preferences of a user in an account.
-func (platformNotifications *PlatformNotificationsV1) GetPreferences(getPreferencesOptions *GetPreferencesOptions) (result *PreferencesObject, response *core.DetailedResponse, err error) {
-	result, response, err = platformNotifications.GetPreferencesWithContext(context.Background(), getPreferencesOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// GetPreferencesWithContext is an alternate form of the GetPreferences method which supports a Context parameter
-func (platformNotifications *PlatformNotificationsV1) GetPreferencesWithContext(ctx context.Context, getPreferencesOptions *GetPreferencesOptions) (result *PreferencesObject, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getPreferencesOptions, "getPreferencesOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(getPreferencesOptions, "getPreferencesOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"iam_id": *getPreferencesOptions.IamID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/{iam_id}/preferences`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetPreferences")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	for headerName, headerValue := range getPreferencesOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if getPreferencesOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*getPreferencesOptions.AccountID))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = platformNotifications.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "get_preferences", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -907,8 +1123,8 @@ func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationPrefere
 	return
 }
 
-// DeleteNotificationPreferences : Resets all preferences to their default values
-// Delete all communication preferences for the specified account, and resets all preferences to their default values.
+// DeleteNotificationPreferences : Reset all preferences to their default values
+// Delete all communication preferences for the specified account, and reset all preferences to their default values.
 func (platformNotifications *PlatformNotificationsV1) DeleteNotificationPreferences(deleteNotificationPreferencesOptions *DeleteNotificationPreferencesOptions) (response *core.DetailedResponse, err error) {
 	response, err = platformNotifications.DeleteNotificationPreferencesWithContext(context.Background(), deleteNotificationPreferencesOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -969,222 +1185,34 @@ func (platformNotifications *PlatformNotificationsV1) DeleteNotificationPreferen
 
 	return
 }
-
-// ListNotifications : Get user notifications
-// Retrieve all notifications for the requested user.
-func (platformNotifications *PlatformNotificationsV1) ListNotifications(listNotificationsOptions *ListNotificationsOptions) (result *NotificationCollection, response *core.DetailedResponse, err error) {
-	result, response, err = platformNotifications.ListNotificationsWithContext(context.Background(), listNotificationsOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// ListNotificationsWithContext is an alternate form of the ListNotifications method which supports a Context parameter
-func (platformNotifications *PlatformNotificationsV1) ListNotificationsWithContext(ctx context.Context, listNotificationsOptions *ListNotificationsOptions) (result *NotificationCollection, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listNotificationsOptions, "listNotificationsOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications`, nil)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ListNotifications")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	for headerName, headerValue := range listNotificationsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if listNotificationsOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*listNotificationsOptions.AccountID))
-	}
-	if listNotificationsOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listNotificationsOptions.Start))
-	}
-	if listNotificationsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listNotificationsOptions.Limit))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = platformNotifications.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "list_notifications", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationCollection)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// GetAcknowledgement : Get user's last acknowledged notification Id
-// Retrieve the ID of the last notification acknowledged by the user for a specific account.
-func (platformNotifications *PlatformNotificationsV1) GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
-	result, response, err = platformNotifications.GetAcknowledgementWithContext(context.Background(), getAcknowledgementOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// GetAcknowledgementWithContext is an alternate form of the GetAcknowledgement method which supports a Context parameter
-func (platformNotifications *PlatformNotificationsV1) GetAcknowledgementWithContext(ctx context.Context, getAcknowledgementOptions *GetAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(getAcknowledgementOptions, "getAcknowledgementOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgement`, nil)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "GetAcknowledgement")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	for headerName, headerValue := range getAcknowledgementOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if getAcknowledgementOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*getAcknowledgementOptions.AccountID))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = platformNotifications.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "get_acknowledgement", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgement)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// ReplaceNotificationAcknowledgement : Update user's last acknowledged notification
-// Update the ID of the last notification acknowledged by the user for a specific account.
-func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
-	result, response, err = platformNotifications.ReplaceNotificationAcknowledgementWithContext(context.Background(), replaceNotificationAcknowledgementOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// ReplaceNotificationAcknowledgementWithContext is an alternate form of the ReplaceNotificationAcknowledgement method which supports a Context parameter
-func (platformNotifications *PlatformNotificationsV1) ReplaceNotificationAcknowledgementWithContext(ctx context.Context, replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) (result *Acknowledgement, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(replaceNotificationAcknowledgementOptions, "replaceNotificationAcknowledgementOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(replaceNotificationAcknowledgementOptions, "replaceNotificationAcknowledgementOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.PUT)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = platformNotifications.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(platformNotifications.Service.Options.URL, `/v1/notifications/acknowledgement`, nil)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	sdkHeaders := common.GetSdkHeaders("platform_notifications", "V1", "ReplaceNotificationAcknowledgement")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	for headerName, headerValue := range replaceNotificationAcknowledgementOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	if replaceNotificationAcknowledgementOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*replaceNotificationAcknowledgementOptions.AccountID))
-	}
-
-	body := make(map[string]interface{})
-	if replaceNotificationAcknowledgementOptions.LastAcknowledgedID != nil {
-		body["last_acknowledged_id"] = replaceNotificationAcknowledgementOptions.LastAcknowledgedID
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = platformNotifications.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "replace_notification_acknowledgement", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAcknowledgement)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0.0")
+}
+
+// Acknowledgement : Status indicating whether the user has unread notifications.
+type Acknowledgement struct {
+	// Indicates whether the user has unread notifications.
+	HasUnread *bool `json:"has_unread" validate:"required"`
+
+	// The timestamp of the last acknowledgement.
+	LastAcknowledged *int64 `json:"last_acknowledged" validate:"required"`
+}
+
+// UnmarshalAcknowledgement unmarshals an instance of Acknowledgement from the specified map of raw messages.
+func UnmarshalAcknowledgement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Acknowledgement)
+	err = core.UnmarshalPrimitive(m, "has_unread", &obj.HasUnread)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "has_unread-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_acknowledged", &obj.LastAcknowledged)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_acknowledged-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // AddDestination : AddDestination struct
@@ -1672,7 +1700,7 @@ func (options *DeleteNotificationPreferencesOptions) SetHeaders(param map[string
 
 // GetAcknowledgementOptions : The GetAcknowledgement options.
 type GetAcknowledgementOptions struct {
-	// The account ID to retrieve acknowledgement for.
+	// The IBM Cloud account ID. If not provided, the account ID from the bearer token will be used.
 	AccountID *string `json:"account_id,omitempty"`
 
 	// Allows users to set headers on API requests.
@@ -1861,14 +1889,14 @@ type Notification struct {
 	// Array of component/service names affected by this notification.
 	ComponentNames []string `json:"component_names" validate:"required"`
 
-	// The start time of the notification in Unix timestamp (milliseconds).
-	StartTime *int64 `json:"start_time" validate:"required"`
+	// The start time of the notification in Unix timestamp (seconds).
+	StartTime *int64 `json:"start_time,omitempty"`
 
 	// Indicates if the notification is global.
 	IsGlobal *bool `json:"is_global" validate:"required"`
 
 	// The current state of the notification.
-	State *string `json:"state" validate:"required"`
+	State *string `json:"state,omitempty"`
 
 	// Array of region identifiers affected by this notification.
 	Regions []string `json:"regions" validate:"required"`
@@ -1883,13 +1911,13 @@ type Notification struct {
 	SourceID *string `json:"source_id,omitempty"`
 
 	// The completion code of the notification.
-	CompletionCode *string `json:"completion_code" validate:"required"`
+	CompletionCode *string `json:"completion_code,omitempty"`
 
-	// The end time of the notification in Unix timestamp (milliseconds).
+	// The end time of the notification in Unix timestamp (seconds).
 	EndTime *int64 `json:"end_time,omitempty"`
 
-	// The last update time of the notification in Unix timestamp (milliseconds).
-	UpdateTime *int64 `json:"update_time" validate:"required"`
+	// The last update time of the notification in Unix timestamp (seconds).
+	UpdateTime *int64 `json:"update_time,omitempty"`
 
 	// The severity level of the notification (0-3). The display value depends on the notification type:
 	//
@@ -1916,6 +1944,9 @@ type Notification struct {
 	// Link to additional resource information or documentation. Takes precedence over lucene_query when both are
 	// available. Mutually exclusive with lucene_query.
 	ResourceLink *string `json:"resource_link,omitempty"`
+
+	// The timestamp when the notification was created.
+	CreationTimestamp *int64 `json:"creation_timestamp" validate:"required"`
 }
 
 // Constants associated with the Notification.Category property.
@@ -2043,6 +2074,11 @@ func UnmarshalNotification(m map[string]json.RawMessage, result interface{}) (er
 		err = core.SDKErrorf(err, "", "resource_link-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "creation_timestamp", &obj.CreationTimestamp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "creation_timestamp-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -2123,7 +2159,7 @@ func (resp *NotificationCollection) GetNextStart() (*string, error) {
 
 // PaginationLink : A pagination link object containing the URL to a page.
 type PaginationLink struct {
-	// Complete URL to the page.
+	// The full URL path to the page.
 	Href *string `json:"href" validate:"required"`
 }
 
@@ -2448,10 +2484,10 @@ func UnmarshalPreferencesObject(m map[string]json.RawMessage, result interface{}
 
 // ReplaceNotificationAcknowledgementOptions : The ReplaceNotificationAcknowledgement options.
 type ReplaceNotificationAcknowledgementOptions struct {
-	// The ID of a notification.
-	LastAcknowledgedID *string `json:"last_acknowledged_id" validate:"required"`
+	// The timestamp of the last acknowledgement.
+	LastAcknowledged *int64 `json:"last_acknowledged" validate:"required"`
 
-	// The account ID to update acknowledgement for.
+	// The IBM Cloud account ID. If not provided, the account ID from the bearer token will be used.
 	AccountID *string `json:"account_id,omitempty"`
 
 	// Allows users to set headers on API requests.
@@ -2459,15 +2495,15 @@ type ReplaceNotificationAcknowledgementOptions struct {
 }
 
 // NewReplaceNotificationAcknowledgementOptions : Instantiate ReplaceNotificationAcknowledgementOptions
-func (*PlatformNotificationsV1) NewReplaceNotificationAcknowledgementOptions(lastAcknowledgedID string) *ReplaceNotificationAcknowledgementOptions {
+func (*PlatformNotificationsV1) NewReplaceNotificationAcknowledgementOptions(lastAcknowledged int64) *ReplaceNotificationAcknowledgementOptions {
 	return &ReplaceNotificationAcknowledgementOptions{
-		LastAcknowledgedID: core.StringPtr(lastAcknowledgedID),
+		LastAcknowledged: core.Int64Ptr(lastAcknowledged),
 	}
 }
 
-// SetLastAcknowledgedID : Allow user to set LastAcknowledgedID
-func (_options *ReplaceNotificationAcknowledgementOptions) SetLastAcknowledgedID(lastAcknowledgedID string) *ReplaceNotificationAcknowledgementOptions {
-	_options.LastAcknowledgedID = core.StringPtr(lastAcknowledgedID)
+// SetLastAcknowledged : Allow user to set LastAcknowledged
+func (_options *ReplaceNotificationAcknowledgementOptions) SetLastAcknowledged(lastAcknowledged int64) *ReplaceNotificationAcknowledgementOptions {
+	_options.LastAcknowledged = core.Int64Ptr(lastAcknowledged)
 	return _options
 }
 
@@ -2860,40 +2896,6 @@ func (_options *TestDistributionListDestinationOptions) SetTestDestinationReques
 func (options *TestDistributionListDestinationOptions) SetHeaders(param map[string]string) *TestDistributionListDestinationOptions {
 	options.Headers = param
 	return options
-}
-
-// Acknowledgement : Status indicating whether the user has unread notifications.
-type Acknowledgement struct {
-	// Indicates whether the user has unread notifications.
-	HasUnread *bool `json:"has_unread" validate:"required"`
-
-	// The ID of the most recent notification available to the user.
-	LatestNotificationID *string `json:"latest_notification_id" validate:"required"`
-
-	// The ID of the last notification acknowledged by the user.
-	LastAcknowledgedID *string `json:"last_acknowledged_id" validate:"required"`
-}
-
-// UnmarshalAcknowledgement unmarshals an instance of Acknowledgement from the specified map of raw messages.
-func UnmarshalAcknowledgement(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Acknowledgement)
-	err = core.UnmarshalPrimitive(m, "has_unread", &obj.HasUnread)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "has_unread-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "latest_notification_id", &obj.LatestNotificationID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "latest_notification_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_acknowledged_id", &obj.LastAcknowledgedID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_acknowledged_id-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // AddDestinationPrototypeEventNotificationDestinationPrototype : Prototype for creating an Event Notifications destination entry.

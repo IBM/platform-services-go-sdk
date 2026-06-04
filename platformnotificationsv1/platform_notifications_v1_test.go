@@ -165,6 +165,781 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
+	Describe(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) - Operation response error`, func() {
+		listNotificationsPath := "/v1/notifications"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"3fe78a36b9aa7f26"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListNotifications with error: Operation response processing error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the ListNotificationsOptions model
+				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
+				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
+				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListNotifications(listNotificationsOptions *ListNotificationsOptions)`, func() {
+		listNotificationsPath := "/v1/notifications"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"3fe78a36b9aa7f26"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 50, "total_count": 232, "first": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?limit=50"}, "previous": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "next": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "last": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "notifications": [{"title": "System Maintenance Scheduled", "body": "Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.", "id": "12345", "category": "maintenance", "component_names": ["ComponentNames"], "start_time": 1771791490, "is_global": false, "state": "new", "regions": ["Regions"], "crn_masks": ["CrnMasks"], "record_id": "rec-67890", "source_id": "src-11111", "completion_code": "successful", "end_time": 1771791490, "update_time": 1771791490, "severity": 2, "lucene_query": "region:us-south AND service_name:event-notifications", "resource_link": "https://cloud.ibm.com/status/incident/12345", "creation_timestamp": 1772804159452}]}`)
+				}))
+			})
+			It(`Invoke ListNotifications successfully with retries`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListNotificationsOptions model
+				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
+				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
+				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := platformNotificationsService.ListNotificationsWithContext(ctx, listNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = platformNotificationsService.ListNotificationsWithContext(ctx, listNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"3fe78a36b9aa7f26"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 50, "total_count": 232, "first": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?limit=50"}, "previous": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "next": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "last": {"href": "https://notifications.cloud.ibm.com/api/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "notifications": [{"title": "System Maintenance Scheduled", "body": "Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.", "id": "12345", "category": "maintenance", "component_names": ["ComponentNames"], "start_time": 1771791490, "is_global": false, "state": "new", "regions": ["Regions"], "crn_masks": ["CrnMasks"], "record_id": "rec-67890", "source_id": "src-11111", "completion_code": "successful", "end_time": 1771791490, "update_time": 1771791490, "severity": 2, "lucene_query": "region:us-south AND service_name:event-notifications", "resource_link": "https://cloud.ibm.com/status/incident/12345", "creation_timestamp": 1772804159452}]}`)
+				}))
+			})
+			It(`Invoke ListNotifications successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := platformNotificationsService.ListNotifications(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListNotificationsOptions model
+				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
+				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
+				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListNotifications with error: Operation request error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the ListNotificationsOptions model
+				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
+				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
+				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := platformNotificationsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListNotifications successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the ListNotificationsOptions model
+				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
+				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
+				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(platformnotificationsv1.NotificationCollection)
+				nextObject := new(platformnotificationsv1.PaginationLinkWithToken)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(platformnotificationsv1.NotificationCollection)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"notifications":[{"title":"System Maintenance Scheduled","body":"Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.","id":"12345","category":"maintenance","component_names":["ComponentNames"],"start_time":1771791490,"is_global":false,"state":"new","regions":["Regions"],"crn_masks":["CrnMasks"],"record_id":"rec-67890","source_id":"src-11111","completion_code":"successful","end_time":1771791490,"update_time":1771791490,"severity":2,"lucene_query":"region:us-south AND service_name:event-notifications","resource_link":"https://cloud.ibm.com/status/incident/12345","creation_timestamp":1772804159452}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"notifications":[{"title":"System Maintenance Scheduled","body":"Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.","id":"12345","category":"maintenance","component_names":["ComponentNames"],"start_time":1771791490,"is_global":false,"state":"new","regions":["Regions"],"crn_masks":["CrnMasks"],"record_id":"rec-67890","source_id":"src-11111","completion_code":"successful","end_time":1771791490,"update_time":1771791490,"severity":2,"lucene_query":"region:us-south AND service_name:event-notifications","resource_link":"https://cloud.ibm.com/status/incident/12345","creation_timestamp":1772804159452}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use NotificationsPager.GetNext successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				listNotificationsOptionsModel := &platformnotificationsv1.ListNotificationsOptions{
+					AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
+					Limit: core.Int64Ptr(int64(50)),
+				}
+
+				pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []platformnotificationsv1.Notification
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use NotificationsPager.GetAll successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				listNotificationsOptionsModel := &platformnotificationsv1.ListNotificationsOptions{
+					AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
+					Limit: core.Int64Ptr(int64(50)),
+				}
+
+				pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions) - Operation response error`, func() {
+		getAcknowledgementPath := "/v1/notifications/acknowledgement"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAcknowledgement with error: Operation response processing error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions)`, func() {
+		getAcknowledgementPath := "/v1/notifications/acknowledgement"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"has_unread": true, "last_acknowledged": 1772804159452}`)
+				}))
+			})
+			It(`Invoke GetAcknowledgement successfully with retries`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := platformNotificationsService.GetAcknowledgementWithContext(ctx, getAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = platformNotificationsService.GetAcknowledgementWithContext(ctx, getAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"has_unread": true, "last_acknowledged": 1772804159452}`)
+				}))
+			})
+			It(`Invoke GetAcknowledgement successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAcknowledgement with error: Operation request error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := platformNotificationsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAcknowledgement successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAcknowledgementOptions model
+				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
+				getAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) - Operation response error`, func() {
+		replaceNotificationAcknowledgementPath := "/v1/notifications/acknowledgement"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ReplaceNotificationAcknowledgement with error: Operation response processing error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledged = core.Int64Ptr(int64(1772804159452))
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions)`, func() {
+		replaceNotificationAcknowledgementPath := "/v1/notifications/acknowledgement"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"has_unread": true, "last_acknowledged": 1772804159452}`)
+				}))
+			})
+			It(`Invoke ReplaceNotificationAcknowledgement successfully with retries`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledged = core.Int64Ptr(int64(1772804159452))
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgementWithContext(ctx, replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgementWithContext(ctx, replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"has_unread": true, "last_acknowledged": 1772804159452}`)
+				}))
+			})
+			It(`Invoke ReplaceNotificationAcknowledgement successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledged = core.Int64Ptr(int64(1772804159452))
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ReplaceNotificationAcknowledgement with error: Operation validation and request error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledged = core.Int64Ptr(int64(1772804159452))
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := platformNotificationsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ReplaceNotificationAcknowledgementOptions model with no property values
+				replaceNotificationAcknowledgementOptionsModelNew := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceNotificationAcknowledgement successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
+				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
+				replaceNotificationAcknowledgementOptionsModel.LastAcknowledged = core.Int64Ptr(int64(1772804159452))
+				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListDistributionListDestinations(listDistributionListDestinationsOptions *ListDistributionListDestinationsOptions) - Operation response error`, func() {
 		listDistributionListDestinationsPath := "/v1/distribution_lists/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -1217,6 +1992,226 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 		})
 	})
+	Describe(`GetPreferences(getPreferencesOptions *GetPreferencesOptions) - Operation response error`, func() {
+		getPreferencesPath := "/v1/notifications/IBMid-1234567890/preferences"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetPreferences with error: Operation response processing error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the GetPreferencesOptions model
+				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
+				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
+				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				platformNotificationsService.EnableRetries(0, 0)
+				result, response, operationErr = platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetPreferences(getPreferencesOptions *GetPreferencesOptions)`, func() {
+		getPreferencesPath := "/v1/notifications/IBMid-1234567890/preferences"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"incident_severity1": {"channels": ["email"], "updates": true}, "incident_severity2": {"channels": ["email"], "updates": true}, "incident_severity3": {"channels": ["email"], "updates": true}, "incident_severity4": {"channels": ["email"], "updates": true}, "maintenance_high": {"channels": ["email"], "updates": true}, "maintenance_medium": {"channels": ["email"], "updates": true}, "maintenance_low": {"channels": ["email"], "updates": true}, "announcements_major": {"channels": ["email"]}, "announcements_minor": {"channels": ["email"]}, "security_normal": {"channels": ["email"]}, "account_normal": {"channels": ["email"]}, "billing_and_usage_order": {"channels": ["email"]}, "billing_and_usage_invoices": {"channels": ["email"]}, "billing_and_usage_payments": {"channels": ["email"]}, "billing_and_usage_subscriptions_and_promo_codes": {"channels": ["email"]}, "billing_and_usage_spending_alerts": {"channels": ["email"]}, "resourceactivity_normal": {"channels": ["email"]}, "ordering_review": {"channels": ["email"]}, "ordering_approved": {"channels": ["email"]}, "ordering_approved_vsi": {"channels": ["email"]}, "ordering_approved_server": {"channels": ["email"]}, "provisioning_reload_complete": {"channels": ["email"]}, "provisioning_complete_vsi": {"channels": ["email"]}, "provisioning_complete_server": {"channels": ["email"]}}`)
+				}))
+			})
+			It(`Invoke GetPreferences successfully with retries`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+				platformNotificationsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetPreferencesOptions model
+				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
+				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
+				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := platformNotificationsService.GetPreferencesWithContext(ctx, getPreferencesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				platformNotificationsService.DisableRetries()
+				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = platformNotificationsService.GetPreferencesWithContext(ctx, getPreferencesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"incident_severity1": {"channels": ["email"], "updates": true}, "incident_severity2": {"channels": ["email"], "updates": true}, "incident_severity3": {"channels": ["email"], "updates": true}, "incident_severity4": {"channels": ["email"], "updates": true}, "maintenance_high": {"channels": ["email"], "updates": true}, "maintenance_medium": {"channels": ["email"], "updates": true}, "maintenance_low": {"channels": ["email"], "updates": true}, "announcements_major": {"channels": ["email"]}, "announcements_minor": {"channels": ["email"]}, "security_normal": {"channels": ["email"]}, "account_normal": {"channels": ["email"]}, "billing_and_usage_order": {"channels": ["email"]}, "billing_and_usage_invoices": {"channels": ["email"]}, "billing_and_usage_payments": {"channels": ["email"]}, "billing_and_usage_subscriptions_and_promo_codes": {"channels": ["email"]}, "billing_and_usage_spending_alerts": {"channels": ["email"]}, "resourceactivity_normal": {"channels": ["email"]}, "ordering_review": {"channels": ["email"]}, "ordering_approved": {"channels": ["email"]}, "ordering_approved_vsi": {"channels": ["email"]}, "ordering_approved_server": {"channels": ["email"]}, "provisioning_reload_complete": {"channels": ["email"]}, "provisioning_complete_vsi": {"channels": ["email"]}, "provisioning_complete_server": {"channels": ["email"]}}`)
+				}))
+			})
+			It(`Invoke GetPreferences successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := platformNotificationsService.GetPreferences(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetPreferencesOptions model
+				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
+				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
+				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetPreferences with error: Operation validation and request error`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the GetPreferencesOptions model
+				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
+				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
+				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := platformNotificationsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetPreferencesOptions model with no property values
+				getPreferencesOptionsModelNew := new(platformnotificationsv1.GetPreferencesOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = platformNotificationsService.GetPreferences(getPreferencesOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetPreferences successfully`, func() {
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(platformNotificationsService).ToNot(BeNil())
+
+				// Construct an instance of the GetPreferencesOptions model
+				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
+				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
+				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
+				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`CreatePreferences(createPreferencesOptions *CreatePreferencesOptions) - Operation response error`, func() {
 		createPreferencesPath := "/v1/notifications/IBMid-1234567890/preferences"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -1623,226 +2618,6 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 
 				// Invoke operation
 				result, response, operationErr := platformNotificationsService.CreatePreferences(createPreferencesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetPreferences(getPreferencesOptions *GetPreferencesOptions) - Operation response error`, func() {
-		getPreferencesPath := "/v1/notifications/IBMid-1234567890/preferences"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetPreferences with error: Operation response processing error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the GetPreferencesOptions model
-				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
-				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
-				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				platformNotificationsService.EnableRetries(0, 0)
-				result, response, operationErr = platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetPreferences(getPreferencesOptions *GetPreferencesOptions)`, func() {
-		getPreferencesPath := "/v1/notifications/IBMid-1234567890/preferences"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"incident_severity1": {"channels": ["email"], "updates": true}, "incident_severity2": {"channels": ["email"], "updates": true}, "incident_severity3": {"channels": ["email"], "updates": true}, "incident_severity4": {"channels": ["email"], "updates": true}, "maintenance_high": {"channels": ["email"], "updates": true}, "maintenance_medium": {"channels": ["email"], "updates": true}, "maintenance_low": {"channels": ["email"], "updates": true}, "announcements_major": {"channels": ["email"]}, "announcements_minor": {"channels": ["email"]}, "security_normal": {"channels": ["email"]}, "account_normal": {"channels": ["email"]}, "billing_and_usage_order": {"channels": ["email"]}, "billing_and_usage_invoices": {"channels": ["email"]}, "billing_and_usage_payments": {"channels": ["email"]}, "billing_and_usage_subscriptions_and_promo_codes": {"channels": ["email"]}, "billing_and_usage_spending_alerts": {"channels": ["email"]}, "resourceactivity_normal": {"channels": ["email"]}, "ordering_review": {"channels": ["email"]}, "ordering_approved": {"channels": ["email"]}, "ordering_approved_vsi": {"channels": ["email"]}, "ordering_approved_server": {"channels": ["email"]}, "provisioning_reload_complete": {"channels": ["email"]}, "provisioning_complete_vsi": {"channels": ["email"]}, "provisioning_complete_server": {"channels": ["email"]}}`)
-				}))
-			})
-			It(`Invoke GetPreferences successfully with retries`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-				platformNotificationsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetPreferencesOptions model
-				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
-				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
-				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := platformNotificationsService.GetPreferencesWithContext(ctx, getPreferencesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				platformNotificationsService.DisableRetries()
-				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = platformNotificationsService.GetPreferencesWithContext(ctx, getPreferencesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getPreferencesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"incident_severity1": {"channels": ["email"], "updates": true}, "incident_severity2": {"channels": ["email"], "updates": true}, "incident_severity3": {"channels": ["email"], "updates": true}, "incident_severity4": {"channels": ["email"], "updates": true}, "maintenance_high": {"channels": ["email"], "updates": true}, "maintenance_medium": {"channels": ["email"], "updates": true}, "maintenance_low": {"channels": ["email"], "updates": true}, "announcements_major": {"channels": ["email"]}, "announcements_minor": {"channels": ["email"]}, "security_normal": {"channels": ["email"]}, "account_normal": {"channels": ["email"]}, "billing_and_usage_order": {"channels": ["email"]}, "billing_and_usage_invoices": {"channels": ["email"]}, "billing_and_usage_payments": {"channels": ["email"]}, "billing_and_usage_subscriptions_and_promo_codes": {"channels": ["email"]}, "billing_and_usage_spending_alerts": {"channels": ["email"]}, "resourceactivity_normal": {"channels": ["email"]}, "ordering_review": {"channels": ["email"]}, "ordering_approved": {"channels": ["email"]}, "ordering_approved_vsi": {"channels": ["email"]}, "ordering_approved_server": {"channels": ["email"]}, "provisioning_reload_complete": {"channels": ["email"]}, "provisioning_complete_vsi": {"channels": ["email"]}, "provisioning_complete_server": {"channels": ["email"]}}`)
-				}))
-			})
-			It(`Invoke GetPreferences successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := platformNotificationsService.GetPreferences(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetPreferencesOptions model
-				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
-				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
-				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetPreferences with error: Operation validation and request error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the GetPreferencesOptions model
-				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
-				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
-				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := platformNotificationsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetPreferencesOptions model with no property values
-				getPreferencesOptionsModelNew := new(platformnotificationsv1.GetPreferencesOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = platformNotificationsService.GetPreferences(getPreferencesOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetPreferences successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the GetPreferencesOptions model
-				getPreferencesOptionsModel := new(platformnotificationsv1.GetPreferencesOptions)
-				getPreferencesOptionsModel.IamID = core.StringPtr("IBMid-1234567890")
-				getPreferencesOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				getPreferencesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := platformNotificationsService.GetPreferences(getPreferencesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2342,781 +3117,6 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListNotifications(listNotificationsOptions *ListNotificationsOptions) - Operation response error`, func() {
-		listNotificationsPath := "/v1/notifications"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"3fe78a36b9aa7f26"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListNotifications with error: Operation response processing error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the ListNotificationsOptions model
-				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
-				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
-				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
-				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				platformNotificationsService.EnableRetries(0, 0)
-				result, response, operationErr = platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListNotifications(listNotificationsOptions *ListNotificationsOptions)`, func() {
-		listNotificationsPath := "/v1/notifications"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"3fe78a36b9aa7f26"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 50, "total_count": 232, "first": {"href": "https://api.example.com/v1/notifications?limit=50"}, "previous": {"href": "https://api.example.com/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "next": {"href": "https://api.example.com/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "last": {"href": "https://api.example.com/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "notifications": [{"title": "System Maintenance Scheduled", "body": "Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.", "id": "12345", "category": "maintenance", "component_names": ["ComponentNames"], "start_time": 1771791490, "is_global": false, "state": "new", "regions": ["Regions"], "crn_masks": ["CrnMasks"], "record_id": "rec-67890", "source_id": "src-11111", "completion_code": "successful", "end_time": 1771791490, "update_time": 1771791490, "severity": 2, "lucene_query": "region:us-south AND service_name:event-notifications", "resource_link": "https://cloud.ibm.com/status/incident/12345"}]}`)
-				}))
-			})
-			It(`Invoke ListNotifications successfully with retries`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-				platformNotificationsService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListNotificationsOptions model
-				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
-				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
-				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
-				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := platformNotificationsService.ListNotificationsWithContext(ctx, listNotificationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				platformNotificationsService.DisableRetries()
-				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = platformNotificationsService.ListNotificationsWithContext(ctx, listNotificationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"3fe78a36b9aa7f26"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 50, "total_count": 232, "first": {"href": "https://api.example.com/v1/notifications?limit=50"}, "previous": {"href": "https://api.example.com/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "next": {"href": "https://api.example.com/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "last": {"href": "https://api.example.com/v1/notifications?start=3fe78a36b9aa7f26&limit=50", "start": "3fe78a36b9aa7f26"}, "notifications": [{"title": "System Maintenance Scheduled", "body": "Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.", "id": "12345", "category": "maintenance", "component_names": ["ComponentNames"], "start_time": 1771791490, "is_global": false, "state": "new", "regions": ["Regions"], "crn_masks": ["CrnMasks"], "record_id": "rec-67890", "source_id": "src-11111", "completion_code": "successful", "end_time": 1771791490, "update_time": 1771791490, "severity": 2, "lucene_query": "region:us-south AND service_name:event-notifications", "resource_link": "https://cloud.ibm.com/status/incident/12345"}]}`)
-				}))
-			})
-			It(`Invoke ListNotifications successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := platformNotificationsService.ListNotifications(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListNotificationsOptions model
-				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
-				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
-				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
-				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListNotifications with error: Operation request error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the ListNotificationsOptions model
-				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
-				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
-				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
-				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := platformNotificationsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListNotifications successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the ListNotificationsOptions model
-				listNotificationsOptionsModel := new(platformnotificationsv1.ListNotificationsOptions)
-				listNotificationsOptionsModel.AccountID = core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
-				listNotificationsOptionsModel.Start = core.StringPtr("3fe78a36b9aa7f26")
-				listNotificationsOptionsModel.Limit = core.Int64Ptr(int64(50))
-				listNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := platformNotificationsService.ListNotifications(listNotificationsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(platformnotificationsv1.NotificationCollection)
-				nextObject := new(platformnotificationsv1.PaginationLinkWithToken)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(platformnotificationsv1.NotificationCollection)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listNotificationsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"notifications":[{"title":"System Maintenance Scheduled","body":"Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.","id":"12345","category":"maintenance","component_names":["ComponentNames"],"start_time":1771791490,"is_global":false,"state":"new","regions":["Regions"],"crn_masks":["CrnMasks"],"record_id":"rec-67890","source_id":"src-11111","completion_code":"successful","end_time":1771791490,"update_time":1771791490,"severity":2,"lucene_query":"region:us-south AND service_name:event-notifications","resource_link":"https://cloud.ibm.com/status/incident/12345"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"notifications":[{"title":"System Maintenance Scheduled","body":"Scheduled maintenance will occur on March 15th from 10:00 AM to 11:00 AM UTC.","id":"12345","category":"maintenance","component_names":["ComponentNames"],"start_time":1771791490,"is_global":false,"state":"new","regions":["Regions"],"crn_masks":["CrnMasks"],"record_id":"rec-67890","source_id":"src-11111","completion_code":"successful","end_time":1771791490,"update_time":1771791490,"severity":2,"lucene_query":"region:us-south AND service_name:event-notifications","resource_link":"https://cloud.ibm.com/status/incident/12345"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use NotificationsPager.GetNext successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				listNotificationsOptionsModel := &platformnotificationsv1.ListNotificationsOptions{
-					AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-					Limit: core.Int64Ptr(int64(50)),
-				}
-
-				pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []platformnotificationsv1.Notification
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use NotificationsPager.GetAll successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				listNotificationsOptionsModel := &platformnotificationsv1.ListNotificationsOptions{
-					AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-					Limit: core.Int64Ptr(int64(50)),
-				}
-
-				pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions) - Operation response error`, func() {
-		getAcknowledgementPath := "/v1/notifications/acknowledgement"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetAcknowledgement with error: Operation response processing error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the GetAcknowledgementOptions model
-				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
-				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				platformNotificationsService.EnableRetries(0, 0)
-				result, response, operationErr = platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetAcknowledgement(getAcknowledgementOptions *GetAcknowledgementOptions)`, func() {
-		getAcknowledgementPath := "/v1/notifications/acknowledgement"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
-				}))
-			})
-			It(`Invoke GetAcknowledgement successfully with retries`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-				platformNotificationsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetAcknowledgementOptions model
-				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
-				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := platformNotificationsService.GetAcknowledgementWithContext(ctx, getAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				platformNotificationsService.DisableRetries()
-				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = platformNotificationsService.GetAcknowledgementWithContext(ctx, getAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAcknowledgementPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
-				}))
-			})
-			It(`Invoke GetAcknowledgement successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := platformNotificationsService.GetAcknowledgement(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetAcknowledgementOptions model
-				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
-				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetAcknowledgement with error: Operation request error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the GetAcknowledgementOptions model
-				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
-				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := platformNotificationsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetAcknowledgement successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the GetAcknowledgementOptions model
-				getAcknowledgementOptionsModel := new(platformnotificationsv1.GetAcknowledgementOptions)
-				getAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				getAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := platformNotificationsService.GetAcknowledgement(getAcknowledgementOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions) - Operation response error`, func() {
-		replaceNotificationAcknowledgementPath := "/v1/notifications/acknowledgement"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
-					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ReplaceNotificationAcknowledgement with error: Operation response processing error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
-				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
-				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				platformNotificationsService.EnableRetries(0, 0)
-				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptions *ReplaceNotificationAcknowledgementOptions)`, func() {
-		replaceNotificationAcknowledgementPath := "/v1/notifications/acknowledgement"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
-					Expect(req.Method).To(Equal("PUT"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
-				}))
-			})
-			It(`Invoke ReplaceNotificationAcknowledgement successfully with retries`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-				platformNotificationsService.EnableRetries(0, 0)
-
-				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
-				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
-				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgementWithContext(ctx, replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				platformNotificationsService.DisableRetries()
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgementWithContext(ctx, replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceNotificationAcknowledgementPath))
-					Expect(req.Method).To(Equal("PUT"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"1369339417d906e5620b8d861d40cfd7"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"has_unread": true, "latest_notification_id": "1678901234000", "last_acknowledged_id": "1678800000000"}`)
-				}))
-			})
-			It(`Invoke ReplaceNotificationAcknowledgement successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
-				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
-				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ReplaceNotificationAcknowledgement with error: Operation validation and request error`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
-				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
-				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := platformNotificationsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceNotificationAcknowledgementOptions model with no property values
-				replaceNotificationAcknowledgementOptionsModelNew := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ReplaceNotificationAcknowledgement successfully`, func() {
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(platformNotificationsService).ToNot(BeNil())
-
-				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
-				replaceNotificationAcknowledgementOptionsModel := new(platformnotificationsv1.ReplaceNotificationAcknowledgementOptions)
-				replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID = core.StringPtr("1772804159452")
-				replaceNotificationAcknowledgementOptionsModel.AccountID = core.StringPtr("1369339417d906e5620b8d861d40cfd7")
-				replaceNotificationAcknowledgementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := platformNotificationsService.ReplaceNotificationAcknowledgement(replaceNotificationAcknowledgementOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			platformNotificationsService, _ := platformnotificationsv1.NewPlatformNotificationsV1(&platformnotificationsv1.PlatformNotificationsV1Options{
@@ -3246,10 +3246,10 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			It(`Invoke NewGetAcknowledgementOptions successfully`, func() {
 				// Construct an instance of the GetAcknowledgementOptions model
 				getAcknowledgementOptionsModel := platformNotificationsService.NewGetAcknowledgementOptions()
-				getAcknowledgementOptionsModel.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+				getAcknowledgementOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				getAcknowledgementOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAcknowledgementOptionsModel).ToNot(BeNil())
-				Expect(getAcknowledgementOptionsModel.AccountID).To(Equal(core.StringPtr("1369339417d906e5620b8d861d40cfd7")))
+				Expect(getAcknowledgementOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
 				Expect(getAcknowledgementOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetDistributionListDestinationOptions successfully`, func() {
@@ -3314,14 +3314,14 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 			It(`Invoke NewReplaceNotificationAcknowledgementOptions successfully`, func() {
 				// Construct an instance of the ReplaceNotificationAcknowledgementOptions model
-				replaceNotificationAcknowledgementOptionsLastAcknowledgedID := "1772804159452"
-				replaceNotificationAcknowledgementOptionsModel := platformNotificationsService.NewReplaceNotificationAcknowledgementOptions(replaceNotificationAcknowledgementOptionsLastAcknowledgedID)
-				replaceNotificationAcknowledgementOptionsModel.SetLastAcknowledgedID("1772804159452")
-				replaceNotificationAcknowledgementOptionsModel.SetAccountID("1369339417d906e5620b8d861d40cfd7")
+				replaceNotificationAcknowledgementOptionsLastAcknowledged := int64(1772804159452)
+				replaceNotificationAcknowledgementOptionsModel := platformNotificationsService.NewReplaceNotificationAcknowledgementOptions(replaceNotificationAcknowledgementOptionsLastAcknowledged)
+				replaceNotificationAcknowledgementOptionsModel.SetLastAcknowledged(int64(1772804159452))
+				replaceNotificationAcknowledgementOptionsModel.SetAccountID("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")
 				replaceNotificationAcknowledgementOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceNotificationAcknowledgementOptionsModel).ToNot(BeNil())
-				Expect(replaceNotificationAcknowledgementOptionsModel.LastAcknowledgedID).To(Equal(core.StringPtr("1772804159452")))
-				Expect(replaceNotificationAcknowledgementOptionsModel.AccountID).To(Equal(core.StringPtr("1369339417d906e5620b8d861d40cfd7")))
+				Expect(replaceNotificationAcknowledgementOptionsModel.LastAcknowledged).To(Equal(core.Int64Ptr(int64(1772804159452))))
+				Expect(replaceNotificationAcknowledgementOptionsModel.AccountID).To(Equal(core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6")))
 				Expect(replaceNotificationAcknowledgementOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceNotificationPreferencesOptions successfully`, func() {
