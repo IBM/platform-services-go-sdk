@@ -9151,7 +9151,7 @@ type CreateClaimRuleOptions struct {
 	RealmName *string `json:"realm_name,omitempty"`
 
 	// The compute resource type the rule applies to, required only if type is specified as 'Profile-CR'. Valid values are
-	// VSI, PVS, IKS_SA, ROKS_SA.
+	// VSI, PVS, BMS, IKS_SA, ROKS_SA, CE.
 	CrType *string `json:"cr_type,omitempty"`
 
 	// Session expiration in seconds, only required if type is 'Profile-SAML'.
@@ -9229,7 +9229,7 @@ type CreateLinkOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// The compute resource type. Valid values are VSI, PVS, IKS_SA, ROKS_SA.
+	// The compute resource type. Valid values are VSI, PVS, BMS, IKS_SA, ROKS_SA, CE.
 	CrType *string `json:"cr_type" validate:"required"`
 
 	// Link details.
@@ -10053,7 +10053,7 @@ type DeleteLinkByParametersOptions struct {
 	// The compute resource type. Valid values are VSI, PVS, BMS, IKS_SA, ROKS_SA, CE.
 	Type *string `json:"type" validate:"required"`
 
-	// CRN of the compute resource (IKS/ROKS/VSI/BMS).
+	// CRN of the compute resource (VSI/PVS/BMS/IKS/ROKS/CE).
 	CRN *string `json:"crn,omitempty"`
 
 	// Namespace of the compute resource (IKS/ROKS).
@@ -13540,7 +13540,8 @@ type ProfileClaimRule struct {
 	// Session expiration in seconds.
 	Expiration *int64 `json:"expiration" validate:"required"`
 
-	// The compute resource type. Not required if type is Profile-SAML. Valid values are VSI, PVS, IKS_SA, ROKS_SA.
+	// The compute resource type. Not required if type is Profile-SAML. Valid values are VSI, PVS, BMS, IKS_SA, ROKS_SA,
+	// CE.
 	CrType *string `json:"cr_type,omitempty"`
 
 	// Conditions of this claim rule.
@@ -16513,7 +16514,7 @@ type UpdateClaimRuleOptions struct {
 	RealmName *string `json:"realm_name,omitempty"`
 
 	// The compute resource type the rule applies to, required only if type is specified as 'Profile-CR'. Valid values are
-	// VSI, PVS, IKS_SA, ROKS_SA.
+	// VSI, PVS, BMS, IKS_SA, ROKS_SA, CE.
 	CrType *string `json:"cr_type,omitempty"`
 
 	// Session expiration in seconds, only required if type is 'Profile-SAML'.

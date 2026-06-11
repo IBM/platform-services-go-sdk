@@ -1,3 +1,10 @@
+## [0.99.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.0...v0.99.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **IAM Identity:** consistent list of CR types ([#450](https://github.com/IBM/platform-services-go-sdk/issues/450)) ([a08b7f6](https://github.com/IBM/platform-services-go-sdk/commit/a08b7f610556aa8cfa1964e2f3293aed605a08f9))
+
 # [0.99.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.98.0...v0.99.0) (2026-06-04)
 
 
