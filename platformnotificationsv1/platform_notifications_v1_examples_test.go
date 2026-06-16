@@ -50,7 +50,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 		config                       map[string]string
 		accountID                    string
 		IamID                        string
-		instanceID                   string
+		destinationID                string
 	)
 
 	var shouldSkipTest = func() {
@@ -76,24 +76,24 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			}
 
 			// Load test account ID and instance ID from config
-			accountID = config["TEST_ACCOUNT_ID"]
+			accountID = config["ACCOUNT_ID"]
 			if accountID == "" {
-				Skip("PLATFORM_NOTIFICATIONS_TEST_ACCOUNT_ID not found in configuration, skipping tests")
+				Skip("PLATFORM_NOTIFICATIONS_ACCOUNT_ID not found in configuration, skipping tests")
 			}
 
-			instanceID = config["TEST_INSTANCE_ID"]
-			if instanceID == "" {
-				Skip("PLATFORM_NOTIFICATIONS_TEST_INSTANCE_ID not found in configuration, skipping tests")
+			destinationID = config["DESTINATION_ID"]
+			if destinationID == "" {
+				Skip("PLATFORM_NOTIFICATIONS_DESTINATION_ID not found in configuration, skipping tests")
 			}
 
-			IamID = config["TEST_IAM_ID"]
+			IamID = config["IAM_ID"]
 			if IamID == "" {
-				Skip("PLATFORM_NOTIFICATIONS_TEST_IAM_ID not found in configuration, skipping tests")
+				Skip("PLATFORM_NOTIFICATIONS_IAM_ID not found in configuration, skipping tests")
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
 			fmt.Fprintf(GinkgoWriter, "Account ID: %v\n", accountID)
-			fmt.Fprintf(GinkgoWriter, "Instance ID: %v\n", instanceID)
+			fmt.Fprintf(GinkgoWriter, "Instance ID: %v\n", destinationID)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -218,7 +218,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 			// begin-create_distribution_list_destination
 
 			addDestinationPrototypeModel := &platformnotificationsv1.AddDestinationPrototypeEventNotificationDestinationPrototype{
-				DestinationID:   CreateMockUUID(instanceID),
+				DestinationID:   CreateMockUUID(destinationID),
 				DestinationType: core.StringPtr("event_notifications"),
 			}
 
@@ -246,7 +246,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 			getDistributionListDestinationOptions := platformNotificationsService.NewGetDistributionListDestinationOptions(
 				accountID,
-				instanceID,
+				destinationID,
 			)
 
 			addDestination, response, err := platformNotificationsService.GetDistributionListDestination(getDistributionListDestinationOptions)
@@ -273,7 +273,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 			testDistributionListDestinationOptions := platformNotificationsService.NewTestDistributionListDestinationOptions(
 				accountID,
-				instanceID,
+				destinationID,
 				testDestinationRequestBodyPrototypeModel,
 			)
 
@@ -383,7 +383,7 @@ var _ = Describe(`PlatformNotificationsV1 Examples Tests`, func() {
 
 			deleteDistributionListDestinationOptions := platformNotificationsService.NewDeleteDistributionListDestinationOptions(
 				accountID,
-				instanceID,
+				destinationID,
 			)
 
 			response, err := platformNotificationsService.DeleteDistributionListDestination(deleteDistributionListDestinationOptions)
