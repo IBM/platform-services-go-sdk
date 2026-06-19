@@ -1,3 +1,10 @@
+## [0.99.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.1...v0.99.2) (2026-06-19)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** add support for instance address type ([#452](https://github.com/IBM/platform-services-go-sdk/issues/452)) ([a3bed15](https://github.com/IBM/platform-services-go-sdk/commit/a3bed15543858ff1b27029f385efd8df2e0ed813))
+
 ## [0.99.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.0...v0.99.1) (2026-06-09)
 
 
