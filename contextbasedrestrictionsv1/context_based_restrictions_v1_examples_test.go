@@ -159,6 +159,10 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 				Type:  core.StringPtr("vpc"),
 				Value: core.StringPtr(vpcCRN),
 			}
+			instanceAddressModel := &contextbasedrestrictionsv1.AddressInstance{
+				Type:  core.StringPtr("instance"),
+				Value: core.StringPtr(vpcCRN),
+			}
 			serviceRefAddressModel := &contextbasedrestrictionsv1.AddressServiceRef{
 				Type: core.StringPtr("serviceRef"),
 				Ref: &contextbasedrestrictionsv1.ServiceRefValue{
@@ -175,7 +179,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			createZoneOptions.SetName("an example of zone")
 			createZoneOptions.SetAccountID(accountID)
 			createZoneOptions.SetDescription("this is an example of zone")
-			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{ipAddressModel, ipAddressV6Model, ipRangeAddressModel, ipRangeAddressV6Model, subnetAddressModel, vpcAddressModel, serviceRefAddressModel})
+			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{ipAddressModel, ipAddressV6Model, ipRangeAddressModel, ipRangeAddressV6Model, subnetAddressModel, vpcAddressModel, instanceAddressModel, serviceRefAddressModel})
 			createZoneOptions.SetExcluded([]contextbasedrestrictionsv1.AddressIntf{excludedIPAddressModel})
 
 			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
