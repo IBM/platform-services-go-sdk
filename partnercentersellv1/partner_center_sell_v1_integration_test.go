@@ -1114,10 +1114,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				TargetCrn:   core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb"),
 			}
 
+			globalCatalogMetadataDeploymentOtherModel := &partnercentersellv1.GlobalCatalogMetadataDeploymentOther{
+				LocationProxiedBy: core.StringPtr("sao"),
+			}
+
 			globalCatalogDeploymentMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
 				Service:      globalCatalogDeploymentMetadataServicePrototypePatchModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
+				Other:        globalCatalogMetadataDeploymentOtherModel,
 			}
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -1238,6 +1243,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				RcProvisionable:     core.BoolPtr(true),
 				IamCompatible:       core.BoolPtr(true),
 				ServiceKeySupported: core.BoolPtr(true),
+				PlanUpdateable:      core.BoolPtr(true),
 				Parameters:          []partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{*globalCatalogMetadataServiceCustomParametersModel},
 			}
 
@@ -1253,10 +1259,15 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				TargetCrn:   core.StringPtr("crn:v1:staging:public::eu-gb:::environment:staging-eu-gb"),
 			}
 
+			globalCatalogMetadataDeploymentOtherModel := &partnercentersellv1.GlobalCatalogMetadataDeploymentOther{
+				LocationProxiedBy: core.StringPtr("dal"),
+			}
+
 			globalCatalogDeploymentMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch{
 				RcCompatible: core.BoolPtr(true),
 				Service:      globalCatalogDeploymentMetadataServicePrototypePatchModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
+				Other:        globalCatalogMetadataDeploymentOtherModel,
 			}
 
 			globalCatalogDeploymentPatchModel := &partnercentersellv1.GlobalCatalogDeploymentPatch{
@@ -1438,19 +1449,33 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Options: environmentAttributeOptionsModel,
 			}
 
+			iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing{
+				State: core.StringPtr("disabled"),
+			}
+
 			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
 				Name:              core.StringPtr(apiTypeCrn),
 				EnforcementMethod: []string{"authz-network"},
+				EventPublishing:   iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel,
 				Description:       iamServiceRegistrationDescriptionObjectModel,
 			}
+
 			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
-				Name:        core.StringPtr(apiTypeCrnCustom),
-				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
-				Description: iamServiceRegistrationDescriptionObjectModel,
+				Name:              core.StringPtr(apiTypeCrnCustom),
+				EnforcementMethod: []string{"authz-network"},
+				EventPublishing:   iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel,
+				Description:       iamServiceRegistrationDescriptionObjectModel,
+				DisplayName:       iamServiceRegistrationDisplayNameObjectModel,
+			}
+
+			iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults{
+				EnforcementMethod: []string{"authz-full"},
+				EventPublishing:   iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel,
 			}
 
 			iamServiceRegistrationSupportedNetworkOperationsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations{
 				ApiTypes: []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel, *iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom},
+				Defaults: iamServiceRegistrationSupportedNetworkOperationsDefaultsModel,
 			}
 
 			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{
@@ -1643,15 +1668,26 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Description:       iamServiceRegistrationDescriptionObjectModel,
 			}
 
+			iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing{
+				State: core.StringPtr("enabled"),
+			}
+
 			iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{
 				Name:              core.StringPtr(apiTypeCrnCustom),
 				EnforcementMethod: []string{"authz-network"},
+				EventPublishing:   iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel,
 				DisplayName:       iamServiceRegistrationDisplayNameObjectModel,
 				Description:       iamServiceRegistrationDescriptionObjectModel,
 			}
 
+			iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults{
+				EnforcementMethod: []string{"authz-full"},
+				EventPublishing:   iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel,
+			}
+
 			iamServiceRegistrationSupportedNetworkOperationsModel := &partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations{
 				ApiTypes: []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel, *iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModelCustom},
+				Defaults: iamServiceRegistrationSupportedNetworkOperationsDefaultsModel,
 			}
 
 			iamServiceRegistrationSupportedNetworkModel := &partnercentersellv1.IamServiceRegistrationSupportedNetwork{

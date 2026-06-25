@@ -1,3 +1,24 @@
+## [0.99.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.1...v0.99.2) (2026-06-19)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** add support for instance address type ([#452](https://github.com/IBM/platform-services-go-sdk/issues/452)) ([a3bed15](https://github.com/IBM/platform-services-go-sdk/commit/a3bed15543858ff1b27029f385efd8df2e0ed813))
+
+## [0.99.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.0...v0.99.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **IAM Identity:** consistent list of CR types ([#450](https://github.com/IBM/platform-services-go-sdk/issues/450)) ([a08b7f6](https://github.com/IBM/platform-services-go-sdk/commit/a08b7f610556aa8cfa1964e2f3293aed605a08f9))
+
+# [0.99.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.98.0...v0.99.0) (2026-06-04)
+
+
+### Features
+
+* **Partner Center Sell:** extending IAM and Deployment objects with new parameters ([#449](https://github.com/IBM/platform-services-go-sdk/issues/449)) ([be5979c](https://github.com/IBM/platform-services-go-sdk/commit/be5979c0be56a7701441713b21f3b01ba2124142))
+
 # [0.98.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.97.5...v0.98.0) (2026-05-27)
 
 

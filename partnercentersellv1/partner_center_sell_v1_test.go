@@ -1149,7 +1149,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}, "oss_id": "OssID"}`)
 				}))
 			})
 			It(`Invoke CreateOnboardingProduct successfully with retries`, func() {
@@ -1240,7 +1240,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}, "oss_id": "OssID"}`)
 				}))
 			})
 			It(`Invoke CreateOnboardingProduct successfully`, func() {
@@ -1461,7 +1461,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}, "oss_id": "OssID"}`)
 				}))
 			})
 			It(`Invoke GetOnboardingProduct successfully with retries`, func() {
@@ -1515,7 +1515,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}, "oss_id": "OssID"}`)
 				}))
 			})
 			It(`Invoke GetOnboardingProduct successfully`, func() {
@@ -1716,7 +1716,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}, "oss_id": "OssID"}`)
 				}))
 			})
 			It(`Invoke UpdateOnboardingProduct successfully with retries`, func() {
@@ -1813,7 +1813,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "type": "software", "primary_contact": {"name": "Name", "email": "Email"}, "private_catalog_id": "PrivateCatalogID", "private_catalog_offering_id": "PrivateCatalogOfferingID", "global_catalog_offering_id": "GlobalCatalogOfferingID", "staging_global_catalog_offering_id": "StagingGlobalCatalogOfferingID", "approver_resource_id": "4eb40ee6-d5d6-4328-a52e-06654eab8775", "iam_registration_id": "IamRegistrationID", "eccn_number": "EccnNumber", "ero_class": "EroClass", "unspsc": 6, "tax_assessment": "TaxAssessment", "support": {"escalation_contacts": [{"name": "Name", "email": "Email", "role": "Role"}]}, "oss_id": "OssID"}`)
 				}))
 			})
 			It(`Invoke UpdateOnboardingProduct successfully`, func() {
@@ -7153,11 +7153,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7228,7 +7233,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}, "other": {"location_proxied_by": "LocationProxiedBy"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully with retries`, func() {
@@ -7340,11 +7345,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7418,7 +7428,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}, "other": {"location_proxied_by": "LocationProxiedBy"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully`, func() {
@@ -7535,11 +7545,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7674,11 +7689,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7834,11 +7854,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				createCatalogDeploymentOptionsModel := new(partnercentersellv1.CreateCatalogDeploymentOptions)
@@ -7939,7 +7964,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}, "other": {"location_proxied_by": "LocationProxiedBy"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully with retries`, func() {
@@ -7998,7 +8023,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}, "other": {"location_proxied_by": "LocationProxiedBy"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully`, func() {
@@ -8230,11 +8255,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8308,7 +8338,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}, "other": {"location_proxied_by": "LocationProxiedBy"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully with retries`, func() {
@@ -8420,11 +8450,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8501,7 +8536,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "geo_tags": ["GeoTags"], "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false, "unique_api_key": true, "parameters": [{"displayname": "Displayname", "name": "Name", "type": "text", "options": [{"displayname": "Displayname", "value": "Value", "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}], "value": ["Value"], "layout": "Layout", "associations": {"plan": {"show_for": ["ShowFor"], "options_refresh": true}, "parameters": [{"name": "Name", "show_for": ["ShowFor"], "options_refresh": true}], "location": {"show_for": ["ShowFor"]}}, "validation_url": "ValidationURL", "options_url": "OptionsURL", "invalidmessage": "Invalidmessage", "description": "Description", "required": true, "pattern": "Pattern", "placeholder": "Placeholder", "readonly": true, "hidden": true, "i18n": {"en": {"displayname": "Displayname", "description": "Description"}, "de": {"displayname": "Displayname", "description": "Description"}, "es": {"displayname": "Displayname", "description": "Description"}, "fr": {"displayname": "Displayname", "description": "Description"}, "it": {"displayname": "Displayname", "description": "Description"}, "ja": {"displayname": "Displayname", "description": "Description"}, "ko": {"displayname": "Displayname", "description": "Description"}, "pt_br": {"displayname": "Displayname", "description": "Description"}, "zh_tw": {"displayname": "Displayname", "description": "Description"}, "zh_cn": {"displayname": "Displayname", "description": "Description"}}}]}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}, "other": {"location_proxied_by": "LocationProxiedBy"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully`, func() {
@@ -8618,11 +8653,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8760,11 +8800,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -8923,11 +8968,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogMetadataDeploymentModel.LocationURL = core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")
 				globalCatalogMetadataDeploymentModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 
 				// Construct an instance of the GlobalCatalogDeploymentPatch model
 				globalCatalogDeploymentPatchModel := new(partnercentersellv1.GlobalCatalogDeploymentPatch)
@@ -9216,16 +9266,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -9312,7 +9373,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "defaults": {"enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}}}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully with retries`, func() {
@@ -9476,16 +9537,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -9575,7 +9647,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "defaults": {"enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}}}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully`, func() {
@@ -9744,16 +9816,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -9956,16 +10039,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -10189,16 +10283,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -10423,16 +10528,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -10525,7 +10641,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "defaults": {"enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}}}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully with retries`, func() {
@@ -10689,16 +10805,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -10794,7 +10921,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "defaults": {"enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}}}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully`, func() {
@@ -10963,16 +11090,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -11181,16 +11319,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -11420,16 +11569,27 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -11623,7 +11783,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "defaults": {"enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}}}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully with retries`, func() {
@@ -11680,7 +11840,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}]}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}, "api_types": ["ApiTypes"]}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}], "operations": {"api_types": [{"name": "Name", "enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "defaults": {"enforcement_method": ["EnforcementMethod"], "event_publishing": {"state": "enabled"}}}, "self_managed_allowlist_enforcement": {"event_publishing": {"api_types": ["ApiTypes"]}}}, "supported_action_control": ["SupportedActionControl"]}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully`, func() {
@@ -13317,15 +13477,23 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogMetadataDeploymentModel.LocationURL).To(Equal(core.StringPtr("https://globalcatalog.test.cloud.ibm.com/api/v1/eu-gb")))
 				Expect(globalCatalogMetadataDeploymentModel.TargetCrn).To(Equal(core.StringPtr("crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb")))
 
+				// Construct an instance of the GlobalCatalogMetadataDeploymentOther model
+				globalCatalogMetadataDeploymentOtherModel := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+				Expect(globalCatalogMetadataDeploymentOtherModel).ToNot(BeNil())
+				globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy = core.StringPtr("testString")
+				Expect(globalCatalogMetadataDeploymentOtherModel.LocationProxiedBy).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the GlobalCatalogDeploymentMetadataPrototypePatch model
 				globalCatalogDeploymentMetadataPrototypePatchModel := new(partnercentersellv1.GlobalCatalogDeploymentMetadataPrototypePatch)
 				Expect(globalCatalogDeploymentMetadataPrototypePatchModel).ToNot(BeNil())
 				globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible = core.BoolPtr(true)
 				globalCatalogDeploymentMetadataPrototypePatchModel.Service = globalCatalogDeploymentMetadataServicePrototypePatchModel
 				globalCatalogDeploymentMetadataPrototypePatchModel.Deployment = globalCatalogMetadataDeploymentModel
+				globalCatalogDeploymentMetadataPrototypePatchModel.Other = globalCatalogMetadataDeploymentOtherModel
 				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.RcCompatible).To(Equal(core.BoolPtr(true)))
 				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.Service).To(Equal(globalCatalogDeploymentMetadataServicePrototypePatchModel))
 				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.Deployment).To(Equal(globalCatalogMetadataDeploymentModel))
+				Expect(globalCatalogDeploymentMetadataPrototypePatchModel.Other).To(Equal(globalCatalogMetadataDeploymentOtherModel))
 
 				// Construct an instance of the CreateCatalogDeploymentOptions model
 				productID := "testString"
@@ -14236,23 +14404,41 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(environmentAttributeModel.Values).To(Equal([]string{"public"}))
 				Expect(environmentAttributeModel.Options).To(Equal(environmentAttributeOptionsModel))
 
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing model
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+				Expect(iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel).ToNot(BeNil())
+				iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State = core.StringPtr("disabled")
+				Expect(iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel.State).To(Equal(core.StringPtr("disabled")))
+
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsApiTypeItems model
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
 				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel).ToNot(BeNil())
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("testString")
-				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"testString"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name = core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description = iamServiceRegistrationDescriptionObjectModel
-				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod).To(Equal([]string{"testString"}))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Name).To(Equal(core.StringPtr("crn:v1:bluemix:public:example-service::::api-type:regular")))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EnforcementMethod).To(Equal([]string{"authz-full"}))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.EventPublishing).To(Equal(iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel))
 				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
 				Expect(iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel.Description).To(Equal(iamServiceRegistrationDescriptionObjectModel))
+
+				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperationsDefaults model
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+				Expect(iamServiceRegistrationSupportedNetworkOperationsDefaultsModel).ToNot(BeNil())
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod = []string{"authz-full"}
+				iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing = iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel
+				Expect(iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EnforcementMethod).To(Equal([]string{"authz-full"}))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsDefaultsModel.EventPublishing).To(Equal(iamServiceRegistrationSupportedNetworkOperationsEventPublishingModel))
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkOperations model
 				iamServiceRegistrationSupportedNetworkOperationsModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 				Expect(iamServiceRegistrationSupportedNetworkOperationsModel).ToNot(BeNil())
 				iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes = []partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}
+				iamServiceRegistrationSupportedNetworkOperationsModel.Defaults = iamServiceRegistrationSupportedNetworkOperationsDefaultsModel
 				Expect(iamServiceRegistrationSupportedNetworkOperationsModel.ApiTypes).To(Equal([]partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems{*iamServiceRegistrationSupportedNetworkOperationsApiTypeItemsModel}))
+				Expect(iamServiceRegistrationSupportedNetworkOperationsModel.Defaults).To(Equal(iamServiceRegistrationSupportedNetworkOperationsDefaultsModel))
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing model
 				iamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishingModel := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkSelfManagedAllowlistEnforcementEventPublishing)
@@ -14927,6 +15113,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.RcCompatible = core.BoolPtr(true)
 			model.Service = nil
 			model.Deployment = nil
+			model.Other = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -15022,6 +15209,24 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.GlobalCatalogMetadataDeploymentBroker
 			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataDeploymentBroker(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogMetadataDeploymentOther successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogMetadataDeploymentOther)
+			model.LocationProxiedBy = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogMetadataDeploymentOther
+			err = partnercentersellv1.UnmarshalGlobalCatalogMetadataDeploymentOther(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -15975,6 +16180,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperations)
 			model.ApiTypes = nil
+			model.Defaults = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -15994,6 +16200,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
 			model.Name = core.StringPtr("testString")
 			model.EnforcementMethod = []string{"testString"}
+			model.EventPublishing = nil
 			model.DisplayName = nil
 			model.Description = nil
 
@@ -16006,6 +16213,43 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsApiTypeItems
 			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults)
+			model.EnforcementMethod = []string{"testString"}
+			model.EventPublishing = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsDefaults
+			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+			model.State = core.StringPtr("enabled")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.IamServiceRegistrationSupportedNetworkOperationsEventPublishing
+			err = partnercentersellv1.UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
