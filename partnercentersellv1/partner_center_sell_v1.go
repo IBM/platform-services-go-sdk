@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
+ * IBM OpenAPI SDK Code Generator Version: 3.114.2-b2884bfd-20260601-185447
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -36,7 +36,7 @@ import (
 
 // PartnerCenterSellV1 : This API is experimental and is likely to change in the future.
 //
-// API Version: 1.5.0
+// API Version: 1.6.0
 type PartnerCenterSellV1 struct {
 	Service *core.BaseService
 }
@@ -2578,7 +2578,7 @@ func (partnerCenterSell *PartnerCenterSellV1) GetProductBadgeWithContext(ctx con
 	return
 }
 func getServiceComponentInfo() *core.ProblemComponent {
-	return core.NewProblemComponent(DefaultServiceName, "1.5.0")
+	return core.NewProblemComponent(DefaultServiceName, "1.6.0")
 }
 
 // Bookmark : The page reference information.
@@ -5022,6 +5022,9 @@ type GlobalCatalogDeploymentMetadata struct {
 
 	// The global catalog metadata of the deployment.
 	Deployment *GlobalCatalogMetadataDeployment `json:"deployment,omitempty"`
+
+	// Additional deployment metadata for "other" location type.
+	Other *GlobalCatalogMetadataDeploymentOther `json:"other,omitempty"`
 }
 
 // UnmarshalGlobalCatalogDeploymentMetadata unmarshals an instance of GlobalCatalogDeploymentMetadata from the specified map of raw messages.
@@ -5042,6 +5045,11 @@ func UnmarshalGlobalCatalogDeploymentMetadata(m map[string]json.RawMessage, resu
 		err = core.SDKErrorf(err, "", "deployment-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "other", &obj.Other, UnmarshalGlobalCatalogMetadataDeploymentOther)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "other-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5056,6 +5064,9 @@ type GlobalCatalogDeploymentMetadataPrototypePatch struct {
 
 	// The global catalog metadata of the deployment.
 	Deployment *GlobalCatalogMetadataDeployment `json:"deployment,omitempty"`
+
+	// Additional deployment metadata for "other" location type.
+	Other *GlobalCatalogMetadataDeploymentOther `json:"other,omitempty"`
 }
 
 // UnmarshalGlobalCatalogDeploymentMetadataPrototypePatch unmarshals an instance of GlobalCatalogDeploymentMetadataPrototypePatch from the specified map of raw messages.
@@ -5076,6 +5087,11 @@ func UnmarshalGlobalCatalogDeploymentMetadataPrototypePatch(m map[string]json.Ra
 		err = core.SDKErrorf(err, "", "deployment-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "other", &obj.Other, UnmarshalGlobalCatalogMetadataDeploymentOther)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "other-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5091,6 +5107,9 @@ func (globalCatalogDeploymentMetadataPrototypePatch *GlobalCatalogDeploymentMeta
 	}
 	if !core.IsNil(globalCatalogDeploymentMetadataPrototypePatch.Deployment) {
 		_patch["deployment"] = globalCatalogDeploymentMetadataPrototypePatch.Deployment.asPatch()
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataPrototypePatch.Other) {
+		_patch["other"] = globalCatalogDeploymentMetadataPrototypePatch.Other.asPatch()
 	}
 
 	return
@@ -5416,6 +5435,34 @@ func (globalCatalogMetadataDeploymentBroker *GlobalCatalogMetadataDeploymentBrok
 	}
 	if !core.IsNil(globalCatalogMetadataDeploymentBroker.Guid) {
 		_patch["guid"] = globalCatalogMetadataDeploymentBroker.Guid
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataDeploymentOther : Additional deployment metadata for "other" location type.
+type GlobalCatalogMetadataDeploymentOther struct {
+	// The region that proxies this deployment location.
+	LocationProxiedBy *string `json:"location_proxied_by,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataDeploymentOther unmarshals an instance of GlobalCatalogMetadataDeploymentOther from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataDeploymentOther(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataDeploymentOther)
+	err = core.UnmarshalPrimitive(m, "location_proxied_by", &obj.LocationProxiedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "location_proxied_by-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataDeploymentOther
+func (globalCatalogMetadataDeploymentOther *GlobalCatalogMetadataDeploymentOther) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataDeploymentOther.LocationProxiedBy) {
+		_patch["location_proxied_by"] = globalCatalogMetadataDeploymentOther.LocationProxiedBy
 	}
 
 	return
@@ -9146,6 +9193,10 @@ func (iamServiceRegistrationSupportedNetwork *IamServiceRegistrationSupportedNet
 type IamServiceRegistrationSupportedNetworkOperations struct {
 	// The environment attribute for support.
 	ApiTypes []IamServiceRegistrationSupportedNetworkOperationsApiTypeItems `json:"api_types,omitempty"`
+
+	// Specifies default supported network operation behavior that applies when an API type does not explicitly set a
+	// value.
+	Defaults *IamServiceRegistrationSupportedNetworkOperationsDefaults `json:"defaults,omitempty"`
 }
 
 // UnmarshalIamServiceRegistrationSupportedNetworkOperations unmarshals an instance of IamServiceRegistrationSupportedNetworkOperations from the specified map of raw messages.
@@ -9154,6 +9205,11 @@ func UnmarshalIamServiceRegistrationSupportedNetworkOperations(m map[string]json
 	err = core.UnmarshalModel(m, "api_types", &obj.ApiTypes, UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "api_types-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "defaults", &obj.Defaults, UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "defaults-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9170,6 +9226,9 @@ func (iamServiceRegistrationSupportedNetworkOperations *IamServiceRegistrationSu
 		}
 		_patch["api_types"] = apiTypesPatches
 	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperations.Defaults) {
+		_patch["defaults"] = iamServiceRegistrationSupportedNetworkOperations.Defaults.asPatch()
+	}
 
 	return
 }
@@ -9181,6 +9240,9 @@ type IamServiceRegistrationSupportedNetworkOperationsApiTypeItems struct {
 
 	// The enforcement method used for the API type.
 	EnforcementMethod []string `json:"enforcement_method,omitempty"`
+
+	// Specifies the event publishing state.
+	EventPublishing *IamServiceRegistrationSupportedNetworkOperationsEventPublishing `json:"event_publishing,omitempty"`
 
 	// The display name of the object.
 	DisplayName *IamServiceRegistrationDisplayNameObject `json:"display_name,omitempty"`
@@ -9200,6 +9262,11 @@ func UnmarshalIamServiceRegistrationSupportedNetworkOperationsApiTypeItems(m map
 	err = core.UnmarshalPrimitive(m, "enforcement_method", &obj.EnforcementMethod)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enforcement_method-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "event_publishing", &obj.EventPublishing, UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "event_publishing-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "display_name", &obj.DisplayName, UnmarshalIamServiceRegistrationDisplayNameObject)
@@ -9225,11 +9292,88 @@ func (iamServiceRegistrationSupportedNetworkOperationsApiTypeItems *IamServiceRe
 	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EnforcementMethod) {
 		_patch["enforcement_method"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EnforcementMethod
 	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EventPublishing) {
+		_patch["event_publishing"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.EventPublishing.asPatch()
+	}
 	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.DisplayName) {
 		_patch["display_name"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.DisplayName.asPatch()
 	}
 	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Description) {
 		_patch["description"] = iamServiceRegistrationSupportedNetworkOperationsApiTypeItems.Description.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkOperationsDefaults : Specifies default supported network operation behavior that applies when an API type does not explicitly set a value.
+type IamServiceRegistrationSupportedNetworkOperationsDefaults struct {
+	// The default enforcement method used for API types.
+	EnforcementMethod []string `json:"enforcement_method,omitempty"`
+
+	// Specifies the event publishing state.
+	EventPublishing *IamServiceRegistrationSupportedNetworkOperationsEventPublishing `json:"event_publishing,omitempty"`
+}
+
+// UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults unmarshals an instance of IamServiceRegistrationSupportedNetworkOperationsDefaults from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkOperationsDefaults(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkOperationsDefaults)
+	err = core.UnmarshalPrimitive(m, "enforcement_method", &obj.EnforcementMethod)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "enforcement_method-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "event_publishing", &obj.EventPublishing, UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "event_publishing-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkOperationsDefaults
+func (iamServiceRegistrationSupportedNetworkOperationsDefaults *IamServiceRegistrationSupportedNetworkOperationsDefaults) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsDefaults.EnforcementMethod) {
+		_patch["enforcement_method"] = iamServiceRegistrationSupportedNetworkOperationsDefaults.EnforcementMethod
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsDefaults.EventPublishing) {
+		_patch["event_publishing"] = iamServiceRegistrationSupportedNetworkOperationsDefaults.EventPublishing.asPatch()
+	}
+
+	return
+}
+
+// IamServiceRegistrationSupportedNetworkOperationsEventPublishing : Specifies the event publishing state.
+type IamServiceRegistrationSupportedNetworkOperationsEventPublishing struct {
+	// The event publishing state.
+	State *string `json:"state,omitempty"`
+}
+
+// Constants associated with the IamServiceRegistrationSupportedNetworkOperationsEventPublishing.State property.
+// The event publishing state.
+const (
+	IamServiceRegistrationSupportedNetworkOperationsEventPublishing_State_Disabled = "disabled"
+	IamServiceRegistrationSupportedNetworkOperationsEventPublishing_State_Enabled  = "enabled"
+)
+
+// UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing unmarshals an instance of IamServiceRegistrationSupportedNetworkOperationsEventPublishing from the specified map of raw messages.
+func UnmarshalIamServiceRegistrationSupportedNetworkOperationsEventPublishing(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IamServiceRegistrationSupportedNetworkOperationsEventPublishing)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the IamServiceRegistrationSupportedNetworkOperationsEventPublishing
+func (iamServiceRegistrationSupportedNetworkOperationsEventPublishing *IamServiceRegistrationSupportedNetworkOperationsEventPublishing) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(iamServiceRegistrationSupportedNetworkOperationsEventPublishing.State) {
+		_patch["state"] = iamServiceRegistrationSupportedNetworkOperationsEventPublishing.State
 	}
 
 	return
@@ -9462,6 +9606,9 @@ type OnboardingProduct struct {
 
 	// The support information that is not displayed in the catalog, but available in ServiceNow.
 	Support *OnboardingProductSupport `json:"support,omitempty"`
+
+	// The ID of the OSS record connected to the product.
+	OssID *string `json:"oss_id,omitempty"`
 }
 
 // Constants associated with the OnboardingProduct.Type property.
@@ -9548,6 +9695,11 @@ func UnmarshalOnboardingProduct(m map[string]json.RawMessage, result interface{}
 	err = core.UnmarshalModel(m, "support", &obj.Support, UnmarshalOnboardingProductSupport)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "support-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "oss_id", &obj.OssID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "oss_id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))

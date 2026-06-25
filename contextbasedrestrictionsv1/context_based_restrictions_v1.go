@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.108.0-56772134-20251111-102802
+ * IBM OpenAPI SDK Code Generator Version: 3.114.4-9b56d441-20260612-210048
  */
 
 // Package contextbasedrestrictionsv1 : Operations and models for the ContextBasedRestrictionsV1 service
@@ -1521,6 +1521,7 @@ func UnmarshalAction(m map[string]json.RawMessage, result interface{}) (err erro
 // - AddressSubnet
 // - AddressVPC
 // - AddressServiceRef
+// - AddressInstance
 type Address struct {
 	// The type of address.
 	Type *string `json:"type,omitempty"`
@@ -1538,6 +1539,7 @@ type Address struct {
 // Constants associated with the Address.Type property.
 // The type of address.
 const (
+	AddressTypeInstanceConst   = "instance"
 	AddressTypeIpaddressConst  = "ipAddress"
 	AddressTypeIprangeConst    = "ipRange"
 	AddressTypeServicerefConst = "serviceRef"
@@ -1592,6 +1594,11 @@ func UnmarshalAddress(m map[string]json.RawMessage, result interface{}) (err err
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-AddressServiceRef-error", common.GetComponentInfo())
 		}
+	} else if discValue == "instance" {
+		err = core.UnmarshalModel(m, "", result, UnmarshalAddressInstance)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-AddressInstance-error", common.GetComponentInfo())
+		}
 	} else {
 		errMsg := fmt.Sprintf("unrecognized value for discriminator property 'type': %s", discValue)
 		err = core.SDKErrorf(err, errMsg, "invalid-discriminator", common.GetComponentInfo())
@@ -1614,6 +1621,7 @@ type CreateRuleOptions struct {
 	Operations *NewRuleOperations `json:"operations,omitempty"`
 
 	// The rule enforcement mode:
+	//
 	//  * `enabled` - The restrictions are enforced and reported. This is the default.
 	//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 	//  * `report` - The restrictions are evaluated and reported, but not enforced.
@@ -1636,6 +1644,7 @@ type CreateRuleOptions struct {
 
 // Constants associated with the CreateRuleOptions.EnforcementMode property.
 // The rule enforcement mode:
+//
 //   - `enabled` - The restrictions are enforced and reported. This is the default.
 //   - `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 //   - `report` - The restrictions are evaluated and reported, but not enforced.
@@ -2544,6 +2553,7 @@ type ReplaceRuleOptions struct {
 	Operations *NewRuleOperations `json:"operations,omitempty"`
 
 	// The rule enforcement mode:
+	//
 	//  * `enabled` - The restrictions are enforced and reported. This is the default.
 	//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 	//  * `report` - The restrictions are evaluated and reported, but not enforced.
@@ -2566,6 +2576,7 @@ type ReplaceRuleOptions struct {
 
 // Constants associated with the ReplaceRuleOptions.EnforcementMode property.
 // The rule enforcement mode:
+//
 //   - `enabled` - The restrictions are enforced and reported. This is the default.
 //   - `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 //   - `report` - The restrictions are evaluated and reported, but not enforced.
@@ -2906,6 +2917,7 @@ type Rule struct {
 	Operations *NewRuleOperations `json:"operations,omitempty"`
 
 	// The rule enforcement mode:
+	//
 	//  * `enabled` - The restrictions are enforced and reported. This is the default.
 	//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 	//  * `report` - The restrictions are evaluated and reported, but not enforced.
@@ -2929,6 +2941,7 @@ type Rule struct {
 
 // Constants associated with the Rule.EnforcementMode property.
 // The rule enforcement mode:
+//
 //   - `enabled` - The restrictions are enforced and reported. This is the default.
 //   - `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 //   - `report` - The restrictions are evaluated and reported, but not enforced.
@@ -3616,6 +3629,64 @@ func (*AddressIPAddressRange) isaAddress() bool {
 // UnmarshalAddressIPAddressRange unmarshals an instance of AddressIPAddressRange from the specified map of raw messages.
 func UnmarshalAddressIPAddressRange(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddressIPAddressRange)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AddressInstance : A single Instance address.
+// This model "extends" Address
+type AddressInstance struct {
+	// The type of address.
+	Type *string `json:"type" validate:"required"`
+
+	// The instance CRN.
+	Value *string `json:"value" validate:"required"`
+
+	// The address id (for use by terraform only).
+	ID *string `json:"id,omitempty"`
+}
+
+// Constants associated with the AddressInstance.Type property.
+// The type of address.
+const (
+	AddressInstanceTypeInstanceConst = "instance"
+)
+
+// NewAddressInstance : Instantiate AddressInstance (Generic Model Constructor)
+func (*ContextBasedRestrictionsV1) NewAddressInstance(typeVar string, value string) (_model *AddressInstance, err error) {
+	_model = &AddressInstance{
+		Type:  core.StringPtr(typeVar),
+		Value: core.StringPtr(value),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*AddressInstance) isaAddress() bool {
+	return true
+}
+
+// UnmarshalAddressInstance unmarshals an instance of AddressInstance from the specified map of raw messages.
+func UnmarshalAddressInstance(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AddressInstance)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
