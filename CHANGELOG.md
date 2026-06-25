@@ -1,3 +1,10 @@
+# [0.100.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.2...v0.100.0) (2026-06-25)
+
+
+### Features
+
+* **Platform Notifications:** add new public endpoints ([#442](https://github.com/IBM/platform-services-go-sdk/issues/442)) ([c11e911](https://github.com/IBM/platform-services-go-sdk/commit/c11e9116428ccf2fdad2a4c1731ed06da229cd32))
+
 ## [0.99.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.1...v0.99.2) (2026-06-19)
 
 
