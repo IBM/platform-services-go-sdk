@@ -102,6 +102,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		accountSettingsTemplateEtag           string
 		accountSettingsTemplateAssignmentId   string
 		accountSettingsTemplateAssignmentEtag string
+		idpID                                 string
+		idpEtag                               string
 
 		service             string = "console"
 		valueString         string = "/billing"
@@ -2155,7 +2157,414 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// end-delete_preferences_on_scope_account
 
 			Expect(err).To(BeNil())
+		})
+	})
+
+	Describe(`CreateIdp - Create IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateIdp request example`, func() {
+			fmt.Println("\nCreateIdp() result:")
+			// begin-create_idp
+
+			createIdpRequestPropertiesIdpModel := &iamidentityv1.CreateIdpRequestPropertiesIdp{
+				EntityID:           core.StringPtr("http://www.okta.com/abcdefg"),
+				RedirectBindingURL: core.StringPtr("https://trial-12345.okta.com/app/trial-6789/abcdefg/sso/saml"),
+				WantRequestSigned:  core.BoolPtr(true),
+			}
+
+			createIdpRequestPropertiesSpModel := &iamidentityv1.CreateIdpRequestPropertiesSp{
+				WantAssertionSigned:           core.BoolPtr(true),
+				WantResponseSigned:            core.BoolPtr(true),
+				EncryptResponse:               core.BoolPtr(true),
+				IdpInitiatedLoginEnabled:      core.BoolPtr(true),
+				LogoutURLEnabledWhenAvailable: core.BoolPtr(true),
+			}
+
+			createIdpRequestPropertiesModel := &iamidentityv1.CreateIdpRequestProperties{
+				Idp: createIdpRequestPropertiesIdpModel,
+				Sp:  createIdpRequestPropertiesSpModel,
+			}
+
+			createIdpRequestSecretsIdpModel := &iamidentityv1.CreateIdpRequestSecretsIdp{}
+
+			createIdpRequestSecretsSpModel := &iamidentityv1.CreateIdpRequestSecretsSp{}
+
+			createIdpRequestSecretsModel := &iamidentityv1.CreateIdpRequestSecrets{
+				Idp: createIdpRequestSecretsIdpModel,
+				Sp:  createIdpRequestSecretsSpModel,
+			}
+
+			createIdpOptions := iamIdentityService.NewCreateIdpOptions(
+				accountID,
+				"My Identity Provider",
+				"saml",
+			)
+			createIdpOptions.SetActive(true)
+			createIdpOptions.SetProperties(createIdpRequestPropertiesModel)
+			createIdpOptions.SetSecrets(createIdpRequestSecretsModel)
+
+			idp, response, err := iamIdentityService.CreateIdp(createIdpOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(idp, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_idp
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(idp).ToNot(BeNil())
+			idpID = *idp.IdpID
+		})
+	})
+
+	Describe(`ListIdps - List IdPs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListIdps request example`, func() {
+			fmt.Println("\nListIdps() result:")
+			// begin-list_idps
+
+			listIdpsOptions := iamIdentityService.NewListIdpsOptions(accountID)
+
+			listIdpsResponse, response, err := iamIdentityService.ListIdps(listIdpsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(listIdpsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_idps
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listIdpsResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetIdp - Get IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetIdp request example`, func() {
+			fmt.Println("\nGetIdp() result:")
+			// begin-get_idp
+
+			getIdpOptions := iamIdentityService.NewGetIdpOptions(idpID)
+
+			idp, response, err := iamIdentityService.GetIdp(getIdpOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(idp, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_idp
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(idp).ToNot(BeNil())
+			idpEtag = response.GetHeaders().Get("Etag")
+		})
+	})
+
+	Describe(`UpdateIdp - Update IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateIdp request example`, func() {
+			fmt.Println("\nUpdateIdp() result:")
+			// begin-update_idp
+
+			updateIdpRequestPropertiesIdpModel := &iamidentityv1.UpdateIdpRequestPropertiesIdp{
+				EntityID:           core.StringPtr("http://www.okta.com/abcdefgijk"),
+				RedirectBindingURL: core.StringPtr("https://trial-12345.okta.com/app/trial-6789/abcdefgijk/sso/saml"),
+				WantRequestSigned:  core.BoolPtr(false),
+			}
+
+			updateIdpRequestPropertiesSpModel := &iamidentityv1.UpdateIdpRequestPropertiesSp{
+				WantAssertionSigned:           core.BoolPtr(false),
+				WantResponseSigned:            core.BoolPtr(false),
+				EncryptResponse:               core.BoolPtr(true),
+				IdpInitiatedLoginEnabled:      core.BoolPtr(false),
+				LogoutURLEnabledWhenAvailable: core.BoolPtr(true),
+			}
+
+			updateIdpRequestPropertiesModel := &iamidentityv1.UpdateIdpRequestProperties{
+				Idp: updateIdpRequestPropertiesIdpModel,
+				Sp:  updateIdpRequestPropertiesSpModel,
+			}
+
+			updateIdpOptions := iamIdentityService.NewUpdateIdpOptions(
+				idpID,
+				idpEtag,
+			)
+			updateIdpOptions.SetUISetupCompleted(true)
+			updateIdpOptions.SetActive(true)
+			updateIdpOptions.SetProperties(updateIdpRequestPropertiesModel)
+			updateIdpOptions.SetForceShareScopeUpdate(true)
+
+			idp, response, err := iamIdentityService.UpdateIdp(updateIdpOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(idp, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_idp
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(idp).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListConsumerAccounts - Get consumers of IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListConsumerAccounts request example`, func() {
+			fmt.Println("\nListConsumerAccounts() result:")
+			// begin-list_consumer_accounts
+
+			listConsumerAccountsOptions := iamIdentityService.NewListConsumerAccountsOptions(idpID)
+
+			consumersResponse, response, err := iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(consumersResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_consumer_accounts
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(consumersResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLoginSettings - Get account login settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLoginSettings request example`, func() {
+			fmt.Println("\nGetLoginSettings() result:")
+			// begin-get_login_settings
+
+			getLoginSettingsOptions := iamIdentityService.NewGetLoginSettingsOptions(accountID)
+
+			accountLoginSettings, response, err := iamIdentityService.GetLoginSettings(getLoginSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountLoginSettings, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_login_settings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountLoginSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateLoginSettings - Update account login settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateLoginSettings request example`, func() {
+			fmt.Println("\nUpdateLoginSettings() result:")
+			// begin-update_login_settings
+
+			updateLoginSettingsOptions := iamIdentityService.NewUpdateLoginSettingsOptions(accountID)
+			updateLoginSettingsOptions.SetAlias("my_alias_update_test")
+
+			accountLoginSettings, response, err := iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountLoginSettings, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_login_settings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountLoginSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListIDPSettings - List IdP Settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListIDPSettings request example`, func() {
+			fmt.Println("\nListIDPSettings() result:")
+			// begin-list_idp_settings
+
+			listIdpSettingsOptions := iamIdentityService.NewListIDPSettingsOptions(accountID, "consumable")
+			listIdpSettingsOptions.SetIncludeIdpMetadata("true")
+
+			listIdpSettingsResponse, response, err := iamIdentityService.ListIDPSettings(listIdpSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(listIdpSettingsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_idp_settings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listIdpSettingsResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`AddIDPSetting - Add IdP Setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddIDPSetting request example`, func() {
+			fmt.Println("\nAddIDPSetting() result:")
+			// begin-add_idp_setting
+
+			addIdpSettingOptions := iamIdentityService.NewAddIDPSettingOptions(
+				accountID,
+				idpID,
+				"STATIC",
+				true,
+				true,
+			)
+
+			accountIdpSettings, response, err := iamIdentityService.AddIDPSetting(addIdpSettingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountIdpSettings, "", "  ")
+			fmt.Println(string(b))
+
+			// end-add_idp_setting
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountIdpSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetIDPSetting - Get IdP setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetIDPSetting request example`, func() {
+			fmt.Println("\nGetIDPSetting() result:")
+			// begin-get_idp_setting
+
+			getIdpSettingOptions := iamIdentityService.NewGetIDPSettingOptions(
+				accountID,
+				idpID,
+			)
+
+			accountIdpSettings, response, err := iamIdentityService.GetIDPSetting(getIdpSettingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountIdpSettings, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_idp_setting
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountIdpSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateIDPSetting - Update IdP Setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateIDPSetting request example`, func() {
+			fmt.Println("\nUpdateIDPSetting() result:")
+			// begin-update_idp_setting
+
+			updateIdpSettingOptions := iamIdentityService.NewUpdateIDPSettingOptions(
+				accountID,
+				idpID,
+			)
+			updateIdpSettingOptions.SetCloudUserStrategy("STATIC")
+			updateIdpSettingOptions.SetActive(true)
+			updateIdpSettingOptions.SetUIDefault(false)
+
+			accountIdpSettings, response, err := iamIdentityService.UpdateIDPSetting(updateIdpSettingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountIdpSettings, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_idp_setting
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountIdpSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`RemoveIDPSetting - Remove IdP Setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`RemoveIDPSetting request example`, func() {
+			// begin-remove_idp_setting
+
+			removeIdpSettingOptions := iamIdentityService.NewRemoveIDPSettingOptions(
+				accountID,
+				idpID,
+			)
+
+			response, err := iamIdentityService.RemoveIDPSetting(removeIdpSettingOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-remove_idp_setting
+			fmt.Printf("\nRemoveIDPSetting() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteIdp - Delete IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteIdp request example`, func() {
+			// begin-delete_idp
+
+			deleteIdpOptions := iamIdentityService.NewDeleteIdpOptions(idpID)
+
+			response, err := iamIdentityService.DeleteIdp(deleteIdpOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_idp
+			fmt.Printf("\nDeleteIdp() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteProfile - Delete trusted profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
 		It(`DeleteProfile request example`, func() {
 			// begin-delete_profile

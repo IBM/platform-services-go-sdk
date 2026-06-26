@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.113.1-d76630af-20260320-135953
+ * IBM OpenAPI SDK Code Generator Version: 3.114.4-9b56d441-20260612-210048
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"regexp"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -6930,6 +6931,1271 @@ func (iamIdentity *IamIdentityV1) BulkListAccountEntityConsumptionWithContext(ct
 
 	return
 }
+
+// ListIdps : List IdPs
+func (iamIdentity *IamIdentityV1) ListIdps(listIdpsOptions *ListIdpsOptions) (result *ListIdpsResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.ListIdpsWithContext(context.Background(), listIdpsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListIdpsWithContext is an alternate form of the ListIdps method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListIdpsWithContext(ctx context.Context, listIdpsOptions *ListIdpsOptions) (result *ListIdpsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listIdpsOptions, "listIdpsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(listIdpsOptions, "listIdpsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListIdps")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listIdpsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("account_id", fmt.Sprint(*listIdpsOptions.AccountID))
+	if listIdpsOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*listIdpsOptions.IncludeHistory))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "listIdps", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListIdpsResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateIdp : Create IdP
+func (iamIdentity *IamIdentityV1) CreateIdp(createIdpOptions *CreateIdpOptions) (result *Idp, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.CreateIdpWithContext(context.Background(), createIdpOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreateIdpWithContext is an alternate form of the CreateIdp method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateIdpWithContext(ctx context.Context, createIdpOptions *CreateIdpOptions) (result *Idp, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createIdpOptions, "createIdpOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createIdpOptions, "createIdpOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateIdp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range createIdpOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if createIdpOptions.Automation != nil {
+		builder.AddQuery("automation", fmt.Sprint(*createIdpOptions.Automation))
+	}
+
+	body := make(map[string]interface{})
+	if createIdpOptions.AccountID != nil {
+		body["account_id"] = createIdpOptions.AccountID
+	}
+	if createIdpOptions.Name != nil {
+		body["name"] = createIdpOptions.Name
+	}
+	if createIdpOptions.Type != nil {
+		body["type"] = createIdpOptions.Type
+	}
+	if createIdpOptions.Active != nil {
+		body["active"] = createIdpOptions.Active
+	}
+	if createIdpOptions.Properties != nil {
+		body["properties"] = createIdpOptions.Properties
+	}
+	if createIdpOptions.Secrets != nil {
+		body["secrets"] = createIdpOptions.Secrets
+	}
+	if createIdpOptions.ShareScope != nil {
+		body["share_scope"] = createIdpOptions.ShareScope
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "createIdp", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalIdp)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetIdp : Get IdP
+func (iamIdentity *IamIdentityV1) GetIdp(getIdpOptions *GetIdpOptions) (result *Idp, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.GetIdpWithContext(context.Background(), getIdpOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetIdpWithContext is an alternate form of the GetIdp method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetIdpWithContext(ctx context.Context, getIdpOptions *GetIdpOptions) (result *Idp, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getIdpOptions, "getIdpOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getIdpOptions, "getIdpOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *getIdpOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetIdp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getIdpOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getIdpOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*getIdpOptions.IncludeHistory))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "getIdp", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalIdp)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateIdp : Update IdP
+func (iamIdentity *IamIdentityV1) UpdateIdp(updateIdpOptions *UpdateIdpOptions) (result *Idp, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.UpdateIdpWithContext(context.Background(), updateIdpOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateIdpWithContext is an alternate form of the UpdateIdp method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateIdpWithContext(ctx context.Context, updateIdpOptions *UpdateIdpOptions) (result *Idp, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateIdpOptions, "updateIdpOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateIdpOptions, "updateIdpOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *updateIdpOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateIdp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateIdpOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateIdpOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateIdpOptions.IfMatch))
+	}
+
+	if updateIdpOptions.ForceShareScopeUpdate != nil {
+		builder.AddQuery("force_share_scope_update", fmt.Sprint(*updateIdpOptions.ForceShareScopeUpdate))
+	}
+
+	body := make(map[string]interface{})
+	if updateIdpOptions.UISetupCompleted != nil {
+		body["ui_setup_completed"] = updateIdpOptions.UISetupCompleted
+	}
+	if updateIdpOptions.Name != nil {
+		body["name"] = updateIdpOptions.Name
+	}
+	if updateIdpOptions.Active != nil {
+		body["active"] = updateIdpOptions.Active
+	}
+	if updateIdpOptions.Properties != nil {
+		body["properties"] = updateIdpOptions.Properties
+	}
+	if updateIdpOptions.Secrets != nil {
+		body["secrets"] = updateIdpOptions.Secrets
+	}
+	if updateIdpOptions.ShareScope != nil {
+		body["share_scope"] = updateIdpOptions.ShareScope
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "updateIdp", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalIdp)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteIdp : Delete IdP
+func (iamIdentity *IamIdentityV1) DeleteIdp(deleteIdpOptions *DeleteIdpOptions) (response *core.DetailedResponse, err error) {
+	response, err = iamIdentity.DeleteIdpWithContext(context.Background(), deleteIdpOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteIdpWithContext is an alternate form of the DeleteIdp method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteIdpWithContext(ctx context.Context, deleteIdpOptions *DeleteIdpOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteIdpOptions, "deleteIdpOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteIdpOptions, "deleteIdpOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *deleteIdpOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteIdp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range deleteIdpOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "deleteIdp", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// ListConsumerAccounts : Get consumers of IdP
+func (iamIdentity *IamIdentityV1) ListConsumerAccounts(listConsumerAccountsOptions *ListConsumerAccountsOptions) (result *ConsumersResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.ListConsumerAccountsWithContext(context.Background(), listConsumerAccountsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListConsumerAccountsWithContext is an alternate form of the ListConsumerAccounts method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListConsumerAccountsWithContext(ctx context.Context, listConsumerAccountsOptions *ListConsumerAccountsOptions) (result *ConsumersResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listConsumerAccountsOptions, "listConsumerAccountsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(listConsumerAccountsOptions, "listConsumerAccountsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *listConsumerAccountsOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}/consumers`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListConsumerAccounts")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listConsumerAccountsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "listConsumerAccounts", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConsumersResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ExportSamlMetadata : Export SAML IdP metadata
+// Returns the Service Provider (SP) SAML metadata document for the specified Identity Provider.
+//
+// The generated metadata contains the SP entity ID, signing certificate, supported NameID formats, and Assertion
+// Consumer Service endpoints derived from the Identity Provider configuration.
+func (iamIdentity *IamIdentityV1) ExportSamlMetadata(exportSamlMetadataOptions *ExportSamlMetadataOptions) (result *string, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.ExportSamlMetadataWithContext(context.Background(), exportSamlMetadataOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ExportSamlMetadataWithContext is an alternate form of the ExportSamlMetadata method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ExportSamlMetadataWithContext(ctx context.Context, exportSamlMetadataOptions *ExportSamlMetadataOptions) (result *string, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(exportSamlMetadataOptions, "exportSamlMetadataOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(exportSamlMetadataOptions, "exportSamlMetadataOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *exportSamlMetadataOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}/saml/metadata`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ExportSamlMetadata")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range exportSamlMetadataOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "text/xml")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, &result)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "exportSamlMetadata", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// ImportSamlIdpMetadata : Import SAML IdP metadata
+// Import a metadata.xml originating from the federated SAML Identity Provider.
+func (iamIdentity *IamIdentityV1) ImportSamlIdpMetadata(importSamlIdpMetadataOptions *ImportSamlIdpMetadataOptions) (result *SamlMetadataImportResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.ImportSamlIdpMetadataWithContext(context.Background(), importSamlIdpMetadataOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ImportSamlIdpMetadataWithContext is an alternate form of the ImportSamlIdpMetadata method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ImportSamlIdpMetadataWithContext(ctx context.Context, importSamlIdpMetadataOptions *ImportSamlIdpMetadataOptions) (result *SamlMetadataImportResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(importSamlIdpMetadataOptions, "importSamlIdpMetadataOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(importSamlIdpMetadataOptions, "importSamlIdpMetadataOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *importSamlIdpMetadataOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}/saml/metadata`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ImportSamlIdpMetadata")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range importSamlIdpMetadataOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "text/xml")
+
+	if importSamlIdpMetadataOptions.ParseOnly != nil {
+		builder.AddQuery("parse_only", fmt.Sprint(*importSamlIdpMetadataOptions.ParseOnly))
+	}
+
+	_, err = builder.SetBodyContent("text/xml", nil, nil, importSamlIdpMetadataOptions.Body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "importSamlIdpMetadata", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSamlMetadataImportResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetIdpTestResult : Get IdP test results
+// Get IDP test record.
+func (iamIdentity *IamIdentityV1) GetIdpTestResult(getIdpTestResultOptions *GetIdpTestResultOptions) (result *TestResult, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.GetIdpTestResultWithContext(context.Background(), getIdpTestResultOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetIdpTestResultWithContext is an alternate form of the GetIdpTestResult method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetIdpTestResultWithContext(ctx context.Context, getIdpTestResultOptions *GetIdpTestResultOptions) (result *TestResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getIdpTestResultOptions, "getIdpTestResultOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getIdpTestResultOptions, "getIdpTestResultOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *getIdpTestResultOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}/test`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetIdpTestResult")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getIdpTestResultOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "getIdpTestResult", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTestResult)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// TestIdp : Trigger IdP configuration test
+func (iamIdentity *IamIdentityV1) TestIdp(testIdpOptions *TestIdpOptions) (result *TestTriggerResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.TestIdpWithContext(context.Background(), testIdpOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// TestIdpWithContext is an alternate form of the TestIdp method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) TestIdpWithContext(ctx context.Context, testIdpOptions *TestIdpOptions) (result *TestTriggerResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(testIdpOptions, "testIdpOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(testIdpOptions, "testIdpOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"idp_id": *testIdpOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/idps/{idp_id}/test`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "TestIdp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range testIdpOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "testIdp", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTestTriggerResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetLoginSettings : Get account login settings
+func (iamIdentity *IamIdentityV1) GetLoginSettings(getLoginSettingsOptions *GetLoginSettingsOptions) (result *AccountLoginSettings, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.GetLoginSettingsWithContext(context.Background(), getLoginSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetLoginSettingsWithContext is an alternate form of the GetLoginSettings method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetLoginSettingsWithContext(ctx context.Context, getLoginSettingsOptions *GetLoginSettingsOptions) (result *AccountLoginSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getLoginSettingsOptions, "getLoginSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getLoginSettingsOptions, "getLoginSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getLoginSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetLoginSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getLoginSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "getLoginSettings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountLoginSettings)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateLoginSettings : Update account login settings
+func (iamIdentity *IamIdentityV1) UpdateLoginSettings(updateLoginSettingsOptions *UpdateLoginSettingsOptions) (result *AccountLoginSettings, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.UpdateLoginSettingsWithContext(context.Background(), updateLoginSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateLoginSettingsWithContext is an alternate form of the UpdateLoginSettings method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateLoginSettingsWithContext(ctx context.Context, updateLoginSettingsOptions *UpdateLoginSettingsOptions) (result *AccountLoginSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateLoginSettingsOptions, "updateLoginSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateLoginSettingsOptions, "updateLoginSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *updateLoginSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateLoginSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateLoginSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateLoginSettingsOptions.Alias != nil {
+		body["alias"] = updateLoginSettingsOptions.Alias
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "updateLoginSettings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountLoginSettings)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListIDPSettings : List IdP Settings
+func (iamIdentity *IamIdentityV1) ListIDPSettings(listIDPSettingsOptions *ListIDPSettingsOptions) (result *ListIdpSettingsResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.ListIDPSettingsWithContext(context.Background(), listIDPSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListIDPSettingsWithContext is an alternate form of the ListIDPSettings method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListIDPSettingsWithContext(ctx context.Context, listIDPSettingsOptions *ListIDPSettingsOptions) (result *ListIdpSettingsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listIDPSettingsOptions, "listIDPSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(listIDPSettingsOptions, "listIDPSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *listIDPSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}/idps`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListIDPSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range listIDPSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("type", fmt.Sprint(*listIDPSettingsOptions.Type))
+	if listIDPSettingsOptions.IncludeIdpMetadata != nil {
+		builder.AddQuery("include_idp_metadata", fmt.Sprint(*listIDPSettingsOptions.IncludeIdpMetadata))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "listIdPSettings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListIdpSettingsResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetIDPSetting : Get IdP setting
+func (iamIdentity *IamIdentityV1) GetIDPSetting(getIDPSettingOptions *GetIDPSettingOptions) (result *AccountIdpSettings, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.GetIDPSettingWithContext(context.Background(), getIDPSettingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetIDPSettingWithContext is an alternate form of the GetIDPSetting method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetIDPSettingWithContext(ctx context.Context, getIDPSettingOptions *GetIDPSettingOptions) (result *AccountIdpSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getIDPSettingOptions, "getIDPSettingOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getIDPSettingOptions, "getIDPSettingOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getIDPSettingOptions.AccountID,
+		"idp_id":     *getIDPSettingOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetIDPSetting")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range getIDPSettingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "getIdPSetting", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountIdpSettings)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// AddIDPSetting : Add IdP Setting
+func (iamIdentity *IamIdentityV1) AddIDPSetting(addIDPSettingOptions *AddIDPSettingOptions) (result *AccountIdpSettings, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.AddIDPSettingWithContext(context.Background(), addIDPSettingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// AddIDPSettingWithContext is an alternate form of the AddIDPSetting method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) AddIDPSettingWithContext(ctx context.Context, addIDPSettingOptions *AddIDPSettingOptions) (result *AccountIdpSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(addIDPSettingOptions, "addIDPSettingOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(addIDPSettingOptions, "addIDPSettingOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *addIDPSettingOptions.AccountID,
+		"idp_id":     *addIDPSettingOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "AddIDPSetting")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range addIDPSettingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if addIDPSettingOptions.CloudUserStrategy != nil {
+		body["cloud_user_strategy"] = addIDPSettingOptions.CloudUserStrategy
+	}
+	if addIDPSettingOptions.Active != nil {
+		body["active"] = addIDPSettingOptions.Active
+	}
+	if addIDPSettingOptions.UIDefault != nil {
+		body["ui_default"] = addIDPSettingOptions.UIDefault
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "addIdPSetting", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountIdpSettings)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateIDPSetting : Update IdP Setting
+func (iamIdentity *IamIdentityV1) UpdateIDPSetting(updateIDPSettingOptions *UpdateIDPSettingOptions) (result *AccountIdpSettings, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.UpdateIDPSettingWithContext(context.Background(), updateIDPSettingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateIDPSettingWithContext is an alternate form of the UpdateIDPSetting method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateIDPSettingWithContext(ctx context.Context, updateIDPSettingOptions *UpdateIDPSettingOptions) (result *AccountIdpSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateIDPSettingOptions, "updateIDPSettingOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateIDPSettingOptions, "updateIDPSettingOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *updateIDPSettingOptions.AccountID,
+		"idp_id":     *updateIDPSettingOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateIDPSetting")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range updateIDPSettingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateIDPSettingOptions.CloudUserStrategy != nil {
+		body["cloud_user_strategy"] = updateIDPSettingOptions.CloudUserStrategy
+	}
+	if updateIDPSettingOptions.Active != nil {
+		body["active"] = updateIDPSettingOptions.Active
+	}
+	if updateIDPSettingOptions.UIDefault != nil {
+		body["ui_default"] = updateIDPSettingOptions.UIDefault
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "updateIdPSetting", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountIdpSettings)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// RemoveIDPSetting : Remove IdP Setting
+func (iamIdentity *IamIdentityV1) RemoveIDPSetting(removeIDPSettingOptions *RemoveIDPSettingOptions) (response *core.DetailedResponse, err error) {
+	response, err = iamIdentity.RemoveIDPSettingWithContext(context.Background(), removeIDPSettingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// RemoveIDPSettingWithContext is an alternate form of the RemoveIDPSetting method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) RemoveIDPSettingWithContext(ctx context.Context, removeIDPSettingOptions *RemoveIDPSettingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(removeIDPSettingOptions, "removeIDPSettingOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(removeIDPSettingOptions, "removeIDPSettingOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *removeIDPSettingOptions.AccountID,
+		"idp_id":     *removeIDPSettingOptions.IdpID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v2/loginsettings/{account_id}/idps/{idp_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "RemoveIDPSetting")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range removeIDPSettingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "removeIdPSetting", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0.0")
 }
@@ -6993,6 +8259,96 @@ func UnmarshalAccountBasedMfaEnrollment(m map[string]json.RawMessage, result int
 	err = core.UnmarshalPrimitive(m, "complies", &obj.Complies)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "complies-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AccountIdpSettings : AccountIdpSettings struct
+type AccountIdpSettings struct {
+	IdpID *string `json:"idp_id,omitempty"`
+
+	OwnerAccount *string `json:"owner_account,omitempty"`
+
+	OwnerAccountName *string `json:"owner_account_name,omitempty"`
+
+	IdpName *string `json:"idp_name,omitempty"`
+
+	IdpType *string `json:"idp_type,omitempty"`
+
+	CloudUserStrategy *string `json:"cloud_user_strategy,omitempty"`
+
+	Active *bool `json:"active,omitempty"`
+
+	UIDefault *bool `json:"ui_default,omitempty"`
+}
+
+// Constants associated with the AccountIdpSettings.CloudUserStrategy property.
+const (
+	AccountIdpSettingsCloudUserStrategyDynamicConst = "DYNAMIC"
+	AccountIdpSettingsCloudUserStrategyNeverConst   = "NEVER"
+	AccountIdpSettingsCloudUserStrategyStaticConst  = "STATIC"
+)
+
+// UnmarshalAccountIdpSettings unmarshals an instance of AccountIdpSettings from the specified map of raw messages.
+func UnmarshalAccountIdpSettings(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountIdpSettings)
+	err = core.UnmarshalPrimitive(m, "idp_id", &obj.IdpID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "owner_account", &obj.OwnerAccount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "owner_account-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "owner_account_name", &obj.OwnerAccountName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "owner_account_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_name", &obj.IdpName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_type", &obj.IdpType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cloud_user_strategy", &obj.CloudUserStrategy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cloud_user_strategy-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "active-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_default", &obj.UIDefault)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_default-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AccountLoginSettings : AccountLoginSettings struct
+type AccountLoginSettings struct {
+	Alias *string `json:"alias,omitempty"`
+}
+
+// UnmarshalAccountLoginSettings unmarshals an instance of AccountLoginSettings from the specified map of raw messages.
+func UnmarshalAccountLoginSettings(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountLoginSettings)
+	err = core.UnmarshalPrimitive(m, "alias", &obj.Alias)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "alias-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8123,6 +9479,82 @@ func UnmarshalActivity(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
+// AddIDPSettingOptions : The AddIDPSetting options.
+type AddIDPSettingOptions struct {
+	// Account which is bound to the IDP.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Identity provider ID.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Strategy how Cloud User representives for the IdP users are handled.
+	CloudUserStrategy *string `json:"cloud_user_strategy" validate:"required"`
+
+	// Specifies if the IdP is enabled for usage in the given account context.
+	Active *bool `json:"active" validate:"required"`
+
+	// Specifies if the IdP is used as default in the given account context.
+	UIDefault *bool `json:"ui_default" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the AddIDPSettingOptions.CloudUserStrategy property.
+// Strategy how Cloud User representives for the IdP users are handled.
+const (
+	AddIDPSettingOptionsCloudUserStrategyDynamicConst = "DYNAMIC"
+	AddIDPSettingOptionsCloudUserStrategyNeverConst   = "NEVER"
+	AddIDPSettingOptionsCloudUserStrategyStaticConst  = "STATIC"
+)
+
+// NewAddIDPSettingOptions : Instantiate AddIDPSettingOptions
+func (*IamIdentityV1) NewAddIDPSettingOptions(accountID string, idpID string, cloudUserStrategy string, active bool, uiDefault bool) *AddIDPSettingOptions {
+	return &AddIDPSettingOptions{
+		AccountID:         core.StringPtr(accountID),
+		IdpID:             core.StringPtr(idpID),
+		CloudUserStrategy: core.StringPtr(cloudUserStrategy),
+		Active:            core.BoolPtr(active),
+		UIDefault:         core.BoolPtr(uiDefault),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *AddIDPSettingOptions) SetAccountID(accountID string) *AddIDPSettingOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *AddIDPSettingOptions) SetIdpID(idpID string) *AddIDPSettingOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetCloudUserStrategy : Allow user to set CloudUserStrategy
+func (_options *AddIDPSettingOptions) SetCloudUserStrategy(cloudUserStrategy string) *AddIDPSettingOptions {
+	_options.CloudUserStrategy = core.StringPtr(cloudUserStrategy)
+	return _options
+}
+
+// SetActive : Allow user to set Active
+func (_options *AddIDPSettingOptions) SetActive(active bool) *AddIDPSettingOptions {
+	_options.Active = core.BoolPtr(active)
+	return _options
+}
+
+// SetUIDefault : Allow user to set UIDefault
+func (_options *AddIDPSettingOptions) SetUIDefault(uiDefault bool) *AddIDPSettingOptions {
+	_options.UIDefault = core.BoolPtr(uiDefault)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *AddIDPSettingOptions) SetHeaders(param map[string]string) *AddIDPSettingOptions {
+	options.Headers = param
+	return options
+}
+
 // APIKey : Response body format for API key V1 REST requests.
 type APIKey struct {
 	// Context with key properties for problem determination.
@@ -8816,6 +10248,54 @@ func (options *CommitProfileTemplateOptions) SetHeaders(param map[string]string)
 	return options
 }
 
+// ConsumersResponse : ConsumersResponse struct
+type ConsumersResponse struct {
+	IdpID *string `json:"idp_id,omitempty"`
+
+	Consumers []ConsumersResponseConsumersItem `json:"consumers,omitempty"`
+}
+
+// UnmarshalConsumersResponse unmarshals an instance of ConsumersResponse from the specified map of raw messages.
+func UnmarshalConsumersResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConsumersResponse)
+	err = core.UnmarshalPrimitive(m, "idp_id", &obj.IdpID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "consumers", &obj.Consumers, UnmarshalConsumersResponseConsumersItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "consumers-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ConsumersResponseConsumersItem : ConsumersResponseConsumersItem struct
+type ConsumersResponseConsumersItem struct {
+	AccountID *string `json:"account_id,omitempty"`
+
+	ShareScope []ShareScope `json:"share_scope,omitempty"`
+}
+
+// UnmarshalConsumersResponseConsumersItem unmarshals an instance of ConsumersResponseConsumersItem from the specified map of raw messages.
+func UnmarshalConsumersResponseConsumersItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConsumersResponseConsumersItem)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "share_scope", &obj.ShareScope, UnmarshalShareScope)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "share_scope-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateAccountSettingsAssignmentOptions : The CreateAccountSettingsAssignment options.
 type CreateAccountSettingsAssignmentOptions struct {
 	// ID of the template to assign.
@@ -9222,6 +10702,477 @@ func (_options *CreateClaimRuleOptions) SetExpiration(expiration int64) *CreateC
 func (options *CreateClaimRuleOptions) SetHeaders(param map[string]string) *CreateClaimRuleOptions {
 	options.Headers = param
 	return options
+}
+
+// CreateIdpOptions : The CreateIdp options.
+type CreateIdpOptions struct {
+	// Account where the IdP resides in.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Speaking name of the Identity Provider.
+	Name *string `json:"name" validate:"required"`
+
+	// Type of the IDP.
+	Type *string `json:"type" validate:"required"`
+
+	// Defines if the IDP is active (enabled) for all accounts (including those who consumed the IdP). Default during
+	// creation is true.
+	Active *bool `json:"active,omitempty"`
+
+	// Properties of the IDP. Will be stored plain-text.
+	Properties *CreateIdpRequestProperties `json:"properties,omitempty"`
+
+	// Secrets of the IDP. Will be stored encrypted.
+	Secrets *CreateIdpRequestSecrets `json:"secrets,omitempty"`
+
+	// List of targets which can consume the IdP.
+	ShareScope []ShareScope `json:"share_scope,omitempty"`
+
+	// boolean to flag if IdP is created via automation.
+	Automation *string `json:"automation,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the CreateIdpOptions.Type property.
+// Type of the IDP.
+const (
+	CreateIdpOptionsTypeAppidConst = "appid"
+	CreateIdpOptionsTypeLdapConst  = "ldap"
+	CreateIdpOptionsTypeSamlConst  = "saml"
+)
+
+// NewCreateIdpOptions : Instantiate CreateIdpOptions
+func (*IamIdentityV1) NewCreateIdpOptions(accountID string, name string, typeVar string) *CreateIdpOptions {
+	return &CreateIdpOptions{
+		AccountID: core.StringPtr(accountID),
+		Name:      core.StringPtr(name),
+		Type:      core.StringPtr(typeVar),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *CreateIdpOptions) SetAccountID(accountID string) *CreateIdpOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateIdpOptions) SetName(name string) *CreateIdpOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *CreateIdpOptions) SetType(typeVar string) *CreateIdpOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetActive : Allow user to set Active
+func (_options *CreateIdpOptions) SetActive(active bool) *CreateIdpOptions {
+	_options.Active = core.BoolPtr(active)
+	return _options
+}
+
+// SetProperties : Allow user to set Properties
+func (_options *CreateIdpOptions) SetProperties(properties *CreateIdpRequestProperties) *CreateIdpOptions {
+	_options.Properties = properties
+	return _options
+}
+
+// SetSecrets : Allow user to set Secrets
+func (_options *CreateIdpOptions) SetSecrets(secrets *CreateIdpRequestSecrets) *CreateIdpOptions {
+	_options.Secrets = secrets
+	return _options
+}
+
+// SetShareScope : Allow user to set ShareScope
+func (_options *CreateIdpOptions) SetShareScope(shareScope []ShareScope) *CreateIdpOptions {
+	_options.ShareScope = shareScope
+	return _options
+}
+
+// SetAutomation : Allow user to set Automation
+func (_options *CreateIdpOptions) SetAutomation(automation string) *CreateIdpOptions {
+	_options.Automation = core.StringPtr(automation)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateIdpOptions) SetHeaders(param map[string]string) *CreateIdpOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateIdpRequestProperties : Properties of the IDP. Will be stored plain-text.
+type CreateIdpRequestProperties struct {
+	// Identity Provider configuration.
+	Idp *CreateIdpRequestPropertiesIdp `json:"idp,omitempty"`
+
+	// Service Provider configuration.
+	Sp *CreateIdpRequestPropertiesSp `json:"sp,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestProperties unmarshals an instance of CreateIdpRequestProperties from the specified map of raw messages.
+func UnmarshalCreateIdpRequestProperties(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestProperties)
+	err = core.UnmarshalModel(m, "idp", &obj.Idp, UnmarshalCreateIdpRequestPropertiesIdp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "sp", &obj.Sp, UnmarshalCreateIdpRequestPropertiesSp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sp-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestPropertiesIdp : Identity Provider configuration.
+type CreateIdpRequestPropertiesIdp struct {
+	// Flag indicating if IdP should be imported from metadata.xml.
+	XMLImport *bool `json:"xml_import,omitempty"`
+
+	// SAML IDP entity ID (required when not using xml_import).
+	EntityID *string `json:"entity_id,omitempty"`
+
+	// Redirect binding URL (required when not using xml_import).
+	RedirectBindingURL *string `json:"redirect_binding_url,omitempty"`
+
+	// Indicates if IDP wants requests to be signed.
+	WantRequestSigned *bool `json:"want_request_signed,omitempty"`
+
+	// SAML IDP logout URL (optional).
+	LogoutURL *string `json:"logout_url,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestPropertiesIdp unmarshals an instance of CreateIdpRequestPropertiesIdp from the specified map of raw messages.
+func UnmarshalCreateIdpRequestPropertiesIdp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestPropertiesIdp)
+	err = core.UnmarshalPrimitive(m, "xml_import", &obj.XMLImport)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "xml_import-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_id", &obj.EntityID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "redirect_binding_url", &obj.RedirectBindingURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "redirect_binding_url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "want_request_signed", &obj.WantRequestSigned)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "want_request_signed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "logout_url", &obj.LogoutURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "logout_url-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestPropertiesSp : Service Provider configuration.
+type CreateIdpRequestPropertiesSp struct {
+	// Indicates if SP wants assertions to be signed.
+	WantAssertionSigned *bool `json:"want_assertion_signed,omitempty"`
+
+	// Indicates if SP wants responses to be signed.
+	WantResponseSigned *bool `json:"want_response_signed,omitempty"`
+
+	// Indicates if responses should be encrypted.
+	EncryptResponse *bool `json:"encrypt_response,omitempty"`
+
+	// Enables IDP-initiated login.
+	IdpInitiatedLoginEnabled *bool `json:"idp_initiated_login_enabled,omitempty"`
+
+	// Enables logout URL when available.
+	LogoutURLEnabledWhenAvailable *bool `json:"logout_url_enabled_when_available,omitempty"`
+
+	// URLs for IDP-initiated login (only when IdP initiated login is used).
+	IdpInitiatedUrls []string `json:"idp_initiated_urls,omitempty"`
+
+	// Authentication context configuration (can be left empty to apply default).
+	AuthnContext *CreateIdpRequestPropertiesSpAuthnContext `json:"authn_context,omitempty"`
+
+	// Custom mapping between SAML assertions and IAM claims (can be left empty when no custom mapping is needed).
+	Claims map[string]string `json:"claims,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestPropertiesSp unmarshals an instance of CreateIdpRequestPropertiesSp from the specified map of raw messages.
+func UnmarshalCreateIdpRequestPropertiesSp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestPropertiesSp)
+	err = core.UnmarshalPrimitive(m, "want_assertion_signed", &obj.WantAssertionSigned)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "want_assertion_signed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "want_response_signed", &obj.WantResponseSigned)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "want_response_signed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "encrypt_response", &obj.EncryptResponse)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "encrypt_response-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_initiated_login_enabled", &obj.IdpInitiatedLoginEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_initiated_login_enabled-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "logout_url_enabled_when_available", &obj.LogoutURLEnabledWhenAvailable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "logout_url_enabled_when_available-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_initiated_urls", &obj.IdpInitiatedUrls)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_initiated_urls-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "authn_context", &obj.AuthnContext, UnmarshalCreateIdpRequestPropertiesSpAuthnContext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "authn_context-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "claims", &obj.Claims)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "claims-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestPropertiesSpAuthnContext : Authentication context configuration (can be left empty to apply default).
+type CreateIdpRequestPropertiesSpAuthnContext struct {
+	// Requested authentication context classes.
+	Request []string `json:"request,omitempty"`
+
+	// Accepted authentication context classes.
+	Accept []string `json:"accept,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestPropertiesSpAuthnContext unmarshals an instance of CreateIdpRequestPropertiesSpAuthnContext from the specified map of raw messages.
+func UnmarshalCreateIdpRequestPropertiesSpAuthnContext(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestPropertiesSpAuthnContext)
+	err = core.UnmarshalPrimitive(m, "request", &obj.Request)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "request-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "accept", &obj.Accept)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "accept-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestSecrets : Secrets of the IDP. Will be stored encrypted.
+type CreateIdpRequestSecrets struct {
+	// Identity Provider secrets.
+	Idp *CreateIdpRequestSecretsIdp `json:"idp,omitempty"`
+
+	// Service Provider secrets (can be left empty to auto-generate SP certs).
+	Sp *CreateIdpRequestSecretsSp `json:"sp,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestSecrets unmarshals an instance of CreateIdpRequestSecrets from the specified map of raw messages.
+func UnmarshalCreateIdpRequestSecrets(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestSecrets)
+	err = core.UnmarshalModel(m, "idp", &obj.Idp, UnmarshalCreateIdpRequestSecretsIdp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "sp", &obj.Sp, UnmarshalCreateIdpRequestSecretsSp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sp-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestSecretsIdp : Identity Provider secrets.
+type CreateIdpRequestSecretsIdp struct {
+	// Flag indicating if secrets should be imported from metadata.xml.
+	XMLImport *bool `json:"xml_import,omitempty"`
+
+	// IDP signing certificates (required when not using xml_import).
+	Signing []CreateIdpRequestSecretsIdpSigningItem `json:"signing,omitempty"`
+
+	// IDP encrypting certificates (optional).
+	Encrypting []CreateIdpRequestSecretsIdpEncryptingItem `json:"encrypting,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestSecretsIdp unmarshals an instance of CreateIdpRequestSecretsIdp from the specified map of raw messages.
+func UnmarshalCreateIdpRequestSecretsIdp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestSecretsIdp)
+	err = core.UnmarshalPrimitive(m, "xml_import", &obj.XMLImport)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "xml_import-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "signing", &obj.Signing, UnmarshalCreateIdpRequestSecretsIdpSigningItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "signing-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "encrypting", &obj.Encrypting, UnmarshalCreateIdpRequestSecretsIdpEncryptingItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "encrypting-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestSecretsIdpEncryptingItem : CreateIdpRequestSecretsIdpEncryptingItem struct
+type CreateIdpRequestSecretsIdpEncryptingItem struct {
+	// Certificate value.
+	Value *string `json:"value,omitempty"`
+
+	// Certificate type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the CreateIdpRequestSecretsIdpEncryptingItem.Type property.
+// Certificate type.
+const (
+	CreateIdpRequestSecretsIdpEncryptingItemTypePrimaryConst   = "primary"
+	CreateIdpRequestSecretsIdpEncryptingItemTypeSecondaryConst = "secondary"
+)
+
+// UnmarshalCreateIdpRequestSecretsIdpEncryptingItem unmarshals an instance of CreateIdpRequestSecretsIdpEncryptingItem from the specified map of raw messages.
+func UnmarshalCreateIdpRequestSecretsIdpEncryptingItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestSecretsIdpEncryptingItem)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestSecretsIdpSigningItem : CreateIdpRequestSecretsIdpSigningItem struct
+type CreateIdpRequestSecretsIdpSigningItem struct {
+	// Certificate value in PEM format.
+	Value *string `json:"value,omitempty"`
+
+	// Certificate type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the CreateIdpRequestSecretsIdpSigningItem.Type property.
+// Certificate type.
+const (
+	CreateIdpRequestSecretsIdpSigningItemTypePrimaryConst   = "primary"
+	CreateIdpRequestSecretsIdpSigningItemTypeSecondaryConst = "secondary"
+)
+
+// UnmarshalCreateIdpRequestSecretsIdpSigningItem unmarshals an instance of CreateIdpRequestSecretsIdpSigningItem from the specified map of raw messages.
+func UnmarshalCreateIdpRequestSecretsIdpSigningItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestSecretsIdpSigningItem)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestSecretsSp : Service Provider secrets (can be left empty to auto-generate SP certs).
+type CreateIdpRequestSecretsSp struct {
+	// SP signing certificates.
+	Signing []CreateIdpRequestSecretsSpSigningItem `json:"signing,omitempty"`
+}
+
+// UnmarshalCreateIdpRequestSecretsSp unmarshals an instance of CreateIdpRequestSecretsSp from the specified map of raw messages.
+func UnmarshalCreateIdpRequestSecretsSp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestSecretsSp)
+	err = core.UnmarshalModel(m, "signing", &obj.Signing, UnmarshalCreateIdpRequestSecretsSpSigningItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "signing-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateIdpRequestSecretsSpSigningItem : CreateIdpRequestSecretsSpSigningItem struct
+type CreateIdpRequestSecretsSpSigningItem struct {
+	// Certificate value in PEM format.
+	CertificateValue *string `json:"certificate_value,omitempty"`
+
+	// Private key value.
+	KeyValue *string `json:"key_value,omitempty"`
+
+	// Key encoding format (e.g., pkcs8).
+	KeyEncoding *string `json:"key_encoding,omitempty"`
+
+	// Certificate type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the CreateIdpRequestSecretsSpSigningItem.Type property.
+// Certificate type.
+const (
+	CreateIdpRequestSecretsSpSigningItemTypePrimaryConst   = "primary"
+	CreateIdpRequestSecretsSpSigningItemTypeSecondaryConst = "secondary"
+)
+
+// UnmarshalCreateIdpRequestSecretsSpSigningItem unmarshals an instance of CreateIdpRequestSecretsSpSigningItem from the specified map of raw messages.
+func UnmarshalCreateIdpRequestSecretsSpSigningItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateIdpRequestSecretsSpSigningItem)
+	err = core.UnmarshalPrimitive(m, "certificate_value", &obj.CertificateValue)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "certificate_value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "key_value", &obj.KeyValue)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "key_value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "key_encoding", &obj.KeyEncoding)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "key_encoding-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // CreateLinkOptions : The CreateLink options.
@@ -10045,6 +11996,34 @@ func (options *DeleteClaimRuleOptions) SetHeaders(param map[string]string) *Dele
 	return options
 }
 
+// DeleteIdpOptions : The DeleteIdp options.
+type DeleteIdpOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewDeleteIdpOptions : Instantiate DeleteIdpOptions
+func (*IamIdentityV1) NewDeleteIdpOptions(idpID string) *DeleteIdpOptions {
+	return &DeleteIdpOptions{
+		IdpID: core.StringPtr(idpID),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *DeleteIdpOptions) SetIdpID(idpID string) *DeleteIdpOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteIdpOptions) SetHeaders(param map[string]string) *DeleteIdpOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteLinkByParametersOptions : The DeleteLinkByParameters options.
 type DeleteLinkByParametersOptions struct {
 	// The unique ID of the Trusted Profile.
@@ -10713,6 +12692,34 @@ func UnmarshalExceptionResponse(m map[string]json.RawMessage, result interface{}
 	return
 }
 
+// ExportSamlMetadataOptions : The ExportSamlMetadata options.
+type ExportSamlMetadataOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewExportSamlMetadataOptions : Instantiate ExportSamlMetadataOptions
+func (*IamIdentityV1) NewExportSamlMetadataOptions(idpID string) *ExportSamlMetadataOptions {
+	return &ExportSamlMetadataOptions{
+		IdpID: core.StringPtr(idpID),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *ExportSamlMetadataOptions) SetIdpID(idpID string) *ExportSamlMetadataOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ExportSamlMetadataOptions) SetHeaders(param map[string]string) *ExportSamlMetadataOptions {
+	options.Headers = param
+	return options
+}
+
 // GetAccountLimitsOptions : The GetAccountLimits options.
 type GetAccountLimitsOptions struct {
 	// Unique ID of the account.
@@ -11192,6 +13199,109 @@ func (options *GetEffectiveAccountSettingsOptions) SetHeaders(param map[string]s
 	return options
 }
 
+// GetIDPSettingOptions : The GetIDPSetting options.
+type GetIDPSettingOptions struct {
+	// Account which is bound to the IDP.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Identity provider ID.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetIDPSettingOptions : Instantiate GetIDPSettingOptions
+func (*IamIdentityV1) NewGetIDPSettingOptions(accountID string, idpID string) *GetIDPSettingOptions {
+	return &GetIDPSettingOptions{
+		AccountID: core.StringPtr(accountID),
+		IdpID:     core.StringPtr(idpID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetIDPSettingOptions) SetAccountID(accountID string) *GetIDPSettingOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *GetIDPSettingOptions) SetIdpID(idpID string) *GetIDPSettingOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetIDPSettingOptions) SetHeaders(param map[string]string) *GetIDPSettingOptions {
+	options.Headers = param
+	return options
+}
+
+// GetIdpOptions : The GetIdp options.
+type GetIdpOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// include history of the idp.
+	IncludeHistory *string `json:"include_history,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetIdpOptions : Instantiate GetIdpOptions
+func (*IamIdentityV1) NewGetIdpOptions(idpID string) *GetIdpOptions {
+	return &GetIdpOptions{
+		IdpID: core.StringPtr(idpID),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *GetIdpOptions) SetIdpID(idpID string) *GetIdpOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetIncludeHistory : Allow user to set IncludeHistory
+func (_options *GetIdpOptions) SetIncludeHistory(includeHistory string) *GetIdpOptions {
+	_options.IncludeHistory = core.StringPtr(includeHistory)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetIdpOptions) SetHeaders(param map[string]string) *GetIdpOptions {
+	options.Headers = param
+	return options
+}
+
+// GetIdpTestResultOptions : The GetIdpTestResult options.
+type GetIdpTestResultOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetIdpTestResultOptions : Instantiate GetIdpTestResultOptions
+func (*IamIdentityV1) NewGetIdpTestResultOptions(idpID string) *GetIdpTestResultOptions {
+	return &GetIdpTestResultOptions{
+		IdpID: core.StringPtr(idpID),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *GetIdpTestResultOptions) SetIdpID(idpID string) *GetIdpTestResultOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetIdpTestResultOptions) SetHeaders(param map[string]string) *GetIdpTestResultOptions {
+	options.Headers = param
+	return options
+}
+
 // GetLatestAccountSettingsTemplateVersionOptions : The GetLatestAccountSettingsTemplateVersion options.
 type GetLatestAccountSettingsTemplateVersionOptions struct {
 	// ID of the account settings template.
@@ -11300,6 +13410,34 @@ func (_options *GetLinkOptions) SetLinkID(linkID string) *GetLinkOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *GetLinkOptions) SetHeaders(param map[string]string) *GetLinkOptions {
+	options.Headers = param
+	return options
+}
+
+// GetLoginSettingsOptions : The GetLoginSettings options.
+type GetLoginSettingsOptions struct {
+	// Account which is bound to the alias.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetLoginSettingsOptions : Instantiate GetLoginSettingsOptions
+func (*IamIdentityV1) NewGetLoginSettingsOptions(accountID string) *GetLoginSettingsOptions {
+	return &GetLoginSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetLoginSettingsOptions) SetAccountID(accountID string) *GetLoginSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetLoginSettingsOptions) SetHeaders(param map[string]string) *GetLoginSettingsOptions {
 	options.Headers = param
 	return options
 }
@@ -12319,6 +14457,178 @@ func UnmarshalIdentityPreferencesResponse(m map[string]json.RawMessage, result i
 	return
 }
 
+// Idp : Idp struct
+type Idp struct {
+	IdpID *string `json:"idp_id,omitempty"`
+
+	EntityTag *string `json:"entity_tag,omitempty"`
+
+	AccountID *string `json:"account_id,omitempty"`
+
+	Name *string `json:"name,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+
+	Properties map[string]interface{} `json:"properties,omitempty"`
+
+	Secrets map[string]interface{} `json:"secrets,omitempty"`
+
+	ShareScope []ShareScope `json:"share_scope,omitempty"`
+
+	Active *bool `json:"active,omitempty"`
+
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	ModifiedAt *strfmt.DateTime `json:"modified_at,omitempty"`
+}
+
+// UnmarshalIdp unmarshals an instance of Idp from the specified map of raw messages.
+func UnmarshalIdp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Idp)
+	err = core.UnmarshalPrimitive(m, "idp_id", &obj.IdpID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "properties", &obj.Properties)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "secrets", &obj.Secrets)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "secrets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "share_scope", &obj.ShareScope, UnmarshalShareScope)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "share_scope-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "active-error", common.GetComponentInfo())
+		return
+	}
+	err = UnmarshalTimestamp(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = UnmarshalTimestamp(m, "modified_at", &obj.ModifiedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "modified_at-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// unmarshal fix temporary
+func UnmarshalTimestamp(
+	m map[string]json.RawMessage,
+	field string,
+	target **strfmt.DateTime,
+) error {
+
+	// First try the normal SDK behavior.
+	if err := core.UnmarshalPrimitive(m, field, target); err == nil {
+		return nil
+	}
+
+	// Fallback for legacy IAM timestamp format.
+	raw, ok := m[field]
+	if !ok {
+		return nil
+	}
+
+	var ts string
+	if err := json.Unmarshal(raw, &ts); err != nil {
+		return err
+	}
+
+	ts = NormalizeTimestamp(ts)
+
+	dt, err := strfmt.ParseDateTime(ts)
+	if err != nil {
+		return err
+	}
+
+	*target = &dt
+	return nil
+}
+
+func NormalizeTimestamp(ts string) string {
+	re := regexp.MustCompile(`^(.*T\d{2}:\d{2}:\d{2}):(\d{3})([+-]\d{2})(\d{2})$`)
+	return re.ReplaceAllString(ts, `$1.$2$3:$4`)
+}
+
+// ImportSamlIdpMetadataOptions : The ImportSamlIdpMetadata options.
+type ImportSamlIdpMetadataOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	Body *string `json:"body" validate:"required"`
+
+	// If true, validates and parses the metadata without updating the Identity Provider.
+	ParseOnly *bool `json:"parse_only,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewImportSamlIdpMetadataOptions : Instantiate ImportSamlIdpMetadataOptions
+func (*IamIdentityV1) NewImportSamlIdpMetadataOptions(idpID string, body string) *ImportSamlIdpMetadataOptions {
+	return &ImportSamlIdpMetadataOptions{
+		IdpID: core.StringPtr(idpID),
+		Body:  core.StringPtr(body),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *ImportSamlIdpMetadataOptions) SetIdpID(idpID string) *ImportSamlIdpMetadataOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetBody : Allow user to set Body
+func (_options *ImportSamlIdpMetadataOptions) SetBody(body string) *ImportSamlIdpMetadataOptions {
+	_options.Body = core.StringPtr(body)
+	return _options
+}
+
+// SetParseOnly : Allow user to set ParseOnly
+func (_options *ImportSamlIdpMetadataOptions) SetParseOnly(parseOnly bool) *ImportSamlIdpMetadataOptions {
+	_options.ParseOnly = core.BoolPtr(parseOnly)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ImportSamlIdpMetadataOptions) SetHeaders(param map[string]string) *ImportSamlIdpMetadataOptions {
+	options.Headers = param
+	return options
+}
+
 // LimitCount : Limit and current usage count for a resource.
 type LimitCount struct {
 	// Maximum allowed value for the resource.
@@ -12730,6 +15040,159 @@ func (_options *ListClaimRulesOptions) SetProfileID(profileID string) *ListClaim
 func (options *ListClaimRulesOptions) SetHeaders(param map[string]string) *ListClaimRulesOptions {
 	options.Headers = param
 	return options
+}
+
+// ListConsumerAccountsOptions : The ListConsumerAccounts options.
+type ListConsumerAccountsOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListConsumerAccountsOptions : Instantiate ListConsumerAccountsOptions
+func (*IamIdentityV1) NewListConsumerAccountsOptions(idpID string) *ListConsumerAccountsOptions {
+	return &ListConsumerAccountsOptions{
+		IdpID: core.StringPtr(idpID),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *ListConsumerAccountsOptions) SetIdpID(idpID string) *ListConsumerAccountsOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListConsumerAccountsOptions) SetHeaders(param map[string]string) *ListConsumerAccountsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListIdpSettingsResponse : ListIdpSettingsResponse struct
+type ListIdpSettingsResponse struct {
+	Idps []AccountIdpSettings `json:"idps,omitempty"`
+}
+
+// UnmarshalListIdpSettingsResponse unmarshals an instance of ListIdpSettingsResponse from the specified map of raw messages.
+func UnmarshalListIdpSettingsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListIdpSettingsResponse)
+	err = core.UnmarshalModel(m, "idps", &obj.Idps, UnmarshalAccountIdpSettings)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idps-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ListIDPSettingsOptions : The ListIDPSettings options.
+type ListIDPSettingsOptions struct {
+	// Account which is bound to the IDP.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Type of IDP.
+	Type *string `json:"type" validate:"required"`
+
+	// Flag if meta-information about account and idp should be included.
+	IncludeIdpMetadata *string `json:"include_idp_metadata,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the ListIDPSettingsOptions.Type property.
+// Type of IDP.
+const (
+	ListIDPSettingsOptionsTypeConsumableConst = "consumable"
+	ListIDPSettingsOptionsTypeConsumedConst   = "consumed"
+)
+
+// NewListIDPSettingsOptions : Instantiate ListIDPSettingsOptions
+func (*IamIdentityV1) NewListIDPSettingsOptions(accountID string, typeVar string) *ListIDPSettingsOptions {
+	return &ListIDPSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+		Type:      core.StringPtr(typeVar),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *ListIDPSettingsOptions) SetAccountID(accountID string) *ListIDPSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *ListIDPSettingsOptions) SetType(typeVar string) *ListIDPSettingsOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetIncludeIdpMetadata : Allow user to set IncludeIdpMetadata
+func (_options *ListIDPSettingsOptions) SetIncludeIdpMetadata(includeIdpMetadata string) *ListIDPSettingsOptions {
+	_options.IncludeIdpMetadata = core.StringPtr(includeIdpMetadata)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListIDPSettingsOptions) SetHeaders(param map[string]string) *ListIDPSettingsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListIdpsOptions : The ListIdps options.
+type ListIdpsOptions struct {
+	// Account id to query.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// include history of the idp.
+	IncludeHistory *string `json:"include_history,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListIdpsOptions : Instantiate ListIdpsOptions
+func (*IamIdentityV1) NewListIdpsOptions(accountID string) *ListIdpsOptions {
+	return &ListIdpsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *ListIdpsOptions) SetAccountID(accountID string) *ListIdpsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIncludeHistory : Allow user to set IncludeHistory
+func (_options *ListIdpsOptions) SetIncludeHistory(includeHistory string) *ListIdpsOptions {
+	_options.IncludeHistory = core.StringPtr(includeHistory)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListIdpsOptions) SetHeaders(param map[string]string) *ListIdpsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListIdpsResponse : ListIdpsResponse struct
+type ListIdpsResponse struct {
+	Idps []Idp `json:"idps,omitempty"`
+}
+
+// UnmarshalListIdpsResponse unmarshals an instance of ListIdpsResponse from the specified map of raw messages.
+func UnmarshalListIdpsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListIdpsResponse)
+	err = core.UnmarshalModel(m, "idps", &obj.Idps, UnmarshalIdp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idps-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // ListLinksOptions : The ListLinks options.
@@ -14004,6 +16467,44 @@ func UnmarshalProfileLinkList(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
+// RemoveIDPSettingOptions : The RemoveIDPSetting options.
+type RemoveIDPSettingOptions struct {
+	// Account which is bound to the IDP.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Identity provider ID.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewRemoveIDPSettingOptions : Instantiate RemoveIDPSettingOptions
+func (*IamIdentityV1) NewRemoveIDPSettingOptions(accountID string, idpID string) *RemoveIDPSettingOptions {
+	return &RemoveIDPSettingOptions{
+		AccountID: core.StringPtr(accountID),
+		IdpID:     core.StringPtr(idpID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *RemoveIDPSettingOptions) SetAccountID(accountID string) *RemoveIDPSettingOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *RemoveIDPSettingOptions) SetIdpID(idpID string) *RemoveIDPSettingOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *RemoveIDPSettingOptions) SetHeaders(param map[string]string) *RemoveIDPSettingOptions {
+	options.Headers = param
+	return options
+}
+
 // Report : Report struct
 type Report struct {
 	// IAMid of the user who triggered the report.
@@ -14254,6 +16755,126 @@ func UnmarshalResponseContext(m map[string]json.RawMessage, result interface{}) 
 	err = core.UnmarshalPrimitive(m, "cluster_name", &obj.ClusterName)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cluster_name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SamlMetadataImportResponse : SamlMetadataImportResponse struct
+type SamlMetadataImportResponse struct {
+	// Realm ID of the Identity Provider.
+	IdpID *string `json:"idp_id" validate:"required"`
+
+	// Version information used for optimistic locking.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// Creation timestamp.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// Last modification timestamp.
+	ModifiedAt *strfmt.DateTime `json:"modified_at" validate:"required"`
+
+	// Account that owns the Identity Provider.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// User-friendly name of the Identity Provider.
+	Name *string `json:"name" validate:"required"`
+
+	Type *string `json:"type" validate:"required"`
+
+	// Type-specific Identity Provider configuration.
+	Properties map[string]interface{} `json:"properties" validate:"required"`
+
+	// Type-specific secret configuration.
+	Secrets map[string]interface{} `json:"secrets" validate:"required"`
+
+	// History entries for the Identity Provider.
+	History []map[string]interface{} `json:"history,omitempty"`
+
+	// Accounts, enterprises, or account groups allowed to consume the IdP.
+	ShareScope []ShareScope `json:"share_scope,omitempty"`
+
+	// Indicates whether the Identity Provider is enabled. If disabled, the IdP cannot be used by the owner account or any
+	// consumer accounts.
+	Active *bool `json:"active" validate:"required"`
+
+	// Internal flag used by the UI to determine whether the Identity Provider should be opened in the setup wizard or the
+	// edit dialog.
+	UISetupCompleted *bool `json:"ui_setup_completed,omitempty"`
+}
+
+// Constants associated with the SamlMetadataImportResponse.Type property.
+const (
+	SamlMetadataImportResponseTypeSamlConst = "saml"
+)
+
+// UnmarshalSamlMetadataImportResponse unmarshals an instance of SamlMetadataImportResponse from the specified map of raw messages.
+func UnmarshalSamlMetadataImportResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SamlMetadataImportResponse)
+	err = core.UnmarshalPrimitive(m, "idp_id", &obj.IdpID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "modified_at", &obj.ModifiedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "modified_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "properties", &obj.Properties)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "properties-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "secrets", &obj.Secrets)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "secrets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "history", &obj.History)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "history-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "share_scope", &obj.ShareScope, UnmarshalShareScope)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "share_scope-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "active-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_setup_completed", &obj.UISetupCompleted)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ui_setup_completed-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -14739,6 +17360,36 @@ func (_options *SetProfileIdentityOptions) SetDescription(description string) *S
 func (options *SetProfileIdentityOptions) SetHeaders(param map[string]string) *SetProfileIdentityOptions {
 	options.Headers = param
 	return options
+}
+
+// ShareScope : ShareScope struct
+type ShareScope struct {
+	ID *string `json:"id,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the ShareScope.Type property.
+const (
+	ShareScopeTypeAccountConst    = "account"
+	ShareScopeTypeEnterpriseConst = "enterprise"
+)
+
+// UnmarshalShareScope unmarshals an instance of ShareScope from the specified map of raw messages.
+func UnmarshalShareScope(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ShareScope)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // TemplateAccountSettings : Input body parameters for the Account Settings REST request.
@@ -15467,6 +18118,148 @@ func UnmarshalTemplateProfileComponentResponse(m map[string]json.RawMessage, res
 	err = core.UnmarshalModel(m, "identities", &obj.Identities, UnmarshalProfileIdentityResponse)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "identities-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TestIdpOptions : The TestIdp options.
+type TestIdpOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewTestIdpOptions : Instantiate TestIdpOptions
+func (*IamIdentityV1) NewTestIdpOptions(idpID string) *TestIdpOptions {
+	return &TestIdpOptions{
+		IdpID: core.StringPtr(idpID),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *TestIdpOptions) SetIdpID(idpID string) *TestIdpOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *TestIdpOptions) SetHeaders(param map[string]string) *TestIdpOptions {
+	options.Headers = param
+	return options
+}
+
+// TestResult : TestResult struct
+type TestResult struct {
+	IdpID *string `json:"idp_id,omitempty"`
+
+	EntityTag *string `json:"entity_tag,omitempty"`
+
+	StartedAt *int64 `json:"started_at,omitempty"`
+
+	ModifiedAt *string `json:"modified_at,omitempty"`
+
+	IdpVersion *string `json:"idp_version,omitempty"`
+
+	Steps []TestResultStepsItem `json:"steps,omitempty"`
+}
+
+// UnmarshalTestResult unmarshals an instance of TestResult from the specified map of raw messages.
+func UnmarshalTestResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TestResult)
+	err = core.UnmarshalPrimitive(m, "idp_id", &obj.IdpID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "started_at", &obj.StartedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "started_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "modified_at", &obj.ModifiedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "modified_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_version", &obj.IdpVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "steps", &obj.Steps, UnmarshalTestResultStepsItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "steps-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TestResultStepsItem : TestResultStepsItem struct
+type TestResultStepsItem struct {
+	Sequence *int64 `json:"sequence,omitempty"`
+
+	Name *string `json:"name,omitempty"`
+
+	State *string `json:"state,omitempty"`
+
+	Result *string `json:"result,omitempty"`
+}
+
+// UnmarshalTestResultStepsItem unmarshals an instance of TestResultStepsItem from the specified map of raw messages.
+func UnmarshalTestResultStepsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TestResultStepsItem)
+	err = core.UnmarshalPrimitive(m, "sequence", &obj.Sequence)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sequence-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "result", &obj.Result)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "result-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TestTriggerResponse : TestTriggerResponse struct
+type TestTriggerResponse struct {
+	Result *string `json:"result,omitempty"`
+
+	TestURL *string `json:"test_url,omitempty"`
+}
+
+// UnmarshalTestTriggerResponse unmarshals an instance of TestTriggerResponse from the specified map of raw messages.
+func UnmarshalTestTriggerResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TestTriggerResponse)
+	err = core.UnmarshalPrimitive(m, "result", &obj.Result)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "result-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "test_url", &obj.TestURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "test_url-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -16597,6 +19390,572 @@ func (_options *UpdateClaimRuleOptions) SetExpiration(expiration int64) *UpdateC
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateClaimRuleOptions) SetHeaders(param map[string]string) *UpdateClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateIdpRequestProperties : Properties of the IDP. Will be stored plain-text.
+type UpdateIdpRequestProperties struct {
+	// Identity Provider configuration.
+	Idp *UpdateIdpRequestPropertiesIdp `json:"idp,omitempty"`
+
+	// Service Provider configuration.
+	Sp *UpdateIdpRequestPropertiesSp `json:"sp,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestProperties unmarshals an instance of UpdateIdpRequestProperties from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestProperties(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestProperties)
+	err = core.UnmarshalModel(m, "idp", &obj.Idp, UnmarshalUpdateIdpRequestPropertiesIdp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "sp", &obj.Sp, UnmarshalUpdateIdpRequestPropertiesSp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sp-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestSecrets : Secrets of the IDP. Will be stored encrypted.
+type UpdateIdpRequestSecrets struct {
+	// Identity Provider secrets.
+	Idp *UpdateIdpRequestSecretsIdp `json:"idp,omitempty"`
+
+	// Service Provider secrets.
+	Sp *UpdateIdpRequestSecretsSp `json:"sp,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestSecrets unmarshals an instance of UpdateIdpRequestSecrets from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestSecrets(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestSecrets)
+	err = core.UnmarshalModel(m, "idp", &obj.Idp, UnmarshalUpdateIdpRequestSecretsIdp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "sp", &obj.Sp, UnmarshalUpdateIdpRequestSecretsSp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sp-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIDPSettingOptions : The UpdateIDPSetting options.
+type UpdateIDPSettingOptions struct {
+	// Account which is bound to the IDP.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Identity provider ID.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Strategy how Cloud User representives for the IdP users are handled.
+	CloudUserStrategy *string `json:"cloud_user_strategy,omitempty"`
+
+	// Specifies if the IdP is enabled for usage in the given account context.
+	Active *bool `json:"active,omitempty"`
+
+	// Specifies if the IdP is used as default in the given account context.
+	UIDefault *bool `json:"ui_default,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the UpdateIDPSettingOptions.CloudUserStrategy property.
+// Strategy how Cloud User representives for the IdP users are handled.
+const (
+	UpdateIDPSettingOptionsCloudUserStrategyDynamicConst = "DYNAMIC"
+	UpdateIDPSettingOptionsCloudUserStrategyNeverConst   = "NEVER"
+	UpdateIDPSettingOptionsCloudUserStrategyStaticConst  = "STATIC"
+)
+
+// NewUpdateIDPSettingOptions : Instantiate UpdateIDPSettingOptions
+func (*IamIdentityV1) NewUpdateIDPSettingOptions(accountID string, idpID string) *UpdateIDPSettingOptions {
+	return &UpdateIDPSettingOptions{
+		AccountID: core.StringPtr(accountID),
+		IdpID:     core.StringPtr(idpID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *UpdateIDPSettingOptions) SetAccountID(accountID string) *UpdateIDPSettingOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *UpdateIDPSettingOptions) SetIdpID(idpID string) *UpdateIDPSettingOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetCloudUserStrategy : Allow user to set CloudUserStrategy
+func (_options *UpdateIDPSettingOptions) SetCloudUserStrategy(cloudUserStrategy string) *UpdateIDPSettingOptions {
+	_options.CloudUserStrategy = core.StringPtr(cloudUserStrategy)
+	return _options
+}
+
+// SetActive : Allow user to set Active
+func (_options *UpdateIDPSettingOptions) SetActive(active bool) *UpdateIDPSettingOptions {
+	_options.Active = core.BoolPtr(active)
+	return _options
+}
+
+// SetUIDefault : Allow user to set UIDefault
+func (_options *UpdateIDPSettingOptions) SetUIDefault(uiDefault bool) *UpdateIDPSettingOptions {
+	_options.UIDefault = core.BoolPtr(uiDefault)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateIDPSettingOptions) SetHeaders(param map[string]string) *UpdateIDPSettingOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateIdpOptions : The UpdateIdp options.
+type UpdateIdpOptions struct {
+	// ID of the IDP.
+	IdpID *string `json:"idp_id" validate:"required,ne="`
+
+	// Version of the account IdP settings to be updated. Specify the version that you retrieved as entity_tag (ETag
+	// header) when reading the account. This value helps identifying parallel usage of this API. Pass * to indicate to
+	// update any version available. This might result in stale updates.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// Defines if the IDP setup was finished in the UI.
+	UISetupCompleted *bool `json:"ui_setup_completed,omitempty"`
+
+	// Speaking name of the Identity Provider.
+	Name *string `json:"name,omitempty"`
+
+	// Defines if the IDP is active (enabled) for all accounts (including those who consumed the IdP).
+	Active *bool `json:"active,omitempty"`
+
+	// Properties of the IDP. Will be stored plain-text.
+	Properties *UpdateIdpRequestProperties `json:"properties,omitempty"`
+
+	// Secrets of the IDP. Will be stored encrypted.
+	Secrets *UpdateIdpRequestSecrets `json:"secrets,omitempty"`
+
+	// List of targets which can consume the IdP.
+	ShareScope []ShareScope `json:"share_scope,omitempty"`
+
+	// Enforces sharescope update even if active consumers are removed from the share scope.
+	ForceShareScopeUpdate *bool `json:"force_share_scope_update,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateIdpOptions : Instantiate UpdateIdpOptions
+func (*IamIdentityV1) NewUpdateIdpOptions(idpID string, ifMatch string) *UpdateIdpOptions {
+	return &UpdateIdpOptions{
+		IdpID:   core.StringPtr(idpID),
+		IfMatch: core.StringPtr(ifMatch),
+	}
+}
+
+// SetIdpID : Allow user to set IdpID
+func (_options *UpdateIdpOptions) SetIdpID(idpID string) *UpdateIdpOptions {
+	_options.IdpID = core.StringPtr(idpID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateIdpOptions) SetIfMatch(ifMatch string) *UpdateIdpOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetUISetupCompleted : Allow user to set UISetupCompleted
+func (_options *UpdateIdpOptions) SetUISetupCompleted(uiSetupCompleted bool) *UpdateIdpOptions {
+	_options.UISetupCompleted = core.BoolPtr(uiSetupCompleted)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateIdpOptions) SetName(name string) *UpdateIdpOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetActive : Allow user to set Active
+func (_options *UpdateIdpOptions) SetActive(active bool) *UpdateIdpOptions {
+	_options.Active = core.BoolPtr(active)
+	return _options
+}
+
+// SetProperties : Allow user to set Properties
+func (_options *UpdateIdpOptions) SetProperties(properties *UpdateIdpRequestProperties) *UpdateIdpOptions {
+	_options.Properties = properties
+	return _options
+}
+
+// SetSecrets : Allow user to set Secrets
+func (_options *UpdateIdpOptions) SetSecrets(secrets *UpdateIdpRequestSecrets) *UpdateIdpOptions {
+	_options.Secrets = secrets
+	return _options
+}
+
+// SetShareScope : Allow user to set ShareScope
+func (_options *UpdateIdpOptions) SetShareScope(shareScope []ShareScope) *UpdateIdpOptions {
+	_options.ShareScope = shareScope
+	return _options
+}
+
+// SetForceShareScopeUpdate : Allow user to set ForceShareScopeUpdate
+func (_options *UpdateIdpOptions) SetForceShareScopeUpdate(forceShareScopeUpdate bool) *UpdateIdpOptions {
+	_options.ForceShareScopeUpdate = core.BoolPtr(forceShareScopeUpdate)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateIdpOptions) SetHeaders(param map[string]string) *UpdateIdpOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateIdpRequestPropertiesIdp : Identity Provider configuration.
+type UpdateIdpRequestPropertiesIdp struct {
+	// SAML IDP entity ID.
+	EntityID *string `json:"entity_id,omitempty"`
+
+	// Redirect binding URL.
+	RedirectBindingURL *string `json:"redirect_binding_url,omitempty"`
+
+	// Indicates if IDP wants requests to be signed.
+	WantRequestSigned *bool `json:"want_request_signed,omitempty"`
+
+	// SAML IDP logout URL (optional).
+	LogoutURL *string `json:"logout_url,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestPropertiesIdp unmarshals an instance of UpdateIdpRequestPropertiesIdp from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestPropertiesIdp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestPropertiesIdp)
+	err = core.UnmarshalPrimitive(m, "entity_id", &obj.EntityID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "redirect_binding_url", &obj.RedirectBindingURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "redirect_binding_url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "want_request_signed", &obj.WantRequestSigned)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "want_request_signed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "logout_url", &obj.LogoutURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "logout_url-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestPropertiesSp : Service Provider configuration.
+type UpdateIdpRequestPropertiesSp struct {
+	// Indicates if SP wants assertions to be signed.
+	WantAssertionSigned *bool `json:"want_assertion_signed,omitempty"`
+
+	// Indicates if SP wants responses to be signed.
+	WantResponseSigned *bool `json:"want_response_signed,omitempty"`
+
+	// Indicates if responses should be encrypted.
+	EncryptResponse *bool `json:"encrypt_response,omitempty"`
+
+	// Enables IDP-initiated login.
+	IdpInitiatedLoginEnabled *bool `json:"idp_initiated_login_enabled,omitempty"`
+
+	// Enables logout URL when available.
+	LogoutURLEnabledWhenAvailable *bool `json:"logout_url_enabled_when_available,omitempty"`
+
+	// URLs for IDP-initiated login.
+	IdpInitiatedUrls []string `json:"idp_initiated_urls,omitempty"`
+
+	// Authentication context configuration.
+	AuthnContext *UpdateIdpRequestPropertiesSpAuthnContext `json:"authn_context,omitempty"`
+
+	// Custom mapping between SAML assertions and IAM claims.
+	Claims map[string]string `json:"claims,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestPropertiesSp unmarshals an instance of UpdateIdpRequestPropertiesSp from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestPropertiesSp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestPropertiesSp)
+	err = core.UnmarshalPrimitive(m, "want_assertion_signed", &obj.WantAssertionSigned)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "want_assertion_signed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "want_response_signed", &obj.WantResponseSigned)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "want_response_signed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "encrypt_response", &obj.EncryptResponse)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "encrypt_response-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_initiated_login_enabled", &obj.IdpInitiatedLoginEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_initiated_login_enabled-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "logout_url_enabled_when_available", &obj.LogoutURLEnabledWhenAvailable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "logout_url_enabled_when_available-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "idp_initiated_urls", &obj.IdpInitiatedUrls)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "idp_initiated_urls-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "authn_context", &obj.AuthnContext, UnmarshalUpdateIdpRequestPropertiesSpAuthnContext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "authn_context-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "claims", &obj.Claims)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "claims-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestPropertiesSpAuthnContext : Authentication context configuration.
+type UpdateIdpRequestPropertiesSpAuthnContext struct {
+	// Requested authentication context classes.
+	Request []string `json:"request,omitempty"`
+
+	// Accepted authentication context classes.
+	Accept []string `json:"accept,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestPropertiesSpAuthnContext unmarshals an instance of UpdateIdpRequestPropertiesSpAuthnContext from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestPropertiesSpAuthnContext(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestPropertiesSpAuthnContext)
+	err = core.UnmarshalPrimitive(m, "request", &obj.Request)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "request-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "accept", &obj.Accept)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "accept-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestSecretsIdp : Identity Provider secrets.
+type UpdateIdpRequestSecretsIdp struct {
+	// IDP signing certificates.
+	Signing []UpdateIdpRequestSecretsIdpSigningItem `json:"signing,omitempty"`
+
+	// IDP encrypting certificates.
+	Encrypting []UpdateIdpRequestSecretsIdpEncryptingItem `json:"encrypting,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestSecretsIdp unmarshals an instance of UpdateIdpRequestSecretsIdp from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestSecretsIdp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestSecretsIdp)
+	err = core.UnmarshalModel(m, "signing", &obj.Signing, UnmarshalUpdateIdpRequestSecretsIdpSigningItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "signing-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "encrypting", &obj.Encrypting, UnmarshalUpdateIdpRequestSecretsIdpEncryptingItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "encrypting-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestSecretsIdpEncryptingItem : UpdateIdpRequestSecretsIdpEncryptingItem struct
+type UpdateIdpRequestSecretsIdpEncryptingItem struct {
+	// Certificate value.
+	Value *string `json:"value,omitempty"`
+
+	// Certificate type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the UpdateIdpRequestSecretsIdpEncryptingItem.Type property.
+// Certificate type.
+const (
+	UpdateIdpRequestSecretsIdpEncryptingItemTypePrimaryConst   = "primary"
+	UpdateIdpRequestSecretsIdpEncryptingItemTypeSecondaryConst = "secondary"
+)
+
+// UnmarshalUpdateIdpRequestSecretsIdpEncryptingItem unmarshals an instance of UpdateIdpRequestSecretsIdpEncryptingItem from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestSecretsIdpEncryptingItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestSecretsIdpEncryptingItem)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestSecretsIdpSigningItem : UpdateIdpRequestSecretsIdpSigningItem struct
+type UpdateIdpRequestSecretsIdpSigningItem struct {
+	// Certificate value in PEM format.
+	Value *string `json:"value,omitempty"`
+
+	// Certificate type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the UpdateIdpRequestSecretsIdpSigningItem.Type property.
+// Certificate type.
+const (
+	UpdateIdpRequestSecretsIdpSigningItemTypePrimaryConst   = "primary"
+	UpdateIdpRequestSecretsIdpSigningItemTypeSecondaryConst = "secondary"
+)
+
+// UnmarshalUpdateIdpRequestSecretsIdpSigningItem unmarshals an instance of UpdateIdpRequestSecretsIdpSigningItem from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestSecretsIdpSigningItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestSecretsIdpSigningItem)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestSecretsSp : Service Provider secrets.
+type UpdateIdpRequestSecretsSp struct {
+	// SP signing certificates.
+	Signing []UpdateIdpRequestSecretsSpSigningItem `json:"signing,omitempty"`
+}
+
+// UnmarshalUpdateIdpRequestSecretsSp unmarshals an instance of UpdateIdpRequestSecretsSp from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestSecretsSp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestSecretsSp)
+	err = core.UnmarshalModel(m, "signing", &obj.Signing, UnmarshalUpdateIdpRequestSecretsSpSigningItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "signing-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateIdpRequestSecretsSpSigningItem : UpdateIdpRequestSecretsSpSigningItem struct
+type UpdateIdpRequestSecretsSpSigningItem struct {
+	// Certificate value in PEM format.
+	CertificateValue *string `json:"certificate_value,omitempty"`
+
+	// Private key value.
+	KeyValue *string `json:"key_value,omitempty"`
+
+	// Key encoding format (e.g., pkcs8).
+	KeyEncoding *string `json:"key_encoding,omitempty"`
+
+	// Certificate type.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the UpdateIdpRequestSecretsSpSigningItem.Type property.
+// Certificate type.
+const (
+	UpdateIdpRequestSecretsSpSigningItemTypePrimaryConst   = "primary"
+	UpdateIdpRequestSecretsSpSigningItemTypeSecondaryConst = "secondary"
+)
+
+// UnmarshalUpdateIdpRequestSecretsSpSigningItem unmarshals an instance of UpdateIdpRequestSecretsSpSigningItem from the specified map of raw messages.
+func UnmarshalUpdateIdpRequestSecretsSpSigningItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateIdpRequestSecretsSpSigningItem)
+	err = core.UnmarshalPrimitive(m, "certificate_value", &obj.CertificateValue)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "certificate_value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "key_value", &obj.KeyValue)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "key_value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "key_encoding", &obj.KeyEncoding)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "key_encoding-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateLoginSettingsOptions : The UpdateLoginSettings options.
+type UpdateLoginSettingsOptions struct {
+	// Account which is bound to the alias.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Alias of the account.
+	Alias *string `json:"alias,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateLoginSettingsOptions : Instantiate UpdateLoginSettingsOptions
+func (*IamIdentityV1) NewUpdateLoginSettingsOptions(accountID string) *UpdateLoginSettingsOptions {
+	return &UpdateLoginSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *UpdateLoginSettingsOptions) SetAccountID(accountID string) *UpdateLoginSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetAlias : Allow user to set Alias
+func (_options *UpdateLoginSettingsOptions) SetAlias(alias string) *UpdateLoginSettingsOptions {
+	_options.Alias = core.StringPtr(alias)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateLoginSettingsOptions) SetHeaders(param map[string]string) *UpdateLoginSettingsOptions {
 	options.Headers = param
 	return options
 }
