@@ -1,3 +1,10 @@
+# [0.101.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.100.1...v0.101.0) (2026-06-29)
+
+
+### Features
+
+* **IAM Identity:** add support for IDP sharing/settings ([#455](https://github.com/IBM/platform-services-go-sdk/issues/455)) ([4bd1400](https://github.com/IBM/platform-services-go-sdk/commit/4bd1400d7385badf50706b951876a61dfec91d32))
+
 ## [0.100.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.100.0...v0.100.1) (2026-06-29)
 
 
