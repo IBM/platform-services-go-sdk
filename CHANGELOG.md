@@ -1,3 +1,24 @@
+## [0.100.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.100.0...v0.100.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* **deps:** bump dependency to fix cve ([#454](https://github.com/IBM/platform-services-go-sdk/issues/454)) ([c69c56a](https://github.com/IBM/platform-services-go-sdk/commit/c69c56a22d24d4c8260306cf1093118ed686478f))
+
+# [0.100.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.2...v0.100.0) (2026-06-25)
+
+
+### Features
+
+* **Platform Notifications:** add new public endpoints ([#442](https://github.com/IBM/platform-services-go-sdk/issues/442)) ([c11e911](https://github.com/IBM/platform-services-go-sdk/commit/c11e9116428ccf2fdad2a4c1731ed06da229cd32))
+
+## [0.99.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.1...v0.99.2) (2026-06-19)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** add support for instance address type ([#452](https://github.com/IBM/platform-services-go-sdk/issues/452)) ([a3bed15](https://github.com/IBM/platform-services-go-sdk/commit/a3bed15543858ff1b27029f385efd8df2e0ed813))
+
 ## [0.99.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.0...v0.99.1) (2026-06-09)
 
 
