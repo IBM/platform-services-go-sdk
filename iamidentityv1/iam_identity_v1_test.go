@@ -68,13 +68,14 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+				})
 				Expect(iamIdentityService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+				})
 				err := iamIdentityService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
+			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamIdentityService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_AUTH_TYPE": "NOAuth",
+				"IAM_IDENTITY_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -19501,6 +19504,4306 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`ListIdps(listIdpsOptions *ListIdpsOptions) - Operation response error`, func() {
+		listIdpsPath := "/v1/idps/"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listIdpsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListIdps with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListIdpsOptions model
+				listIdpsOptionsModel := new(iamidentityv1.ListIdpsOptions)
+				listIdpsOptionsModel.AccountID = core.StringPtr("testString")
+				listIdpsOptionsModel.IncludeHistory = core.StringPtr("testString")
+				listIdpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListIdps(listIdpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListIdps(listIdpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListIdps(listIdpsOptions *ListIdpsOptions)`, func() {
+		listIdpsPath := "/v1/idps/"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listIdpsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idps": [{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}]}`)
+				}))
+			})
+			It(`Invoke ListIdps successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListIdpsOptions model
+				listIdpsOptionsModel := new(iamidentityv1.ListIdpsOptions)
+				listIdpsOptionsModel.AccountID = core.StringPtr("testString")
+				listIdpsOptionsModel.IncludeHistory = core.StringPtr("testString")
+				listIdpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListIdpsWithContext(ctx, listIdpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListIdps(listIdpsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListIdpsWithContext(ctx, listIdpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listIdpsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idps": [{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}]}`)
+				}))
+			})
+			It(`Invoke ListIdps successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListIdps(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListIdpsOptions model
+				listIdpsOptionsModel := new(iamidentityv1.ListIdpsOptions)
+				listIdpsOptionsModel.AccountID = core.StringPtr("testString")
+				listIdpsOptionsModel.IncludeHistory = core.StringPtr("testString")
+				listIdpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListIdps(listIdpsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListIdps with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListIdpsOptions model
+				listIdpsOptionsModel := new(iamidentityv1.ListIdpsOptions)
+				listIdpsOptionsModel.AccountID = core.StringPtr("testString")
+				listIdpsOptionsModel.IncludeHistory = core.StringPtr("testString")
+				listIdpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListIdps(listIdpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListIdpsOptions model with no property values
+				listIdpsOptionsModelNew := new(iamidentityv1.ListIdpsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ListIdps(listIdpsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListIdps successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListIdpsOptions model
+				listIdpsOptionsModel := new(iamidentityv1.ListIdpsOptions)
+				listIdpsOptionsModel.AccountID = core.StringPtr("testString")
+				listIdpsOptionsModel.IncludeHistory = core.StringPtr("testString")
+				listIdpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListIdps(listIdpsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateIdp(createIdpOptions *CreateIdpOptions) - Operation response error`, func() {
+		createIdpPath := "/v1/idps/"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createIdpPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["automation"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateIdp with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateIdpRequestPropertiesIdp model
+				createIdpRequestPropertiesIdpModel := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+				createIdpRequestPropertiesIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the CreateIdpRequestPropertiesSpAuthnContext model
+				createIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+				createIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				createIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the CreateIdpRequestPropertiesSp model
+				createIdpRequestPropertiesSpModel := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+				createIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				createIdpRequestPropertiesSpModel.AuthnContext = createIdpRequestPropertiesSpAuthnContextModel
+				createIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the CreateIdpRequestProperties model
+				createIdpRequestPropertiesModel := new(iamidentityv1.CreateIdpRequestProperties)
+				createIdpRequestPropertiesModel.Idp = createIdpRequestPropertiesIdpModel
+				createIdpRequestPropertiesModel.Sp = createIdpRequestPropertiesSpModel
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpSigningItem model
+				createIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+				createIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpEncryptingItem model
+				createIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+				createIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdp model
+				createIdpRequestSecretsIdpModel := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+				createIdpRequestSecretsIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestSecretsIdpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}
+				createIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecretsSpSigningItem model
+				createIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+				createIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsSp model
+				createIdpRequestSecretsSpModel := new(iamidentityv1.CreateIdpRequestSecretsSp)
+				createIdpRequestSecretsSpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecrets model
+				createIdpRequestSecretsModel := new(iamidentityv1.CreateIdpRequestSecrets)
+				createIdpRequestSecretsModel.Idp = createIdpRequestSecretsIdpModel
+				createIdpRequestSecretsModel.Sp = createIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the CreateIdpOptions model
+				createIdpOptionsModel := new(iamidentityv1.CreateIdpOptions)
+				createIdpOptionsModel.AccountID = core.StringPtr("testString")
+				createIdpOptionsModel.Name = core.StringPtr("testString")
+				createIdpOptionsModel.Type = core.StringPtr("ldap")
+				createIdpOptionsModel.Active = core.BoolPtr(true)
+				createIdpOptionsModel.Properties = createIdpRequestPropertiesModel
+				createIdpOptionsModel.Secrets = createIdpRequestSecretsModel
+				createIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				createIdpOptionsModel.Automation = core.StringPtr("testString")
+				createIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateIdp(createIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateIdp(createIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateIdp(createIdpOptions *CreateIdpOptions)`, func() {
+		createIdpPath := "/v1/idps/"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createIdpPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["automation"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke CreateIdp successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateIdpRequestPropertiesIdp model
+				createIdpRequestPropertiesIdpModel := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+				createIdpRequestPropertiesIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the CreateIdpRequestPropertiesSpAuthnContext model
+				createIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+				createIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				createIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the CreateIdpRequestPropertiesSp model
+				createIdpRequestPropertiesSpModel := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+				createIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				createIdpRequestPropertiesSpModel.AuthnContext = createIdpRequestPropertiesSpAuthnContextModel
+				createIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the CreateIdpRequestProperties model
+				createIdpRequestPropertiesModel := new(iamidentityv1.CreateIdpRequestProperties)
+				createIdpRequestPropertiesModel.Idp = createIdpRequestPropertiesIdpModel
+				createIdpRequestPropertiesModel.Sp = createIdpRequestPropertiesSpModel
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpSigningItem model
+				createIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+				createIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpEncryptingItem model
+				createIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+				createIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdp model
+				createIdpRequestSecretsIdpModel := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+				createIdpRequestSecretsIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestSecretsIdpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}
+				createIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecretsSpSigningItem model
+				createIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+				createIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsSp model
+				createIdpRequestSecretsSpModel := new(iamidentityv1.CreateIdpRequestSecretsSp)
+				createIdpRequestSecretsSpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecrets model
+				createIdpRequestSecretsModel := new(iamidentityv1.CreateIdpRequestSecrets)
+				createIdpRequestSecretsModel.Idp = createIdpRequestSecretsIdpModel
+				createIdpRequestSecretsModel.Sp = createIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the CreateIdpOptions model
+				createIdpOptionsModel := new(iamidentityv1.CreateIdpOptions)
+				createIdpOptionsModel.AccountID = core.StringPtr("testString")
+				createIdpOptionsModel.Name = core.StringPtr("testString")
+				createIdpOptionsModel.Type = core.StringPtr("ldap")
+				createIdpOptionsModel.Active = core.BoolPtr(true)
+				createIdpOptionsModel.Properties = createIdpRequestPropertiesModel
+				createIdpOptionsModel.Secrets = createIdpRequestSecretsModel
+				createIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				createIdpOptionsModel.Automation = core.StringPtr("testString")
+				createIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateIdpWithContext(ctx, createIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateIdp(createIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateIdpWithContext(ctx, createIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createIdpPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["automation"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke CreateIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateIdp(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateIdpRequestPropertiesIdp model
+				createIdpRequestPropertiesIdpModel := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+				createIdpRequestPropertiesIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the CreateIdpRequestPropertiesSpAuthnContext model
+				createIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+				createIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				createIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the CreateIdpRequestPropertiesSp model
+				createIdpRequestPropertiesSpModel := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+				createIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				createIdpRequestPropertiesSpModel.AuthnContext = createIdpRequestPropertiesSpAuthnContextModel
+				createIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the CreateIdpRequestProperties model
+				createIdpRequestPropertiesModel := new(iamidentityv1.CreateIdpRequestProperties)
+				createIdpRequestPropertiesModel.Idp = createIdpRequestPropertiesIdpModel
+				createIdpRequestPropertiesModel.Sp = createIdpRequestPropertiesSpModel
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpSigningItem model
+				createIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+				createIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpEncryptingItem model
+				createIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+				createIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdp model
+				createIdpRequestSecretsIdpModel := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+				createIdpRequestSecretsIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestSecretsIdpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}
+				createIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecretsSpSigningItem model
+				createIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+				createIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsSp model
+				createIdpRequestSecretsSpModel := new(iamidentityv1.CreateIdpRequestSecretsSp)
+				createIdpRequestSecretsSpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecrets model
+				createIdpRequestSecretsModel := new(iamidentityv1.CreateIdpRequestSecrets)
+				createIdpRequestSecretsModel.Idp = createIdpRequestSecretsIdpModel
+				createIdpRequestSecretsModel.Sp = createIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the CreateIdpOptions model
+				createIdpOptionsModel := new(iamidentityv1.CreateIdpOptions)
+				createIdpOptionsModel.AccountID = core.StringPtr("testString")
+				createIdpOptionsModel.Name = core.StringPtr("testString")
+				createIdpOptionsModel.Type = core.StringPtr("ldap")
+				createIdpOptionsModel.Active = core.BoolPtr(true)
+				createIdpOptionsModel.Properties = createIdpRequestPropertiesModel
+				createIdpOptionsModel.Secrets = createIdpRequestSecretsModel
+				createIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				createIdpOptionsModel.Automation = core.StringPtr("testString")
+				createIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateIdp(createIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateIdp with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateIdpRequestPropertiesIdp model
+				createIdpRequestPropertiesIdpModel := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+				createIdpRequestPropertiesIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the CreateIdpRequestPropertiesSpAuthnContext model
+				createIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+				createIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				createIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the CreateIdpRequestPropertiesSp model
+				createIdpRequestPropertiesSpModel := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+				createIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				createIdpRequestPropertiesSpModel.AuthnContext = createIdpRequestPropertiesSpAuthnContextModel
+				createIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the CreateIdpRequestProperties model
+				createIdpRequestPropertiesModel := new(iamidentityv1.CreateIdpRequestProperties)
+				createIdpRequestPropertiesModel.Idp = createIdpRequestPropertiesIdpModel
+				createIdpRequestPropertiesModel.Sp = createIdpRequestPropertiesSpModel
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpSigningItem model
+				createIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+				createIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpEncryptingItem model
+				createIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+				createIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdp model
+				createIdpRequestSecretsIdpModel := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+				createIdpRequestSecretsIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestSecretsIdpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}
+				createIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecretsSpSigningItem model
+				createIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+				createIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsSp model
+				createIdpRequestSecretsSpModel := new(iamidentityv1.CreateIdpRequestSecretsSp)
+				createIdpRequestSecretsSpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecrets model
+				createIdpRequestSecretsModel := new(iamidentityv1.CreateIdpRequestSecrets)
+				createIdpRequestSecretsModel.Idp = createIdpRequestSecretsIdpModel
+				createIdpRequestSecretsModel.Sp = createIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the CreateIdpOptions model
+				createIdpOptionsModel := new(iamidentityv1.CreateIdpOptions)
+				createIdpOptionsModel.AccountID = core.StringPtr("testString")
+				createIdpOptionsModel.Name = core.StringPtr("testString")
+				createIdpOptionsModel.Type = core.StringPtr("ldap")
+				createIdpOptionsModel.Active = core.BoolPtr(true)
+				createIdpOptionsModel.Properties = createIdpRequestPropertiesModel
+				createIdpOptionsModel.Secrets = createIdpRequestSecretsModel
+				createIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				createIdpOptionsModel.Automation = core.StringPtr("testString")
+				createIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateIdp(createIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateIdpOptions model with no property values
+				createIdpOptionsModelNew := new(iamidentityv1.CreateIdpOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.CreateIdp(createIdpOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CreateIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateIdpRequestPropertiesIdp model
+				createIdpRequestPropertiesIdpModel := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+				createIdpRequestPropertiesIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the CreateIdpRequestPropertiesSpAuthnContext model
+				createIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+				createIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				createIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the CreateIdpRequestPropertiesSp model
+				createIdpRequestPropertiesSpModel := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+				createIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				createIdpRequestPropertiesSpModel.AuthnContext = createIdpRequestPropertiesSpAuthnContextModel
+				createIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the CreateIdpRequestProperties model
+				createIdpRequestPropertiesModel := new(iamidentityv1.CreateIdpRequestProperties)
+				createIdpRequestPropertiesModel.Idp = createIdpRequestPropertiesIdpModel
+				createIdpRequestPropertiesModel.Sp = createIdpRequestPropertiesSpModel
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpSigningItem model
+				createIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+				createIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpEncryptingItem model
+				createIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+				createIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsIdp model
+				createIdpRequestSecretsIdpModel := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+				createIdpRequestSecretsIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestSecretsIdpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}
+				createIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecretsSpSigningItem model
+				createIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+				createIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the CreateIdpRequestSecretsSp model
+				createIdpRequestSecretsSpModel := new(iamidentityv1.CreateIdpRequestSecretsSp)
+				createIdpRequestSecretsSpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the CreateIdpRequestSecrets model
+				createIdpRequestSecretsModel := new(iamidentityv1.CreateIdpRequestSecrets)
+				createIdpRequestSecretsModel.Idp = createIdpRequestSecretsIdpModel
+				createIdpRequestSecretsModel.Sp = createIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the CreateIdpOptions model
+				createIdpOptionsModel := new(iamidentityv1.CreateIdpOptions)
+				createIdpOptionsModel.AccountID = core.StringPtr("testString")
+				createIdpOptionsModel.Name = core.StringPtr("testString")
+				createIdpOptionsModel.Type = core.StringPtr("ldap")
+				createIdpOptionsModel.Active = core.BoolPtr(true)
+				createIdpOptionsModel.Properties = createIdpRequestPropertiesModel
+				createIdpOptionsModel.Secrets = createIdpRequestSecretsModel
+				createIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				createIdpOptionsModel.Automation = core.StringPtr("testString")
+				createIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateIdp(createIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetIdp(getIdpOptions *GetIdpOptions) - Operation response error`, func() {
+		getIdpPath := "/v1/idps/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIdpPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetIdp with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIdpOptions model
+				getIdpOptionsModel := new(iamidentityv1.GetIdpOptions)
+				getIdpOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpOptionsModel.IncludeHistory = core.StringPtr("testString")
+				getIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetIdp(getIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetIdp(getIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetIdp(getIdpOptions *GetIdpOptions)`, func() {
+		getIdpPath := "/v1/idps/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIdpPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke GetIdp successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetIdpOptions model
+				getIdpOptionsModel := new(iamidentityv1.GetIdpOptions)
+				getIdpOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpOptionsModel.IncludeHistory = core.StringPtr("testString")
+				getIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetIdpWithContext(ctx, getIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetIdp(getIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetIdpWithContext(ctx, getIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIdpPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke GetIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetIdp(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetIdpOptions model
+				getIdpOptionsModel := new(iamidentityv1.GetIdpOptions)
+				getIdpOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpOptionsModel.IncludeHistory = core.StringPtr("testString")
+				getIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetIdp(getIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetIdp with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIdpOptions model
+				getIdpOptionsModel := new(iamidentityv1.GetIdpOptions)
+				getIdpOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpOptionsModel.IncludeHistory = core.StringPtr("testString")
+				getIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetIdp(getIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetIdpOptions model with no property values
+				getIdpOptionsModelNew := new(iamidentityv1.GetIdpOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetIdp(getIdpOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIdpOptions model
+				getIdpOptionsModel := new(iamidentityv1.GetIdpOptions)
+				getIdpOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpOptionsModel.IncludeHistory = core.StringPtr("testString")
+				getIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetIdp(getIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateIdp(updateIdpOptions *UpdateIdpOptions) - Operation response error`, func() {
+		updateIdpPath := "/v1/idps/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateIdpPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// TODO: Add check for force_share_scope_update query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateIdp with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateIdpRequestPropertiesIdp model
+				updateIdpRequestPropertiesIdpModel := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+				updateIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSpAuthnContext model
+				updateIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+				updateIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				updateIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSp model
+				updateIdpRequestPropertiesSpModel := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+				updateIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				updateIdpRequestPropertiesSpModel.AuthnContext = updateIdpRequestPropertiesSpAuthnContextModel
+				updateIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the UpdateIdpRequestProperties model
+				updateIdpRequestPropertiesModel := new(iamidentityv1.UpdateIdpRequestProperties)
+				updateIdpRequestPropertiesModel.Idp = updateIdpRequestPropertiesIdpModel
+				updateIdpRequestPropertiesModel.Sp = updateIdpRequestPropertiesSpModel
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpSigningItem model
+				updateIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+				updateIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpEncryptingItem model
+				updateIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+				updateIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdp model
+				updateIdpRequestSecretsIdpModel := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+				updateIdpRequestSecretsIdpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}
+				updateIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecretsSpSigningItem model
+				updateIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+				updateIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsSp model
+				updateIdpRequestSecretsSpModel := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+				updateIdpRequestSecretsSpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecrets model
+				updateIdpRequestSecretsModel := new(iamidentityv1.UpdateIdpRequestSecrets)
+				updateIdpRequestSecretsModel.Idp = updateIdpRequestSecretsIdpModel
+				updateIdpRequestSecretsModel.Sp = updateIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the UpdateIdpOptions model
+				updateIdpOptionsModel := new(iamidentityv1.UpdateIdpOptions)
+				updateIdpOptionsModel.IdpID = core.StringPtr("testString")
+				updateIdpOptionsModel.IfMatch = core.StringPtr("testString")
+				updateIdpOptionsModel.UISetupCompleted = core.BoolPtr(true)
+				updateIdpOptionsModel.Name = core.StringPtr("testString")
+				updateIdpOptionsModel.Active = core.BoolPtr(true)
+				updateIdpOptionsModel.Properties = updateIdpRequestPropertiesModel
+				updateIdpOptionsModel.Secrets = updateIdpRequestSecretsModel
+				updateIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				updateIdpOptionsModel.ForceShareScopeUpdate = core.BoolPtr(true)
+				updateIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateIdp(updateIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateIdp(updateIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateIdp(updateIdpOptions *UpdateIdpOptions)`, func() {
+		updateIdpPath := "/v1/idps/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateIdpPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// TODO: Add check for force_share_scope_update query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke UpdateIdp successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateIdpRequestPropertiesIdp model
+				updateIdpRequestPropertiesIdpModel := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+				updateIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSpAuthnContext model
+				updateIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+				updateIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				updateIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSp model
+				updateIdpRequestPropertiesSpModel := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+				updateIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				updateIdpRequestPropertiesSpModel.AuthnContext = updateIdpRequestPropertiesSpAuthnContextModel
+				updateIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the UpdateIdpRequestProperties model
+				updateIdpRequestPropertiesModel := new(iamidentityv1.UpdateIdpRequestProperties)
+				updateIdpRequestPropertiesModel.Idp = updateIdpRequestPropertiesIdpModel
+				updateIdpRequestPropertiesModel.Sp = updateIdpRequestPropertiesSpModel
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpSigningItem model
+				updateIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+				updateIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpEncryptingItem model
+				updateIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+				updateIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdp model
+				updateIdpRequestSecretsIdpModel := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+				updateIdpRequestSecretsIdpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}
+				updateIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecretsSpSigningItem model
+				updateIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+				updateIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsSp model
+				updateIdpRequestSecretsSpModel := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+				updateIdpRequestSecretsSpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecrets model
+				updateIdpRequestSecretsModel := new(iamidentityv1.UpdateIdpRequestSecrets)
+				updateIdpRequestSecretsModel.Idp = updateIdpRequestSecretsIdpModel
+				updateIdpRequestSecretsModel.Sp = updateIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the UpdateIdpOptions model
+				updateIdpOptionsModel := new(iamidentityv1.UpdateIdpOptions)
+				updateIdpOptionsModel.IdpID = core.StringPtr("testString")
+				updateIdpOptionsModel.IfMatch = core.StringPtr("testString")
+				updateIdpOptionsModel.UISetupCompleted = core.BoolPtr(true)
+				updateIdpOptionsModel.Name = core.StringPtr("testString")
+				updateIdpOptionsModel.Active = core.BoolPtr(true)
+				updateIdpOptionsModel.Properties = updateIdpRequestPropertiesModel
+				updateIdpOptionsModel.Secrets = updateIdpRequestSecretsModel
+				updateIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				updateIdpOptionsModel.ForceShareScopeUpdate = core.BoolPtr(true)
+				updateIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateIdpWithContext(ctx, updateIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateIdp(updateIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateIdpWithContext(ctx, updateIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateIdpPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// TODO: Add check for force_share_scope_update query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "share_scope": [{"id": "ID", "type": "account"}], "active": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke UpdateIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateIdp(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateIdpRequestPropertiesIdp model
+				updateIdpRequestPropertiesIdpModel := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+				updateIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSpAuthnContext model
+				updateIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+				updateIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				updateIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSp model
+				updateIdpRequestPropertiesSpModel := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+				updateIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				updateIdpRequestPropertiesSpModel.AuthnContext = updateIdpRequestPropertiesSpAuthnContextModel
+				updateIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the UpdateIdpRequestProperties model
+				updateIdpRequestPropertiesModel := new(iamidentityv1.UpdateIdpRequestProperties)
+				updateIdpRequestPropertiesModel.Idp = updateIdpRequestPropertiesIdpModel
+				updateIdpRequestPropertiesModel.Sp = updateIdpRequestPropertiesSpModel
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpSigningItem model
+				updateIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+				updateIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpEncryptingItem model
+				updateIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+				updateIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdp model
+				updateIdpRequestSecretsIdpModel := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+				updateIdpRequestSecretsIdpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}
+				updateIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecretsSpSigningItem model
+				updateIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+				updateIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsSp model
+				updateIdpRequestSecretsSpModel := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+				updateIdpRequestSecretsSpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecrets model
+				updateIdpRequestSecretsModel := new(iamidentityv1.UpdateIdpRequestSecrets)
+				updateIdpRequestSecretsModel.Idp = updateIdpRequestSecretsIdpModel
+				updateIdpRequestSecretsModel.Sp = updateIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the UpdateIdpOptions model
+				updateIdpOptionsModel := new(iamidentityv1.UpdateIdpOptions)
+				updateIdpOptionsModel.IdpID = core.StringPtr("testString")
+				updateIdpOptionsModel.IfMatch = core.StringPtr("testString")
+				updateIdpOptionsModel.UISetupCompleted = core.BoolPtr(true)
+				updateIdpOptionsModel.Name = core.StringPtr("testString")
+				updateIdpOptionsModel.Active = core.BoolPtr(true)
+				updateIdpOptionsModel.Properties = updateIdpRequestPropertiesModel
+				updateIdpOptionsModel.Secrets = updateIdpRequestSecretsModel
+				updateIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				updateIdpOptionsModel.ForceShareScopeUpdate = core.BoolPtr(true)
+				updateIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateIdp(updateIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateIdp with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateIdpRequestPropertiesIdp model
+				updateIdpRequestPropertiesIdpModel := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+				updateIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSpAuthnContext model
+				updateIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+				updateIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				updateIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSp model
+				updateIdpRequestPropertiesSpModel := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+				updateIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				updateIdpRequestPropertiesSpModel.AuthnContext = updateIdpRequestPropertiesSpAuthnContextModel
+				updateIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the UpdateIdpRequestProperties model
+				updateIdpRequestPropertiesModel := new(iamidentityv1.UpdateIdpRequestProperties)
+				updateIdpRequestPropertiesModel.Idp = updateIdpRequestPropertiesIdpModel
+				updateIdpRequestPropertiesModel.Sp = updateIdpRequestPropertiesSpModel
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpSigningItem model
+				updateIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+				updateIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpEncryptingItem model
+				updateIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+				updateIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdp model
+				updateIdpRequestSecretsIdpModel := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+				updateIdpRequestSecretsIdpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}
+				updateIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecretsSpSigningItem model
+				updateIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+				updateIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsSp model
+				updateIdpRequestSecretsSpModel := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+				updateIdpRequestSecretsSpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecrets model
+				updateIdpRequestSecretsModel := new(iamidentityv1.UpdateIdpRequestSecrets)
+				updateIdpRequestSecretsModel.Idp = updateIdpRequestSecretsIdpModel
+				updateIdpRequestSecretsModel.Sp = updateIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the UpdateIdpOptions model
+				updateIdpOptionsModel := new(iamidentityv1.UpdateIdpOptions)
+				updateIdpOptionsModel.IdpID = core.StringPtr("testString")
+				updateIdpOptionsModel.IfMatch = core.StringPtr("testString")
+				updateIdpOptionsModel.UISetupCompleted = core.BoolPtr(true)
+				updateIdpOptionsModel.Name = core.StringPtr("testString")
+				updateIdpOptionsModel.Active = core.BoolPtr(true)
+				updateIdpOptionsModel.Properties = updateIdpRequestPropertiesModel
+				updateIdpOptionsModel.Secrets = updateIdpRequestSecretsModel
+				updateIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				updateIdpOptionsModel.ForceShareScopeUpdate = core.BoolPtr(true)
+				updateIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateIdp(updateIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateIdpOptions model with no property values
+				updateIdpOptionsModelNew := new(iamidentityv1.UpdateIdpOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateIdp(updateIdpOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateIdpRequestPropertiesIdp model
+				updateIdpRequestPropertiesIdpModel := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+				updateIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSpAuthnContext model
+				updateIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+				updateIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				updateIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSp model
+				updateIdpRequestPropertiesSpModel := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+				updateIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				updateIdpRequestPropertiesSpModel.AuthnContext = updateIdpRequestPropertiesSpAuthnContextModel
+				updateIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+
+				// Construct an instance of the UpdateIdpRequestProperties model
+				updateIdpRequestPropertiesModel := new(iamidentityv1.UpdateIdpRequestProperties)
+				updateIdpRequestPropertiesModel.Idp = updateIdpRequestPropertiesIdpModel
+				updateIdpRequestPropertiesModel.Sp = updateIdpRequestPropertiesSpModel
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpSigningItem model
+				updateIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+				updateIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpEncryptingItem model
+				updateIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+				updateIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdp model
+				updateIdpRequestSecretsIdpModel := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+				updateIdpRequestSecretsIdpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}
+				updateIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecretsSpSigningItem model
+				updateIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+				updateIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+
+				// Construct an instance of the UpdateIdpRequestSecretsSp model
+				updateIdpRequestSecretsSpModel := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+				updateIdpRequestSecretsSpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}
+
+				// Construct an instance of the UpdateIdpRequestSecrets model
+				updateIdpRequestSecretsModel := new(iamidentityv1.UpdateIdpRequestSecrets)
+				updateIdpRequestSecretsModel.Idp = updateIdpRequestSecretsIdpModel
+				updateIdpRequestSecretsModel.Sp = updateIdpRequestSecretsSpModel
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+
+				// Construct an instance of the UpdateIdpOptions model
+				updateIdpOptionsModel := new(iamidentityv1.UpdateIdpOptions)
+				updateIdpOptionsModel.IdpID = core.StringPtr("testString")
+				updateIdpOptionsModel.IfMatch = core.StringPtr("testString")
+				updateIdpOptionsModel.UISetupCompleted = core.BoolPtr(true)
+				updateIdpOptionsModel.Name = core.StringPtr("testString")
+				updateIdpOptionsModel.Active = core.BoolPtr(true)
+				updateIdpOptionsModel.Properties = updateIdpRequestPropertiesModel
+				updateIdpOptionsModel.Secrets = updateIdpRequestSecretsModel
+				updateIdpOptionsModel.ShareScope = []iamidentityv1.ShareScope{*shareScopeModel}
+				updateIdpOptionsModel.ForceShareScopeUpdate = core.BoolPtr(true)
+				updateIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateIdp(updateIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteIdp(deleteIdpOptions *DeleteIdpOptions)`, func() {
+		deleteIdpPath := "/v1/idps/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteIdpPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeleteIdp(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteIdpOptions model
+				deleteIdpOptionsModel := new(iamidentityv1.DeleteIdpOptions)
+				deleteIdpOptionsModel.IdpID = core.StringPtr("testString")
+				deleteIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteIdp(deleteIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteIdp with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteIdpOptions model
+				deleteIdpOptionsModel := new(iamidentityv1.DeleteIdpOptions)
+				deleteIdpOptionsModel.IdpID = core.StringPtr("testString")
+				deleteIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeleteIdp(deleteIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteIdpOptions model with no property values
+				deleteIdpOptionsModelNew := new(iamidentityv1.DeleteIdpOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeleteIdp(deleteIdpOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListConsumerAccounts(listConsumerAccountsOptions *ListConsumerAccountsOptions) - Operation response error`, func() {
+		listConsumerAccountsPath := "/v1/idps/testString/consumers"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConsumerAccountsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListConsumerAccounts with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListConsumerAccountsOptions model
+				listConsumerAccountsOptionsModel := new(iamidentityv1.ListConsumerAccountsOptions)
+				listConsumerAccountsOptionsModel.IdpID = core.StringPtr("testString")
+				listConsumerAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListConsumerAccounts(listConsumerAccountsOptions *ListConsumerAccountsOptions)`, func() {
+		listConsumerAccountsPath := "/v1/idps/testString/consumers"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConsumerAccountsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "consumers": [{"account_id": "AccountID", "share_scope": [{"id": "ID", "type": "account"}]}]}`)
+				}))
+			})
+			It(`Invoke ListConsumerAccounts successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListConsumerAccountsOptions model
+				listConsumerAccountsOptionsModel := new(iamidentityv1.ListConsumerAccountsOptions)
+				listConsumerAccountsOptionsModel.IdpID = core.StringPtr("testString")
+				listConsumerAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListConsumerAccountsWithContext(ctx, listConsumerAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListConsumerAccountsWithContext(ctx, listConsumerAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConsumerAccountsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "consumers": [{"account_id": "AccountID", "share_scope": [{"id": "ID", "type": "account"}]}]}`)
+				}))
+			})
+			It(`Invoke ListConsumerAccounts successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListConsumerAccounts(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListConsumerAccountsOptions model
+				listConsumerAccountsOptionsModel := new(iamidentityv1.ListConsumerAccountsOptions)
+				listConsumerAccountsOptionsModel.IdpID = core.StringPtr("testString")
+				listConsumerAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListConsumerAccounts with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListConsumerAccountsOptions model
+				listConsumerAccountsOptionsModel := new(iamidentityv1.ListConsumerAccountsOptions)
+				listConsumerAccountsOptionsModel.IdpID = core.StringPtr("testString")
+				listConsumerAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListConsumerAccountsOptions model with no property values
+				listConsumerAccountsOptionsModelNew := new(iamidentityv1.ListConsumerAccountsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListConsumerAccounts successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListConsumerAccountsOptions model
+				listConsumerAccountsOptionsModel := new(iamidentityv1.ListConsumerAccountsOptions)
+				listConsumerAccountsOptionsModel.IdpID = core.StringPtr("testString")
+				listConsumerAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ExportSamlMetadata(exportSamlMetadataOptions *ExportSamlMetadataOptions)`, func() {
+		exportSamlMetadataPath := "/v1/idps/testString/saml/metadata"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(exportSamlMetadataPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "text/xml")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `"<?xml version=\"1.0\"?>\n<EntityDescriptor\n    xmlns=\"urn:oasis:names:tc:SAML:2.0:metadata\"\n    entityID=\"crn:v1:staging:public:iam-identity::a/{ACCOUNT_ID}::idp:{REALM_ID}\">\n  <SPSSODescriptor\n      WantAssertionsSigned=\"true\"\n      protocolSupportEnumeration=\"urn:oasis:names:tc:SAML:2.0:protocol\">\n    <KeyDescriptor use=\"signing\">\n      <KeyInfo xmlns=\"http://www.w3.org/2000/09/xmldsig#\">\n        <X509Data>\n          <X509Certificate>\n            MIIDqTCCApGgAwIBAgIDA....\n          </X509Certificate>\n        </X509Data>\n      </KeyInfo>\n    </KeyDescriptor>\n    <NameIDFormat>\n      urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress\n    </NameIDFormat>\n    <AssertionConsumerService\n        index=\"1\"\n        isDefault=\"true\"\n        Binding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\"\n        Location=\"https://iam.cloud.ibm.com/identity/callback/{REALM}/saml\"/>\n  </SPSSODescriptor>\n</EntityDescriptor>\n"`)
+				}))
+			})
+			It(`Invoke ExportSamlMetadata successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ExportSamlMetadataOptions model
+				exportSamlMetadataOptionsModel := new(iamidentityv1.ExportSamlMetadataOptions)
+				exportSamlMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				exportSamlMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ExportSamlMetadataWithContext(ctx, exportSamlMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ExportSamlMetadata(exportSamlMetadataOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ExportSamlMetadataWithContext(ctx, exportSamlMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(exportSamlMetadataPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "text/xml")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `"<?xml version=\"1.0\"?>\n<EntityDescriptor\n    xmlns=\"urn:oasis:names:tc:SAML:2.0:metadata\"\n    entityID=\"crn:v1:staging:public:iam-identity::a/{ACCOUNT_ID}::idp:{REALM_ID}\">\n  <SPSSODescriptor\n      WantAssertionsSigned=\"true\"\n      protocolSupportEnumeration=\"urn:oasis:names:tc:SAML:2.0:protocol\">\n    <KeyDescriptor use=\"signing\">\n      <KeyInfo xmlns=\"http://www.w3.org/2000/09/xmldsig#\">\n        <X509Data>\n          <X509Certificate>\n            MIIDqTCCApGgAwIBAgIDA....\n          </X509Certificate>\n        </X509Data>\n      </KeyInfo>\n    </KeyDescriptor>\n    <NameIDFormat>\n      urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress\n    </NameIDFormat>\n    <AssertionConsumerService\n        index=\"1\"\n        isDefault=\"true\"\n        Binding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\"\n        Location=\"https://iam.cloud.ibm.com/identity/callback/{REALM}/saml\"/>\n  </SPSSODescriptor>\n</EntityDescriptor>\n"`)
+				}))
+			})
+			It(`Invoke ExportSamlMetadata successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ExportSamlMetadata(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ExportSamlMetadataOptions model
+				exportSamlMetadataOptionsModel := new(iamidentityv1.ExportSamlMetadataOptions)
+				exportSamlMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				exportSamlMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ExportSamlMetadata(exportSamlMetadataOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ExportSamlMetadata with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ExportSamlMetadataOptions model
+				exportSamlMetadataOptionsModel := new(iamidentityv1.ExportSamlMetadataOptions)
+				exportSamlMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				exportSamlMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ExportSamlMetadata(exportSamlMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ExportSamlMetadataOptions model with no property values
+				exportSamlMetadataOptionsModelNew := new(iamidentityv1.ExportSamlMetadataOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ExportSamlMetadata(exportSamlMetadataOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ExportSamlMetadata successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ExportSamlMetadataOptions model
+				exportSamlMetadataOptionsModel := new(iamidentityv1.ExportSamlMetadataOptions)
+				exportSamlMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				exportSamlMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ExportSamlMetadata(exportSamlMetadataOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ImportSamlIdpMetadata(importSamlIdpMetadataOptions *ImportSamlIdpMetadataOptions) - Operation response error`, func() {
+		importSamlIdpMetadataPath := "/v1/idps/testString/saml/metadata"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(importSamlIdpMetadataPath))
+					Expect(req.Method).To(Equal("PUT"))
+					// TODO: Add check for parse_only query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ImportSamlIdpMetadata with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ImportSamlIdpMetadataOptions model
+				importSamlIdpMetadataOptionsModel := new(iamidentityv1.ImportSamlIdpMetadataOptions)
+				importSamlIdpMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.Body = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.ParseOnly = core.BoolPtr(false)
+				importSamlIdpMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ImportSamlIdpMetadata(importSamlIdpMetadataOptions *ImportSamlIdpMetadataOptions)`, func() {
+		importSamlIdpMetadataPath := "/v1/idps/testString/saml/metadata"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(importSamlIdpMetadataPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// TODO: Add check for parse_only query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "history": [{"anyKey": "anyValue"}], "share_scope": [{"id": "ID", "type": "account"}], "active": true, "ui_setup_completed": true}`)
+				}))
+			})
+			It(`Invoke ImportSamlIdpMetadata successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ImportSamlIdpMetadataOptions model
+				importSamlIdpMetadataOptionsModel := new(iamidentityv1.ImportSamlIdpMetadataOptions)
+				importSamlIdpMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.Body = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.ParseOnly = core.BoolPtr(false)
+				importSamlIdpMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ImportSamlIdpMetadataWithContext(ctx, importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ImportSamlIdpMetadataWithContext(ctx, importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(importSamlIdpMetadataPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// TODO: Add check for parse_only query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "type": "saml", "properties": {"anyKey": "anyValue"}, "secrets": {"anyKey": "anyValue"}, "history": [{"anyKey": "anyValue"}], "share_scope": [{"id": "ID", "type": "account"}], "active": true, "ui_setup_completed": true}`)
+				}))
+			})
+			It(`Invoke ImportSamlIdpMetadata successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ImportSamlIdpMetadata(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ImportSamlIdpMetadataOptions model
+				importSamlIdpMetadataOptionsModel := new(iamidentityv1.ImportSamlIdpMetadataOptions)
+				importSamlIdpMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.Body = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.ParseOnly = core.BoolPtr(false)
+				importSamlIdpMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ImportSamlIdpMetadata with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ImportSamlIdpMetadataOptions model
+				importSamlIdpMetadataOptionsModel := new(iamidentityv1.ImportSamlIdpMetadataOptions)
+				importSamlIdpMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.Body = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.ParseOnly = core.BoolPtr(false)
+				importSamlIdpMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ImportSamlIdpMetadataOptions model with no property values
+				importSamlIdpMetadataOptionsModelNew := new(iamidentityv1.ImportSamlIdpMetadataOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ImportSamlIdpMetadata successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ImportSamlIdpMetadataOptions model
+				importSamlIdpMetadataOptionsModel := new(iamidentityv1.ImportSamlIdpMetadataOptions)
+				importSamlIdpMetadataOptionsModel.IdpID = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.Body = core.StringPtr("testString")
+				importSamlIdpMetadataOptionsModel.ParseOnly = core.BoolPtr(false)
+				importSamlIdpMetadataOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ImportSamlIdpMetadata(importSamlIdpMetadataOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetIdpTestResult(getIdpTestResultOptions *GetIdpTestResultOptions) - Operation response error`, func() {
+		getIdpTestResultPath := "/v1/idps/testString/test"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIdpTestResultPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetIdpTestResult with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIdpTestResultOptions model
+				getIdpTestResultOptionsModel := new(iamidentityv1.GetIdpTestResultOptions)
+				getIdpTestResultOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpTestResultOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetIdpTestResult(getIdpTestResultOptions *GetIdpTestResultOptions)`, func() {
+		getIdpTestResultPath := "/v1/idps/testString/test"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIdpTestResultPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "started_at": 9, "modified_at": "ModifiedAt", "idp_version": "IdpVersion", "steps": [{"sequence": 8, "name": "Name", "state": "State", "result": "Result"}]}`)
+				}))
+			})
+			It(`Invoke GetIdpTestResult successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetIdpTestResultOptions model
+				getIdpTestResultOptionsModel := new(iamidentityv1.GetIdpTestResultOptions)
+				getIdpTestResultOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpTestResultOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetIdpTestResultWithContext(ctx, getIdpTestResultOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetIdpTestResultWithContext(ctx, getIdpTestResultOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIdpTestResultPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "entity_tag": "EntityTag", "started_at": 9, "modified_at": "ModifiedAt", "idp_version": "IdpVersion", "steps": [{"sequence": 8, "name": "Name", "state": "State", "result": "Result"}]}`)
+				}))
+			})
+			It(`Invoke GetIdpTestResult successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetIdpTestResult(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetIdpTestResultOptions model
+				getIdpTestResultOptionsModel := new(iamidentityv1.GetIdpTestResultOptions)
+				getIdpTestResultOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpTestResultOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetIdpTestResult with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIdpTestResultOptions model
+				getIdpTestResultOptionsModel := new(iamidentityv1.GetIdpTestResultOptions)
+				getIdpTestResultOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpTestResultOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetIdpTestResultOptions model with no property values
+				getIdpTestResultOptionsModelNew := new(iamidentityv1.GetIdpTestResultOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetIdpTestResult successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIdpTestResultOptions model
+				getIdpTestResultOptionsModel := new(iamidentityv1.GetIdpTestResultOptions)
+				getIdpTestResultOptionsModel.IdpID = core.StringPtr("testString")
+				getIdpTestResultOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetIdpTestResult(getIdpTestResultOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`TestIdp(testIdpOptions *TestIdpOptions) - Operation response error`, func() {
+		testIdpPath := "/v1/idps/testString/test"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(testIdpPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke TestIdp with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the TestIdpOptions model
+				testIdpOptionsModel := new(iamidentityv1.TestIdpOptions)
+				testIdpOptionsModel.IdpID = core.StringPtr("testString")
+				testIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.TestIdp(testIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.TestIdp(testIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`TestIdp(testIdpOptions *TestIdpOptions)`, func() {
+		testIdpPath := "/v1/idps/testString/test"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(testIdpPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"result": "Result", "test_url": "TestURL"}`)
+				}))
+			})
+			It(`Invoke TestIdp successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the TestIdpOptions model
+				testIdpOptionsModel := new(iamidentityv1.TestIdpOptions)
+				testIdpOptionsModel.IdpID = core.StringPtr("testString")
+				testIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.TestIdpWithContext(ctx, testIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.TestIdp(testIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.TestIdpWithContext(ctx, testIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(testIdpPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"result": "Result", "test_url": "TestURL"}`)
+				}))
+			})
+			It(`Invoke TestIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.TestIdp(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the TestIdpOptions model
+				testIdpOptionsModel := new(iamidentityv1.TestIdpOptions)
+				testIdpOptionsModel.IdpID = core.StringPtr("testString")
+				testIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.TestIdp(testIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke TestIdp with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the TestIdpOptions model
+				testIdpOptionsModel := new(iamidentityv1.TestIdpOptions)
+				testIdpOptionsModel.IdpID = core.StringPtr("testString")
+				testIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.TestIdp(testIdpOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the TestIdpOptions model with no property values
+				testIdpOptionsModelNew := new(iamidentityv1.TestIdpOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.TestIdp(testIdpOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke TestIdp successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the TestIdpOptions model
+				testIdpOptionsModel := new(iamidentityv1.TestIdpOptions)
+				testIdpOptionsModel.IdpID = core.StringPtr("testString")
+				testIdpOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.TestIdp(testIdpOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLoginSettings(getLoginSettingsOptions *GetLoginSettingsOptions) - Operation response error`, func() {
+		getLoginSettingsPath := "/v2/loginsettings/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLoginSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetLoginSettings with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLoginSettingsOptions model
+				getLoginSettingsOptionsModel := new(iamidentityv1.GetLoginSettingsOptions)
+				getLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLoginSettings(getLoginSettingsOptions *GetLoginSettingsOptions)`, func() {
+		getLoginSettingsPath := "/v2/loginsettings/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLoginSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"alias": "Alias"}`)
+				}))
+			})
+			It(`Invoke GetLoginSettings successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetLoginSettingsOptions model
+				getLoginSettingsOptionsModel := new(iamidentityv1.GetLoginSettingsOptions)
+				getLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetLoginSettingsWithContext(ctx, getLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetLoginSettingsWithContext(ctx, getLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLoginSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"alias": "Alias"}`)
+				}))
+			})
+			It(`Invoke GetLoginSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetLoginSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetLoginSettingsOptions model
+				getLoginSettingsOptionsModel := new(iamidentityv1.GetLoginSettingsOptions)
+				getLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetLoginSettings with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLoginSettingsOptions model
+				getLoginSettingsOptionsModel := new(iamidentityv1.GetLoginSettingsOptions)
+				getLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetLoginSettingsOptions model with no property values
+				getLoginSettingsOptionsModelNew := new(iamidentityv1.GetLoginSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetLoginSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLoginSettingsOptions model
+				getLoginSettingsOptionsModel := new(iamidentityv1.GetLoginSettingsOptions)
+				getLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetLoginSettings(getLoginSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateLoginSettings(updateLoginSettingsOptions *UpdateLoginSettingsOptions) - Operation response error`, func() {
+		updateLoginSettingsPath := "/v2/loginsettings/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateLoginSettingsPath))
+					Expect(req.Method).To(Equal("PUT"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateLoginSettings with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateLoginSettingsOptions model
+				updateLoginSettingsOptionsModel := new(iamidentityv1.UpdateLoginSettingsOptions)
+				updateLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Alias = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateLoginSettings(updateLoginSettingsOptions *UpdateLoginSettingsOptions)`, func() {
+		updateLoginSettingsPath := "/v2/loginsettings/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateLoginSettingsPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"alias": "Alias"}`)
+				}))
+			})
+			It(`Invoke UpdateLoginSettings successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateLoginSettingsOptions model
+				updateLoginSettingsOptionsModel := new(iamidentityv1.UpdateLoginSettingsOptions)
+				updateLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Alias = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateLoginSettingsWithContext(ctx, updateLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateLoginSettingsWithContext(ctx, updateLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateLoginSettingsPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"alias": "Alias"}`)
+				}))
+			})
+			It(`Invoke UpdateLoginSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateLoginSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateLoginSettingsOptions model
+				updateLoginSettingsOptionsModel := new(iamidentityv1.UpdateLoginSettingsOptions)
+				updateLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Alias = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateLoginSettings with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateLoginSettingsOptions model
+				updateLoginSettingsOptionsModel := new(iamidentityv1.UpdateLoginSettingsOptions)
+				updateLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Alias = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateLoginSettingsOptions model with no property values
+				updateLoginSettingsOptionsModelNew := new(iamidentityv1.UpdateLoginSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateLoginSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateLoginSettingsOptions model
+				updateLoginSettingsOptionsModel := new(iamidentityv1.UpdateLoginSettingsOptions)
+				updateLoginSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Alias = core.StringPtr("testString")
+				updateLoginSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListIDPSettings(listIDPSettingsOptions *ListIDPSettingsOptions) - Operation response error`, func() {
+		listIDPSettingsPath := "/v2/loginsettings/testString/idps"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listIDPSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"consumable"}))
+					Expect(req.URL.Query()["include_idp_metadata"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListIDPSettings with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListIDPSettingsOptions model
+				listIDPSettingsOptionsModel := new(iamidentityv1.ListIDPSettingsOptions)
+				listIDPSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Type = core.StringPtr("consumable")
+				listIDPSettingsOptionsModel.IncludeIdpMetadata = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListIDPSettings(listIDPSettingsOptions *ListIDPSettingsOptions)`, func() {
+		listIDPSettingsPath := "/v2/loginsettings/testString/idps"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listIDPSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"consumable"}))
+					Expect(req.URL.Query()["include_idp_metadata"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idps": [{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}]}`)
+				}))
+			})
+			It(`Invoke ListIDPSettings successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListIDPSettingsOptions model
+				listIDPSettingsOptionsModel := new(iamidentityv1.ListIDPSettingsOptions)
+				listIDPSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Type = core.StringPtr("consumable")
+				listIDPSettingsOptionsModel.IncludeIdpMetadata = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListIDPSettingsWithContext(ctx, listIDPSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListIDPSettingsWithContext(ctx, listIDPSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listIDPSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"consumable"}))
+					Expect(req.URL.Query()["include_idp_metadata"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idps": [{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}]}`)
+				}))
+			})
+			It(`Invoke ListIDPSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListIDPSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListIDPSettingsOptions model
+				listIDPSettingsOptionsModel := new(iamidentityv1.ListIDPSettingsOptions)
+				listIDPSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Type = core.StringPtr("consumable")
+				listIDPSettingsOptionsModel.IncludeIdpMetadata = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListIDPSettings with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListIDPSettingsOptions model
+				listIDPSettingsOptionsModel := new(iamidentityv1.ListIDPSettingsOptions)
+				listIDPSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Type = core.StringPtr("consumable")
+				listIDPSettingsOptionsModel.IncludeIdpMetadata = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListIDPSettingsOptions model with no property values
+				listIDPSettingsOptionsModelNew := new(iamidentityv1.ListIDPSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListIDPSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListIDPSettingsOptions model
+				listIDPSettingsOptionsModel := new(iamidentityv1.ListIDPSettingsOptions)
+				listIDPSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Type = core.StringPtr("consumable")
+				listIDPSettingsOptionsModel.IncludeIdpMetadata = core.StringPtr("testString")
+				listIDPSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListIDPSettings(listIDPSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetIDPSetting(getIDPSettingOptions *GetIDPSettingOptions) - Operation response error`, func() {
+		getIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIDPSettingPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetIDPSetting with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIDPSettingOptions model
+				getIDPSettingOptionsModel := new(iamidentityv1.GetIDPSettingOptions)
+				getIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetIDPSetting(getIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetIDPSetting(getIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetIDPSetting(getIDPSettingOptions *GetIDPSettingOptions)`, func() {
+		getIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIDPSettingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}`)
+				}))
+			})
+			It(`Invoke GetIDPSetting successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetIDPSettingOptions model
+				getIDPSettingOptionsModel := new(iamidentityv1.GetIDPSettingOptions)
+				getIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetIDPSettingWithContext(ctx, getIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetIDPSetting(getIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetIDPSettingWithContext(ctx, getIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getIDPSettingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}`)
+				}))
+			})
+			It(`Invoke GetIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetIDPSetting(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetIDPSettingOptions model
+				getIDPSettingOptionsModel := new(iamidentityv1.GetIDPSettingOptions)
+				getIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetIDPSetting(getIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetIDPSetting with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIDPSettingOptions model
+				getIDPSettingOptionsModel := new(iamidentityv1.GetIDPSettingOptions)
+				getIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetIDPSetting(getIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetIDPSettingOptions model with no property values
+				getIDPSettingOptionsModelNew := new(iamidentityv1.GetIDPSettingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetIDPSetting(getIDPSettingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetIDPSettingOptions model
+				getIDPSettingOptionsModel := new(iamidentityv1.GetIDPSettingOptions)
+				getIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				getIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetIDPSetting(getIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`AddIDPSetting(addIDPSettingOptions *AddIDPSettingOptions) - Operation response error`, func() {
+		addIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(addIDPSettingPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke AddIDPSetting with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AddIDPSettingOptions model
+				addIDPSettingOptionsModel := new(iamidentityv1.AddIDPSettingOptions)
+				addIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				addIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				addIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				addIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.AddIDPSetting(addIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.AddIDPSetting(addIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`AddIDPSetting(addIDPSettingOptions *AddIDPSettingOptions)`, func() {
+		addIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(addIDPSettingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}`)
+				}))
+			})
+			It(`Invoke AddIDPSetting successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the AddIDPSettingOptions model
+				addIDPSettingOptionsModel := new(iamidentityv1.AddIDPSettingOptions)
+				addIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				addIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				addIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				addIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.AddIDPSettingWithContext(ctx, addIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.AddIDPSetting(addIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.AddIDPSettingWithContext(ctx, addIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(addIDPSettingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}`)
+				}))
+			})
+			It(`Invoke AddIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.AddIDPSetting(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AddIDPSettingOptions model
+				addIDPSettingOptionsModel := new(iamidentityv1.AddIDPSettingOptions)
+				addIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				addIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				addIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				addIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.AddIDPSetting(addIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke AddIDPSetting with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AddIDPSettingOptions model
+				addIDPSettingOptionsModel := new(iamidentityv1.AddIDPSettingOptions)
+				addIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				addIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				addIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				addIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.AddIDPSetting(addIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the AddIDPSettingOptions model with no property values
+				addIDPSettingOptionsModelNew := new(iamidentityv1.AddIDPSettingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.AddIDPSetting(addIDPSettingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke AddIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AddIDPSettingOptions model
+				addIDPSettingOptionsModel := new(iamidentityv1.AddIDPSettingOptions)
+				addIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				addIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				addIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				addIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				addIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.AddIDPSetting(addIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateIDPSetting(updateIDPSettingOptions *UpdateIDPSettingOptions) - Operation response error`, func() {
+		updateIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateIDPSettingPath))
+					Expect(req.Method).To(Equal("PUT"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateIDPSetting with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateIDPSettingOptions model
+				updateIDPSettingOptionsModel := new(iamidentityv1.UpdateIDPSettingOptions)
+				updateIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				updateIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateIDPSetting(updateIDPSettingOptions *UpdateIDPSettingOptions)`, func() {
+		updateIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateIDPSettingPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}`)
+				}))
+			})
+			It(`Invoke UpdateIDPSetting successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateIDPSettingOptions model
+				updateIDPSettingOptionsModel := new(iamidentityv1.UpdateIDPSettingOptions)
+				updateIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				updateIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateIDPSettingWithContext(ctx, updateIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateIDPSettingWithContext(ctx, updateIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateIDPSettingPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"idp_id": "IdpID", "owner_account": "OwnerAccount", "owner_account_name": "OwnerAccountName", "idp_name": "IdpName", "idp_type": "IdpType", "cloud_user_strategy": "STATIC", "active": true, "ui_default": false}`)
+				}))
+			})
+			It(`Invoke UpdateIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateIDPSetting(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateIDPSettingOptions model
+				updateIDPSettingOptionsModel := new(iamidentityv1.UpdateIDPSettingOptions)
+				updateIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				updateIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateIDPSetting with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateIDPSettingOptions model
+				updateIDPSettingOptionsModel := new(iamidentityv1.UpdateIDPSettingOptions)
+				updateIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				updateIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateIDPSettingOptions model with no property values
+				updateIDPSettingOptionsModelNew := new(iamidentityv1.UpdateIDPSettingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateIDPSettingOptions model
+				updateIDPSettingOptionsModel := new(iamidentityv1.UpdateIDPSettingOptions)
+				updateIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				updateIDPSettingOptionsModel.CloudUserStrategy = core.StringPtr("STATIC")
+				updateIDPSettingOptionsModel.Active = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.UIDefault = core.BoolPtr(true)
+				updateIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateIDPSetting(updateIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`RemoveIDPSetting(removeIDPSettingOptions *RemoveIDPSettingOptions)`, func() {
+		removeIDPSettingPath := "/v2/loginsettings/testString/idps/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(removeIDPSettingPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke RemoveIDPSetting successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.RemoveIDPSetting(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the RemoveIDPSettingOptions model
+				removeIDPSettingOptionsModel := new(iamidentityv1.RemoveIDPSettingOptions)
+				removeIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				removeIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				removeIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.RemoveIDPSetting(removeIDPSettingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke RemoveIDPSetting with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the RemoveIDPSettingOptions model
+				removeIDPSettingOptionsModel := new(iamidentityv1.RemoveIDPSettingOptions)
+				removeIDPSettingOptionsModel.AccountID = core.StringPtr("testString")
+				removeIDPSettingOptionsModel.IdpID = core.StringPtr("testString")
+				removeIDPSettingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.RemoveIDPSetting(removeIDPSettingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the RemoveIDPSettingOptions model with no property values
+				removeIDPSettingOptionsModelNew := new(iamidentityv1.RemoveIDPSettingOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.RemoveIDPSetting(removeIDPSettingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamIdentityService, _ := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -19539,6 +23842,28 @@ var _ = Describe(`IamIdentityV1`, func() {
 				_model, err := iamIdentityService.NewActionControlsRules(add, remove)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewAddIDPSettingOptions successfully`, func() {
+				// Construct an instance of the AddIDPSettingOptions model
+				accountID := "testString"
+				idpID := "testString"
+				addIdpSettingOptionsCloudUserStrategy := "STATIC"
+				addIdpSettingOptionsActive := true
+				addIdpSettingOptionsUIDefault := true
+				addIDPSettingOptionsModel := iamIdentityService.NewAddIDPSettingOptions(accountID, idpID, addIdpSettingOptionsCloudUserStrategy, addIdpSettingOptionsActive, addIdpSettingOptionsUIDefault)
+				addIDPSettingOptionsModel.SetAccountID("testString")
+				addIDPSettingOptionsModel.SetIdpID("testString")
+				addIDPSettingOptionsModel.SetCloudUserStrategy("STATIC")
+				addIDPSettingOptionsModel.SetActive(true)
+				addIDPSettingOptionsModel.SetUIDefault(true)
+				addIDPSettingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(addIDPSettingOptionsModel).ToNot(BeNil())
+				Expect(addIDPSettingOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(addIDPSettingOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(addIDPSettingOptionsModel.CloudUserStrategy).To(Equal(core.StringPtr("STATIC")))
+				Expect(addIDPSettingOptionsModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(addIDPSettingOptionsModel.UIDefault).To(Equal(core.BoolPtr(true)))
+				Expect(addIDPSettingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewAPIKeyInsideCreateServiceIDRequest successfully`, func() {
 				name := "testString"
@@ -19860,6 +24185,142 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createClaimRuleOptionsModel.CrType).To(Equal(core.StringPtr("testString")))
 				Expect(createClaimRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(createClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateIdpOptions successfully`, func() {
+				// Construct an instance of the CreateIdpRequestPropertiesIdp model
+				createIdpRequestPropertiesIdpModel := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+				Expect(createIdpRequestPropertiesIdpModel).ToNot(BeNil())
+				createIdpRequestPropertiesIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				createIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+				Expect(createIdpRequestPropertiesIdpModel.XMLImport).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesIdpModel.EntityID).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestPropertiesIdpModel.RedirectBindingURL).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestPropertiesIdpModel.WantRequestSigned).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesIdpModel.LogoutURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateIdpRequestPropertiesSpAuthnContext model
+				createIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+				Expect(createIdpRequestPropertiesSpAuthnContextModel).ToNot(BeNil())
+				createIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				createIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+				Expect(createIdpRequestPropertiesSpAuthnContextModel.Request).To(Equal([]string{"testString"}))
+				Expect(createIdpRequestPropertiesSpAuthnContextModel.Accept).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the CreateIdpRequestPropertiesSp model
+				createIdpRequestPropertiesSpModel := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+				Expect(createIdpRequestPropertiesSpModel).ToNot(BeNil())
+				createIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				createIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				createIdpRequestPropertiesSpModel.AuthnContext = createIdpRequestPropertiesSpAuthnContextModel
+				createIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+				Expect(createIdpRequestPropertiesSpModel.WantAssertionSigned).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesSpModel.WantResponseSigned).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesSpModel.EncryptResponse).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestPropertiesSpModel.IdpInitiatedUrls).To(Equal([]string{"testString"}))
+				Expect(createIdpRequestPropertiesSpModel.AuthnContext).To(Equal(createIdpRequestPropertiesSpAuthnContextModel))
+				Expect(createIdpRequestPropertiesSpModel.Claims).To(Equal(map[string]string{"key1": "testString"}))
+
+				// Construct an instance of the CreateIdpRequestProperties model
+				createIdpRequestPropertiesModel := new(iamidentityv1.CreateIdpRequestProperties)
+				Expect(createIdpRequestPropertiesModel).ToNot(BeNil())
+				createIdpRequestPropertiesModel.Idp = createIdpRequestPropertiesIdpModel
+				createIdpRequestPropertiesModel.Sp = createIdpRequestPropertiesSpModel
+				Expect(createIdpRequestPropertiesModel.Idp).To(Equal(createIdpRequestPropertiesIdpModel))
+				Expect(createIdpRequestPropertiesModel.Sp).To(Equal(createIdpRequestPropertiesSpModel))
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpSigningItem model
+				createIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+				Expect(createIdpRequestSecretsIdpSigningItemModel).ToNot(BeNil())
+				createIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+				Expect(createIdpRequestSecretsIdpSigningItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestSecretsIdpSigningItemModel.Type).To(Equal(core.StringPtr("primary")))
+
+				// Construct an instance of the CreateIdpRequestSecretsIdpEncryptingItem model
+				createIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+				Expect(createIdpRequestSecretsIdpEncryptingItemModel).ToNot(BeNil())
+				createIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				createIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+				Expect(createIdpRequestSecretsIdpEncryptingItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestSecretsIdpEncryptingItemModel.Type).To(Equal(core.StringPtr("primary")))
+
+				// Construct an instance of the CreateIdpRequestSecretsIdp model
+				createIdpRequestSecretsIdpModel := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+				Expect(createIdpRequestSecretsIdpModel).ToNot(BeNil())
+				createIdpRequestSecretsIdpModel.XMLImport = core.BoolPtr(true)
+				createIdpRequestSecretsIdpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}
+				createIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}
+				Expect(createIdpRequestSecretsIdpModel.XMLImport).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpRequestSecretsIdpModel.Signing).To(Equal([]iamidentityv1.CreateIdpRequestSecretsIdpSigningItem{*createIdpRequestSecretsIdpSigningItemModel}))
+				Expect(createIdpRequestSecretsIdpModel.Encrypting).To(Equal([]iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem{*createIdpRequestSecretsIdpEncryptingItemModel}))
+
+				// Construct an instance of the CreateIdpRequestSecretsSpSigningItem model
+				createIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+				Expect(createIdpRequestSecretsSpSigningItemModel).ToNot(BeNil())
+				createIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				createIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+				Expect(createIdpRequestSecretsSpSigningItemModel.CertificateValue).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestSecretsSpSigningItemModel.KeyValue).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestSecretsSpSigningItemModel.KeyEncoding).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpRequestSecretsSpSigningItemModel.Type).To(Equal(core.StringPtr("primary")))
+
+				// Construct an instance of the CreateIdpRequestSecretsSp model
+				createIdpRequestSecretsSpModel := new(iamidentityv1.CreateIdpRequestSecretsSp)
+				Expect(createIdpRequestSecretsSpModel).ToNot(BeNil())
+				createIdpRequestSecretsSpModel.Signing = []iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}
+				Expect(createIdpRequestSecretsSpModel.Signing).To(Equal([]iamidentityv1.CreateIdpRequestSecretsSpSigningItem{*createIdpRequestSecretsSpSigningItemModel}))
+
+				// Construct an instance of the CreateIdpRequestSecrets model
+				createIdpRequestSecretsModel := new(iamidentityv1.CreateIdpRequestSecrets)
+				Expect(createIdpRequestSecretsModel).ToNot(BeNil())
+				createIdpRequestSecretsModel.Idp = createIdpRequestSecretsIdpModel
+				createIdpRequestSecretsModel.Sp = createIdpRequestSecretsSpModel
+				Expect(createIdpRequestSecretsModel.Idp).To(Equal(createIdpRequestSecretsIdpModel))
+				Expect(createIdpRequestSecretsModel.Sp).To(Equal(createIdpRequestSecretsSpModel))
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				Expect(shareScopeModel).ToNot(BeNil())
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+				Expect(shareScopeModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(shareScopeModel.Type).To(Equal(core.StringPtr("account")))
+
+				// Construct an instance of the CreateIdpOptions model
+				createIdpOptionsAccountID := "testString"
+				createIdpOptionsName := "testString"
+				createIdpOptionsType := "ldap"
+				createIdpOptionsModel := iamIdentityService.NewCreateIdpOptions(createIdpOptionsAccountID, createIdpOptionsName, createIdpOptionsType)
+				createIdpOptionsModel.SetAccountID("testString")
+				createIdpOptionsModel.SetName("testString")
+				createIdpOptionsModel.SetType("ldap")
+				createIdpOptionsModel.SetActive(true)
+				createIdpOptionsModel.SetProperties(createIdpRequestPropertiesModel)
+				createIdpOptionsModel.SetSecrets(createIdpRequestSecretsModel)
+				createIdpOptionsModel.SetShareScope([]iamidentityv1.ShareScope{*shareScopeModel})
+				createIdpOptionsModel.SetAutomation("testString")
+				createIdpOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createIdpOptionsModel).ToNot(BeNil())
+				Expect(createIdpOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpOptionsModel.Type).To(Equal(core.StringPtr("ldap")))
+				Expect(createIdpOptionsModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(createIdpOptionsModel.Properties).To(Equal(createIdpRequestPropertiesModel))
+				Expect(createIdpOptionsModel.Secrets).To(Equal(createIdpRequestSecretsModel))
+				Expect(createIdpOptionsModel.ShareScope).To(Equal([]iamidentityv1.ShareScope{*shareScopeModel}))
+				Expect(createIdpOptionsModel.Automation).To(Equal(core.StringPtr("testString")))
+				Expect(createIdpOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateLinkOptions successfully`, func() {
 				// Construct an instance of the CreateProfileLinkRequestLink model
@@ -20310,6 +24771,16 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(deleteClaimRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteIdpOptions successfully`, func() {
+				// Construct an instance of the DeleteIdpOptions model
+				idpID := "testString"
+				deleteIdpOptionsModel := iamIdentityService.NewDeleteIdpOptions(idpID)
+				deleteIdpOptionsModel.SetIdpID("testString")
+				deleteIdpOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteIdpOptionsModel).ToNot(BeNil())
+				Expect(deleteIdpOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteIdpOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteLinkByParametersOptions successfully`, func() {
 				// Construct an instance of the DeleteLinkByParametersOptions model
 				profileID := "testString"
@@ -20454,6 +24925,16 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(enableAPIKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(enableAPIKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewExportSamlMetadataOptions successfully`, func() {
+				// Construct an instance of the ExportSamlMetadataOptions model
+				idpID := "testString"
+				exportSamlMetadataOptionsModel := iamIdentityService.NewExportSamlMetadataOptions(idpID)
+				exportSamlMetadataOptionsModel.SetIdpID("testString")
+				exportSamlMetadataOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(exportSamlMetadataOptionsModel).ToNot(BeNil())
+				Expect(exportSamlMetadataOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(exportSamlMetadataOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetAccountLimitsOptions successfully`, func() {
 				// Construct an instance of the GetAccountLimitsOptions model
 				accountID := "testString"
@@ -20596,6 +25077,41 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getEffectiveAccountSettingsOptionsModel.ResolveUserMfa).To(Equal(core.BoolPtr(false)))
 				Expect(getEffectiveAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetIDPSettingOptions successfully`, func() {
+				// Construct an instance of the GetIDPSettingOptions model
+				accountID := "testString"
+				idpID := "testString"
+				getIDPSettingOptionsModel := iamIdentityService.NewGetIDPSettingOptions(accountID, idpID)
+				getIDPSettingOptionsModel.SetAccountID("testString")
+				getIDPSettingOptionsModel.SetIdpID("testString")
+				getIDPSettingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getIDPSettingOptionsModel).ToNot(BeNil())
+				Expect(getIDPSettingOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getIDPSettingOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(getIDPSettingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetIdpOptions successfully`, func() {
+				// Construct an instance of the GetIdpOptions model
+				idpID := "testString"
+				getIdpOptionsModel := iamIdentityService.NewGetIdpOptions(idpID)
+				getIdpOptionsModel.SetIdpID("testString")
+				getIdpOptionsModel.SetIncludeHistory("testString")
+				getIdpOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getIdpOptionsModel).ToNot(BeNil())
+				Expect(getIdpOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(getIdpOptionsModel.IncludeHistory).To(Equal(core.StringPtr("testString")))
+				Expect(getIdpOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetIdpTestResultOptions successfully`, func() {
+				// Construct an instance of the GetIdpTestResultOptions model
+				idpID := "testString"
+				getIdpTestResultOptionsModel := iamIdentityService.NewGetIdpTestResultOptions(idpID)
+				getIdpTestResultOptionsModel.SetIdpID("testString")
+				getIdpTestResultOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getIdpTestResultOptionsModel).ToNot(BeNil())
+				Expect(getIdpTestResultOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(getIdpTestResultOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetLatestAccountSettingsTemplateVersionOptions successfully`, func() {
 				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
 				templateID := "testString"
@@ -20632,6 +25148,16 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getLinkOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(getLinkOptionsModel.LinkID).To(Equal(core.StringPtr("testString")))
 				Expect(getLinkOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetLoginSettingsOptions successfully`, func() {
+				// Construct an instance of the GetLoginSettingsOptions model
+				accountID := "testString"
+				getLoginSettingsOptionsModel := iamIdentityService.NewGetLoginSettingsOptions(accountID)
+				getLoginSettingsOptionsModel.SetAccountID("testString")
+				getLoginSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getLoginSettingsOptionsModel).ToNot(BeNil())
+				Expect(getLoginSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getLoginSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetMfaReportOptions successfully`, func() {
 				// Construct an instance of the GetMfaReportOptions model
@@ -20782,6 +25308,21 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getTrustedProfileAssignmentOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
 				Expect(getTrustedProfileAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewImportSamlIdpMetadataOptions successfully`, func() {
+				// Construct an instance of the ImportSamlIdpMetadataOptions model
+				idpID := "testString"
+				body := "testString"
+				importSamlIdpMetadataOptionsModel := iamIdentityService.NewImportSamlIdpMetadataOptions(idpID, body)
+				importSamlIdpMetadataOptionsModel.SetIdpID("testString")
+				importSamlIdpMetadataOptionsModel.SetBody("testString")
+				importSamlIdpMetadataOptionsModel.SetParseOnly(false)
+				importSamlIdpMetadataOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(importSamlIdpMetadataOptionsModel).ToNot(BeNil())
+				Expect(importSamlIdpMetadataOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(importSamlIdpMetadataOptionsModel.Body).To(Equal(core.StringPtr("testString")))
+				Expect(importSamlIdpMetadataOptionsModel.ParseOnly).To(Equal(core.BoolPtr(false)))
+				Expect(importSamlIdpMetadataOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewListAccountSettingsAssignmentsOptions successfully`, func() {
 				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
 				listAccountSettingsAssignmentsOptionsModel := iamIdentityService.NewListAccountSettingsAssignmentsOptions()
@@ -20866,6 +25407,43 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(listClaimRulesOptionsModel).ToNot(BeNil())
 				Expect(listClaimRulesOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(listClaimRulesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListConsumerAccountsOptions successfully`, func() {
+				// Construct an instance of the ListConsumerAccountsOptions model
+				idpID := "testString"
+				listConsumerAccountsOptionsModel := iamIdentityService.NewListConsumerAccountsOptions(idpID)
+				listConsumerAccountsOptionsModel.SetIdpID("testString")
+				listConsumerAccountsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listConsumerAccountsOptionsModel).ToNot(BeNil())
+				Expect(listConsumerAccountsOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(listConsumerAccountsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListIDPSettingsOptions successfully`, func() {
+				// Construct an instance of the ListIDPSettingsOptions model
+				accountID := "testString"
+				typeVar := "consumable"
+				listIDPSettingsOptionsModel := iamIdentityService.NewListIDPSettingsOptions(accountID, typeVar)
+				listIDPSettingsOptionsModel.SetAccountID("testString")
+				listIDPSettingsOptionsModel.SetType("consumable")
+				listIDPSettingsOptionsModel.SetIncludeIdpMetadata("testString")
+				listIDPSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listIDPSettingsOptionsModel).ToNot(BeNil())
+				Expect(listIDPSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listIDPSettingsOptionsModel.Type).To(Equal(core.StringPtr("consumable")))
+				Expect(listIDPSettingsOptionsModel.IncludeIdpMetadata).To(Equal(core.StringPtr("testString")))
+				Expect(listIDPSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListIdpsOptions successfully`, func() {
+				// Construct an instance of the ListIdpsOptions model
+				accountID := "testString"
+				listIdpsOptionsModel := iamIdentityService.NewListIdpsOptions(accountID)
+				listIdpsOptionsModel.SetAccountID("testString")
+				listIdpsOptionsModel.SetIncludeHistory("testString")
+				listIdpsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listIdpsOptionsModel).ToNot(BeNil())
+				Expect(listIdpsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listIdpsOptionsModel.IncludeHistory).To(Equal(core.StringPtr("testString")))
+				Expect(listIdpsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListLinksOptions successfully`, func() {
 				// Construct an instance of the ListLinksOptions model
@@ -21065,6 +25643,19 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewRemoveIDPSettingOptions successfully`, func() {
+				// Construct an instance of the RemoveIDPSettingOptions model
+				accountID := "testString"
+				idpID := "testString"
+				removeIDPSettingOptionsModel := iamIdentityService.NewRemoveIDPSettingOptions(accountID, idpID)
+				removeIDPSettingOptionsModel.SetAccountID("testString")
+				removeIDPSettingOptionsModel.SetIdpID("testString")
+				removeIDPSettingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(removeIDPSettingOptionsModel).ToNot(BeNil())
+				Expect(removeIDPSettingOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(removeIDPSettingOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(removeIDPSettingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewSetProfileIdentitiesOptions successfully`, func() {
 				// Construct an instance of the ProfileIdentityRequest model
 				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
@@ -21120,6 +25711,16 @@ var _ = Describe(`IamIdentityV1`, func() {
 				_model, err := iamIdentityService.NewTemplateProfileComponentRequest(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTestIdpOptions successfully`, func() {
+				// Construct an instance of the TestIdpOptions model
+				idpID := "testString"
+				testIdpOptionsModel := iamIdentityService.NewTestIdpOptions(idpID)
+				testIdpOptionsModel.SetIdpID("testString")
+				testIdpOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(testIdpOptionsModel).ToNot(BeNil())
+				Expect(testIdpOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(testIdpOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewTrustedProfileTemplateClaimRule successfully`, func() {
 				typeVar := "Profile-SAML"
@@ -21387,6 +25988,170 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateClaimRuleOptionsModel.CrType).To(Equal(core.StringPtr("testString")))
 				Expect(updateClaimRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(updateClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateIDPSettingOptions successfully`, func() {
+				// Construct an instance of the UpdateIDPSettingOptions model
+				accountID := "testString"
+				idpID := "testString"
+				updateIDPSettingOptionsModel := iamIdentityService.NewUpdateIDPSettingOptions(accountID, idpID)
+				updateIDPSettingOptionsModel.SetAccountID("testString")
+				updateIDPSettingOptionsModel.SetIdpID("testString")
+				updateIDPSettingOptionsModel.SetCloudUserStrategy("STATIC")
+				updateIDPSettingOptionsModel.SetActive(true)
+				updateIDPSettingOptionsModel.SetUIDefault(true)
+				updateIDPSettingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateIDPSettingOptionsModel).ToNot(BeNil())
+				Expect(updateIDPSettingOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateIDPSettingOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(updateIDPSettingOptionsModel.CloudUserStrategy).To(Equal(core.StringPtr("STATIC")))
+				Expect(updateIDPSettingOptionsModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(updateIDPSettingOptionsModel.UIDefault).To(Equal(core.BoolPtr(true)))
+				Expect(updateIDPSettingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateIdpOptions successfully`, func() {
+				// Construct an instance of the UpdateIdpRequestPropertiesIdp model
+				updateIdpRequestPropertiesIdpModel := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+				Expect(updateIdpRequestPropertiesIdpModel).ToNot(BeNil())
+				updateIdpRequestPropertiesIdpModel.EntityID = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.RedirectBindingURL = core.StringPtr("testString")
+				updateIdpRequestPropertiesIdpModel.WantRequestSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesIdpModel.LogoutURL = core.StringPtr("testString")
+				Expect(updateIdpRequestPropertiesIdpModel.EntityID).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestPropertiesIdpModel.RedirectBindingURL).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestPropertiesIdpModel.WantRequestSigned).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpRequestPropertiesIdpModel.LogoutURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSpAuthnContext model
+				updateIdpRequestPropertiesSpAuthnContextModel := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+				Expect(updateIdpRequestPropertiesSpAuthnContextModel).ToNot(BeNil())
+				updateIdpRequestPropertiesSpAuthnContextModel.Request = []string{"testString"}
+				updateIdpRequestPropertiesSpAuthnContextModel.Accept = []string{"testString"}
+				Expect(updateIdpRequestPropertiesSpAuthnContextModel.Request).To(Equal([]string{"testString"}))
+				Expect(updateIdpRequestPropertiesSpAuthnContextModel.Accept).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the UpdateIdpRequestPropertiesSp model
+				updateIdpRequestPropertiesSpModel := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+				Expect(updateIdpRequestPropertiesSpModel).ToNot(BeNil())
+				updateIdpRequestPropertiesSpModel.WantAssertionSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.WantResponseSigned = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.EncryptResponse = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+				updateIdpRequestPropertiesSpModel.IdpInitiatedUrls = []string{"testString"}
+				updateIdpRequestPropertiesSpModel.AuthnContext = updateIdpRequestPropertiesSpAuthnContextModel
+				updateIdpRequestPropertiesSpModel.Claims = map[string]string{"key1": "testString"}
+				Expect(updateIdpRequestPropertiesSpModel.WantAssertionSigned).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpRequestPropertiesSpModel.WantResponseSigned).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpRequestPropertiesSpModel.EncryptResponse).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpRequestPropertiesSpModel.IdpInitiatedLoginEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpRequestPropertiesSpModel.LogoutURLEnabledWhenAvailable).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpRequestPropertiesSpModel.IdpInitiatedUrls).To(Equal([]string{"testString"}))
+				Expect(updateIdpRequestPropertiesSpModel.AuthnContext).To(Equal(updateIdpRequestPropertiesSpAuthnContextModel))
+				Expect(updateIdpRequestPropertiesSpModel.Claims).To(Equal(map[string]string{"key1": "testString"}))
+
+				// Construct an instance of the UpdateIdpRequestProperties model
+				updateIdpRequestPropertiesModel := new(iamidentityv1.UpdateIdpRequestProperties)
+				Expect(updateIdpRequestPropertiesModel).ToNot(BeNil())
+				updateIdpRequestPropertiesModel.Idp = updateIdpRequestPropertiesIdpModel
+				updateIdpRequestPropertiesModel.Sp = updateIdpRequestPropertiesSpModel
+				Expect(updateIdpRequestPropertiesModel.Idp).To(Equal(updateIdpRequestPropertiesIdpModel))
+				Expect(updateIdpRequestPropertiesModel.Sp).To(Equal(updateIdpRequestPropertiesSpModel))
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpSigningItem model
+				updateIdpRequestSecretsIdpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+				Expect(updateIdpRequestSecretsIdpSigningItemModel).ToNot(BeNil())
+				updateIdpRequestSecretsIdpSigningItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpSigningItemModel.Type = core.StringPtr("primary")
+				Expect(updateIdpRequestSecretsIdpSigningItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestSecretsIdpSigningItemModel.Type).To(Equal(core.StringPtr("primary")))
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdpEncryptingItem model
+				updateIdpRequestSecretsIdpEncryptingItemModel := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+				Expect(updateIdpRequestSecretsIdpEncryptingItemModel).ToNot(BeNil())
+				updateIdpRequestSecretsIdpEncryptingItemModel.Value = core.StringPtr("testString")
+				updateIdpRequestSecretsIdpEncryptingItemModel.Type = core.StringPtr("primary")
+				Expect(updateIdpRequestSecretsIdpEncryptingItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestSecretsIdpEncryptingItemModel.Type).To(Equal(core.StringPtr("primary")))
+
+				// Construct an instance of the UpdateIdpRequestSecretsIdp model
+				updateIdpRequestSecretsIdpModel := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+				Expect(updateIdpRequestSecretsIdpModel).ToNot(BeNil())
+				updateIdpRequestSecretsIdpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}
+				updateIdpRequestSecretsIdpModel.Encrypting = []iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}
+				Expect(updateIdpRequestSecretsIdpModel.Signing).To(Equal([]iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem{*updateIdpRequestSecretsIdpSigningItemModel}))
+				Expect(updateIdpRequestSecretsIdpModel.Encrypting).To(Equal([]iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem{*updateIdpRequestSecretsIdpEncryptingItemModel}))
+
+				// Construct an instance of the UpdateIdpRequestSecretsSpSigningItem model
+				updateIdpRequestSecretsSpSigningItemModel := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+				Expect(updateIdpRequestSecretsSpSigningItemModel).ToNot(BeNil())
+				updateIdpRequestSecretsSpSigningItemModel.CertificateValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyValue = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.KeyEncoding = core.StringPtr("testString")
+				updateIdpRequestSecretsSpSigningItemModel.Type = core.StringPtr("primary")
+				Expect(updateIdpRequestSecretsSpSigningItemModel.CertificateValue).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestSecretsSpSigningItemModel.KeyValue).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestSecretsSpSigningItemModel.KeyEncoding).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpRequestSecretsSpSigningItemModel.Type).To(Equal(core.StringPtr("primary")))
+
+				// Construct an instance of the UpdateIdpRequestSecretsSp model
+				updateIdpRequestSecretsSpModel := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+				Expect(updateIdpRequestSecretsSpModel).ToNot(BeNil())
+				updateIdpRequestSecretsSpModel.Signing = []iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}
+				Expect(updateIdpRequestSecretsSpModel.Signing).To(Equal([]iamidentityv1.UpdateIdpRequestSecretsSpSigningItem{*updateIdpRequestSecretsSpSigningItemModel}))
+
+				// Construct an instance of the UpdateIdpRequestSecrets model
+				updateIdpRequestSecretsModel := new(iamidentityv1.UpdateIdpRequestSecrets)
+				Expect(updateIdpRequestSecretsModel).ToNot(BeNil())
+				updateIdpRequestSecretsModel.Idp = updateIdpRequestSecretsIdpModel
+				updateIdpRequestSecretsModel.Sp = updateIdpRequestSecretsSpModel
+				Expect(updateIdpRequestSecretsModel.Idp).To(Equal(updateIdpRequestSecretsIdpModel))
+				Expect(updateIdpRequestSecretsModel.Sp).To(Equal(updateIdpRequestSecretsSpModel))
+
+				// Construct an instance of the ShareScope model
+				shareScopeModel := new(iamidentityv1.ShareScope)
+				Expect(shareScopeModel).ToNot(BeNil())
+				shareScopeModel.ID = core.StringPtr("testString")
+				shareScopeModel.Type = core.StringPtr("account")
+				Expect(shareScopeModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(shareScopeModel.Type).To(Equal(core.StringPtr("account")))
+
+				// Construct an instance of the UpdateIdpOptions model
+				idpID := "testString"
+				ifMatch := "testString"
+				updateIdpOptionsModel := iamIdentityService.NewUpdateIdpOptions(idpID, ifMatch)
+				updateIdpOptionsModel.SetIdpID("testString")
+				updateIdpOptionsModel.SetIfMatch("testString")
+				updateIdpOptionsModel.SetUISetupCompleted(true)
+				updateIdpOptionsModel.SetName("testString")
+				updateIdpOptionsModel.SetActive(true)
+				updateIdpOptionsModel.SetProperties(updateIdpRequestPropertiesModel)
+				updateIdpOptionsModel.SetSecrets(updateIdpRequestSecretsModel)
+				updateIdpOptionsModel.SetShareScope([]iamidentityv1.ShareScope{*shareScopeModel})
+				updateIdpOptionsModel.SetForceShareScopeUpdate(true)
+				updateIdpOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateIdpOptionsModel).ToNot(BeNil())
+				Expect(updateIdpOptionsModel.IdpID).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpOptionsModel.UISetupCompleted).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(updateIdpOptionsModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpOptionsModel.Properties).To(Equal(updateIdpRequestPropertiesModel))
+				Expect(updateIdpOptionsModel.Secrets).To(Equal(updateIdpRequestSecretsModel))
+				Expect(updateIdpOptionsModel.ShareScope).To(Equal([]iamidentityv1.ShareScope{*shareScopeModel}))
+				Expect(updateIdpOptionsModel.ForceShareScopeUpdate).To(Equal(core.BoolPtr(true)))
+				Expect(updateIdpOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateLoginSettingsOptions successfully`, func() {
+				// Construct an instance of the UpdateLoginSettingsOptions model
+				accountID := "testString"
+				updateLoginSettingsOptionsModel := iamIdentityService.NewUpdateLoginSettingsOptions(accountID)
+				updateLoginSettingsOptionsModel.SetAccountID("testString")
+				updateLoginSettingsOptionsModel.SetAlias("testString")
+				updateLoginSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateLoginSettingsOptionsModel).ToNot(BeNil())
+				Expect(updateLoginSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateLoginSettingsOptionsModel.Alias).To(Equal(core.StringPtr("testString")))
+				Expect(updateLoginSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdatePreferenceOnScopeAccountOptions successfully`, func() {
 				// Construct an instance of the UpdatePreferenceOnScopeAccountOptions model
@@ -21728,6 +26493,207 @@ var _ = Describe(`IamIdentityV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalCreateIdpRequestProperties successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestProperties)
+			model.Idp = nil
+			model.Sp = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestProperties
+			err = iamidentityv1.UnmarshalCreateIdpRequestProperties(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestPropertiesIdp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestPropertiesIdp)
+			model.XMLImport = core.BoolPtr(true)
+			model.EntityID = core.StringPtr("testString")
+			model.RedirectBindingURL = core.StringPtr("testString")
+			model.WantRequestSigned = core.BoolPtr(true)
+			model.LogoutURL = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestPropertiesIdp
+			err = iamidentityv1.UnmarshalCreateIdpRequestPropertiesIdp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestPropertiesSp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestPropertiesSp)
+			model.WantAssertionSigned = core.BoolPtr(true)
+			model.WantResponseSigned = core.BoolPtr(true)
+			model.EncryptResponse = core.BoolPtr(true)
+			model.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+			model.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+			model.IdpInitiatedUrls = []string{"testString"}
+			model.AuthnContext = nil
+			model.Claims = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestPropertiesSp
+			err = iamidentityv1.UnmarshalCreateIdpRequestPropertiesSp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestPropertiesSpAuthnContext successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext)
+			model.Request = []string{"testString"}
+			model.Accept = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestPropertiesSpAuthnContext
+			err = iamidentityv1.UnmarshalCreateIdpRequestPropertiesSpAuthnContext(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestSecrets successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestSecrets)
+			model.Idp = nil
+			model.Sp = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestSecrets
+			err = iamidentityv1.UnmarshalCreateIdpRequestSecrets(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestSecretsIdp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestSecretsIdp)
+			model.XMLImport = core.BoolPtr(true)
+			model.Signing = nil
+			model.Encrypting = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestSecretsIdp
+			err = iamidentityv1.UnmarshalCreateIdpRequestSecretsIdp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestSecretsIdpEncryptingItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem)
+			model.Value = core.StringPtr("testString")
+			model.Type = core.StringPtr("primary")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestSecretsIdpEncryptingItem
+			err = iamidentityv1.UnmarshalCreateIdpRequestSecretsIdpEncryptingItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestSecretsIdpSigningItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestSecretsIdpSigningItem)
+			model.Value = core.StringPtr("testString")
+			model.Type = core.StringPtr("primary")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestSecretsIdpSigningItem
+			err = iamidentityv1.UnmarshalCreateIdpRequestSecretsIdpSigningItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestSecretsSp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestSecretsSp)
+			model.Signing = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestSecretsSp
+			err = iamidentityv1.UnmarshalCreateIdpRequestSecretsSp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateIdpRequestSecretsSpSigningItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateIdpRequestSecretsSpSigningItem)
+			model.CertificateValue = core.StringPtr("testString")
+			model.KeyValue = core.StringPtr("testString")
+			model.KeyEncoding = core.StringPtr("testString")
+			model.Type = core.StringPtr("primary")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateIdpRequestSecretsSpSigningItem
+			err = iamidentityv1.UnmarshalCreateIdpRequestSecretsSpSigningItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalCreateProfileLinkRequestLink successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iamidentityv1.CreateProfileLinkRequestLink)
@@ -21838,6 +26804,25 @@ var _ = Describe(`IamIdentityV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalShareScope successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ShareScope)
+			model.ID = core.StringPtr("testString")
+			model.Type = core.StringPtr("account")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ShareScope
+			err = iamidentityv1.UnmarshalShareScope(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalTemplateAccountSettings successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iamidentityv1.TemplateAccountSettings)
@@ -21926,6 +26911,205 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 			var result *iamidentityv1.TrustedProfileTemplateClaimRule
 			err = iamidentityv1.UnmarshalTrustedProfileTemplateClaimRule(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestProperties successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestProperties)
+			model.Idp = nil
+			model.Sp = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestProperties
+			err = iamidentityv1.UnmarshalUpdateIdpRequestProperties(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestSecrets successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestSecrets)
+			model.Idp = nil
+			model.Sp = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestSecrets
+			err = iamidentityv1.UnmarshalUpdateIdpRequestSecrets(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestPropertiesIdp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestPropertiesIdp)
+			model.EntityID = core.StringPtr("testString")
+			model.RedirectBindingURL = core.StringPtr("testString")
+			model.WantRequestSigned = core.BoolPtr(true)
+			model.LogoutURL = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestPropertiesIdp
+			err = iamidentityv1.UnmarshalUpdateIdpRequestPropertiesIdp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestPropertiesSp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestPropertiesSp)
+			model.WantAssertionSigned = core.BoolPtr(true)
+			model.WantResponseSigned = core.BoolPtr(true)
+			model.EncryptResponse = core.BoolPtr(true)
+			model.IdpInitiatedLoginEnabled = core.BoolPtr(true)
+			model.LogoutURLEnabledWhenAvailable = core.BoolPtr(true)
+			model.IdpInitiatedUrls = []string{"testString"}
+			model.AuthnContext = nil
+			model.Claims = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestPropertiesSp
+			err = iamidentityv1.UnmarshalUpdateIdpRequestPropertiesSp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestPropertiesSpAuthnContext successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext)
+			model.Request = []string{"testString"}
+			model.Accept = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestPropertiesSpAuthnContext
+			err = iamidentityv1.UnmarshalUpdateIdpRequestPropertiesSpAuthnContext(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestSecretsIdp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestSecretsIdp)
+			model.Signing = nil
+			model.Encrypting = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestSecretsIdp
+			err = iamidentityv1.UnmarshalUpdateIdpRequestSecretsIdp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestSecretsIdpEncryptingItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem)
+			model.Value = core.StringPtr("testString")
+			model.Type = core.StringPtr("primary")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestSecretsIdpEncryptingItem
+			err = iamidentityv1.UnmarshalUpdateIdpRequestSecretsIdpEncryptingItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestSecretsIdpSigningItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem)
+			model.Value = core.StringPtr("testString")
+			model.Type = core.StringPtr("primary")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestSecretsIdpSigningItem
+			err = iamidentityv1.UnmarshalUpdateIdpRequestSecretsIdpSigningItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestSecretsSp successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestSecretsSp)
+			model.Signing = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestSecretsSp
+			err = iamidentityv1.UnmarshalUpdateIdpRequestSecretsSp(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalUpdateIdpRequestSecretsSpSigningItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.UpdateIdpRequestSecretsSpSigningItem)
+			model.CertificateValue = core.StringPtr("testString")
+			model.KeyValue = core.StringPtr("testString")
+			model.KeyEncoding = core.StringPtr("testString")
+			model.Type = core.StringPtr("primary")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.UpdateIdpRequestSecretsSpSigningItem
+			err = iamidentityv1.UnmarshalUpdateIdpRequestSecretsSpSigningItem(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))

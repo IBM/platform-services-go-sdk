@@ -106,6 +106,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		accountSettingsTemplateEtag           string
 		accountSettingsTemplateAssignmentId   string
 		accountSettingsTemplateAssignmentEtag string
+		idpID                                 string
+		idpEtag                               string
 
 		service             string = "console"
 		valueString         string = "/billing"
@@ -2756,6 +2758,284 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(identityLimitsUsageResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateIdp - Create IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateIdp(createIdpOptions *CreateIdpOptions)`, func() {
+			createIdpRequestPropertiesIdpModel := &iamidentityv1.CreateIdpRequestPropertiesIdp{
+				EntityID:           core.StringPtr("http://www.okta.com/abcdefg"),
+				RedirectBindingURL: core.StringPtr("https://trial-12345.okta.com/app/trial-6789/abcdefg/sso/saml"),
+				WantRequestSigned:  core.BoolPtr(true),
+			}
+
+			createIdpRequestPropertiesSpModel := &iamidentityv1.CreateIdpRequestPropertiesSp{
+				WantAssertionSigned:           core.BoolPtr(true),
+				WantResponseSigned:            core.BoolPtr(true),
+				EncryptResponse:               core.BoolPtr(true),
+				IdpInitiatedLoginEnabled:      core.BoolPtr(true),
+				LogoutURLEnabledWhenAvailable: core.BoolPtr(true),
+			}
+
+			createIdpRequestPropertiesModel := &iamidentityv1.CreateIdpRequestProperties{
+				Idp: createIdpRequestPropertiesIdpModel,
+				Sp:  createIdpRequestPropertiesSpModel,
+			}
+
+			createIdpRequestSecretsIdpModel := &iamidentityv1.CreateIdpRequestSecretsIdp{}
+
+			createIdpRequestSecretsSpModel := &iamidentityv1.CreateIdpRequestSecretsSp{}
+
+			createIdpRequestSecretsModel := &iamidentityv1.CreateIdpRequestSecrets{
+				Idp: createIdpRequestSecretsIdpModel,
+				Sp:  createIdpRequestSecretsSpModel,
+			}
+
+			createIdpOptions := &iamidentityv1.CreateIdpOptions{
+				AccountID:  &accountID,
+				Name:       core.StringPtr("My Identity Provider"),
+				Type:       core.StringPtr("saml"),
+				Active:     core.BoolPtr(true),
+				Properties: createIdpRequestPropertiesModel,
+				Secrets:    createIdpRequestSecretsModel,
+			}
+
+			idp, response, err := iamIdentityService.CreateIdp(createIdpOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(idp).ToNot(BeNil())
+			idpID = *idp.IdpID
+		})
+	})
+
+	Describe(`ListIdps - List IdPs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListIdps(listIdpsOptions *ListIdpsOptions)`, func() {
+			listIdpsOptions := &iamidentityv1.ListIdpsOptions{
+				AccountID: &accountID,
+			}
+
+			listIdpsResponse, response, err := iamIdentityService.ListIdps(listIdpsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listIdpsResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetIdp - Get IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetIdp(getIdpOptions *GetIdpOptions)`, func() {
+			getIdpOptions := &iamidentityv1.GetIdpOptions{
+				IdpID: &idpID,
+			}
+
+			idp, response, err := iamIdentityService.GetIdp(getIdpOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(idp).ToNot(BeNil())
+			idpEtag = response.GetHeaders().Get("Etag")
+		})
+	})
+
+	Describe(`UpdateIdp - Update IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateIdp(updateIdpOptions *UpdateIdpOptions)`, func() {
+			updateIdpRequestPropertiesIdpModel := &iamidentityv1.UpdateIdpRequestPropertiesIdp{
+				EntityID:           core.StringPtr("http://www.okta.com/abcdefgijk"),
+				RedirectBindingURL: core.StringPtr("https://trial-12345.okta.com/app/trial-6789/abcdefgijk/sso/saml"),
+				WantRequestSigned:  core.BoolPtr(false),
+			}
+
+			updateIdpRequestPropertiesSpModel := &iamidentityv1.UpdateIdpRequestPropertiesSp{
+				WantAssertionSigned:           core.BoolPtr(false),
+				WantResponseSigned:            core.BoolPtr(false),
+				EncryptResponse:               core.BoolPtr(true),
+				IdpInitiatedLoginEnabled:      core.BoolPtr(false),
+				LogoutURLEnabledWhenAvailable: core.BoolPtr(true),
+			}
+
+			updateIdpRequestPropertiesModel := &iamidentityv1.UpdateIdpRequestProperties{
+				Idp: updateIdpRequestPropertiesIdpModel,
+				Sp:  updateIdpRequestPropertiesSpModel,
+			}
+
+			updateIdpOptions := &iamidentityv1.UpdateIdpOptions{
+				IdpID:                 &idpID,
+				IfMatch:               &idpEtag,
+				UISetupCompleted:      core.BoolPtr(true),
+				Active:                core.BoolPtr(true),
+				Properties:            updateIdpRequestPropertiesModel,
+				ForceShareScopeUpdate: core.BoolPtr(true),
+			}
+
+			idp, response, err := iamIdentityService.UpdateIdp(updateIdpOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(idp).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListConsumerAccounts - Get consumers of IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListConsumerAccounts(listConsumerAccountsOptions *ListConsumerAccountsOptions)`, func() {
+			listConsumerAccountsOptions := &iamidentityv1.ListConsumerAccountsOptions{
+				IdpID: &idpID,
+			}
+
+			consumersResponse, response, err := iamIdentityService.ListConsumerAccounts(listConsumerAccountsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(consumersResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLoginSettings - Get account login settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLoginSettings(getLoginSettingsOptions *GetLoginSettingsOptions)`, func() {
+			getLoginSettingsOptions := &iamidentityv1.GetLoginSettingsOptions{
+				AccountID: &accountID,
+			}
+
+			accountLoginSettings, response, err := iamIdentityService.GetLoginSettings(getLoginSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountLoginSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateLoginSettings - Update account login settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateLoginSettings(updateLoginSettingsOptions *UpdateLoginSettingsOptions)`, func() {
+			updateLoginSettingsOptions := &iamidentityv1.UpdateLoginSettingsOptions{
+				AccountID: &accountID,
+				Alias:     core.StringPtr("my_alias_update_test"),
+			}
+
+			accountLoginSettings, response, err := iamIdentityService.UpdateLoginSettings(updateLoginSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountLoginSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListIDPSettings - List IdP Settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListIDPSettings(listIDPSettingsOptions *ListIDPSettingsOptions)`, func() {
+			listIdpSettingsOptions := &iamidentityv1.ListIDPSettingsOptions{
+				AccountID:          &accountID,
+				Type:               core.StringPtr("consumable"),
+				IncludeIdpMetadata: core.StringPtr("true"),
+			}
+
+			listIdpSettingsResponse, response, err := iamIdentityService.ListIDPSettings(listIdpSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listIdpSettingsResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`AddIDPSetting - Add IdP Setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddIDPSetting(addIDPSettingOptions *AddIDPSettingOptions)`, func() {
+			addIdpSettingOptions := &iamidentityv1.AddIDPSettingOptions{
+				AccountID:         &accountID,
+				IdpID:             &idpID,
+				CloudUserStrategy: core.StringPtr("STATIC"),
+				Active:            core.BoolPtr(true),
+				UIDefault:         core.BoolPtr(true),
+			}
+
+			accountIdpSettings, response, err := iamIdentityService.AddIDPSetting(addIdpSettingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountIdpSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetIDPSetting - Get IdP setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetIDPSetting(getIDPSettingOptions *GetIDPSettingOptions)`, func() {
+			getIdpSettingOptions := &iamidentityv1.GetIDPSettingOptions{
+				AccountID: &accountID,
+				IdpID:     &idpID,
+			}
+
+			accountIdpSettings, response, err := iamIdentityService.GetIDPSetting(getIdpSettingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountIdpSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateIDPSetting - Update IdP Setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateIDPSetting(updateIDPSettingOptions *UpdateIDPSettingOptions)`, func() {
+			updateIdpSettingOptions := &iamidentityv1.UpdateIDPSettingOptions{
+				AccountID:         &accountID,
+				IdpID:             &idpID,
+				CloudUserStrategy: core.StringPtr("STATIC"),
+				Active:            core.BoolPtr(true),
+				UIDefault:         core.BoolPtr(false),
+			}
+
+			accountIdpSettings, response, err := iamIdentityService.UpdateIDPSetting(updateIdpSettingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountIdpSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`RemoveIDPSetting - Remove IdP Setting`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`RemoveIDPSetting(removeIDPSettingOptions *RemoveIDPSettingOptions)`, func() {
+			removeIdpSettingOptions := &iamidentityv1.RemoveIDPSettingOptions{
+				AccountID: &accountID,
+				IdpID:     &idpID,
+			}
+
+			response, err := iamIdentityService.RemoveIDPSetting(removeIdpSettingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteIdp - Delete IdP`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteIdp(deleteIdpOptions *DeleteIdpOptions)`, func() {
+			deleteIdpOptions := &iamidentityv1.DeleteIdpOptions{
+				IdpID: &idpID,
+			}
+
+			response, err := iamIdentityService.DeleteIdp(deleteIdpOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
