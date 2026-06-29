@@ -1,3 +1,10 @@
+## [0.100.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.100.0...v0.100.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* **deps:** bump dependency to fix cve ([#454](https://github.com/IBM/platform-services-go-sdk/issues/454)) ([c69c56a](https://github.com/IBM/platform-services-go-sdk/commit/c69c56a22d24d4c8260306cf1093118ed686478f))
+
 # [0.100.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.99.2...v0.100.0) (2026-06-25)
 
 
