@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.106.0-09823488-20250707-071701
+ * IBM OpenAPI SDK Code Generator Version: 3.116.0-df613dbc-20260803-154903
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -555,7 +555,7 @@ func (catalogManagement *CatalogManagementV1) GetShareApprovalListWithContext(ct
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/access`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/accessv2`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -778,14 +778,14 @@ func (catalogManagement *CatalogManagementV1) GetShareApprovalListAsSourceWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"object_type":               *getShareApprovalListAsSourceOptions.ObjectType,
+		"object_type": *getShareApprovalListAsSourceOptions.ObjectType,
 		"approval_state_identifier": *getShareApprovalListAsSourceOptions.ApprovalStateIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/access/source/{approval_state_identifier}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/accessv2/source/{approval_state_identifier}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -859,7 +859,7 @@ func (catalogManagement *CatalogManagementV1) UpdateShareApprovalListAsSourceWit
 	}
 
 	pathParamsMap := map[string]string{
-		"object_type":               *updateShareApprovalListAsSourceOptions.ObjectType,
+		"object_type": *updateShareApprovalListAsSourceOptions.ObjectType,
 		"approval_state_identifier": *updateShareApprovalListAsSourceOptions.ApprovalStateIdentifier,
 	}
 
@@ -1449,7 +1449,7 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAuditWithContext(ctx con
 	}
 
 	pathParamsMap := map[string]string{
-		"catalog_identifier":  *getCatalogAuditOptions.CatalogIdentifier,
+		"catalog_identifier": *getCatalogAuditOptions.CatalogIdentifier,
 		"auditlog_identifier": *getCatalogAuditOptions.AuditlogIdentifier,
 	}
 
@@ -1603,7 +1603,7 @@ func (catalogManagement *CatalogManagementV1) GetEnterpriseAuditWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"enterprise_identifier": *getEnterpriseAuditOptions.EnterpriseIdentifier,
-		"auditlog_identifier":   *getEnterpriseAuditOptions.AuditlogIdentifier,
+		"auditlog_identifier": *getEnterpriseAuditOptions.AuditlogIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2056,7 +2056,7 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *importOfferingVersionOptions.CatalogIdentifier,
-		"offering_id":        *importOfferingVersionOptions.OfferingID,
+		"offering_id": *importOfferingVersionOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -2348,7 +2348,7 @@ func (catalogManagement *CatalogManagementV1) ReloadOfferingWithContext(ctx cont
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *reloadOfferingOptions.CatalogIdentifier,
-		"offering_id":        *reloadOfferingOptions.OfferingID,
+		"offering_id": *reloadOfferingOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2455,7 +2455,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getOfferingOptions.CatalogIdentifier,
-		"offering_id":        *getOfferingOptions.OfferingID,
+		"offering_id": *getOfferingOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2532,7 +2532,7 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *replaceOfferingOptions.CatalogIdentifier,
-		"offering_id":        *replaceOfferingOptions.OfferingID,
+		"offering_id": *replaceOfferingOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2748,7 +2748,7 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingWithContext(ctx cont
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *updateOfferingOptions.CatalogIdentifier,
-		"offering_id":        *updateOfferingOptions.OfferingID,
+		"offering_id": *updateOfferingOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -2828,7 +2828,7 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingWithContext(ctx cont
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *deleteOfferingOptions.CatalogIdentifier,
-		"offering_id":        *deleteOfferingOptions.OfferingID,
+		"offering_id": *deleteOfferingOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2891,7 +2891,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingStatsWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getOfferingStatsOptions.CatalogIdentifier,
-		"offering_id":        *getOfferingStatsOptions.OfferingID,
+		"offering_id": *getOfferingStatsOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2961,7 +2961,7 @@ func (catalogManagement *CatalogManagementV1) ListOfferingAuditsWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *listOfferingAuditsOptions.CatalogIdentifier,
-		"offering_id":        *listOfferingAuditsOptions.OfferingID,
+		"offering_id": *listOfferingAuditsOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -3040,8 +3040,8 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAuditWithContext(ctx co
 	}
 
 	pathParamsMap := map[string]string{
-		"catalog_identifier":  *getOfferingAuditOptions.CatalogIdentifier,
-		"offering_id":         *getOfferingAuditOptions.OfferingID,
+		"catalog_identifier": *getOfferingAuditOptions.CatalogIdentifier,
+		"offering_id": *getOfferingAuditOptions.OfferingID,
 		"auditlog_identifier": *getOfferingAuditOptions.AuditlogIdentifier,
 	}
 
@@ -3118,9 +3118,9 @@ func (catalogManagement *CatalogManagementV1) SetOfferingPublishWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *setOfferingPublishOptions.CatalogIdentifier,
-		"offering_id":        *setOfferingPublishOptions.OfferingID,
-		"approval_type":      *setOfferingPublishOptions.ApprovalType,
-		"approved":           *setOfferingPublishOptions.Approved,
+		"offering_id": *setOfferingPublishOptions.OfferingID,
+		"approval_type": *setOfferingPublishOptions.ApprovalType,
+		"approved": *setOfferingPublishOptions.Approved,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -3203,8 +3203,8 @@ func (catalogManagement *CatalogManagementV1) DeprecateOfferingWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *deprecateOfferingOptions.CatalogIdentifier,
-		"offering_id":        *deprecateOfferingOptions.OfferingID,
-		"setting":            *deprecateOfferingOptions.Setting,
+		"offering_id": *deprecateOfferingOptions.OfferingID,
+		"setting": *deprecateOfferingOptions.Setting,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -3278,7 +3278,7 @@ func (catalogManagement *CatalogManagementV1) ShareOfferingWithContext(ctx conte
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *shareOfferingOptions.CatalogIdentifier,
-		"offering_id":        *shareOfferingOptions.OfferingID,
+		"offering_id": *shareOfferingOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -3365,8 +3365,8 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAccessWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getOfferingAccessOptions.CatalogIdentifier,
-		"offering_id":        *getOfferingAccessOptions.OfferingID,
-		"access_identifier":  *getOfferingAccessOptions.AccessIdentifier,
+		"offering_id": *getOfferingAccessOptions.OfferingID,
+		"access_identifier": *getOfferingAccessOptions.AccessIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -3436,8 +3436,8 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingAccessWithContext(ct
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *updateOfferingAccessOptions.CatalogIdentifier,
-		"offering_id":        *updateOfferingAccessOptions.OfferingID,
-		"access_identifier":  *updateOfferingAccessOptions.AccessIdentifier,
+		"offering_id": *updateOfferingAccessOptions.OfferingID,
+		"access_identifier": *updateOfferingAccessOptions.AccessIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -3548,13 +3548,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAccessListWithContext(c
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getOfferingAccessListOptions.CatalogIdentifier,
-		"offering_id":        *getOfferingAccessListOptions.OfferingID,
+		"offering_id": *getOfferingAccessListOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/access`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/accessv2`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -3625,7 +3625,7 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingAccessListWithContex
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *deleteOfferingAccessListOptions.CatalogIdentifier,
-		"offering_id":        *deleteOfferingAccessListOptions.OfferingID,
+		"offering_id": *deleteOfferingAccessListOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -3681,14 +3681,14 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingAccessListWithContex
 
 // AddOfferingAccessList : Add accesses to offering access list
 // Add one or more accesses to the specified offering's access list.
-func (catalogManagement *CatalogManagementV1) AddOfferingAccessList(addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListResult, response *core.DetailedResponse, err error) {
+func (catalogManagement *CatalogManagementV1) AddOfferingAccessList(addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListBulkResponse, response *core.DetailedResponse, err error) {
 	result, response, err = catalogManagement.AddOfferingAccessListWithContext(context.Background(), addOfferingAccessListOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // AddOfferingAccessListWithContext is an alternate form of the AddOfferingAccessList method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(ctx context.Context, addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListResult, response *core.DetailedResponse, err error) {
+func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(ctx context.Context, addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListBulkResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addOfferingAccessListOptions, "addOfferingAccessListOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -3702,7 +3702,7 @@ func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(c
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *addOfferingAccessListOptions.CatalogIdentifier,
-		"offering_id":        *addOfferingAccessListOptions.OfferingID,
+		"offering_id": *addOfferingAccessListOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -3745,7 +3745,7 @@ func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(c
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListBulkResponse)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -3779,7 +3779,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getOfferingUpdatesOptions.CatalogIdentifier,
-		"offering_id":        *getOfferingUpdatesOptions.OfferingID,
+		"offering_id": *getOfferingUpdatesOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -3890,7 +3890,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingChangeNoticesWithContex
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getOfferingChangeNoticesOptions.CatalogIdentifier,
-		"offering_id":        *getOfferingChangeNoticesOptions.OfferingID,
+		"offering_id": *getOfferingChangeNoticesOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4220,8 +4220,8 @@ func (catalogManagement *CatalogManagementV1) GetVersionsWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getVersionsOptions.CatalogIdentifier,
-		"offering_id":        *getVersionsOptions.OfferingID,
-		"kind_id":            *getVersionsOptions.KindID,
+		"offering_id": *getVersionsOptions.OfferingID,
+		"kind_id": *getVersionsOptions.KindID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4433,7 +4433,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingLicenseWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"version_loc_id": *getOfferingLicenseOptions.VersionLocID,
-		"license_id":     *getOfferingLicenseOptions.LicenseID,
+		"license_id": *getOfferingLicenseOptions.LicenseID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4623,7 +4623,7 @@ func (catalogManagement *CatalogManagementV1) SetDeprecateVersionWithContext(ctx
 
 	pathParamsMap := map[string]string{
 		"version_loc_id": *setDeprecateVersionOptions.VersionLocID,
-		"setting":        *setDeprecateVersionOptions.Setting,
+		"setting": *setDeprecateVersionOptions.Setting,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -5148,8 +5148,8 @@ func (catalogManagement *CatalogManagementV1) CopyFromPreviousVersionWithContext
 	}
 
 	pathParamsMap := map[string]string{
-		"version_loc_id":              *copyFromPreviousVersionOptions.VersionLocID,
-		"type":                        *copyFromPreviousVersionOptions.Type,
+		"version_loc_id": *copyFromPreviousVersionOptions.VersionLocID,
+		"type": *copyFromPreviousVersionOptions.Type,
 		"version_loc_id_to_copy_from": *copyFromPreviousVersionOptions.VersionLocIDToCopyFrom,
 	}
 
@@ -7185,7 +7185,7 @@ func (catalogManagement *CatalogManagementV1) GetObjectWithContext(ctx context.C
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getObjectOptions.CatalogIdentifier,
-		"object_identifier":  *getObjectOptions.ObjectIdentifier,
+		"object_identifier": *getObjectOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -7255,7 +7255,7 @@ func (catalogManagement *CatalogManagementV1) ReplaceObjectWithContext(ctx conte
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *replaceObjectOptions.CatalogIdentifier,
-		"object_identifier":  *replaceObjectOptions.ObjectIdentifier,
+		"object_identifier": *replaceObjectOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -7390,7 +7390,7 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectWithContext(ctx contex
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *deleteObjectOptions.CatalogIdentifier,
-		"object_identifier":  *deleteObjectOptions.ObjectIdentifier,
+		"object_identifier": *deleteObjectOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -7450,7 +7450,7 @@ func (catalogManagement *CatalogManagementV1) ListObjectAuditsWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *listObjectAuditsOptions.CatalogIdentifier,
-		"object_identifier":  *listObjectAuditsOptions.ObjectIdentifier,
+		"object_identifier": *listObjectAuditsOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -7529,8 +7529,8 @@ func (catalogManagement *CatalogManagementV1) GetObjectAuditWithContext(ctx cont
 	}
 
 	pathParamsMap := map[string]string{
-		"catalog_identifier":  *getObjectAuditOptions.CatalogIdentifier,
-		"object_identifier":   *getObjectAuditOptions.ObjectIdentifier,
+		"catalog_identifier": *getObjectAuditOptions.CatalogIdentifier,
+		"object_identifier": *getObjectAuditOptions.ObjectIdentifier,
 		"auditlog_identifier": *getObjectAuditOptions.AuditlogIdentifier,
 	}
 
@@ -7605,7 +7605,7 @@ func (catalogManagement *CatalogManagementV1) ConsumableShareObjectWithContext(c
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *consumableShareObjectOptions.CatalogIdentifier,
-		"object_identifier":  *consumableShareObjectOptions.ObjectIdentifier,
+		"object_identifier": *consumableShareObjectOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -7665,7 +7665,7 @@ func (catalogManagement *CatalogManagementV1) ShareObjectWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *shareObjectOptions.CatalogIdentifier,
-		"object_identifier":  *shareObjectOptions.ObjectIdentifier,
+		"object_identifier": *shareObjectOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -7752,13 +7752,13 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessListWithContext(ctx
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getObjectAccessListOptions.CatalogIdentifier,
-		"object_identifier":  *getObjectAccessListOptions.ObjectIdentifier,
+		"object_identifier": *getObjectAccessListOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/accessv1`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/accessv2`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -7829,8 +7829,8 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessWithContext(ctx con
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getObjectAccessOptions.CatalogIdentifier,
-		"object_identifier":  *getObjectAccessOptions.ObjectIdentifier,
-		"access_identifier":  *getObjectAccessOptions.AccessIdentifier,
+		"object_identifier": *getObjectAccessOptions.ObjectIdentifier,
+		"access_identifier": *getObjectAccessOptions.AccessIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -7903,8 +7903,8 @@ func (catalogManagement *CatalogManagementV1) CreateObjectAccessWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *createObjectAccessOptions.CatalogIdentifier,
-		"object_identifier":  *createObjectAccessOptions.ObjectIdentifier,
-		"access_identifier":  *createObjectAccessOptions.AccessIdentifier,
+		"object_identifier": *createObjectAccessOptions.ObjectIdentifier,
+		"access_identifier": *createObjectAccessOptions.AccessIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -7967,8 +7967,8 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *deleteObjectAccessOptions.CatalogIdentifier,
-		"object_identifier":  *deleteObjectAccessOptions.ObjectIdentifier,
-		"access_identifier":  *deleteObjectAccessOptions.AccessIdentifier,
+		"object_identifier": *deleteObjectAccessOptions.ObjectIdentifier,
+		"access_identifier": *deleteObjectAccessOptions.AccessIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -8006,7 +8006,7 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessWithContext(ctx 
 }
 
 // GetObjectAccessListDeprecated : Get object access list
-// Deprecated - use /accessv1 instead.
+// Deprecated - use /accessv2 instead.
 // Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) GetObjectAccessListDeprecated(getObjectAccessListDeprecatedOptions *GetObjectAccessListDeprecatedOptions) (result *ObjectAccessListResult, response *core.DetailedResponse, err error) {
 	result, response, err = catalogManagement.GetObjectAccessListDeprecatedWithContext(context.Background(), getObjectAccessListDeprecatedOptions)
@@ -8031,7 +8031,7 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessListDeprecatedWithC
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *getObjectAccessListDeprecatedOptions.CatalogIdentifier,
-		"object_identifier":  *getObjectAccessListDeprecatedOptions.ObjectIdentifier,
+		"object_identifier": *getObjectAccessListDeprecatedOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -8108,7 +8108,7 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessListWithContext(
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *deleteObjectAccessListOptions.CatalogIdentifier,
-		"object_identifier":  *deleteObjectAccessListOptions.ObjectIdentifier,
+		"object_identifier": *deleteObjectAccessListOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -8185,7 +8185,7 @@ func (catalogManagement *CatalogManagementV1) AddObjectAccessListWithContext(ctx
 
 	pathParamsMap := map[string]string{
 		"catalog_identifier": *addObjectAccessListOptions.CatalogIdentifier,
-		"object_identifier":  *addObjectAccessListOptions.ObjectIdentifier,
+		"object_identifier": *addObjectAccessListOptions.ObjectIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -8377,6 +8377,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if createOfferingInstanceOptions.ParentCRN != nil {
 		body["parent_crn"] = createOfferingInstanceOptions.ParentCRN
 	}
+	if createOfferingInstanceOptions.PlanEntitlement != nil {
+		body["plan_entitlement"] = createOfferingInstanceOptions.PlanEntitlement
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -8398,6 +8401,79 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// SearchOfferingInstance : List offering instances
+// List the available offering instances for the specified account and offering.
+func (catalogManagement *CatalogManagementV1) SearchOfferingInstance(searchOfferingInstanceOptions *SearchOfferingInstanceOptions) (result *OfferingInstanceListResult, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.SearchOfferingInstanceWithContext(context.Background(), searchOfferingInstanceOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// SearchOfferingInstanceWithContext is an alternate form of the SearchOfferingInstance method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SearchOfferingInstanceWithContext(ctx context.Context, searchOfferingInstanceOptions *SearchOfferingInstanceOptions) (result *OfferingInstanceListResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(searchOfferingInstanceOptions, "searchOfferingInstanceOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(searchOfferingInstanceOptions, "searchOfferingInstanceOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/offerings`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SearchOfferingInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range searchOfferingInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("offeringID", fmt.Sprint(*searchOfferingInstanceOptions.OfferingID))
+	if searchOfferingInstanceOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*searchOfferingInstanceOptions.Start))
+	}
+	if searchOfferingInstanceOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*searchOfferingInstanceOptions.Limit))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "search_offering_instance", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstanceListResult)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -8618,6 +8694,9 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	}
 	if putOfferingInstanceOptions.ParentCRN != nil {
 		body["parent_crn"] = putOfferingInstanceOptions.ParentCRN
+	}
+	if putOfferingInstanceOptions.PlanEntitlement != nil {
+		body["plan_entitlement"] = putOfferingInstanceOptions.PlanEntitlement
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -9075,7 +9154,7 @@ func (catalogManagement *CatalogManagementV1) SetDeprecatePlanWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"plan_loc_id": *setDeprecatePlanOptions.PlanLocID,
-		"setting":     *setDeprecatePlanOptions.Setting,
+		"setting": *setDeprecatePlanOptions.Setting,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -9280,7 +9359,7 @@ type Access struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
+	// Revision.
 	Rev *string `json:"_rev,omitempty"`
 
 	// account id.
@@ -9667,8 +9746,8 @@ type AddObjectAccessListOptions struct {
 func (*CatalogManagementV1) NewAddObjectAccessListOptions(catalogIdentifier string, objectIdentifier string, accesses []string) *AddObjectAccessListOptions {
 	return &AddObjectAccessListOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
-		Accesses:          accesses,
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+		Accesses: accesses,
 	}
 }
 
@@ -9715,8 +9794,8 @@ type AddOfferingAccessListOptions struct {
 func (*CatalogManagementV1) NewAddOfferingAccessListOptions(catalogIdentifier string, offeringID string, accesses []string) *AddOfferingAccessListOptions {
 	return &AddOfferingAccessListOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		Accesses:          accesses,
+		OfferingID: core.StringPtr(offeringID),
+		Accesses: accesses,
 	}
 }
 
@@ -9759,17 +9838,17 @@ type AddShareApprovalListOptions struct {
 // Constants associated with the AddShareApprovalListOptions.ObjectType property.
 // The type for the object.
 const (
-	AddShareApprovalListOptionsObjectTypeOfferingConst            = "offering"
+	AddShareApprovalListOptionsObjectTypeOfferingConst = "offering"
 	AddShareApprovalListOptionsObjectTypePresetConfigurationConst = "preset_configuration"
-	AddShareApprovalListOptionsObjectTypeProxySourceConst         = "proxy_source"
-	AddShareApprovalListOptionsObjectTypeVpeConst                 = "vpe"
+	AddShareApprovalListOptionsObjectTypeProxySourceConst = "proxy_source"
+	AddShareApprovalListOptionsObjectTypeVpeConst = "vpe"
 )
 
 // NewAddShareApprovalListOptions : Instantiate AddShareApprovalListOptions
 func (*CatalogManagementV1) NewAddShareApprovalListOptions(objectType string, accesses []string) *AddShareApprovalListOptions {
 	return &AddShareApprovalListOptions{
 		ObjectType: core.StringPtr(objectType),
-		Accesses:   accesses,
+		Accesses: accesses,
 	}
 }
 
@@ -11168,6 +11247,15 @@ type Configuration struct {
 
 	// The original type, as found in the source being onboarded.
 	TypeMetadata *string `json:"type_metadata,omitempty"`
+
+	// The specified random string rules are applied to this configuration item's default value if the item is of type
+	// string.  Random characters include lowercase letters and numbers.
+	RandomString *ConfigurationRandomString `json:"random_string,omitempty"`
+
+	// Only added to a configuration item when getting a single version by locator ID.  Contains the default value and a
+	// random string where specified.   If no default value is provided, value is set to a random string, otherwise value
+	// as appended with a `-` character followed by the random string.
+	Value interface{} `json:"value,omitempty"`
 }
 
 // UnmarshalConfiguration unmarshals an instance of Configuration from the specified map of raw messages.
@@ -11231,6 +11319,35 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "type_metadata", &obj.TypeMetadata)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "type_metadata-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "random_string", &obj.RandomString, UnmarshalConfigurationRandomString)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "random_string-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ConfigurationRandomString : The specified random string rules are applied to this configuration item's default value if the item is of type
+// string.  Random characters include lowercase letters and numbers.
+type ConfigurationRandomString struct {
+	// How many random characters to generate.  Default is 10, max is 25.
+	Length *int64 `json:"length,omitempty"`
+}
+
+// UnmarshalConfigurationRandomString unmarshals an instance of ConfigurationRandomString from the specified map of raw messages.
+func UnmarshalConfigurationRandomString(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigurationRandomString)
+	err = core.UnmarshalPrimitive(m, "length", &obj.Length)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "length-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11307,7 +11424,7 @@ type ConsumableShareObjectOptions struct {
 func (*CatalogManagementV1) NewConsumableShareObjectOptions(catalogIdentifier string, objectIdentifier string) *ConsumableShareObjectOptions {
 	return &ConsumableShareObjectOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -11375,8 +11492,8 @@ type CopyFromPreviousVersionOptions struct {
 // NewCopyFromPreviousVersionOptions : Instantiate CopyFromPreviousVersionOptions
 func (*CatalogManagementV1) NewCopyFromPreviousVersionOptions(versionLocID string, typeVar string, versionLocIDToCopyFrom string) *CopyFromPreviousVersionOptions {
 	return &CopyFromPreviousVersionOptions{
-		VersionLocID:           core.StringPtr(versionLocID),
-		Type:                   core.StringPtr(typeVar),
+		VersionLocID: core.StringPtr(versionLocID),
+		Type: core.StringPtr(typeVar),
 		VersionLocIDToCopyFrom: core.StringPtr(versionLocIDToCopyFrom),
 	}
 }
@@ -11550,8 +11667,11 @@ type CostComponent struct {
 	// Cost component hourly cost.
 	HourlyCost *string `json:"hourlyCost,omitempty"`
 
-	// Cost component monthly cist.
+	// Cost component monthly cost.
 	MonthlyCost *string `json:"monthlyCost,omitempty"`
+
+	// Cost component metric.
+	Metric *string `json:"metric,omitempty"`
 }
 
 // UnmarshalCostComponent unmarshals an instance of CostComponent from the specified map of raw messages.
@@ -11590,6 +11710,11 @@ func UnmarshalCostComponent(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "monthlyCost", &obj.MonthlyCost)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "monthlyCost-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metric", &obj.Metric)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "metric-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11982,8 +12107,8 @@ type CreateObjectAccessOptions struct {
 func (*CatalogManagementV1) NewCreateObjectAccessOptions(catalogIdentifier string, objectIdentifier string, accessIdentifier string) *CreateObjectAccessOptions {
 	return &CreateObjectAccessOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
-		AccessIdentifier:  core.StringPtr(accessIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+		AccessIdentifier: core.StringPtr(accessIdentifier),
 	}
 }
 
@@ -12291,6 +12416,10 @@ type CreateOfferingInstanceOptions struct {
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
 
+	// Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+	// license entitlement status and associated licenses for a software offering instance.
+	PlanEntitlement *PlanEntitlement `json:"plan_entitlement,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -12491,6 +12620,12 @@ func (_options *CreateOfferingInstanceOptions) SetPlanID(planID string) *CreateO
 // SetParentCRN : Allow user to set ParentCRN
 func (_options *CreateOfferingInstanceOptions) SetParentCRN(parentCRN string) *CreateOfferingInstanceOptions {
 	_options.ParentCRN = core.StringPtr(parentCRN)
+	return _options
+}
+
+// SetPlanEntitlement : Allow user to set PlanEntitlement
+func (_options *CreateOfferingInstanceOptions) SetPlanEntitlement(planEntitlement *PlanEntitlement) *CreateOfferingInstanceOptions {
+	_options.PlanEntitlement = planEntitlement
 	return _options
 }
 
@@ -13008,8 +13143,8 @@ type DeleteObjectAccessListOptions struct {
 func (*CatalogManagementV1) NewDeleteObjectAccessListOptions(catalogIdentifier string, objectIdentifier string, accesses []string) *DeleteObjectAccessListOptions {
 	return &DeleteObjectAccessListOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
-		Accesses:          accesses,
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+		Accesses: accesses,
 	}
 }
 
@@ -13057,8 +13192,8 @@ type DeleteObjectAccessOptions struct {
 func (*CatalogManagementV1) NewDeleteObjectAccessOptions(catalogIdentifier string, objectIdentifier string, accessIdentifier string) *DeleteObjectAccessOptions {
 	return &DeleteObjectAccessOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
-		AccessIdentifier:  core.StringPtr(accessIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+		AccessIdentifier: core.StringPtr(accessIdentifier),
 	}
 }
 
@@ -13102,7 +13237,7 @@ type DeleteObjectOptions struct {
 func (*CatalogManagementV1) NewDeleteObjectOptions(catalogIdentifier string, objectIdentifier string) *DeleteObjectOptions {
 	return &DeleteObjectOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -13143,8 +13278,8 @@ type DeleteOfferingAccessListOptions struct {
 func (*CatalogManagementV1) NewDeleteOfferingAccessListOptions(catalogIdentifier string, offeringID string, accesses []string) *DeleteOfferingAccessListOptions {
 	return &DeleteOfferingAccessListOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		Accesses:          accesses,
+		OfferingID: core.StringPtr(offeringID),
+		Accesses: accesses,
 	}
 }
 
@@ -13188,7 +13323,7 @@ type DeleteOfferingInstanceOptions struct {
 func (*CatalogManagementV1) NewDeleteOfferingInstanceOptions(instanceIdentifier string, xAuthRefreshToken string) *DeleteOfferingInstanceOptions {
 	return &DeleteOfferingInstanceOptions{
 		InstanceIdentifier: core.StringPtr(instanceIdentifier),
-		XAuthRefreshToken:  core.StringPtr(xAuthRefreshToken),
+		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
 
@@ -13230,7 +13365,7 @@ type DeleteOfferingOptions struct {
 func (*CatalogManagementV1) NewDeleteOfferingOptions(catalogIdentifier string, offeringID string) *DeleteOfferingOptions {
 	return &DeleteOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -13280,9 +13415,9 @@ type DeleteOperatorsOptions struct {
 func (*CatalogManagementV1) NewDeleteOperatorsOptions(xAuthRefreshToken string, clusterID string, region string, versionLocatorID string) *DeleteOperatorsOptions {
 	return &DeleteOperatorsOptions{
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
-		ClusterID:         core.StringPtr(clusterID),
-		Region:            core.StringPtr(region),
-		VersionLocatorID:  core.StringPtr(versionLocatorID),
+		ClusterID: core.StringPtr(clusterID),
+		Region: core.StringPtr(region),
+		VersionLocatorID: core.StringPtr(versionLocatorID),
 	}
 }
 
@@ -13359,17 +13494,17 @@ type DeleteShareApprovalListOptions struct {
 // Constants associated with the DeleteShareApprovalListOptions.ObjectType property.
 // The type for the object.
 const (
-	DeleteShareApprovalListOptionsObjectTypeOfferingConst            = "offering"
+	DeleteShareApprovalListOptionsObjectTypeOfferingConst = "offering"
 	DeleteShareApprovalListOptionsObjectTypePresetConfigurationConst = "preset_configuration"
-	DeleteShareApprovalListOptionsObjectTypeProxySourceConst         = "proxy_source"
-	DeleteShareApprovalListOptionsObjectTypeVpeConst                 = "vpe"
+	DeleteShareApprovalListOptionsObjectTypeProxySourceConst = "proxy_source"
+	DeleteShareApprovalListOptionsObjectTypeVpeConst = "vpe"
 )
 
 // NewDeleteShareApprovalListOptions : Instantiate DeleteShareApprovalListOptions
 func (*CatalogManagementV1) NewDeleteShareApprovalListOptions(objectType string, accesses []string) *DeleteShareApprovalListOptions {
 	return &DeleteShareApprovalListOptions{
 		ObjectType: core.StringPtr(objectType),
-		Accesses:   accesses,
+		Accesses: accesses,
 	}
 }
 
@@ -13783,15 +13918,15 @@ type DeprecateOfferingOptions struct {
 // Set deprecation (true) or cancel deprecation (false).
 const (
 	DeprecateOfferingOptionsSettingFalseConst = "false"
-	DeprecateOfferingOptionsSettingTrueConst  = "true"
+	DeprecateOfferingOptionsSettingTrueConst = "true"
 )
 
 // NewDeprecateOfferingOptions : Instantiate DeprecateOfferingOptions
 func (*CatalogManagementV1) NewDeprecateOfferingOptions(catalogIdentifier string, offeringID string, setting string) *DeprecateOfferingOptions {
 	return &DeprecateOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		Setting:           core.StringPtr(setting),
+		OfferingID: core.StringPtr(offeringID),
+		Setting: core.StringPtr(setting),
 	}
 }
 
@@ -13890,6 +14025,48 @@ func (_options *DeprecateVersionOptions) SetVersionLocID(versionLocID string) *D
 func (options *DeprecateVersionOptions) SetHeaders(param map[string]string) *DeprecateVersionOptions {
 	options.Headers = param
 	return options
+}
+
+// EntitlementLicense : License that is associated with a pricing plan.
+type EntitlementLicense struct {
+	// Configuration ID for the license.
+	ConfigID *string `json:"config_id,omitempty"`
+
+	// The Stock Keeping Unit (SKU) identifier for the license.
+	Sku *string `json:"sku,omitempty"`
+
+	// Provider ID for the license.
+	ProviderID *string `json:"provider_id,omitempty"`
+
+	// Vendor ID for the license.
+	VendorID *string `json:"vendor_id,omitempty"`
+}
+
+// UnmarshalEntitlementLicense unmarshals an instance of EntitlementLicense from the specified map of raw messages.
+func UnmarshalEntitlementLicense(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EntitlementLicense)
+	err = core.UnmarshalPrimitive(m, "config_id", &obj.ConfigID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "config_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "sku", &obj.Sku)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sku-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "provider_id", &obj.ProviderID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "provider_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "vendor_id", &obj.VendorID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "vendor_id-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // EvaluatedControl : Evaluated control.
@@ -14262,7 +14439,7 @@ type GetCatalogAuditOptions struct {
 // NewGetCatalogAuditOptions : Instantiate GetCatalogAuditOptions
 func (*CatalogManagementV1) NewGetCatalogAuditOptions(catalogIdentifier string, auditlogIdentifier string) *GetCatalogAuditOptions {
 	return &GetCatalogAuditOptions{
-		CatalogIdentifier:  core.StringPtr(catalogIdentifier),
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
 		AuditlogIdentifier: core.StringPtr(auditlogIdentifier),
 	}
 }
@@ -14337,8 +14514,8 @@ type GetClusterOptions struct {
 // NewGetClusterOptions : Instantiate GetClusterOptions
 func (*CatalogManagementV1) NewGetClusterOptions(clusterID string, region string, xAuthRefreshToken string) *GetClusterOptions {
 	return &GetClusterOptions{
-		ClusterID:         core.StringPtr(clusterID),
-		Region:            core.StringPtr(region),
+		ClusterID: core.StringPtr(clusterID),
+		Region: core.StringPtr(region),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -14399,9 +14576,9 @@ type GetConsumptionOfferingsOptions struct {
 // What should be selected. Default is 'all' which will return both public and private offerings. 'public' returns only
 // the public offerings and 'private' returns only the private offerings.
 const (
-	GetConsumptionOfferingsOptionsSelectAllConst     = "all"
+	GetConsumptionOfferingsOptionsSelectAllConst = "all"
 	GetConsumptionOfferingsOptionsSelectPrivateConst = "private"
-	GetConsumptionOfferingsOptionsSelectPublicConst  = "public"
+	GetConsumptionOfferingsOptionsSelectPublicConst = "public"
 )
 
 // NewGetConsumptionOfferingsOptions : Instantiate GetConsumptionOfferingsOptions
@@ -14470,7 +14647,7 @@ type GetEnterpriseAuditOptions struct {
 func (*CatalogManagementV1) NewGetEnterpriseAuditOptions(enterpriseIdentifier string, auditlogIdentifier string) *GetEnterpriseAuditOptions {
 	return &GetEnterpriseAuditOptions{
 		EnterpriseIdentifier: core.StringPtr(enterpriseIdentifier),
-		AuditlogIdentifier:   core.StringPtr(auditlogIdentifier),
+		AuditlogIdentifier: core.StringPtr(auditlogIdentifier),
 	}
 }
 
@@ -14550,8 +14727,8 @@ type GetNamespacesOptions struct {
 // NewGetNamespacesOptions : Instantiate GetNamespacesOptions
 func (*CatalogManagementV1) NewGetNamespacesOptions(clusterID string, region string, xAuthRefreshToken string) *GetNamespacesOptions {
 	return &GetNamespacesOptions{
-		ClusterID:         core.StringPtr(clusterID),
-		Region:            core.StringPtr(region),
+		ClusterID: core.StringPtr(clusterID),
+		Region: core.StringPtr(region),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -14614,7 +14791,7 @@ type GetObjectAccessListDeprecatedOptions struct {
 func (*CatalogManagementV1) NewGetObjectAccessListDeprecatedOptions(catalogIdentifier string, objectIdentifier string) *GetObjectAccessListDeprecatedOptions {
 	return &GetObjectAccessListDeprecatedOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -14670,7 +14847,7 @@ type GetObjectAccessListOptions struct {
 func (*CatalogManagementV1) NewGetObjectAccessListOptions(catalogIdentifier string, objectIdentifier string) *GetObjectAccessListOptions {
 	return &GetObjectAccessListOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -14724,8 +14901,8 @@ type GetObjectAccessOptions struct {
 func (*CatalogManagementV1) NewGetObjectAccessOptions(catalogIdentifier string, objectIdentifier string, accessIdentifier string) *GetObjectAccessOptions {
 	return &GetObjectAccessOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
-		AccessIdentifier:  core.StringPtr(accessIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+		AccessIdentifier: core.StringPtr(accessIdentifier),
 	}
 }
 
@@ -14774,8 +14951,8 @@ type GetObjectAuditOptions struct {
 // NewGetObjectAuditOptions : Instantiate GetObjectAuditOptions
 func (*CatalogManagementV1) NewGetObjectAuditOptions(catalogIdentifier string, objectIdentifier string, auditlogIdentifier string) *GetObjectAuditOptions {
 	return &GetObjectAuditOptions{
-		CatalogIdentifier:  core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:   core.StringPtr(objectIdentifier),
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 		AuditlogIdentifier: core.StringPtr(auditlogIdentifier),
 	}
 }
@@ -14826,7 +15003,7 @@ type GetObjectOptions struct {
 func (*CatalogManagementV1) NewGetObjectOptions(catalogIdentifier string, objectIdentifier string) *GetObjectOptions {
 	return &GetObjectOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -14898,7 +15075,7 @@ type GetOfferingAccessListOptions struct {
 func (*CatalogManagementV1) NewGetOfferingAccessListOptions(catalogIdentifier string, offeringID string) *GetOfferingAccessListOptions {
 	return &GetOfferingAccessListOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -14952,8 +15129,8 @@ type GetOfferingAccessOptions struct {
 func (*CatalogManagementV1) NewGetOfferingAccessOptions(catalogIdentifier string, offeringID string, accessIdentifier string) *GetOfferingAccessOptions {
 	return &GetOfferingAccessOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		AccessIdentifier:  core.StringPtr(accessIdentifier),
+		OfferingID: core.StringPtr(offeringID),
+		AccessIdentifier: core.StringPtr(accessIdentifier),
 	}
 }
 
@@ -15002,8 +15179,8 @@ type GetOfferingAuditOptions struct {
 // NewGetOfferingAuditOptions : Instantiate GetOfferingAuditOptions
 func (*CatalogManagementV1) NewGetOfferingAuditOptions(catalogIdentifier string, offeringID string, auditlogIdentifier string) *GetOfferingAuditOptions {
 	return &GetOfferingAuditOptions{
-		CatalogIdentifier:  core.StringPtr(catalogIdentifier),
-		OfferingID:         core.StringPtr(offeringID),
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID: core.StringPtr(offeringID),
 		AuditlogIdentifier: core.StringPtr(auditlogIdentifier),
 	}
 }
@@ -15070,7 +15247,7 @@ type GetOfferingChangeNoticesOptions struct {
 // optionaly specify if change notices should be returned for all versions of this kind and flavor, or for all versions
 // that are newer than the specified version, including the specified version.
 const (
-	GetOfferingChangeNoticesOptionsVersionsAllConst    = "all"
+	GetOfferingChangeNoticesOptionsVersionsAllConst = "all"
 	GetOfferingChangeNoticesOptionsVersionsLatestConst = "latest"
 )
 
@@ -15078,8 +15255,8 @@ const (
 func (*CatalogManagementV1) NewGetOfferingChangeNoticesOptions(catalogIdentifier string, offeringID string, kind string) *GetOfferingChangeNoticesOptions {
 	return &GetOfferingChangeNoticesOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		Kind:              core.StringPtr(kind),
+		OfferingID: core.StringPtr(offeringID),
+		Kind: core.StringPtr(kind),
 	}
 }
 
@@ -15250,7 +15427,7 @@ type GetOfferingLicenseOptions struct {
 func (*CatalogManagementV1) NewGetOfferingLicenseOptions(versionLocID string, licenseID string) *GetOfferingLicenseOptions {
 	return &GetOfferingLicenseOptions{
 		VersionLocID: core.StringPtr(versionLocID),
-		LicenseID:    core.StringPtr(licenseID),
+		LicenseID: core.StringPtr(licenseID),
 	}
 }
 
@@ -15294,7 +15471,7 @@ type GetOfferingOptions struct {
 func (*CatalogManagementV1) NewGetOfferingOptions(catalogIdentifier string, offeringID string) *GetOfferingOptions {
 	return &GetOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -15628,7 +15805,7 @@ type GetOfferingStatsOptions struct {
 func (*CatalogManagementV1) NewGetOfferingStatsOptions(catalogIdentifier string, offeringID string) *GetOfferingStatsOptions {
 	return &GetOfferingStatsOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -15708,8 +15885,8 @@ type GetOfferingUpdatesOptions struct {
 func (*CatalogManagementV1) NewGetOfferingUpdatesOptions(catalogIdentifier string, offeringID string, kind string, xAuthRefreshToken string) *GetOfferingUpdatesOptions {
 	return &GetOfferingUpdatesOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		Kind:              core.StringPtr(kind),
+		OfferingID: core.StringPtr(offeringID),
+		Kind: core.StringPtr(kind),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -15896,7 +16073,7 @@ type GetPreinstallOptions struct {
 // NewGetPreinstallOptions : Instantiate GetPreinstallOptions
 func (*CatalogManagementV1) NewGetPreinstallOptions(versionLocID string, xAuthRefreshToken string) *GetPreinstallOptions {
 	return &GetPreinstallOptions{
-		VersionLocID:      core.StringPtr(versionLocID),
+		VersionLocID: core.StringPtr(versionLocID),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -15962,24 +16139,24 @@ type GetShareApprovalListAsSourceOptions struct {
 // Constants associated with the GetShareApprovalListAsSourceOptions.ObjectType property.
 // The type for the object.
 const (
-	GetShareApprovalListAsSourceOptionsObjectTypeOfferingConst            = "offering"
+	GetShareApprovalListAsSourceOptionsObjectTypeOfferingConst = "offering"
 	GetShareApprovalListAsSourceOptionsObjectTypePresetConfigurationConst = "preset_configuration"
-	GetShareApprovalListAsSourceOptionsObjectTypeProxySourceConst         = "proxy_source"
-	GetShareApprovalListAsSourceOptionsObjectTypeVpeConst                 = "vpe"
+	GetShareApprovalListAsSourceOptionsObjectTypeProxySourceConst = "proxy_source"
+	GetShareApprovalListAsSourceOptionsObjectTypeVpeConst = "vpe"
 )
 
 // Constants associated with the GetShareApprovalListAsSourceOptions.ApprovalStateIdentifier property.
 // The different possible approval states for share requests or access request.
 const (
 	GetShareApprovalListAsSourceOptionsApprovalStateIdentifierApprovedConst = "approved"
-	GetShareApprovalListAsSourceOptionsApprovalStateIdentifierPendingConst  = "pending"
+	GetShareApprovalListAsSourceOptionsApprovalStateIdentifierPendingConst = "pending"
 	GetShareApprovalListAsSourceOptionsApprovalStateIdentifierRejectedConst = "rejected"
 )
 
 // NewGetShareApprovalListAsSourceOptions : Instantiate GetShareApprovalListAsSourceOptions
 func (*CatalogManagementV1) NewGetShareApprovalListAsSourceOptions(objectType string, approvalStateIdentifier string) *GetShareApprovalListAsSourceOptions {
 	return &GetShareApprovalListAsSourceOptions{
-		ObjectType:              core.StringPtr(objectType),
+		ObjectType: core.StringPtr(objectType),
 		ApprovalStateIdentifier: core.StringPtr(approvalStateIdentifier),
 	}
 }
@@ -16038,10 +16215,10 @@ type GetShareApprovalListOptions struct {
 // Constants associated with the GetShareApprovalListOptions.ObjectType property.
 // The type for the object.
 const (
-	GetShareApprovalListOptionsObjectTypeOfferingConst            = "offering"
+	GetShareApprovalListOptionsObjectTypeOfferingConst = "offering"
 	GetShareApprovalListOptionsObjectTypePresetConfigurationConst = "preset_configuration"
-	GetShareApprovalListOptionsObjectTypeProxySourceConst         = "proxy_source"
-	GetShareApprovalListOptionsObjectTypeVpeConst                 = "vpe"
+	GetShareApprovalListOptionsObjectTypeProxySourceConst = "proxy_source"
+	GetShareApprovalListOptionsObjectTypeVpeConst = "vpe"
 )
 
 // NewGetShareApprovalListOptions : Instantiate GetShareApprovalListOptions
@@ -16093,7 +16270,7 @@ type GetValidationStatusOptions struct {
 // NewGetValidationStatusOptions : Instantiate GetValidationStatusOptions
 func (*CatalogManagementV1) NewGetValidationStatusOptions(versionLocID string, xAuthRefreshToken string) *GetValidationStatusOptions {
 	return &GetValidationStatusOptions{
-		VersionLocID:      core.StringPtr(versionLocID),
+		VersionLocID: core.StringPtr(versionLocID),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -16209,8 +16386,8 @@ type GetVersionsOptions struct {
 func (*CatalogManagementV1) NewGetVersionsOptions(catalogIdentifier string, offeringID string, kindID string) *GetVersionsOptions {
 	return &GetVersionsOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		KindID:            core.StringPtr(kindID),
+		OfferingID: core.StringPtr(offeringID),
+		KindID: core.StringPtr(kindID),
 	}
 }
 
@@ -16925,7 +17102,7 @@ type ImportOfferingVersionOptions struct {
 func (*CatalogManagementV1) NewImportOfferingVersionOptions(catalogIdentifier string, offeringID string) *ImportOfferingVersionOptions {
 	return &ImportOfferingVersionOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -17318,7 +17495,7 @@ type InstallVersionOptions struct {
 // NewInstallVersionOptions : Instantiate InstallVersionOptions
 func (*CatalogManagementV1) NewInstallVersionOptions(versionLocID string, xAuthRefreshToken string) *InstallVersionOptions {
 	return &InstallVersionOptions{
-		VersionLocID:      core.StringPtr(versionLocID),
+		VersionLocID: core.StringPtr(versionLocID),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -17485,18 +17662,18 @@ type JSONPatchOperation struct {
 // Constants associated with the JSONPatchOperation.Op property.
 // The operation to be performed.
 const (
-	JSONPatchOperationOpAddConst     = "add"
-	JSONPatchOperationOpCopyConst    = "copy"
-	JSONPatchOperationOpMoveConst    = "move"
-	JSONPatchOperationOpRemoveConst  = "remove"
+	JSONPatchOperationOpAddConst = "add"
+	JSONPatchOperationOpCopyConst = "copy"
+	JSONPatchOperationOpMoveConst = "move"
+	JSONPatchOperationOpRemoveConst = "remove"
 	JSONPatchOperationOpReplaceConst = "replace"
-	JSONPatchOperationOpTestConst    = "test"
+	JSONPatchOperationOpTestConst = "test"
 )
 
 // NewJSONPatchOperation : Instantiate JSONPatchOperation (Generic Model Constructor)
 func (*CatalogManagementV1) NewJSONPatchOperation(op string, path string) (_model *JSONPatchOperation, err error) {
 	_model = &JSONPatchOperation{
-		Op:   core.StringPtr(op),
+		Op: core.StringPtr(op),
 		Path: core.StringPtr(path),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -17954,7 +18131,7 @@ type ListObjectAuditsOptions struct {
 func (*CatalogManagementV1) NewListObjectAuditsOptions(catalogIdentifier string, objectIdentifier string) *ListObjectAuditsOptions {
 	return &ListObjectAuditsOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -18085,7 +18262,7 @@ type ListOfferingAuditsOptions struct {
 func (*CatalogManagementV1) NewListOfferingAuditsOptions(catalogIdentifier string, offeringID string) *ListOfferingAuditsOptions {
 	return &ListOfferingAuditsOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -18288,9 +18465,9 @@ type ListOperatorsOptions struct {
 func (*CatalogManagementV1) NewListOperatorsOptions(xAuthRefreshToken string, clusterID string, region string, versionLocatorID string) *ListOperatorsOptions {
 	return &ListOperatorsOptions{
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
-		ClusterID:         core.StringPtr(clusterID),
-		Region:            core.StringPtr(region),
-		VersionLocatorID:  core.StringPtr(versionLocatorID),
+		ClusterID: core.StringPtr(clusterID),
+		Region: core.StringPtr(region),
+		VersionLocatorID: core.StringPtr(versionLocatorID),
 	}
 }
 
@@ -19373,6 +19550,10 @@ type OfferingInstance struct {
 
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
+
+	// Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+	// license entitlement status and associated licenses for a software offering instance.
+	PlanEntitlement *PlanEntitlement `json:"plan_entitlement,omitempty"`
 }
 
 // UnmarshalOfferingInstance unmarshals an instance of OfferingInstance from the specified map of raw messages.
@@ -19533,6 +19714,11 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		err = core.SDKErrorf(err, "", "parent_crn-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "plan_entitlement", &obj.PlanEntitlement, UnmarshalPlanEntitlement)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_entitlement-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -19593,6 +19779,96 @@ func UnmarshalOfferingInstanceLastOperation(m map[string]json.RawMessage, result
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// OfferingInstanceListResult : Paginated offering instance search result.
+type OfferingInstanceListResult struct {
+	// The start token used for this response.
+	Start *string `json:"start,omitempty"`
+
+	// The limit that was applied to this response. It may be smaller than in the request because that was too large.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// The total count of resources in the system that matches the request.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this response.
+	ResourceCount *int64 `json:"resource_count" validate:"required"`
+
+	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first" validate:"required"`
+
+	// Link response on a token paginated query.
+	Next *PaginationTokenLink `json:"next,omitempty"`
+
+	// Link response on a token paginated query.
+	Prev *PaginationTokenLink `json:"prev,omitempty"`
+
+	// Link response on a token paginated query.
+	Last *PaginationTokenLink `json:"last,omitempty"`
+
+	// A list of offering instance records.
+	Instances []OfferingInstance `json:"instances" validate:"required"`
+}
+
+// UnmarshalOfferingInstanceListResult unmarshals an instance of OfferingInstanceListResult from the specified map of raw messages.
+func UnmarshalOfferingInstanceListResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OfferingInstanceListResult)
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "prev", &obj.Prev, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "prev-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "instances", &obj.Instances, UnmarshalOfferingInstance)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "instances-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *OfferingInstanceListResult) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // OfferingReference : Offering reference definition.
@@ -19944,7 +20220,7 @@ type PatchUpdateVersionOptions struct {
 func (*CatalogManagementV1) NewPatchUpdateVersionOptions(versionLocID string, ifMatch string) *PatchUpdateVersionOptions {
 	return &PatchUpdateVersionOptions{
 		VersionLocID: core.StringPtr(versionLocID),
-		IfMatch:      core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -20033,6 +20309,9 @@ type Plan struct {
 
 	// Plan has been approved to publish for other users.
 	PublishApproved *bool `json:"publish_approved,omitempty"`
+
+	// List of licenses associated with this plan.
+	Licenses []EntitlementLicense `json:"licenses,omitempty"`
 }
 
 // UnmarshalPlan unmarshals an instance of Plan from the specified map of raw messages.
@@ -20136,6 +20415,46 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 	err = core.UnmarshalPrimitive(m, "publish_approved", &obj.PublishApproved)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "publish_approved-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "licenses", &obj.Licenses, UnmarshalEntitlementLicense)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "licenses-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PlanEntitlement : Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+// license entitlement status and associated licenses for a software offering instance.
+type PlanEntitlement struct {
+	// ID for the license entitlement.
+	ID *string `json:"id,omitempty"`
+
+	// The current status of the license entitlement.
+	Status *string `json:"status,omitempty"`
+
+	// Array of licenses associated with this entitlement.
+	LicenseInstances []EntitlementLicense `json:"license_instances,omitempty"`
+}
+
+// UnmarshalPlanEntitlement unmarshals an instance of PlanEntitlement from the specified map of raw messages.
+func UnmarshalPlanEntitlement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanEntitlement)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "license_instances", &obj.LicenseInstances, UnmarshalEntitlementLicense)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "license_instances-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -20273,7 +20592,7 @@ type PreinstallVersionOptions struct {
 // NewPreinstallVersionOptions : Instantiate PreinstallVersionOptions
 func (*CatalogManagementV1) NewPreinstallVersionOptions(versionLocID string, xAuthRefreshToken string) *PreinstallVersionOptions {
 	return &PreinstallVersionOptions{
-		VersionLocID:      core.StringPtr(versionLocID),
+		VersionLocID: core.StringPtr(versionLocID),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -20796,6 +21115,10 @@ type PutOfferingInstanceOptions struct {
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
 
+	// Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+	// license entitlement status and associated licenses for a software offering instance.
+	PlanEntitlement *PlanEntitlement `json:"plan_entitlement,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -20804,7 +21127,7 @@ type PutOfferingInstanceOptions struct {
 func (*CatalogManagementV1) NewPutOfferingInstanceOptions(instanceIdentifier string, xAuthRefreshToken string) *PutOfferingInstanceOptions {
 	return &PutOfferingInstanceOptions{
 		InstanceIdentifier: core.StringPtr(instanceIdentifier),
-		XAuthRefreshToken:  core.StringPtr(xAuthRefreshToken),
+		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
 
@@ -21006,6 +21329,12 @@ func (_options *PutOfferingInstanceOptions) SetParentCRN(parentCRN string) *PutO
 	return _options
 }
 
+// SetPlanEntitlement : Allow user to set PlanEntitlement
+func (_options *PutOfferingInstanceOptions) SetPlanEntitlement(planEntitlement *PlanEntitlement) *PutOfferingInstanceOptions {
+	_options.PlanEntitlement = planEntitlement
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *PutOfferingInstanceOptions) SetHeaders(param map[string]string) *PutOfferingInstanceOptions {
 	options.Headers = param
@@ -21091,6 +21420,8 @@ type Region struct {
 	Active *bool `json:"active,omitempty"`
 
 	Visibility map[string]interface{} `json:"visibility,omitempty"`
+
+	Services []string `json:"services,omitempty"`
 }
 
 // UnmarshalRegion unmarshals an instance of Region from the specified map of raw messages.
@@ -21184,6 +21515,11 @@ func UnmarshalRegion(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "visibility", &obj.Visibility)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "visibility-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "services", &obj.Services)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "services-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -21374,8 +21710,8 @@ type ReloadOfferingOptions struct {
 func (*CatalogManagementV1) NewReloadOfferingOptions(catalogIdentifier string, offeringID string, targetVersion string) *ReloadOfferingOptions {
 	return &ReloadOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		TargetVersion:     core.StringPtr(targetVersion),
+		OfferingID: core.StringPtr(offeringID),
+		TargetVersion: core.StringPtr(targetVersion),
 	}
 }
 
@@ -21813,7 +22149,7 @@ type ReplaceObjectOptions struct {
 func (*CatalogManagementV1) NewReplaceObjectOptions(catalogIdentifier string, objectIdentifier string) *ReplaceObjectOptions {
 	return &ReplaceObjectOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -22105,7 +22441,7 @@ type ReplaceOfferingOptions struct {
 func (*CatalogManagementV1) NewReplaceOfferingOptions(catalogIdentifier string, offeringID string) *ReplaceOfferingOptions {
 	return &ReplaceOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -22534,11 +22870,11 @@ type Resource struct {
 // Constants associated with the Resource.Type property.
 // Type of requirement.
 const (
-	ResourceTypeCoresConst            = "cores"
-	ResourceTypeDiskConst             = "disk"
-	ResourceTypeMemConst              = "mem"
-	ResourceTypeNodesConst            = "nodes"
-	ResourceTypeTargetversionConst    = "targetVersion"
+	ResourceTypeCoresConst = "cores"
+	ResourceTypeDiskConst = "disk"
+	ResourceTypeMemConst = "mem"
+	ResourceTypeNodesConst = "nodes"
+	ResourceTypeTargetversionConst = "targetVersion"
 	ResourceTypeTerraformversionConst = "terraformVersion"
 )
 
@@ -22966,13 +23302,13 @@ type ScriptRef struct {
 // The stage of the specified action where this script should be run.
 const (
 	ScriptRefStagePostConst = "post"
-	ScriptRefStagePreConst  = "pre"
+	ScriptRefStagePreConst = "pre"
 )
 
 // Constants associated with the ScriptRef.Action property.
 // The action where this script should be run.
 const (
-	ScriptRefActionDeployConst   = "deploy"
+	ScriptRefActionDeployConst = "deploy"
 	ScriptRefActionUndeployConst = "undeploy"
 	ScriptRefActionValidateConst = "validate"
 )
@@ -23088,6 +23424,52 @@ func (options *SearchObjectsOptions) SetHeaders(param map[string]string) *Search
 	return options
 }
 
+// SearchOfferingInstanceOptions : The SearchOfferingInstance options.
+type SearchOfferingInstanceOptions struct {
+	// Return all offering instances that were created from the specified offering id.
+	OfferingID *string `json:"offeringID" validate:"required"`
+
+	// Start token for a query.
+	Start *string `json:"start,omitempty"`
+
+	// number or results to return in the query.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewSearchOfferingInstanceOptions : Instantiate SearchOfferingInstanceOptions
+func (*CatalogManagementV1) NewSearchOfferingInstanceOptions(offeringID string) *SearchOfferingInstanceOptions {
+	return &SearchOfferingInstanceOptions{
+		OfferingID: core.StringPtr(offeringID),
+	}
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *SearchOfferingInstanceOptions) SetOfferingID(offeringID string) *SearchOfferingInstanceOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *SearchOfferingInstanceOptions) SetStart(start string) *SearchOfferingInstanceOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *SearchOfferingInstanceOptions) SetLimit(limit int64) *SearchOfferingInstanceOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *SearchOfferingInstanceOptions) SetHeaders(param map[string]string) *SearchOfferingInstanceOptions {
+	options.Headers = param
+	return options
+}
+
 // SetDeprecatePlanOptions : The SetDeprecatePlan options.
 type SetDeprecatePlanOptions struct {
 	// A dotted value of `sw`.`catalogID`.`resourceID`.
@@ -23110,14 +23492,14 @@ type SetDeprecatePlanOptions struct {
 // Set deprecation (true) or cancel deprecation (false).
 const (
 	SetDeprecatePlanOptionsSettingFalseConst = "false"
-	SetDeprecatePlanOptionsSettingTrueConst  = "true"
+	SetDeprecatePlanOptionsSettingTrueConst = "true"
 )
 
 // NewSetDeprecatePlanOptions : Instantiate SetDeprecatePlanOptions
 func (*CatalogManagementV1) NewSetDeprecatePlanOptions(planLocID string, setting string) *SetDeprecatePlanOptions {
 	return &SetDeprecatePlanOptions{
 		PlanLocID: core.StringPtr(planLocID),
-		Setting:   core.StringPtr(setting),
+		Setting: core.StringPtr(setting),
 	}
 }
 
@@ -23173,14 +23555,14 @@ type SetDeprecateVersionOptions struct {
 // Set deprecation (true) or cancel deprecation (false).
 const (
 	SetDeprecateVersionOptionsSettingFalseConst = "false"
-	SetDeprecateVersionOptionsSettingTrueConst  = "true"
+	SetDeprecateVersionOptionsSettingTrueConst = "true"
 )
 
 // NewSetDeprecateVersionOptions : Instantiate SetDeprecateVersionOptions
 func (*CatalogManagementV1) NewSetDeprecateVersionOptions(versionLocID string, setting string) *SetDeprecateVersionOptions {
 	return &SetDeprecateVersionOptions{
 		VersionLocID: core.StringPtr(versionLocID),
-		Setting:      core.StringPtr(setting),
+		Setting: core.StringPtr(setting),
 	}
 }
 
@@ -23254,35 +23636,34 @@ type SetOfferingPublishOptions struct {
 
 // Constants associated with the SetOfferingPublishOptions.ApprovalType property.
 // Type of approval.
-//   - `pc_managed` - Partner Center is managing this offering
-//   - `ibm_module_repo` -  Offering is from an approved repository can be published into the module registry.
-//   - `ibm_community` - Offering is from an approved repository can be published into the Community registry.
-//   - `publish_approved` - Publishing approved, offering owners can now set who sees the offering in public catalog
-//   - `approval_required` - Offering will be removed from public catalog when this flag is set to true, regardless of
-//
+//  * `pc_managed` - Partner Center is managing this offering
+//  * `ibm_module_repo` -  Offering is from an approved repository can be published into the module registry.
+//  * `ibm_community` - Offering is from an approved repository can be published into the Community registry.
+//  * `publish_approved` - Publishing approved, offering owners can now set who sees the offering in public catalog
+//  * `approval_required` - Offering will be removed from public catalog when this flag is set to true, regardless of
 // the approval and visibility settings.
 const (
 	SetOfferingPublishOptionsApprovalTypeApprovalRequiredConst = "approval_required"
-	SetOfferingPublishOptionsApprovalTypeIBMCommunityConst     = "ibm_community"
-	SetOfferingPublishOptionsApprovalTypeIBMModuleRepoConst    = "ibm_module_repo"
-	SetOfferingPublishOptionsApprovalTypePcManagedConst        = "pc_managed"
-	SetOfferingPublishOptionsApprovalTypePublishApprovedConst  = "publish_approved"
+	SetOfferingPublishOptionsApprovalTypeIBMCommunityConst = "ibm_community"
+	SetOfferingPublishOptionsApprovalTypeIBMModuleRepoConst = "ibm_module_repo"
+	SetOfferingPublishOptionsApprovalTypePcManagedConst = "pc_managed"
+	SetOfferingPublishOptionsApprovalTypePublishApprovedConst = "publish_approved"
 )
 
 // Constants associated with the SetOfferingPublishOptions.Approved property.
 // Approve (true) or disapprove (false).
 const (
 	SetOfferingPublishOptionsApprovedFalseConst = "false"
-	SetOfferingPublishOptionsApprovedTrueConst  = "true"
+	SetOfferingPublishOptionsApprovedTrueConst = "true"
 )
 
 // NewSetOfferingPublishOptions : Instantiate SetOfferingPublishOptions
 func (*CatalogManagementV1) NewSetOfferingPublishOptions(catalogIdentifier string, offeringID string, approvalType string, approved string) *SetOfferingPublishOptions {
 	return &SetOfferingPublishOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		ApprovalType:      core.StringPtr(approvalType),
-		Approved:          core.StringPtr(approved),
+		OfferingID: core.StringPtr(offeringID),
+		ApprovalType: core.StringPtr(approvalType),
+		Approved: core.StringPtr(approved),
 	}
 }
 
@@ -23459,6 +23840,11 @@ func UnmarshalShareApprovalListAccessResult(m map[string]json.RawMessage, result
 		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
@@ -23516,7 +23902,7 @@ type ShareObjectOptions struct {
 func (*CatalogManagementV1) NewShareObjectOptions(catalogIdentifier string, objectIdentifier string) *ShareObjectOptions {
 	return &ShareObjectOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier:  core.StringPtr(objectIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
 	}
 }
 
@@ -23581,7 +23967,7 @@ type ShareOfferingOptions struct {
 func (*CatalogManagementV1) NewShareOfferingOptions(catalogIdentifier string, offeringID string) *ShareOfferingOptions {
 	return &ShareOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
+		OfferingID: core.StringPtr(offeringID),
 	}
 }
 
@@ -24074,6 +24460,10 @@ type TerraformEngineScope struct {
 	// Identifier for the specified type in the scope.
 	Name *string `json:"name,omitempty"`
 
+	// Optional field to provide the organization name of the scope. Needed if you want to query project or workspace scope
+	// by name instead of ID.
+	OrgName *string `json:"org_name,omitempty"`
+
 	// Scope to auto-create deployable architectures from. The supported scopes today are workspace, org, and project.
 	Type *string `json:"type,omitempty"`
 }
@@ -24084,6 +24474,11 @@ func UnmarshalTerraformEngineScope(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "org_name", &obj.OrgName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "org_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
@@ -24336,7 +24731,7 @@ type UpdateOfferingAccessOptions struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
+	// Revision.
 	Rev *string `json:"_rev,omitempty"`
 
 	// account id.
@@ -24375,8 +24770,8 @@ type UpdateOfferingAccessOptions struct {
 func (*CatalogManagementV1) NewUpdateOfferingAccessOptions(catalogIdentifier string, offeringID string, accessIdentifier string) *UpdateOfferingAccessOptions {
 	return &UpdateOfferingAccessOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		AccessIdentifier:  core.StringPtr(accessIdentifier),
+		OfferingID: core.StringPtr(offeringID),
+		AccessIdentifier: core.StringPtr(accessIdentifier),
 	}
 }
 
@@ -24491,8 +24886,8 @@ type UpdateOfferingOptions struct {
 func (*CatalogManagementV1) NewUpdateOfferingOptions(catalogIdentifier string, offeringID string, ifMatch string) *UpdateOfferingOptions {
 	return &UpdateOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID:        core.StringPtr(offeringID),
-		IfMatch:           core.StringPtr(ifMatch),
+		OfferingID: core.StringPtr(offeringID),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -24548,26 +24943,26 @@ type UpdateShareApprovalListAsSourceOptions struct {
 // Constants associated with the UpdateShareApprovalListAsSourceOptions.ObjectType property.
 // The type for the object.
 const (
-	UpdateShareApprovalListAsSourceOptionsObjectTypeOfferingConst            = "offering"
+	UpdateShareApprovalListAsSourceOptionsObjectTypeOfferingConst = "offering"
 	UpdateShareApprovalListAsSourceOptionsObjectTypePresetConfigurationConst = "preset_configuration"
-	UpdateShareApprovalListAsSourceOptionsObjectTypeProxySourceConst         = "proxy_source"
-	UpdateShareApprovalListAsSourceOptionsObjectTypeVpeConst                 = "vpe"
+	UpdateShareApprovalListAsSourceOptionsObjectTypeProxySourceConst = "proxy_source"
+	UpdateShareApprovalListAsSourceOptionsObjectTypeVpeConst = "vpe"
 )
 
 // Constants associated with the UpdateShareApprovalListAsSourceOptions.ApprovalStateIdentifier property.
 // The different possible approval states for share requests or access request.
 const (
 	UpdateShareApprovalListAsSourceOptionsApprovalStateIdentifierApprovedConst = "approved"
-	UpdateShareApprovalListAsSourceOptionsApprovalStateIdentifierPendingConst  = "pending"
+	UpdateShareApprovalListAsSourceOptionsApprovalStateIdentifierPendingConst = "pending"
 	UpdateShareApprovalListAsSourceOptionsApprovalStateIdentifierRejectedConst = "rejected"
 )
 
 // NewUpdateShareApprovalListAsSourceOptions : Instantiate UpdateShareApprovalListAsSourceOptions
 func (*CatalogManagementV1) NewUpdateShareApprovalListAsSourceOptions(objectType string, approvalStateIdentifier string, accesses []string) *UpdateShareApprovalListAsSourceOptions {
 	return &UpdateShareApprovalListAsSourceOptions{
-		ObjectType:              core.StringPtr(objectType),
+		ObjectType: core.StringPtr(objectType),
 		ApprovalStateIdentifier: core.StringPtr(approvalStateIdentifier),
-		Accesses:                accesses,
+		Accesses: accesses,
 	}
 }
 
@@ -25174,7 +25569,7 @@ type ValidateInstallOptions struct {
 // NewValidateInstallOptions : Instantiate ValidateInstallOptions
 func (*CatalogManagementV1) NewValidateInstallOptions(versionLocID string, xAuthRefreshToken string) *ValidateInstallOptions {
 	return &ValidateInstallOptions{
-		VersionLocID:      core.StringPtr(versionLocID),
+		VersionLocID: core.StringPtr(versionLocID),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
@@ -25535,6 +25930,12 @@ type Version struct {
 	// A map of translated strings, by language code.
 	LongDescriptionI18n map[string]string `json:"long_description_i18n,omitempty"`
 
+	// Short description for version.
+	ShortDescription *string `json:"short_description,omitempty"`
+
+	// A map of translated strings, by language code.
+	ShortDescriptionI18n map[string]string `json:"short_description_i18n,omitempty"`
+
 	// Whitelisted accounts for version.
 	WhitelistedAccounts []string `json:"whitelisted_accounts,omitempty"`
 
@@ -25744,6 +26145,16 @@ func UnmarshalVersion(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "long_description_i18n-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "short_description", &obj.ShortDescription)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "short_description-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "short_description_i18n", &obj.ShortDescriptionI18n)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "short_description_i18n-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "whitelisted_accounts", &obj.WhitelistedAccounts)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "whitelisted_accounts-error", common.GetComponentInfo())
@@ -25815,6 +26226,9 @@ type VersionDependant struct {
 	Version *VersionDependantVersion `json:"version,omitempty"`
 
 	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first" validate:"required"`
+
+	// Link response on a token paginated query.
 	Next *PaginationTokenLink `json:"next,omitempty"`
 
 	// Link response on a token paginated query.
@@ -25850,6 +26264,11 @@ func UnmarshalVersionDependant(m map[string]json.RawMessage, result interface{})
 	err = core.UnmarshalModel(m, "version", &obj.Version, UnmarshalVersionDependantVersion)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
@@ -26317,11 +26736,13 @@ func UnmarshalWeeklyMetricBucket(m map[string]json.RawMessage, result interface{
 	return
 }
 
+//
 // CatalogAccountAuditsPager can be used to simplify the use of the "ListCatalogAccountAudits" method.
+//
 type CatalogAccountAuditsPager struct {
-	hasNext     bool
-	options     *ListCatalogAccountAuditsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListCatalogAccountAuditsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -26334,7 +26755,7 @@ func (catalogManagement *CatalogManagementV1) NewCatalogAccountAuditsPager(optio
 		return
 	}
 
-	var optionsCopy ListCatalogAccountAuditsOptions = *options
+	optionsCopy := *options
 	pager = &CatalogAccountAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26402,11 +26823,13 @@ func (pager *CatalogAccountAuditsPager) GetAll() (allItems []AuditLogDigest, err
 	return
 }
 
+//
 // GetShareApprovalListPager can be used to simplify the use of the "GetShareApprovalList" method.
+//
 type GetShareApprovalListPager struct {
-	hasNext     bool
-	options     *GetShareApprovalListOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetShareApprovalListOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -26419,7 +26842,7 @@ func (catalogManagement *CatalogManagementV1) NewGetShareApprovalListPager(optio
 		return
 	}
 
-	var optionsCopy GetShareApprovalListOptions = *options
+	optionsCopy := *options
 	pager = &GetShareApprovalListPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26487,11 +26910,13 @@ func (pager *GetShareApprovalListPager) GetAll() (allItems []ShareApprovalAccess
 	return
 }
 
+//
 // GetShareApprovalListAsSourcePager can be used to simplify the use of the "GetShareApprovalListAsSource" method.
+//
 type GetShareApprovalListAsSourcePager struct {
-	hasNext     bool
-	options     *GetShareApprovalListAsSourceOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetShareApprovalListAsSourceOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -26504,7 +26929,7 @@ func (catalogManagement *CatalogManagementV1) NewGetShareApprovalListAsSourcePag
 		return
 	}
 
-	var optionsCopy GetShareApprovalListAsSourceOptions = *options
+	optionsCopy := *options
 	pager = &GetShareApprovalListAsSourcePager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26572,11 +26997,13 @@ func (pager *GetShareApprovalListAsSourcePager) GetAll() (allItems []ShareApprov
 	return
 }
 
+//
 // CatalogAuditsPager can be used to simplify the use of the "ListCatalogAudits" method.
+//
 type CatalogAuditsPager struct {
-	hasNext     bool
-	options     *ListCatalogAuditsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListCatalogAuditsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -26589,7 +27016,7 @@ func (catalogManagement *CatalogManagementV1) NewCatalogAuditsPager(options *Lis
 		return
 	}
 
-	var optionsCopy ListCatalogAuditsOptions = *options
+	optionsCopy := *options
 	pager = &CatalogAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26657,11 +27084,13 @@ func (pager *CatalogAuditsPager) GetAll() (allItems []AuditLogDigest, err error)
 	return
 }
 
+//
 // EnterpriseAuditsPager can be used to simplify the use of the "ListEnterpriseAudits" method.
+//
 type EnterpriseAuditsPager struct {
-	hasNext     bool
-	options     *ListEnterpriseAuditsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListEnterpriseAuditsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -26674,7 +27103,7 @@ func (catalogManagement *CatalogManagementV1) NewEnterpriseAuditsPager(options *
 		return
 	}
 
-	var optionsCopy ListEnterpriseAuditsOptions = *options
+	optionsCopy := *options
 	pager = &EnterpriseAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26742,11 +27171,13 @@ func (pager *EnterpriseAuditsPager) GetAll() (allItems []AuditLogDigest, err err
 	return
 }
 
+//
 // GetConsumptionOfferingsPager can be used to simplify the use of the "GetConsumptionOfferings" method.
+//
 type GetConsumptionOfferingsPager struct {
-	hasNext     bool
-	options     *GetConsumptionOfferingsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetConsumptionOfferingsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *int64
 	}
@@ -26759,7 +27190,7 @@ func (catalogManagement *CatalogManagementV1) NewGetConsumptionOfferingsPager(op
 		return
 	}
 
-	var optionsCopy GetConsumptionOfferingsOptions = *options
+	optionsCopy := *options
 	pager = &GetConsumptionOfferingsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26834,11 +27265,13 @@ func (pager *GetConsumptionOfferingsPager) GetAll() (allItems []Offering, err er
 	return
 }
 
+//
 // OfferingsPager can be used to simplify the use of the "ListOfferings" method.
+//
 type OfferingsPager struct {
-	hasNext     bool
-	options     *ListOfferingsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListOfferingsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *int64
 	}
@@ -26851,7 +27284,7 @@ func (catalogManagement *CatalogManagementV1) NewOfferingsPager(options *ListOff
 		return
 	}
 
-	var optionsCopy ListOfferingsOptions = *options
+	optionsCopy := *options
 	pager = &OfferingsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26926,11 +27359,13 @@ func (pager *OfferingsPager) GetAll() (allItems []Offering, err error) {
 	return
 }
 
+//
 // OfferingAuditsPager can be used to simplify the use of the "ListOfferingAudits" method.
+//
 type OfferingAuditsPager struct {
-	hasNext     bool
-	options     *ListOfferingAuditsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListOfferingAuditsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -26943,7 +27378,7 @@ func (catalogManagement *CatalogManagementV1) NewOfferingAuditsPager(options *Li
 		return
 	}
 
-	var optionsCopy ListOfferingAuditsOptions = *options
+	optionsCopy := *options
 	pager = &OfferingAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27011,11 +27446,13 @@ func (pager *OfferingAuditsPager) GetAll() (allItems []AuditLogDigest, err error
 	return
 }
 
+//
 // GetOfferingAccessListPager can be used to simplify the use of the "GetOfferingAccessList" method.
+//
 type GetOfferingAccessListPager struct {
-	hasNext     bool
-	options     *GetOfferingAccessListOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetOfferingAccessListOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -27028,7 +27465,7 @@ func (catalogManagement *CatalogManagementV1) NewGetOfferingAccessListPager(opti
 		return
 	}
 
-	var optionsCopy GetOfferingAccessListOptions = *options
+	optionsCopy := *options
 	pager = &GetOfferingAccessListPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27096,11 +27533,13 @@ func (pager *GetOfferingAccessListPager) GetAll() (allItems []Access, err error)
 	return
 }
 
+//
 // GetVersionsPager can be used to simplify the use of the "GetVersions" method.
+//
 type GetVersionsPager struct {
-	hasNext     bool
-	options     *GetVersionsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetVersionsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -27113,7 +27552,7 @@ func (catalogManagement *CatalogManagementV1) NewGetVersionsPager(options *GetVe
 		return
 	}
 
-	var optionsCopy GetVersionsOptions = *options
+	optionsCopy := *options
 	pager = &GetVersionsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27181,11 +27620,13 @@ func (pager *GetVersionsPager) GetAll() (allItems []Version, err error) {
 	return
 }
 
+//
 // GetNamespacesPager can be used to simplify the use of the "GetNamespaces" method.
+//
 type GetNamespacesPager struct {
-	hasNext     bool
-	options     *GetNamespacesOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetNamespacesOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *int64
 	}
@@ -27198,7 +27639,7 @@ func (catalogManagement *CatalogManagementV1) NewGetNamespacesPager(options *Get
 		return
 	}
 
-	var optionsCopy GetNamespacesOptions = *options
+	optionsCopy := *options
 	pager = &GetNamespacesPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27273,11 +27714,13 @@ func (pager *GetNamespacesPager) GetAll() (allItems []string, err error) {
 	return
 }
 
+//
 // SearchObjectsPager can be used to simplify the use of the "SearchObjects" method.
+//
 type SearchObjectsPager struct {
-	hasNext     bool
-	options     *SearchObjectsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *SearchObjectsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *int64
 	}
@@ -27290,7 +27733,7 @@ func (catalogManagement *CatalogManagementV1) NewSearchObjectsPager(options *Sea
 		return
 	}
 
-	var optionsCopy SearchObjectsOptions = *options
+	optionsCopy := *options
 	pager = &SearchObjectsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27365,11 +27808,13 @@ func (pager *SearchObjectsPager) GetAll() (allItems []CatalogObject, err error) 
 	return
 }
 
+//
 // ObjectsPager can be used to simplify the use of the "ListObjects" method.
+//
 type ObjectsPager struct {
-	hasNext     bool
-	options     *ListObjectsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListObjectsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *int64
 	}
@@ -27382,7 +27827,7 @@ func (catalogManagement *CatalogManagementV1) NewObjectsPager(options *ListObjec
 		return
 	}
 
-	var optionsCopy ListObjectsOptions = *options
+	optionsCopy := *options
 	pager = &ObjectsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27457,11 +27902,13 @@ func (pager *ObjectsPager) GetAll() (allItems []CatalogObject, err error) {
 	return
 }
 
+//
 // ObjectAuditsPager can be used to simplify the use of the "ListObjectAudits" method.
+//
 type ObjectAuditsPager struct {
-	hasNext     bool
-	options     *ListObjectAuditsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListObjectAuditsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -27474,7 +27921,7 @@ func (catalogManagement *CatalogManagementV1) NewObjectAuditsPager(options *List
 		return
 	}
 
-	var optionsCopy ListObjectAuditsOptions = *options
+	optionsCopy := *options
 	pager = &ObjectAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27542,11 +27989,13 @@ func (pager *ObjectAuditsPager) GetAll() (allItems []AuditLogDigest, err error) 
 	return
 }
 
+//
 // GetObjectAccessListPager can be used to simplify the use of the "GetObjectAccessList" method.
+//
 type GetObjectAccessListPager struct {
-	hasNext     bool
-	options     *GetObjectAccessListOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetObjectAccessListOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -27559,7 +28008,7 @@ func (catalogManagement *CatalogManagementV1) NewGetObjectAccessListPager(option
 		return
 	}
 
-	var optionsCopy GetObjectAccessListOptions = *options
+	optionsCopy := *options
 	pager = &GetObjectAccessListPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27627,11 +28076,13 @@ func (pager *GetObjectAccessListPager) GetAll() (allItems []Access, err error) {
 	return
 }
 
+//
 // GetObjectAccessListDeprecatedPager can be used to simplify the use of the "GetObjectAccessListDeprecated" method.
+//
 type GetObjectAccessListDeprecatedPager struct {
-	hasNext     bool
-	options     *GetObjectAccessListDeprecatedOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *GetObjectAccessListDeprecatedOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *int64
 	}
@@ -27644,7 +28095,7 @@ func (catalogManagement *CatalogManagementV1) NewGetObjectAccessListDeprecatedPa
 		return
 	}
 
-	var optionsCopy GetObjectAccessListDeprecatedOptions = *options
+	optionsCopy := *options
 	pager = &GetObjectAccessListDeprecatedPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27719,11 +28170,100 @@ func (pager *GetObjectAccessListDeprecatedPager) GetAll() (allItems []Access, er
 	return
 }
 
+//
+// SearchOfferingInstancePager can be used to simplify the use of the "SearchOfferingInstance" method.
+//
+type SearchOfferingInstancePager struct {
+	hasNext bool
+	options *SearchOfferingInstanceOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewSearchOfferingInstancePager returns a new SearchOfferingInstancePager instance.
+func (catalogManagement *CatalogManagementV1) NewSearchOfferingInstancePager(options *SearchOfferingInstanceOptions) (pager *SearchOfferingInstancePager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	optionsCopy := *options
+	pager = &SearchOfferingInstancePager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *SearchOfferingInstancePager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *SearchOfferingInstancePager) GetNextWithContext(ctx context.Context) (page []OfferingInstance, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.SearchOfferingInstanceWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Instances
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *SearchOfferingInstancePager) GetAllWithContext(ctx context.Context) (allItems []OfferingInstance, err error) {
+	for pager.HasNext() {
+		var nextPage []OfferingInstance
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *SearchOfferingInstancePager) GetNext() (page []OfferingInstance, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *SearchOfferingInstancePager) GetAll() (allItems []OfferingInstance, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
 // OfferingInstanceAuditsPager can be used to simplify the use of the "ListOfferingInstanceAudits" method.
+//
 type OfferingInstanceAuditsPager struct {
-	hasNext     bool
-	options     *ListOfferingInstanceAuditsOptions
-	client      *CatalogManagementV1
+	hasNext bool
+	options *ListOfferingInstanceAuditsOptions
+	client  *CatalogManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -27736,7 +28276,7 @@ func (catalogManagement *CatalogManagementV1) NewOfferingInstanceAuditsPager(opt
 		return
 	}
 
-	var optionsCopy ListOfferingInstanceAuditsOptions = *options
+	optionsCopy := *options
 	pager = &OfferingInstanceAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
