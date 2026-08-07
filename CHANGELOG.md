@@ -1,3 +1,10 @@
+# [0.102.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.101.0...v0.102.0) (2026-08-07)
+
+
+### Features
+
+* **Partner Center Sell:** add new parameters to Global Catalog metada ([#462](https://github.com/IBM/platform-services-go-sdk/issues/462)) ([802b46c](https://github.com/IBM/platform-services-go-sdk/commit/802b46cefc8086abfe55f5a49c61e69481391c11))
+
 # [0.101.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.100.1...v0.101.0) (2026-06-29)
 
 

@@ -21,7 +21,6 @@ package partnercentersellv1_test
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -278,8 +277,8 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Service:      globalCatalogProductMetadataServicePrototypePatchModel,
 			}
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			catalogProductName := fmt.Sprintf("gc-product-example-%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			catalogProductName := fmt.Sprintf("gc-product-example-%s", timeStamp)
 
 			createCatalogProductOptions := partnerCenterSellService.NewCreateCatalogProductOptions(
 				productIdWithApprovedProgrammaticName,
@@ -630,9 +629,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			// begin-create_resource_broker
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerName := fmt.Sprintf("broker-example-%s", randomInteger)
-			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			brokerName := fmt.Sprintf("broker-example-%s", timeStamp)
+			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", timeStamp)
 
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
 				"bearer-crn",
@@ -853,8 +852,8 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			// begin-update_resource_broker
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", timeStamp)
 
 			brokerPatchModel := &partnercentersellv1.BrokerPatch{
 				BrokerURL: core.StringPtr(brokerLink),
