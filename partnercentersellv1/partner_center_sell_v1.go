@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.114.2-b2884bfd-20260601-185447
+ * IBM OpenAPI SDK Code Generator Version: 3.116.0-df613dbc-20260803-154903
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -7416,6 +7416,12 @@ type GlobalCatalogProductMetadataOther struct {
 
 	// Optional metadata of the service defining it as a composite.
 	Composite *GlobalCatalogProductMetadataOtherComposite `json:"composite,omitempty"`
+
+	// Product code from FedCat.
+	ProductCode *string `json:"product_code,omitempty"`
+
+	// Product code type.
+	ProductCodeType *string `json:"product_code_type,omitempty"`
 }
 
 // UnmarshalGlobalCatalogProductMetadataOther unmarshals an instance of GlobalCatalogProductMetadataOther from the specified map of raw messages.
@@ -7431,6 +7437,16 @@ func UnmarshalGlobalCatalogProductMetadataOther(m map[string]json.RawMessage, re
 		err = core.SDKErrorf(err, "", "composite-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "product_code", &obj.ProductCode)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "product_code-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "product_code_type", &obj.ProductCodeType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "product_code_type-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -7443,6 +7459,12 @@ func (globalCatalogProductMetadataOther *GlobalCatalogProductMetadataOther) asPa
 	}
 	if !core.IsNil(globalCatalogProductMetadataOther.Composite) {
 		_patch["composite"] = globalCatalogProductMetadataOther.Composite.asPatch()
+	}
+	if !core.IsNil(globalCatalogProductMetadataOther.ProductCode) {
+		_patch["product_code"] = globalCatalogProductMetadataOther.ProductCode
+	}
+	if !core.IsNil(globalCatalogProductMetadataOther.ProductCodeType) {
+		_patch["product_code_type"] = globalCatalogProductMetadataOther.ProductCodeType
 	}
 
 	return
