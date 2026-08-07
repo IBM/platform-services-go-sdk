@@ -21,7 +21,6 @@ package partnercentersellv1_test
 import (
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -460,8 +459,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogProductMetadataOtherModel := &partnercentersellv1.GlobalCatalogProductMetadataOther{
-				PC:        globalCatalogProductMetadataOtherPcModel,
-				Composite: globalCatalogProductMetadataOtherCompositeModel,
+				PC:              globalCatalogProductMetadataOtherPcModel,
+				Composite:       globalCatalogProductMetadataOtherCompositeModel,
+				ProductCode:     core.StringPtr("testString"),
+				ProductCodeType: core.StringPtr("testString"),
 			}
 
 			globalCatalogProductMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch{
@@ -471,9 +472,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Other:        globalCatalogProductMetadataOtherModel,
 			}
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			objectId := fmt.Sprintf("random-id-%s", randomInteger)
-			randomName := fmt.Sprintf("random-name-%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			objectId := fmt.Sprintf("random-id-%s", timeStamp)
+			randomName := fmt.Sprintf("random-name-%s", timeStamp)
 
 			createCatalogProductOptions := &partnercentersellv1.CreateCatalogProductOptions{
 				ProductID:      core.StringPtr(productIdWithApprovedProgrammaticName),
@@ -707,8 +708,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogProductMetadataOtherModel := &partnercentersellv1.GlobalCatalogProductMetadataOther{
-				PC:        globalCatalogProductMetadataOtherPcModel,
-				Composite: globalCatalogProductMetadataOtherCompositeModel,
+				PC:              globalCatalogProductMetadataOtherPcModel,
+				Composite:       globalCatalogProductMetadataOtherCompositeModel,
+				ProductCode:     core.StringPtr("testString"),
+				ProductCodeType: core.StringPtr("testString"),
 			}
 
 			globalCatalogProductMetadataPrototypePatchModel := &partnercentersellv1.GlobalCatalogProductMetadataPrototypePatch{
@@ -849,8 +852,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Other:        globalCatalogPlanMetadataOtherModel,
 			}
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			objectId := fmt.Sprintf("random-id-%s", timeStamp)
 
 			createCatalogPlanOptions := &partnercentersellv1.CreateCatalogPlanOptions{
 				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
@@ -1125,8 +1128,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Other:        globalCatalogMetadataDeploymentOtherModel,
 			}
 
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			objectId := fmt.Sprintf("random-id-%s", timeStamp)
 
 			createCatalogDeploymentOptions := &partnercentersellv1.CreateCatalogDeploymentOptions{
 				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
@@ -1306,8 +1309,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		})
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			roleDisplayName := fmt.Sprintf("random-%s", timeStamp)
 			apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
 			apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", iamServiceRegistrationId)
 
@@ -1519,8 +1522,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			time.Sleep(20 * time.Second)
 		})
 		It(`UpdateIamRegistration(updateIamRegistrationOptions *UpdateIamRegistrationOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.Intn(10000))
-			roleDisplayName := fmt.Sprintf("random-%s-2", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			roleDisplayName := fmt.Sprintf("random-%s", timeStamp)
 			apiTypeCrn := "crn:v1:bluemix:public:context-based-restrictions::::api-type:control-plane"
 			apiTypeCrnCustom := fmt.Sprintf("crn:v1:bluemix:public:%s::::api-type:smtp-configuration", iamServiceRegistrationId)
 
@@ -1734,9 +1737,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateResourceBroker(createResourceBrokerOptions *CreateResourceBrokerOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerUrl := fmt.Sprintf("https://broker-url-for-service.com/%s", randomInteger)
-			brokerName := fmt.Sprintf("petya_test_2_%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			brokerUrl := fmt.Sprintf("https://broker-url-for-service.com/%s", timeStamp)
+			brokerName := fmt.Sprintf("petya_test_2_%s", timeStamp)
 
 			createResourceBrokerOptions := &partnercentersellv1.CreateResourceBrokerOptions{
 				AuthUsername:        core.StringPtr("apikey"),
@@ -1918,8 +1921,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateResourceBroker(updateResourceBrokerOptions *UpdateResourceBrokerOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
+			var timeStamp = strconv.FormatInt(time.Now().UnixMilli(), 10)
+			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", timeStamp)
 
 			brokerPatchModel := &partnercentersellv1.BrokerPatch{
 				AuthUsername:        core.StringPtr("apikey"),
