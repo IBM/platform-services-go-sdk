@@ -65,7 +65,7 @@ jobs:
         run: |
           unformatted=$(gofmt -l .)
           if [ -n "$unformatted" ]; then
-            echo "The following files are not formatted correctly:"
+            echo "The files below are not formatted correctly. Please run `make format` to fix them."
             echo "$unformatted"
             exit 1
           fi
