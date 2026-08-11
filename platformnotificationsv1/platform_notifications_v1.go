@@ -558,7 +558,7 @@ func (platformNotifications *PlatformNotificationsV1) GetDistributionListDestina
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getDistributionListDestinationOptions.AccountID,
+		"account_id":     *getDistributionListDestinationOptions.AccountID,
 		"destination_id": *getDistributionListDestinationOptions.DestinationID,
 	}
 
@@ -628,7 +628,7 @@ func (platformNotifications *PlatformNotificationsV1) DeleteDistributionListDest
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *deleteDistributionListDestinationOptions.AccountID,
+		"account_id":     *deleteDistributionListDestinationOptions.AccountID,
 		"destination_id": *deleteDistributionListDestinationOptions.DestinationID,
 	}
 
@@ -689,7 +689,7 @@ func (platformNotifications *PlatformNotificationsV1) TestDistributionListDestin
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *testDistributionListDestinationOptions.AccountID,
+		"account_id":     *testDistributionListDestinationOptions.AccountID,
 		"destination_id": *testDistributionListDestinationOptions.DestinationID,
 	}
 
@@ -1231,6 +1231,7 @@ type AddDestination struct {
 const (
 	AddDestination_DestinationType_EventNotifications = "event_notifications"
 )
+
 func (*AddDestination) isaAddDestination() bool {
 	return true
 }
@@ -1299,6 +1300,7 @@ type AddDestinationPrototype struct {
 const (
 	AddDestinationPrototype_DestinationType_EventNotifications = "event_notifications"
 )
+
 func (*AddDestinationPrototype) isaAddDestinationPrototype() bool {
 	return true
 }
@@ -1347,7 +1349,7 @@ type CreateDistributionListDestinationOptions struct {
 // NewCreateDistributionListDestinationOptions : Instantiate CreateDistributionListDestinationOptions
 func (*PlatformNotificationsV1) NewCreateDistributionListDestinationOptions(accountID string, addDestinationPrototype AddDestinationPrototypeIntf) *CreateDistributionListDestinationOptions {
 	return &CreateDistributionListDestinationOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:               core.StringPtr(accountID),
 		AddDestinationPrototype: addDestinationPrototype,
 	}
 }
@@ -1638,7 +1640,7 @@ type DeleteDistributionListDestinationOptions struct {
 // NewDeleteDistributionListDestinationOptions : Instantiate DeleteDistributionListDestinationOptions
 func (*PlatformNotificationsV1) NewDeleteDistributionListDestinationOptions(accountID string, destinationID string) *DeleteDistributionListDestinationOptions {
 	return &DeleteDistributionListDestinationOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:     core.StringPtr(accountID),
 		DestinationID: core.StringPtr(destinationID),
 	}
 }
@@ -1739,7 +1741,7 @@ type GetDistributionListDestinationOptions struct {
 // NewGetDistributionListDestinationOptions : Instantiate GetDistributionListDestinationOptions
 func (*PlatformNotificationsV1) NewGetDistributionListDestinationOptions(accountID string, destinationID string) *GetDistributionListDestinationOptions {
 	return &GetDistributionListDestinationOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:     core.StringPtr(accountID),
 		DestinationID: core.StringPtr(destinationID),
 	}
 }
@@ -1952,32 +1954,32 @@ type Notification struct {
 // Constants associated with the Notification.Category property.
 // The category of the notification.
 const (
-	Notification_Category_Account = "account"
-	Notification_Category_Announcements = "announcements"
-	Notification_Category_BillingAndUsage = "billing_and_usage"
-	Notification_Category_Incident = "incident"
-	Notification_Category_Maintenance = "maintenance"
-	Notification_Category_Ordering = "ordering"
-	Notification_Category_Provisioning = "provisioning"
-	Notification_Category_Resource = "resource"
-	Notification_Category_Security = "security"
+	Notification_Category_Account           = "account"
+	Notification_Category_Announcements     = "announcements"
+	Notification_Category_BillingAndUsage   = "billing_and_usage"
+	Notification_Category_Incident          = "incident"
+	Notification_Category_Maintenance       = "maintenance"
+	Notification_Category_Ordering          = "ordering"
+	Notification_Category_Provisioning      = "provisioning"
+	Notification_Category_Resource          = "resource"
+	Notification_Category_Security          = "security"
 	Notification_Category_SecurityBulletins = "security_bulletins"
 )
 
 // Constants associated with the Notification.State property.
 // The current state of the notification.
 const (
-	Notification_State_Complete = "complete"
+	Notification_State_Complete   = "complete"
 	Notification_State_InProgress = "in-progress"
-	Notification_State_New = "new"
-	Notification_State_Resolved = "resolved"
+	Notification_State_New        = "new"
+	Notification_State_Resolved   = "resolved"
 )
 
 // Constants associated with the Notification.CompletionCode property.
 // The completion code of the notification.
 const (
-	Notification_CompletionCode_Cancelled = "cancelled"
-	Notification_CompletionCode_Failed = "failed"
+	Notification_CompletionCode_Cancelled  = "cancelled"
+	Notification_CompletionCode_Failed     = "failed"
 	Notification_CompletionCode_Successful = "successful"
 )
 
@@ -2792,13 +2794,14 @@ const (
 // Constants associated with the TestDestinationRequestBodyPrototype.NotificationType property.
 // The type of the notification to test.
 const (
-	TestDestinationRequestBodyPrototype_NotificationType_Announcements = "announcements"
-	TestDestinationRequestBodyPrototype_NotificationType_BillingAndUsage = "billing_and_usage"
-	TestDestinationRequestBodyPrototype_NotificationType_Incident = "incident"
-	TestDestinationRequestBodyPrototype_NotificationType_Maintenance = "maintenance"
-	TestDestinationRequestBodyPrototype_NotificationType_Resource = "resource"
+	TestDestinationRequestBodyPrototype_NotificationType_Announcements     = "announcements"
+	TestDestinationRequestBodyPrototype_NotificationType_BillingAndUsage   = "billing_and_usage"
+	TestDestinationRequestBodyPrototype_NotificationType_Incident          = "incident"
+	TestDestinationRequestBodyPrototype_NotificationType_Maintenance       = "maintenance"
+	TestDestinationRequestBodyPrototype_NotificationType_Resource          = "resource"
 	TestDestinationRequestBodyPrototype_NotificationType_SecurityBulletins = "security_bulletins"
 )
+
 func (*TestDestinationRequestBodyPrototype) isaTestDestinationRequestBodyPrototype() bool {
 	return true
 }
@@ -2868,8 +2871,8 @@ type TestDistributionListDestinationOptions struct {
 // NewTestDistributionListDestinationOptions : Instantiate TestDistributionListDestinationOptions
 func (*PlatformNotificationsV1) NewTestDistributionListDestinationOptions(accountID string, destinationID string, testDestinationRequestBodyPrototype TestDestinationRequestBodyPrototypeIntf) *TestDistributionListDestinationOptions {
 	return &TestDistributionListDestinationOptions{
-		AccountID: core.StringPtr(accountID),
-		DestinationID: core.StringPtr(destinationID),
+		AccountID:                           core.StringPtr(accountID),
+		DestinationID:                       core.StringPtr(destinationID),
 		TestDestinationRequestBodyPrototype: testDestinationRequestBodyPrototype,
 	}
 }
@@ -2917,7 +2920,7 @@ const (
 // NewAddDestinationPrototypeEventNotificationDestinationPrototype : Instantiate AddDestinationPrototypeEventNotificationDestinationPrototype (Generic Model Constructor)
 func (*PlatformNotificationsV1) NewAddDestinationPrototypeEventNotificationDestinationPrototype(destinationID *strfmt.UUID, destinationType string) (_model *AddDestinationPrototypeEventNotificationDestinationPrototype, err error) {
 	_model = &AddDestinationPrototypeEventNotificationDestinationPrototype{
-		DestinationID: destinationID,
+		DestinationID:   destinationID,
 		DestinationType: core.StringPtr(destinationType),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3004,18 +3007,18 @@ const (
 // Constants associated with the TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype.NotificationType property.
 // The type of the notification to test.
 const (
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Announcements = "announcements"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_BillingAndUsage = "billing_and_usage"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Incident = "incident"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Maintenance = "maintenance"
-	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Resource = "resource"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Announcements     = "announcements"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_BillingAndUsage   = "billing_and_usage"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Incident          = "incident"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Maintenance       = "maintenance"
+	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_Resource          = "resource"
 	TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype_NotificationType_SecurityBulletins = "security_bulletins"
 )
 
 // NewTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype : Instantiate TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype (Generic Model Constructor)
 func (*PlatformNotificationsV1) NewTestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype(destinationType string, notificationType string) (_model *TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype, err error) {
 	_model = &TestDestinationRequestBodyPrototypeTestEventNotificationDestinationRequestBodyPrototype{
-		DestinationType: core.StringPtr(destinationType),
+		DestinationType:  core.StringPtr(destinationType),
 		NotificationType: core.StringPtr(notificationType),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3046,13 +3049,11 @@ func UnmarshalTestDestinationRequestBodyPrototypeTestEventNotificationDestinatio
 	return
 }
 
-//
 // NotificationsPager can be used to simplify the use of the "ListNotifications" method.
-//
 type NotificationsPager struct {
-	hasNext bool
-	options *ListNotificationsOptions
-	client  *PlatformNotificationsV1
+	hasNext     bool
+	options     *ListNotificationsOptions
+	client      *PlatformNotificationsV1
 	pageContext struct {
 		next *string
 	}

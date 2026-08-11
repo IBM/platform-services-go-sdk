@@ -67,14 +67,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +102,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
@@ -122,13 +120,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-			})
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseManagementService).To(BeNil())
@@ -139,7 +136,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -720,9 +717,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 				listEnterprisesOptionsModel := &enterprisemanagementv1.ListEnterprisesOptions{
 					EnterpriseAccountID: core.StringPtr("testString"),
-					AccountGroupID: core.StringPtr("testString"),
-					AccountID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					AccountGroupID:      core.StringPtr("testString"),
+					AccountID:           core.StringPtr("testString"),
+					Limit:               core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseManagementService.NewEnterprisesPager(listEnterprisesOptionsModel)
@@ -748,9 +745,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 				listEnterprisesOptionsModel := &enterprisemanagementv1.ListEnterprisesOptions{
 					EnterpriseAccountID: core.StringPtr("testString"),
-					AccountGroupID: core.StringPtr("testString"),
-					AccountID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					AccountGroupID:      core.StringPtr("testString"),
+					AccountID:           core.StringPtr("testString"),
+					Limit:               core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseManagementService.NewEnterprisesPager(listEnterprisesOptionsModel)
@@ -1769,10 +1766,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				listAccountsOptionsModel := &enterprisemanagementv1.ListAccountsOptions{
-					EnterpriseID: core.StringPtr("testString"),
+					EnterpriseID:   core.StringPtr("testString"),
 					AccountGroupID: core.StringPtr("testString"),
-					Parent: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Parent:         core.StringPtr("testString"),
+					Limit:          core.Int64Ptr(int64(10)),
 					IncludeDeleted: core.BoolPtr(true),
 				}
 
@@ -1798,10 +1795,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				listAccountsOptionsModel := &enterprisemanagementv1.ListAccountsOptions{
-					EnterpriseID: core.StringPtr("testString"),
+					EnterpriseID:   core.StringPtr("testString"),
 					AccountGroupID: core.StringPtr("testString"),
-					Parent: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Parent:         core.StringPtr("testString"),
+					Limit:          core.Int64Ptr(int64(10)),
 					IncludeDeleted: core.BoolPtr(true),
 				}
 
@@ -2740,11 +2737,11 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				listAccountGroupsOptionsModel := &enterprisemanagementv1.ListAccountGroupsOptions{
-					EnterpriseID: core.StringPtr("testString"),
+					EnterpriseID:         core.StringPtr("testString"),
 					ParentAccountGroupID: core.StringPtr("testString"),
-					Parent: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					IncludeDeleted: core.BoolPtr(true),
+					Parent:               core.StringPtr("testString"),
+					Limit:                core.Int64Ptr(int64(10)),
+					IncludeDeleted:       core.BoolPtr(true),
 				}
 
 				pager, err := enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptionsModel)
@@ -2769,11 +2766,11 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				listAccountGroupsOptionsModel := &enterprisemanagementv1.ListAccountGroupsOptions{
-					EnterpriseID: core.StringPtr("testString"),
+					EnterpriseID:         core.StringPtr("testString"),
 					ParentAccountGroupID: core.StringPtr("testString"),
-					Parent: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					IncludeDeleted: core.BoolPtr(true),
+					Parent:               core.StringPtr("testString"),
+					Limit:                core.Int64Ptr(int64(10)),
+					IncludeDeleted:       core.BoolPtr(true),
 				}
 
 				pager, err := enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptionsModel)

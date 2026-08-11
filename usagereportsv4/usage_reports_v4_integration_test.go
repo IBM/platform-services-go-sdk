@@ -45,10 +45,10 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 	const externalConfigFile = "../usage_reports.env"
 
 	var (
-		err          error
+		err                 error
 		usageReportsService *usagereportsv4.UsageReportsV4
-		serviceURL   string
-		config       map[string]string
+		serviceURL          string
+		config              map[string]string
 
 		accountID       string
 		resourceGroupID string
@@ -242,13 +242,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageAccount response contained %d total resources.", len(results))
 			Expect(results).ToNot(BeEmpty())
 		})
-		It(`GetResourceUsageAccount(getResourceUsageAccountOptions *GetResourceUsageAccountOptions) with pagination`, func(){
+		It(`GetResourceUsageAccount(getResourceUsageAccountOptions *GetResourceUsageAccountOptions) with pagination`, func() {
 			getResourceUsageAccountOptions := &usagereportsv4.GetResourceUsageAccountOptions{
-				AccountID: core.StringPtr(accountID),
+				AccountID:    core.StringPtr(accountID),
 				Billingmonth: core.StringPtr(billingMonth),
-				Names: core.BoolPtr(true),
-				Tags: core.BoolPtr(true),
-				Limit: core.Int64Ptr(int64(30)),
+				Names:        core.BoolPtr(true),
+				Tags:         core.BoolPtr(true),
+				Limit:        core.Int64Ptr(int64(30)),
 			}
 
 			getResourceUsageAccountOptions.Start = nil
@@ -270,13 +270,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`GetResourceUsageAccount(getResourceUsageAccountOptions *GetResourceUsageAccountOptions) using GetResourceUsageAccountPager`, func(){
+		It(`GetResourceUsageAccount(getResourceUsageAccountOptions *GetResourceUsageAccountOptions) using GetResourceUsageAccountPager`, func() {
 			getResourceUsageAccountOptions := &usagereportsv4.GetResourceUsageAccountOptions{
-				AccountID: core.StringPtr(accountID),
+				AccountID:    core.StringPtr(accountID),
 				Billingmonth: core.StringPtr(billingMonth),
-				Names: core.BoolPtr(true),
-				Tags: core.BoolPtr(true),
-				Limit: core.Int64Ptr(int64(30)),
+				Names:        core.BoolPtr(true),
+				Tags:         core.BoolPtr(true),
+				Limit:        core.Int64Ptr(int64(30)),
 			}
 
 			// Test GetNext().
@@ -352,7 +352,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			Expect(results).ToNot(BeEmpty())
 		})
 
-		It(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) with pagination`, func(){
+		It(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) with pagination`, func() {
 			getResourceUsageResourceGroupOptions := &usagereportsv4.GetResourceUsageResourceGroupOptions{
 				AccountID:       &accountID,
 				ResourceGroupID: &resourceGroupID,
@@ -380,7 +380,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) using GetResourceUsageResourceGroupPager`, func(){
+		It(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) using GetResourceUsageResourceGroupPager`, func() {
 			getResourceUsageResourceGroupOptions := &usagereportsv4.GetResourceUsageResourceGroupOptions{
 				AccountID:       &accountID,
 				ResourceGroupID: &resourceGroupID,
@@ -462,7 +462,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response: %s\n", common.ToJSON(results))
 			Expect(results).ToNot(BeEmpty())
 		})
-		It(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) with pagination`, func(){
+		It(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) with pagination`, func() {
 			getResourceUsageOrgOptions := &usagereportsv4.GetResourceUsageOrgOptions{
 				AccountID:      &accountID,
 				OrganizationID: &orgID,
@@ -490,7 +490,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) using GetResourceUsageOrgPager`, func(){
+		It(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) using GetResourceUsageOrgPager`, func() {
 			getResourceUsageOrgOptions := &usagereportsv4.GetResourceUsageOrgOptions{
 				AccountID:      &accountID,
 				OrganizationID: &orgID,
@@ -556,13 +556,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions)`, func() {
 			createReportsSnapshotConfigOptions := &usagereportsv4.CreateReportsSnapshotConfigOptions{
-				AccountID: core.StringPtr(accountID),
-				Interval: core.StringPtr("daily"),
-				CosBucket: core.StringPtr(cosBucket),
-				CosLocation: core.StringPtr(cosLocation),
+				AccountID:        core.StringPtr(accountID),
+				Interval:         core.StringPtr("daily"),
+				CosBucket:        core.StringPtr(cosBucket),
+				CosLocation:      core.StringPtr(cosLocation),
 				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
-				ReportTypes: []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
-				Versioning: core.StringPtr("new"),
+				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
+				Versioning:       core.StringPtr("new"),
 			}
 
 			snapshotConfig, response, err := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions)
@@ -594,13 +594,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions)`, func() {
 			updateReportsSnapshotConfigOptions := &usagereportsv4.UpdateReportsSnapshotConfigOptions{
-				AccountID: core.StringPtr(accountID),
-				Interval: core.StringPtr("daily"),
-				CosBucket: core.StringPtr(cosBucket),
-				CosLocation: core.StringPtr(cosLocation),
+				AccountID:        core.StringPtr(accountID),
+				Interval:         core.StringPtr("daily"),
+				CosBucket:        core.StringPtr(cosBucket),
+				CosLocation:      core.StringPtr(cosLocation),
 				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
-				ReportTypes: []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
-				Versioning: core.StringPtr("new"),
+				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
+				Versioning:       core.StringPtr("new"),
 			}
 
 			snapshotConfig, response, err := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions)
@@ -616,13 +616,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions)`, func() {
 			validateReportsSnapshotConfigOptions := &usagereportsv4.ValidateReportsSnapshotConfigOptions{
-				AccountID: core.StringPtr(accountID),
-				Interval: core.StringPtr("daily"),
-				CosBucket: core.StringPtr(cosBucket),
-				CosLocation: core.StringPtr(cosLocation),
+				AccountID:        core.StringPtr(accountID),
+				Interval:         core.StringPtr("daily"),
+				CosBucket:        core.StringPtr(cosBucket),
+				CosLocation:      core.StringPtr(cosLocation),
 				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
-				ReportTypes: []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
-				Versioning: core.StringPtr("new"),
+				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
+				Versioning:       core.StringPtr("new"),
 			}
 
 			snapshotConfigValidateResponse, response, err := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions)
@@ -636,7 +636,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) with pagination`, func(){
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) with pagination`, func() {
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
 				AccountID: &accountID,
 				Month:     &billingMonth,
@@ -673,7 +673,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) using GetReportsSnapshotPager`, func(){
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) using GetReportsSnapshotPager`, func() {
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
 				AccountID: &accountID,
 				Month:     &billingMonth,

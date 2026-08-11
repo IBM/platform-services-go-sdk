@@ -47,7 +47,7 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 		globalSearchService *globalsearchv2.GlobalSearchV2
 		serviceURL          string
 		config              map[string]string
-		gstQuery      = "GST-sdk*"
+		gstQuery            = "GST-sdk*"
 	)
 
 	var shouldSkipTest = func() {
@@ -110,10 +110,10 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 
 			for moreResults {
 				searchOptions := &globalsearchv2.SearchOptions{
-					Query:         &gstQuery,
-					Fields:        []string{"*"},
-					SearchCursor:  searchCursor,
-					Limit:         &limit,
+					Query:        &gstQuery,
+					Fields:       []string{"*"},
+					SearchCursor: searchCursor,
+					Limit:        &limit,
 				}
 
 				scanResult, response, err := globalSearchService.Search(searchOptions)

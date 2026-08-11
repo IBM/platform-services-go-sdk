@@ -66,14 +66,13 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_URL":       "https://usermanagementv1/api",
 				"USER_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 				Expect(userManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`UserManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 				err := userManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_URL":       "https://usermanagementv1/api",
 				"USER_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-			})
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(userManagementService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"USER_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -418,14 +415,14 @@ var _ = Describe(`UserManagementV1`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(usermanagementv1.UserList)
 				responseObject.NextURL = core.StringPtr("ibm.com?_start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(usermanagementv1.UserList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -433,7 +430,7 @@ var _ = Describe(`UserManagementV1`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(usermanagementv1.UserList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -471,11 +468,11 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(userManagementService).ToNot(BeNil())
 
 				listUsersOptionsModel := &usermanagementv1.ListUsersOptions{
-					AccountID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					AccountID:       core.StringPtr("testString"),
+					Limit:           core.Int64Ptr(int64(10)),
 					IncludeSettings: core.BoolPtr(true),
-					Search: core.StringPtr("testString"),
-					UserID: core.StringPtr("testString"),
+					Search:          core.StringPtr("testString"),
+					UserID:          core.StringPtr("testString"),
 				}
 
 				pager, err := userManagementService.NewUsersPager(listUsersOptionsModel)
@@ -500,11 +497,11 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(userManagementService).ToNot(BeNil())
 
 				listUsersOptionsModel := &usermanagementv1.ListUsersOptions{
-					AccountID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					AccountID:       core.StringPtr("testString"),
+					Limit:           core.Int64Ptr(int64(10)),
 					IncludeSettings: core.BoolPtr(true),
-					Search: core.StringPtr("testString"),
-					UserID: core.StringPtr("testString"),
+					Search:          core.StringPtr("testString"),
+					UserID:          core.StringPtr("testString"),
 				}
 
 				pager, err := userManagementService.NewUsersPager(listUsersOptionsModel)

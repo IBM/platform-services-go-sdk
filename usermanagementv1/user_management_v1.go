@@ -25,11 +25,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // UserManagementV1 : Manage the lifecycle of your users using User Management APIs.
@@ -346,7 +346,7 @@ func (userManagement *UserManagementV1) GetUserProfileWithContext(ctx context.Co
 
 	pathParamsMap := map[string]string{
 		"account_id": *getUserProfileOptions.AccountID,
-		"iam_id": *getUserProfileOptions.IamID,
+		"iam_id":     *getUserProfileOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -416,7 +416,7 @@ func (userManagement *UserManagementV1) UpdateUserProfileWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"account_id": *updateUserProfileOptions.AccountID,
-		"iam_id": *updateUserProfileOptions.IamID,
+		"iam_id":     *updateUserProfileOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -500,7 +500,7 @@ func (userManagement *UserManagementV1) RemoveUserWithContext(ctx context.Contex
 
 	pathParamsMap := map[string]string{
 		"account_id": *removeUserOptions.AccountID,
-		"iam_id": *removeUserOptions.IamID,
+		"iam_id":     *removeUserOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -609,7 +609,7 @@ func (userManagement *UserManagementV1) V3RemoveUserWithContext(ctx context.Cont
 
 	pathParamsMap := map[string]string{
 		"account_id": *v3RemoveUserOptions.AccountID,
-		"iam_id": *v3RemoveUserOptions.IamID,
+		"iam_id":     *v3RemoveUserOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -665,7 +665,7 @@ func (userManagement *UserManagementV1) GetUserSettingsWithContext(ctx context.C
 
 	pathParamsMap := map[string]string{
 		"account_id": *getUserSettingsOptions.AccountID,
-		"iam_id": *getUserSettingsOptions.IamID,
+		"iam_id":     *getUserSettingsOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -729,7 +729,7 @@ func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx contex
 
 	pathParamsMap := map[string]string{
 		"account_id": *updateUserSettingsOptions.AccountID,
-		"iam_id": *updateUserSettingsOptions.IamID,
+		"iam_id":     *updateUserSettingsOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -823,7 +823,7 @@ type GetUserProfileOptions struct {
 func (*UserManagementV1) NewGetUserProfileOptions(accountID string, iamID string) *GetUserProfileOptions {
 	return &GetUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -867,7 +867,7 @@ type GetUserSettingsOptions struct {
 func (*UserManagementV1) NewGetUserSettingsOptions(accountID string, iamID string) *GetUserSettingsOptions {
 	return &GetUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1089,7 +1089,7 @@ type RemoveUserOptions struct {
 func (*UserManagementV1) NewRemoveUserOptions(accountID string, iamID string) *RemoveUserOptions {
 	return &RemoveUserOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1158,7 +1158,7 @@ type UpdateUserProfileOptions struct {
 func (*UserManagementV1) NewUpdateUserProfileOptions(accountID string, iamID string) *UpdateUserProfileOptions {
 	return &UpdateUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1256,7 +1256,7 @@ type UpdateUserSettingsOptions struct {
 func (*UserManagementV1) NewUpdateUserSettingsOptions(accountID string, iamID string) *UpdateUserSettingsOptions {
 	return &UpdateUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1515,7 +1515,7 @@ type V3RemoveUserOptions struct {
 func (*UserManagementV1) NewV3RemoveUserOptions(accountID string, iamID string) *V3RemoveUserOptions {
 	return &V3RemoveUserOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1659,13 +1659,11 @@ func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-//
 // UsersPager can be used to simplify the use of the "ListUsers" method.
-//
 type UsersPager struct {
-	hasNext bool
-	options *ListUsersOptions
-	client  *UserManagementV1
+	hasNext     bool
+	options     *ListUsersOptions
+	client      *UserManagementV1
 	pageContext struct {
 		next *string
 	}

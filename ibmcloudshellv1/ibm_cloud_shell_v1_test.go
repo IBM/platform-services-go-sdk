@@ -68,14 +68,13 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_SHELL_URL": "https://ibmcloudshellv1/api",
+				"IBM_CLOUD_SHELL_URL":       "https://ibmcloudshellv1/api",
 				"IBM_CLOUD_SHELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{
-				})
+				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{})
 				Expect(ibmCloudShellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{
-				})
+				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{})
 				err := ibmCloudShellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(ibmCloudShellService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_SHELL_URL": "https://ibmcloudshellv1/api",
+				"IBM_CLOUD_SHELL_URL":       "https://ibmcloudshellv1/api",
 				"IBM_CLOUD_SHELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{
-			})
+			ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(ibmCloudShellService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_SHELL_AUTH_TYPE":   "NOAuth",
+				"IBM_CLOUD_SHELL_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)

@@ -68,14 +68,13 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PLATFORM_NOTIFICATIONS_URL": "https://platformnotificationsv1/api",
+				"PLATFORM_NOTIFICATIONS_URL":       "https://platformnotificationsv1/api",
 				"PLATFORM_NOTIFICATIONS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
-				})
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{})
 				Expect(platformNotificationsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
-				})
+				platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{})
 				err := platformNotificationsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(platformNotificationsService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PLATFORM_NOTIFICATIONS_URL": "https://platformnotificationsv1/api",
+				"PLATFORM_NOTIFICATIONS_URL":       "https://platformnotificationsv1/api",
 				"PLATFORM_NOTIFICATIONS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{
-			})
+			platformNotificationsService, serviceErr := platformnotificationsv1.NewPlatformNotificationsV1UsingExternalConfig(&platformnotificationsv1.PlatformNotificationsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(platformNotificationsService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PLATFORM_NOTIFICATIONS_AUTH_TYPE":   "NOAuth",
+				"PLATFORM_NOTIFICATIONS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -440,7 +437,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 
 				listNotificationsOptionsModel := &platformnotificationsv1.ListNotificationsOptions{
 					AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-					Limit: core.Int64Ptr(int64(50)),
+					Limit:     core.Int64Ptr(int64(50)),
 				}
 
 				pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptionsModel)
@@ -466,7 +463,7 @@ var _ = Describe(`PlatformNotificationsV1`, func() {
 
 				listNotificationsOptionsModel := &platformnotificationsv1.ListNotificationsOptions{
 					AccountID: core.StringPtr("a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"),
-					Limit: core.Int64Ptr(int64(50)),
+					Limit:     core.Int64Ptr(int64(50)),
 				}
 
 				pager, err := platformNotificationsService.NewNotificationsPager(listNotificationsOptionsModel)

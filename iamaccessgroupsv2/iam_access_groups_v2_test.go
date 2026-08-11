@@ -68,14 +68,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -801,16 +798,16 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupsOptionsModel := &iamaccessgroupsv2.ListAccessGroupsOptions{
-					AccountID: core.StringPtr("testString"),
-					TransactionID: core.StringPtr("testString"),
-					IamID: core.StringPtr("testString"),
-					Search: core.StringPtr("testString"),
-					MembershipType: core.StringPtr("static"),
-					Limit: core.Int64Ptr(int64(10)),
-					Sort: core.StringPtr("name"),
-					ShowFederated: core.BoolPtr(false),
+					AccountID:        core.StringPtr("testString"),
+					TransactionID:    core.StringPtr("testString"),
+					IamID:            core.StringPtr("testString"),
+					Search:           core.StringPtr("testString"),
+					MembershipType:   core.StringPtr("static"),
+					Limit:            core.Int64Ptr(int64(10)),
+					Sort:             core.StringPtr("name"),
+					ShowFederated:    core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
-					ShowCRN: core.BoolPtr(false),
+					ShowCRN:          core.BoolPtr(false),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
@@ -835,16 +832,16 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupsOptionsModel := &iamaccessgroupsv2.ListAccessGroupsOptions{
-					AccountID: core.StringPtr("testString"),
-					TransactionID: core.StringPtr("testString"),
-					IamID: core.StringPtr("testString"),
-					Search: core.StringPtr("testString"),
-					MembershipType: core.StringPtr("static"),
-					Limit: core.Int64Ptr(int64(10)),
-					Sort: core.StringPtr("name"),
-					ShowFederated: core.BoolPtr(false),
+					AccountID:        core.StringPtr("testString"),
+					TransactionID:    core.StringPtr("testString"),
+					IamID:            core.StringPtr("testString"),
+					Search:           core.StringPtr("testString"),
+					MembershipType:   core.StringPtr("static"),
+					Limit:            core.Int64Ptr(int64(10)),
+					Sort:             core.StringPtr("name"),
+					ShowFederated:    core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
-					ShowCRN: core.BoolPtr(false),
+					ShowCRN:          core.BoolPtr(false),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
@@ -2148,13 +2145,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupMembersOptionsModel := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
-					AccessGroupID: core.StringPtr("testString"),
-					TransactionID: core.StringPtr("testString"),
+					AccessGroupID:  core.StringPtr("testString"),
+					TransactionID:  core.StringPtr("testString"),
 					MembershipType: core.StringPtr("static"),
-					Limit: core.Int64Ptr(int64(10)),
-					Type: core.StringPtr("testString"),
-					Verbose: core.BoolPtr(false),
-					Sort: core.StringPtr("testString"),
+					Limit:          core.Int64Ptr(int64(10)),
+					Type:           core.StringPtr("testString"),
+					Verbose:        core.BoolPtr(false),
+					Sort:           core.StringPtr("testString"),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptionsModel)
@@ -2179,13 +2176,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupMembersOptionsModel := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
-					AccessGroupID: core.StringPtr("testString"),
-					TransactionID: core.StringPtr("testString"),
+					AccessGroupID:  core.StringPtr("testString"),
+					TransactionID:  core.StringPtr("testString"),
 					MembershipType: core.StringPtr("static"),
-					Limit: core.Int64Ptr(int64(10)),
-					Type: core.StringPtr("testString"),
-					Verbose: core.BoolPtr(false),
-					Sort: core.StringPtr("testString"),
+					Limit:          core.Int64Ptr(int64(10)),
+					Type:           core.StringPtr("testString"),
+					Verbose:        core.BoolPtr(false),
+					Sort:           core.StringPtr("testString"),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptionsModel)
@@ -5572,10 +5569,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listTemplatesOptionsModel := &iamaccessgroupsv2.ListTemplatesOptions{
-					AccountID: core.StringPtr("accountID-123"),
+					AccountID:     core.StringPtr("accountID-123"),
 					TransactionID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(50)),
-					Verbose: core.BoolPtr(true),
+					Limit:         core.Int64Ptr(int64(50)),
+					Verbose:       core.BoolPtr(true),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptionsModel)
@@ -5600,10 +5597,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listTemplatesOptionsModel := &iamaccessgroupsv2.ListTemplatesOptions{
-					AccountID: core.StringPtr("accountID-123"),
+					AccountID:     core.StringPtr("accountID-123"),
 					TransactionID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(50)),
-					Verbose: core.BoolPtr(true),
+					Limit:         core.Int64Ptr(int64(50)),
+					Verbose:       core.BoolPtr(true),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptionsModel)
@@ -6491,7 +6488,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				listTemplateVersionsOptionsModel := &iamaccessgroupsv2.ListTemplateVersionsOptions{
 					TemplateID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:      core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptionsModel)
@@ -6517,7 +6514,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				listTemplateVersionsOptionsModel := &iamaccessgroupsv2.ListTemplateVersionsOptions{
 					TemplateID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:      core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptionsModel)
