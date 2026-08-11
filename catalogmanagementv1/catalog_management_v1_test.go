@@ -68,14 +68,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_URL": "https://catalogmanagementv1/api",
+				"CATALOG_MANAGEMENT_URL":       "https://catalogmanagementv1/api",
 				"CATALOG_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
-				})
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
 				Expect(catalogManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
-				})
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
 				err := catalogManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_URL": "https://catalogmanagementv1/api",
+				"CATALOG_MANAGEMENT_URL":       "https://catalogmanagementv1/api",
 				"CATALOG_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
-			})
+			catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(catalogManagementService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"CATALOG_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1162,7 +1159,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				listCatalogAccountAuditsOptionsModel := &catalogmanagementv1.ListCatalogAccountAuditsOptions{
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:       core.Int64Ptr(int64(10)),
 					Lookupnames: core.BoolPtr(true),
 				}
 
@@ -1188,7 +1185,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				listCatalogAccountAuditsOptionsModel := &catalogmanagementv1.ListCatalogAccountAuditsOptions{
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:       core.Int64Ptr(int64(10)),
 					Lookupnames: core.BoolPtr(true),
 				}
 
@@ -1911,7 +1908,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getShareApprovalListOptionsModel := &catalogmanagementv1.GetShareApprovalListOptions{
 					ObjectType: core.StringPtr("offering"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListPager(getShareApprovalListOptionsModel)
@@ -1937,7 +1934,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getShareApprovalListOptionsModel := &catalogmanagementv1.GetShareApprovalListOptions{
 					ObjectType: core.StringPtr("offering"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListPager(getShareApprovalListOptionsModel)
@@ -2741,10 +2738,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getShareApprovalListAsSourceOptionsModel := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
-					ObjectType: core.StringPtr("offering"),
+					ObjectType:              core.StringPtr("offering"),
 					ApprovalStateIdentifier: core.StringPtr("approved"),
-					Limit: core.Int64Ptr(int64(10)),
-					EnterpriseID: core.StringPtr("testString"),
+					Limit:                   core.Int64Ptr(int64(10)),
+					EnterpriseID:            core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListAsSourcePager(getShareApprovalListAsSourceOptionsModel)
@@ -2769,10 +2766,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getShareApprovalListAsSourceOptionsModel := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
-					ObjectType: core.StringPtr("offering"),
+					ObjectType:              core.StringPtr("offering"),
 					ApprovalStateIdentifier: core.StringPtr("approved"),
-					Limit: core.Int64Ptr(int64(10)),
-					EnterpriseID: core.StringPtr("testString"),
+					Limit:                   core.Int64Ptr(int64(10)),
+					EnterpriseID:            core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListAsSourcePager(getShareApprovalListAsSourceOptionsModel)
@@ -4882,8 +4879,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listCatalogAuditsOptionsModel := &catalogmanagementv1.ListCatalogAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewCatalogAuditsPager(listCatalogAuditsOptionsModel)
@@ -4909,8 +4906,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listCatalogAuditsOptionsModel := &catalogmanagementv1.ListCatalogAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewCatalogAuditsPager(listCatalogAuditsOptionsModel)
@@ -5437,8 +5434,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listEnterpriseAuditsOptionsModel := &catalogmanagementv1.ListEnterpriseAuditsOptions{
 					EnterpriseIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:                core.Int64Ptr(int64(10)),
+					Lookupnames:          core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewEnterpriseAuditsPager(listEnterpriseAuditsOptionsModel)
@@ -5464,8 +5461,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listEnterpriseAuditsOptionsModel := &catalogmanagementv1.ListEnterpriseAuditsOptions{
 					EnterpriseIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:                core.Int64Ptr(int64(10)),
+					Lookupnames:          core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewEnterpriseAuditsPager(listEnterpriseAuditsOptionsModel)
@@ -6017,11 +6014,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getConsumptionOfferingsOptionsModel := &catalogmanagementv1.GetConsumptionOfferingsOptions{
-					Digest: core.BoolPtr(true),
-					Catalog: core.StringPtr("testString"),
-					Select: core.StringPtr("all"),
+					Digest:        core.BoolPtr(true),
+					Catalog:       core.StringPtr("testString"),
+					Select:        core.StringPtr("all"),
 					IncludeHidden: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:         core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetConsumptionOfferingsPager(getConsumptionOfferingsOptionsModel)
@@ -6046,11 +6043,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getConsumptionOfferingsOptionsModel := &catalogmanagementv1.GetConsumptionOfferingsOptions{
-					Digest: core.BoolPtr(true),
-					Catalog: core.StringPtr("testString"),
-					Select: core.StringPtr("all"),
+					Digest:        core.BoolPtr(true),
+					Catalog:       core.StringPtr("testString"),
+					Select:        core.StringPtr("all"),
 					IncludeHidden: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:         core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetConsumptionOfferingsPager(getConsumptionOfferingsOptionsModel)
@@ -6390,11 +6387,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingsOptionsModel := &catalogmanagementv1.ListOfferingsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-					IncludeHidden: core.BoolPtr(true),
+					Digest:            core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
+					IncludeHidden:     core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingsPager(listOfferingsOptionsModel)
@@ -6420,11 +6417,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingsOptionsModel := &catalogmanagementv1.ListOfferingsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-					IncludeHidden: core.BoolPtr(true),
+					Digest:            core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
+					IncludeHidden:     core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingsPager(listOfferingsOptionsModel)
@@ -15354,9 +15351,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingAuditsOptionsModel := &catalogmanagementv1.ListOfferingAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingAuditsPager(listOfferingAuditsOptionsModel)
@@ -15382,9 +15379,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingAuditsOptionsModel := &catalogmanagementv1.ListOfferingAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingAuditsPager(listOfferingAuditsOptionsModel)
@@ -17065,8 +17062,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getOfferingAccessListOptionsModel := &catalogmanagementv1.GetOfferingAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetOfferingAccessListPager(getOfferingAccessListOptionsModel)
@@ -17092,8 +17089,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getOfferingAccessListOptionsModel := &catalogmanagementv1.GetOfferingAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetOfferingAccessListPager(getOfferingAccessListOptionsModel)
@@ -18418,7 +18415,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
-
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
 				buffer, operationErr := io.ReadAll(result)
@@ -18648,7 +18644,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
-
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
 				buffer, operationErr := io.ReadAll(result)
@@ -18845,7 +18840,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				result, response, operationErr := catalogManagementService.GetOfferingSourceURL(getOfferingSourceURLOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-
 
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
@@ -19165,11 +19159,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getVersionsOptionsModel := &catalogmanagementv1.GetVersionsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					KindID: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Catalog: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
+					OfferingID:        core.StringPtr("testString"),
+					KindID:            core.StringPtr("testString"),
+					Digest:            core.BoolPtr(true),
+					Catalog:           core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetVersionsPager(getVersionsOptionsModel)
@@ -19195,11 +19189,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getVersionsOptionsModel := &catalogmanagementv1.GetVersionsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					KindID: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Catalog: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
+					OfferingID:        core.StringPtr("testString"),
+					KindID:            core.StringPtr("testString"),
+					Digest:            core.BoolPtr(true),
+					Catalog:           core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetVersionsPager(getVersionsOptionsModel)
@@ -25695,10 +25689,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getNamespacesOptionsModel := &catalogmanagementv1.GetNamespacesOptions{
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ClusterID:         core.StringPtr("testString"),
+					Region:            core.StringPtr("testString"),
 					XAuthRefreshToken: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetNamespacesPager(getNamespacesOptionsModel)
@@ -25723,10 +25717,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getNamespacesOptionsModel := &catalogmanagementv1.GetNamespacesOptions{
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ClusterID:         core.StringPtr("testString"),
+					Region:            core.StringPtr("testString"),
 					XAuthRefreshToken: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetNamespacesPager(getNamespacesOptionsModel)
@@ -27984,11 +27978,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				searchObjectsOptionsModel := &catalogmanagementv1.SearchObjectsOptions{
-					Query: core.StringPtr("testString"),
-					Kind: core.StringPtr("vpe"),
-					Limit: core.Int64Ptr(int64(10)),
+					Query:    core.StringPtr("testString"),
+					Kind:     core.StringPtr("vpe"),
+					Limit:    core.Int64Ptr(int64(10)),
 					Collapse: core.BoolPtr(true),
-					Digest: core.BoolPtr(true),
+					Digest:   core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewSearchObjectsPager(searchObjectsOptionsModel)
@@ -28013,11 +28007,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				searchObjectsOptionsModel := &catalogmanagementv1.SearchObjectsOptions{
-					Query: core.StringPtr("testString"),
-					Kind: core.StringPtr("vpe"),
-					Limit: core.Int64Ptr(int64(10)),
+					Query:    core.StringPtr("testString"),
+					Kind:     core.StringPtr("vpe"),
+					Limit:    core.Int64Ptr(int64(10)),
 					Collapse: core.BoolPtr(true),
-					Digest: core.BoolPtr(true),
+					Digest:   core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewSearchObjectsPager(searchObjectsOptionsModel)
@@ -28341,9 +28335,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectsOptionsModel := &catalogmanagementv1.ListObjectsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewObjectsPager(listObjectsOptionsModel)
@@ -28369,9 +28363,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectsOptionsModel := &catalogmanagementv1.ListObjectsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewObjectsPager(listObjectsOptionsModel)
@@ -29868,9 +29862,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectAuditsOptionsModel := &catalogmanagementv1.ListObjectAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewObjectAuditsPager(listObjectAuditsOptionsModel)
@@ -29896,9 +29890,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectAuditsOptionsModel := &catalogmanagementv1.ListObjectAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewObjectAuditsPager(listObjectAuditsOptionsModel)
@@ -30761,8 +30755,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListOptionsModel := &catalogmanagementv1.GetObjectAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListPager(getObjectAccessListOptionsModel)
@@ -30788,8 +30782,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListOptionsModel := &catalogmanagementv1.GetObjectAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListPager(getObjectAccessListOptionsModel)
@@ -31468,8 +31462,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListDeprecatedOptionsModel := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListDeprecatedPager(getObjectAccessListDeprecatedOptionsModel)
@@ -31495,8 +31489,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListDeprecatedOptionsModel := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListDeprecatedPager(getObjectAccessListDeprecatedOptionsModel)
@@ -32821,7 +32815,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				searchOfferingInstanceOptionsModel := &catalogmanagementv1.SearchOfferingInstanceOptions{
 					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewSearchOfferingInstancePager(searchOfferingInstanceOptionsModel)
@@ -32847,7 +32841,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				searchOfferingInstanceOptionsModel := &catalogmanagementv1.SearchOfferingInstanceOptions{
 					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewSearchOfferingInstancePager(searchOfferingInstanceOptionsModel)
@@ -33958,8 +33952,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingInstanceAuditsOptionsModel := &catalogmanagementv1.ListOfferingInstanceAuditsOptions{
 					InstanceIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:              core.Int64Ptr(int64(10)),
+					Lookupnames:        core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingInstanceAuditsPager(listOfferingInstanceAuditsOptionsModel)
@@ -33985,8 +33979,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingInstanceAuditsOptionsModel := &catalogmanagementv1.ListOfferingInstanceAuditsOptions{
 					InstanceIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:              core.Int64Ptr(int64(10)),
+					Lookupnames:        core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingInstanceAuditsPager(listOfferingInstanceAuditsOptionsModel)
