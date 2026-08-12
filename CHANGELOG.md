@@ -1,3 +1,10 @@
+# [0.103.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.102.0...v0.103.0) (2026-08-12)
+
+
+### Features
+
+* **Catalog Management:** re-gen after recent API changes ([#463](https://github.com/IBM/platform-services-go-sdk/issues/463)) ([a7c73db](https://github.com/IBM/platform-services-go-sdk/commit/a7c73db5113c62db14422c2c1e56c135b339b443))
+
 # [0.102.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.101.0...v0.102.0) (2026-08-07)
 
 
