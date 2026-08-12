@@ -23,3 +23,6 @@ lint:
 
 tidy:
 	${GO} mod tidy
+
+format:
+	${GO} fmt ./...

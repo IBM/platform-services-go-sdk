@@ -693,9 +693,7 @@ func UnmarshalResourceUsageReport(m map[string]json.RawMessage, result interface
 	return
 }
 
-//
 // GetResourceUsageReportPager can be used to simplify the use of the "GetResourceUsageReport" method.
-//
 type GetResourceUsageReportPager struct {
 	hasNext     bool
 	options     *GetResourceUsageReportOptions

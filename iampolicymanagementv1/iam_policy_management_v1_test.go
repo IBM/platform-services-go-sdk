@@ -68,14 +68,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-				})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-				})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 				err := iamPolicyManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-			})
+			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamPolicyManagementService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -529,18 +526,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listPoliciesOptionsModel := &iampolicymanagementv1.ListPoliciesOptions{
-					AccountID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
 					AcceptLanguage: core.StringPtr("default"),
-					IamID: core.StringPtr("testString"),
-					AccessGroupID: core.StringPtr("testString"),
-					Type: core.StringPtr("access"),
-					ServiceType: core.StringPtr("service"),
-					TagName: core.StringPtr("testString"),
-					TagValue: core.StringPtr("testString"),
-					Sort: core.StringPtr("id"),
-					Format: core.StringPtr("include_last_permit"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					IamID:          core.StringPtr("testString"),
+					AccessGroupID:  core.StringPtr("testString"),
+					Type:           core.StringPtr("access"),
+					ServiceType:    core.StringPtr("service"),
+					TagName:        core.StringPtr("testString"),
+					TagValue:       core.StringPtr("testString"),
+					Sort:           core.StringPtr("id"),
+					Format:         core.StringPtr("include_last_permit"),
+					State:          core.StringPtr("active"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPoliciesPager(listPoliciesOptionsModel)
@@ -565,18 +562,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listPoliciesOptionsModel := &iampolicymanagementv1.ListPoliciesOptions{
-					AccountID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
 					AcceptLanguage: core.StringPtr("default"),
-					IamID: core.StringPtr("testString"),
-					AccessGroupID: core.StringPtr("testString"),
-					Type: core.StringPtr("access"),
-					ServiceType: core.StringPtr("service"),
-					TagName: core.StringPtr("testString"),
-					TagValue: core.StringPtr("testString"),
-					Sort: core.StringPtr("id"),
-					Format: core.StringPtr("include_last_permit"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					IamID:          core.StringPtr("testString"),
+					AccessGroupID:  core.StringPtr("testString"),
+					Type:           core.StringPtr("access"),
+					ServiceType:    core.StringPtr("service"),
+					TagName:        core.StringPtr("testString"),
+					TagValue:       core.StringPtr("testString"),
+					Sort:           core.StringPtr("id"),
+					Format:         core.StringPtr("include_last_permit"),
+					State:          core.StringPtr("active"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPoliciesPager(listPoliciesOptionsModel)
@@ -3430,18 +3427,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listV2PoliciesOptionsModel := &iampolicymanagementv1.ListV2PoliciesOptions{
-					AccountID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
 					AcceptLanguage: core.StringPtr("default"),
-					IamID: core.StringPtr("testString"),
-					AccessGroupID: core.StringPtr("testString"),
-					Type: core.StringPtr("access"),
-					ServiceType: core.StringPtr("service"),
-					ServiceName: core.StringPtr("testString"),
+					IamID:          core.StringPtr("testString"),
+					AccessGroupID:  core.StringPtr("testString"),
+					Type:           core.StringPtr("access"),
+					ServiceType:    core.StringPtr("service"),
+					ServiceName:    core.StringPtr("testString"),
 					ServiceGroupID: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-					Format: core.StringPtr("include_last_permit"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					Sort:           core.StringPtr("testString"),
+					Format:         core.StringPtr("include_last_permit"),
+					State:          core.StringPtr("active"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewV2PoliciesPager(listV2PoliciesOptionsModel)
@@ -3466,18 +3463,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listV2PoliciesOptionsModel := &iampolicymanagementv1.ListV2PoliciesOptions{
-					AccountID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
 					AcceptLanguage: core.StringPtr("default"),
-					IamID: core.StringPtr("testString"),
-					AccessGroupID: core.StringPtr("testString"),
-					Type: core.StringPtr("access"),
-					ServiceType: core.StringPtr("service"),
-					ServiceName: core.StringPtr("testString"),
+					IamID:          core.StringPtr("testString"),
+					AccessGroupID:  core.StringPtr("testString"),
+					Type:           core.StringPtr("access"),
+					ServiceType:    core.StringPtr("service"),
+					ServiceName:    core.StringPtr("testString"),
 					ServiceGroupID: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-					Format: core.StringPtr("include_last_permit"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					Sort:           core.StringPtr("testString"),
+					Format:         core.StringPtr("include_last_permit"),
+					State:          core.StringPtr("active"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewV2PoliciesPager(listV2PoliciesOptionsModel)
@@ -5144,15 +5141,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listPolicyTemplatesOptionsModel := &iampolicymanagementv1.ListPolicyTemplatesOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					State: core.StringPtr("active"),
-					Name: core.StringPtr("testString"),
-					PolicyServiceType: core.StringPtr("service"),
-					PolicyServiceName: core.StringPtr("testString"),
+					AccountID:            core.StringPtr("testString"),
+					AcceptLanguage:       core.StringPtr("default"),
+					State:                core.StringPtr("active"),
+					Name:                 core.StringPtr("testString"),
+					PolicyServiceType:    core.StringPtr("service"),
+					PolicyServiceName:    core.StringPtr("testString"),
 					PolicyServiceGroupID: core.StringPtr("testString"),
-					PolicyType: core.StringPtr("access"),
-					Limit: core.Int64Ptr(int64(10)),
+					PolicyType:           core.StringPtr("access"),
+					Limit:                core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPolicyTemplatesPager(listPolicyTemplatesOptionsModel)
@@ -5177,15 +5174,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listPolicyTemplatesOptionsModel := &iampolicymanagementv1.ListPolicyTemplatesOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					State: core.StringPtr("active"),
-					Name: core.StringPtr("testString"),
-					PolicyServiceType: core.StringPtr("service"),
-					PolicyServiceName: core.StringPtr("testString"),
+					AccountID:            core.StringPtr("testString"),
+					AcceptLanguage:       core.StringPtr("default"),
+					State:                core.StringPtr("active"),
+					Name:                 core.StringPtr("testString"),
+					PolicyServiceType:    core.StringPtr("service"),
+					PolicyServiceName:    core.StringPtr("testString"),
 					PolicyServiceGroupID: core.StringPtr("testString"),
-					PolicyType: core.StringPtr("access"),
-					Limit: core.Int64Ptr(int64(10)),
+					PolicyType:           core.StringPtr("access"),
+					Limit:                core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPolicyTemplatesPager(listPolicyTemplatesOptionsModel)
@@ -6863,8 +6860,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				listPolicyTemplateVersionsOptionsModel := &iampolicymanagementv1.ListPolicyTemplateVersionsOptions{
 					PolicyTemplateID: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:            core.StringPtr("active"),
+					Limit:            core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPolicyTemplateVersionsPager(listPolicyTemplateVersionsOptionsModel)
@@ -6890,8 +6887,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				listPolicyTemplateVersionsOptionsModel := &iampolicymanagementv1.ListPolicyTemplateVersionsOptions{
 					PolicyTemplateID: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:            core.StringPtr("active"),
+					Limit:            core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPolicyTemplateVersionsPager(listPolicyTemplateVersionsOptionsModel)
@@ -8133,12 +8130,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listPolicyAssignmentsOptionsModel := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
-					Version: core.StringPtr("1.0"),
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					TemplateID: core.StringPtr("testString"),
+					Version:         core.StringPtr("1.0"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					TemplateID:      core.StringPtr("testString"),
 					TemplateVersion: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPolicyAssignmentsPager(listPolicyAssignmentsOptionsModel)
@@ -8163,12 +8160,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listPolicyAssignmentsOptionsModel := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
-					Version: core.StringPtr("1.0"),
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					TemplateID: core.StringPtr("testString"),
+					Version:         core.StringPtr("1.0"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					TemplateID:      core.StringPtr("testString"),
 					TemplateVersion: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewPolicyAssignmentsPager(listPolicyAssignmentsOptionsModel)
@@ -9917,9 +9914,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listActionControlTemplatesOptionsModel := &iampolicymanagementv1.ListActionControlTemplatesOptions{
-					AccountID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
 					AcceptLanguage: core.StringPtr("default"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewActionControlTemplatesPager(listActionControlTemplatesOptionsModel)
@@ -9944,9 +9941,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listActionControlTemplatesOptionsModel := &iampolicymanagementv1.ListActionControlTemplatesOptions{
-					AccountID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
 					AcceptLanguage: core.StringPtr("default"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewActionControlTemplatesPager(listActionControlTemplatesOptionsModel)
@@ -11134,8 +11131,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				listActionControlTemplateVersionsOptionsModel := &iampolicymanagementv1.ListActionControlTemplateVersionsOptions{
 					ActionControlTemplateID: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:                   core.StringPtr("active"),
+					Limit:                   core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewActionControlTemplateVersionsPager(listActionControlTemplateVersionsOptionsModel)
@@ -11161,8 +11158,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				listActionControlTemplateVersionsOptionsModel := &iampolicymanagementv1.ListActionControlTemplateVersionsOptions{
 					ActionControlTemplateID: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:                   core.StringPtr("active"),
+					Limit:                   core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewActionControlTemplateVersionsPager(listActionControlTemplateVersionsOptionsModel)
@@ -12151,11 +12148,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listActionControlAssignmentsOptionsModel := &iampolicymanagementv1.ListActionControlAssignmentsOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					TemplateID: core.StringPtr("testString"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					TemplateID:      core.StringPtr("testString"),
 					TemplateVersion: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewActionControlAssignmentsPager(listActionControlAssignmentsOptionsModel)
@@ -12180,11 +12177,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listActionControlAssignmentsOptionsModel := &iampolicymanagementv1.ListActionControlAssignmentsOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					TemplateID: core.StringPtr("testString"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					TemplateID:      core.StringPtr("testString"),
 					TemplateVersion: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewActionControlAssignmentsPager(listActionControlAssignmentsOptionsModel)
@@ -13372,13 +13369,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listRoleTemplatesOptionsModel := &iampolicymanagementv1.ListRoleTemplatesOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					Name: core.StringPtr("testString"),
-					RoleName: core.StringPtr("testString"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					Name:            core.StringPtr("testString"),
+					RoleName:        core.StringPtr("testString"),
 					RoleServiceName: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:           core.StringPtr("active"),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewRoleTemplatesPager(listRoleTemplatesOptionsModel)
@@ -13403,13 +13400,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listRoleTemplatesOptionsModel := &iampolicymanagementv1.ListRoleTemplatesOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					Name: core.StringPtr("testString"),
-					RoleName: core.StringPtr("testString"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					Name:            core.StringPtr("testString"),
+					RoleName:        core.StringPtr("testString"),
 					RoleServiceName: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:           core.StringPtr("active"),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewRoleTemplatesPager(listRoleTemplatesOptionsModel)
@@ -14612,8 +14609,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				listRoleTemplateVersionsOptionsModel := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
 					RoleTemplateID: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:          core.StringPtr("active"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptionsModel)
@@ -14639,8 +14636,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				listRoleTemplateVersionsOptionsModel := &iampolicymanagementv1.ListRoleTemplateVersionsOptions{
 					RoleTemplateID: core.StringPtr("testString"),
-					State: core.StringPtr("active"),
-					Limit: core.Int64Ptr(int64(10)),
+					State:          core.StringPtr("active"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewRoleTemplateVersionsPager(listRoleTemplateVersionsOptionsModel)
@@ -15634,11 +15631,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listRoleAssignmentsOptionsModel := &iampolicymanagementv1.ListRoleAssignmentsOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					TemplateID: core.StringPtr("testString"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					TemplateID:      core.StringPtr("testString"),
 					TemplateVersion: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewRoleAssignmentsPager(listRoleAssignmentsOptionsModel)
@@ -15663,11 +15660,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				listRoleAssignmentsOptionsModel := &iampolicymanagementv1.ListRoleAssignmentsOptions{
-					AccountID: core.StringPtr("testString"),
-					AcceptLanguage: core.StringPtr("default"),
-					TemplateID: core.StringPtr("testString"),
+					AccountID:       core.StringPtr("testString"),
+					AcceptLanguage:  core.StringPtr("default"),
+					TemplateID:      core.StringPtr("testString"),
 					TemplateVersion: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:           core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := iamPolicyManagementService.NewRoleAssignmentsPager(listRoleAssignmentsOptionsModel)

@@ -66,14 +66,13 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_URL": "https://enterpriseusagereportsv1/api",
+				"ENTERPRISE_USAGE_REPORTS_URL":       "https://enterpriseusagereportsv1/api",
 				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
-				})
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
-				})
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
 				err := enterpriseUsageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_URL": "https://enterpriseusagereportsv1/api",
+				"ENTERPRISE_USAGE_REPORTS_URL":       "https://enterpriseusagereportsv1/api",
 				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
-			})
+			enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseUsageReportsService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -432,14 +429,14 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				nextObject := new(enterpriseusagereportsv1.Link)
 				nextObject.Href = core.StringPtr("ibm.com?offset=abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(enterpriseusagereportsv1.Reports)
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -449,7 +446,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				nextObject := new(enterpriseusagereportsv1.Link)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -487,13 +484,13 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
 
 				getResourceUsageReportOptionsModel := &enterpriseusagereportsv1.GetResourceUsageReportOptions{
-					EnterpriseID: core.StringPtr("abc12340d4bf4e36b0423d209b286f24"),
+					EnterpriseID:   core.StringPtr("abc12340d4bf4e36b0423d209b286f24"),
 					AccountGroupID: core.StringPtr("def456a237b94b9a9238ef024e204c9f"),
-					AccountID: core.StringPtr("987abcba31834216b8c726a7dd9eb8d6"),
-					Children: core.BoolPtr(true),
-					Month: core.StringPtr("2019-06"),
-					BillingUnitID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					AccountID:      core.StringPtr("987abcba31834216b8c726a7dd9eb8d6"),
+					Children:       core.BoolPtr(true),
+					Month:          core.StringPtr("2019-06"),
+					BillingUnitID:  core.StringPtr("testString"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
@@ -518,13 +515,13 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
 
 				getResourceUsageReportOptionsModel := &enterpriseusagereportsv1.GetResourceUsageReportOptions{
-					EnterpriseID: core.StringPtr("abc12340d4bf4e36b0423d209b286f24"),
+					EnterpriseID:   core.StringPtr("abc12340d4bf4e36b0423d209b286f24"),
 					AccountGroupID: core.StringPtr("def456a237b94b9a9238ef024e204c9f"),
-					AccountID: core.StringPtr("987abcba31834216b8c726a7dd9eb8d6"),
-					Children: core.BoolPtr(true),
-					Month: core.StringPtr("2019-06"),
-					BillingUnitID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					AccountID:      core.StringPtr("987abcba31834216b8c726a7dd9eb8d6"),
+					Children:       core.BoolPtr(true),
+					Month:          core.StringPtr("2019-06"),
+					BillingUnitID:  core.StringPtr("testString"),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)

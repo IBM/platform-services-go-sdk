@@ -67,14 +67,13 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_URL": "https://usagereportsv4/api",
+				"USAGE_REPORTS_URL":       "https://usagereportsv4/api",
 				"USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
-				})
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
 				Expect(usageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +102,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
-				})
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
 				err := usageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(usageReportsService).ToNot(BeNil())
@@ -122,13 +120,12 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_URL": "https://usagereportsv4/api",
+				"USAGE_REPORTS_URL":       "https://usagereportsv4/api",
 				"USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
-			})
+			usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(usageReportsService).To(BeNil())
@@ -139,7 +136,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
+				"USAGE_REPORTS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1226,18 +1223,18 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
-					AccountID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					Tags: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(30)),
-					ResourceGroupID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
+					AccountID:          core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					Tags:               core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(30)),
+					ResourceGroupID:    core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
@@ -1262,18 +1259,18 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
-					AccountID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					Tags: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(30)),
-					ResourceGroupID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
+					AccountID:          core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					Tags:               core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(30)),
+					ResourceGroupID:    core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
@@ -1644,17 +1641,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-					AccountID: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					Tags: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(30)),
+					AccountID:          core.StringPtr("testString"),
+					ResourceGroupID:    core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					Tags:               core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
@@ -1679,17 +1676,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-					AccountID: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					Tags: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(30)),
+					AccountID:          core.StringPtr("testString"),
+					ResourceGroupID:    core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					Tags:               core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
@@ -2060,17 +2057,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
-					AccountID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					Tags: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(30)),
+					AccountID:          core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					Tags:               core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
@@ -2095,17 +2092,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
-					AccountID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					Tags: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(30)),
+					AccountID:          core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					Tags:               core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
@@ -3782,10 +3779,10 @@ var _ = Describe(`UsageReportsV4`, func() {
 
 				getReportsSnapshotOptionsModel := &usagereportsv4.GetReportsSnapshotOptions{
 					AccountID: core.StringPtr("abc"),
-					Month: core.StringPtr("2023-02"),
-					DateFrom: core.Int64Ptr(int64(1675209600000)),
-					DateTo: core.Int64Ptr(int64(1675987200000)),
-					Limit: core.Int64Ptr(int64(30)),
+					Month:     core.StringPtr("2023-02"),
+					DateFrom:  core.Int64Ptr(int64(1675209600000)),
+					DateTo:    core.Int64Ptr(int64(1675987200000)),
+					Limit:     core.Int64Ptr(int64(30)),
 				}
 
 				pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptionsModel)
@@ -3811,10 +3808,10 @@ var _ = Describe(`UsageReportsV4`, func() {
 
 				getReportsSnapshotOptionsModel := &usagereportsv4.GetReportsSnapshotOptions{
 					AccountID: core.StringPtr("abc"),
-					Month: core.StringPtr("2023-02"),
-					DateFrom: core.Int64Ptr(int64(1675209600000)),
-					DateTo: core.Int64Ptr(int64(1675987200000)),
-					Limit: core.Int64Ptr(int64(30)),
+					Month:     core.StringPtr("2023-02"),
+					DateFrom:  core.Int64Ptr(int64(1675209600000)),
+					DateTo:    core.Int64Ptr(int64(1675987200000)),
+					Limit:     core.Int64Ptr(int64(30)),
 				}
 
 				pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptionsModel)

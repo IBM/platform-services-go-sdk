@@ -2466,9 +2466,7 @@ func UnmarshalUnresolvePayload(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-//
 // GetCasesPager can be used to simplify the use of the "GetCases" method.
-//
 type GetCasesPager struct {
 	hasNext     bool
 	options     *GetCasesOptions

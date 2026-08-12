@@ -66,14 +66,13 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_BILLING_UNITS_URL": "https://enterprisebillingunitsv1/api",
+				"ENTERPRISE_BILLING_UNITS_URL":       "https://enterprisebillingunitsv1/api",
 				"ENTERPRISE_BILLING_UNITS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{
-				})
+				enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{})
 				Expect(enterpriseBillingUnitsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{
-				})
+				enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{})
 				err := enterpriseBillingUnitsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseBillingUnitsService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_BILLING_UNITS_URL": "https://enterprisebillingunitsv1/api",
+				"ENTERPRISE_BILLING_UNITS_URL":       "https://enterprisebillingunitsv1/api",
 				"ENTERPRISE_BILLING_UNITS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{
-			})
+			enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseBillingUnitsService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_BILLING_UNITS_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_BILLING_UNITS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -618,14 +615,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingUnitsList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingUnitsList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -633,7 +630,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingUnitsList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -671,10 +668,10 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				Expect(enterpriseBillingUnitsService).ToNot(BeNil())
 
 				listBillingUnitsOptionsModel := &enterprisebillingunitsv1.ListBillingUnitsOptions{
-					AccountID: core.StringPtr("testString"),
-					EnterpriseID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
+					EnterpriseID:   core.StringPtr("testString"),
 					AccountGroupID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseBillingUnitsService.NewBillingUnitsPager(listBillingUnitsOptionsModel)
@@ -699,10 +696,10 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				Expect(enterpriseBillingUnitsService).ToNot(BeNil())
 
 				listBillingUnitsOptionsModel := &enterprisebillingunitsv1.ListBillingUnitsOptions{
-					AccountID: core.StringPtr("testString"),
-					EnterpriseID: core.StringPtr("testString"),
+					AccountID:      core.StringPtr("testString"),
+					EnterpriseID:   core.StringPtr("testString"),
 					AccountGroupID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:          core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseBillingUnitsService.NewBillingUnitsPager(listBillingUnitsOptionsModel)
@@ -950,14 +947,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingOptionsList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingOptionsList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -965,7 +962,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingOptionsList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1004,7 +1001,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 
 				listBillingOptionsOptionsModel := &enterprisebillingunitsv1.ListBillingOptionsOptions{
 					BillingUnitID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:         core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseBillingUnitsService.NewBillingOptionsPager(listBillingOptionsOptionsModel)
@@ -1030,7 +1027,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 
 				listBillingOptionsOptionsModel := &enterprisebillingunitsv1.ListBillingOptionsOptions{
 					BillingUnitID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:         core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := enterpriseBillingUnitsService.NewBillingOptionsPager(listBillingOptionsOptionsModel)
@@ -1294,14 +1291,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(enterprisebillingunitsv1.CreditPoolsList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisebillingunitsv1.CreditPoolsList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1309,7 +1306,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(enterprisebillingunitsv1.CreditPoolsList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())

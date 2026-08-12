@@ -30,7 +30,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Usage Reports service.
 //
 // The following configuration properties are assumed to be defined:
@@ -50,7 +49,6 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 
 	const externalConfigFile = "../usage_reports.env"
@@ -216,10 +214,10 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			fmt.Println("\nGetResourceUsageAccount() result:")
 			// begin-get_resource_usage_account
 			getResourceUsageAccountOptions := &usagereportsv4.GetResourceUsageAccountOptions{
-				AccountID: core.StringPtr(accountID),
+				AccountID:    core.StringPtr(accountID),
 				Billingmonth: core.StringPtr(billingMonth),
-				Names: core.BoolPtr(true),
-				Tags: core.BoolPtr(true),
+				Names:        core.BoolPtr(true),
+				Tags:         core.BoolPtr(true),
 			}
 
 			pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptions)
@@ -243,12 +241,12 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			fmt.Println("\nGetResourceUsageResourceGroup() result:")
 			// begin-get_resource_usage_resource_group
 			getResourceUsageResourceGroupOptions := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-				AccountID: core.StringPtr(accountID),
+				AccountID:       core.StringPtr(accountID),
 				ResourceGroupID: core.StringPtr(resourceGroupID),
-				Billingmonth: core.StringPtr(billingMonth),
-				Names: core.BoolPtr(true),
-				Tags: core.BoolPtr(true),
-				Limit: core.Int64Ptr(int64(30)),
+				Billingmonth:    core.StringPtr(billingMonth),
+				Names:           core.BoolPtr(true),
+				Tags:            core.BoolPtr(true),
+				Limit:           core.Int64Ptr(int64(30)),
 			}
 
 			pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptions)
@@ -272,12 +270,12 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			fmt.Println("\nGetResourceUsageOrg() result:")
 			// begin-get_resource_usage_org
 			getResourceUsageOrgOptions := &usagereportsv4.GetResourceUsageOrgOptions{
-				AccountID: core.StringPtr(accountID),
+				AccountID:      core.StringPtr(accountID),
 				OrganizationID: core.StringPtr(orgID),
-				Billingmonth: core.StringPtr(billingMonth),
-				Names: core.BoolPtr(true),
-				Tags: core.BoolPtr(true),
-				Limit: core.Int64Ptr(int64(30)),
+				Billingmonth:   core.StringPtr(billingMonth),
+				Names:          core.BoolPtr(true),
+				Tags:           core.BoolPtr(true),
+				Limit:          core.Int64Ptr(int64(30)),
 			}
 
 			pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptions)
@@ -414,10 +412,10 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			// begin-get_reports_snapshot
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
 				AccountID: core.StringPtr(accountID),
-				Month: core.StringPtr(billingMonth),
-				DateFrom: core.Int64Ptr(from),
-				DateTo: core.Int64Ptr(to),
-				Limit: core.Int64Ptr(int64(30)),
+				Month:     core.StringPtr(billingMonth),
+				DateFrom:  core.Int64Ptr(from),
+				DateTo:    core.Int64Ptr(to),
+				Limit:     core.Int64Ptr(int64(30)),
 			}
 
 			pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptions)

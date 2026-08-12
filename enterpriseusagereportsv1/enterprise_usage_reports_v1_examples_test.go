@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Enterprise Usage Reports service.
 //
 // The following configuration properties are assumed to be defined:
@@ -45,7 +44,6 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 const externalConfigFile = "../enterprise_usage_reports.env"
 
 var (

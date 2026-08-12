@@ -472,15 +472,15 @@ type BillingOption struct {
 // Constants associated with the BillingOption.State property.
 // The state of the billing option. The valid values include `ACTIVE, `SUSPENDED`, and `CANCELED`.
 const (
-	BillingOptionStateActiveConst = "ACTIVE"
-	BillingOptionStateCanceledConst = "CANCELED"
+	BillingOptionStateActiveConst    = "ACTIVE"
+	BillingOptionStateCanceledConst  = "CANCELED"
 	BillingOptionStateSuspendedConst = "SUSPENDED"
 )
 
 // Constants associated with the BillingOption.Type property.
 // The type of billing option. The valid values are `SUBSCRIPTION` and `OFFER`.
 const (
-	BillingOptionTypeOfferConst = "OFFER"
+	BillingOptionTypeOfferConst        = "OFFER"
 	BillingOptionTypeSubscriptionConst = "SUBSCRIPTION"
 )
 
@@ -488,8 +488,8 @@ const (
 // The category of the billing option. The valid values are `PLATFORM`, `SERVICE`, and `SUPPORT`.
 const (
 	BillingOptionCategoryPlatformConst = "PLATFORM"
-	BillingOptionCategoryServiceConst = "SERVICE"
-	BillingOptionCategorySupportConst = "SUPPORT"
+	BillingOptionCategoryServiceConst  = "SERVICE"
+	BillingOptionCategorySupportConst  = "SUPPORT"
 )
 
 // UnmarshalBillingOption unmarshals an instance of BillingOption from the specified map of raw messages.
@@ -726,7 +726,7 @@ type CreditPool struct {
 // The type of credit, either `PLATFORM` or `SUPPORT`.
 const (
 	CreditPoolTypePlatformConst = "PLATFORM"
-	CreditPoolTypeSupportConst = "SUPPORT"
+	CreditPoolTypeSupportConst  = "SUPPORT"
 )
 
 // UnmarshalCreditPool unmarshals an instance of CreditPool from the specified map of raw messages.
@@ -1059,10 +1059,10 @@ type TermCredits struct {
 // The category of the credit pool. The valid values are `PLATFORM`, `OFFER`, or `SERVICE` for platform credit and
 // `SUPPORT` for support credit.
 const (
-	TermCreditsCategoryOfferConst = "OFFER"
+	TermCreditsCategoryOfferConst    = "OFFER"
 	TermCreditsCategoryPlatformConst = "PLATFORM"
-	TermCreditsCategoryServiceConst = "SERVICE"
-	TermCreditsCategorySupportConst = "SUPPORT"
+	TermCreditsCategoryServiceConst  = "SERVICE"
+	TermCreditsCategorySupportConst  = "SUPPORT"
 )
 
 // UnmarshalTermCredits unmarshals an instance of TermCredits from the specified map of raw messages.
@@ -1108,13 +1108,11 @@ func UnmarshalTermCredits(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-//
 // BillingUnitsPager can be used to simplify the use of the "ListBillingUnits" method.
-//
 type BillingUnitsPager struct {
-	hasNext bool
-	options *ListBillingUnitsOptions
-	client  *EnterpriseBillingUnitsV1
+	hasNext     bool
+	options     *ListBillingUnitsOptions
+	client      *EnterpriseBillingUnitsV1
 	pageContext struct {
 		next *string
 	}
@@ -1195,13 +1193,11 @@ func (pager *BillingUnitsPager) GetAll() (allItems []BillingUnit, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // BillingOptionsPager can be used to simplify the use of the "ListBillingOptions" method.
-//
 type BillingOptionsPager struct {
-	hasNext bool
-	options *ListBillingOptionsOptions
-	client  *EnterpriseBillingUnitsV1
+	hasNext     bool
+	options     *ListBillingOptionsOptions
+	client      *EnterpriseBillingUnitsV1
 	pageContext struct {
 		next *string
 	}

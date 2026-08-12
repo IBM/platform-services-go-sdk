@@ -623,7 +623,7 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *isMemberOfAccessGroupOptions.AccessGroupID,
-		"iam_id": *isMemberOfAccessGroupOptions.IamID,
+		"iam_id":          *isMemberOfAccessGroupOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.HEAD)
@@ -869,7 +869,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroupWithContext
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *removeMemberFromAccessGroupOptions.AccessGroupID,
-		"iam_id": *removeMemberFromAccessGroupOptions.IamID,
+		"iam_id":          *removeMemberFromAccessGroupOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1353,7 +1353,7 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRuleWithContext(ctx cont
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *getAccessGroupRuleOptions.AccessGroupID,
-		"rule_id": *getAccessGroupRuleOptions.RuleID,
+		"rule_id":         *getAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1427,7 +1427,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRuleWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *replaceAccessGroupRuleOptions.AccessGroupID,
-		"rule_id": *replaceAccessGroupRuleOptions.RuleID,
+		"rule_id":         *replaceAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1524,7 +1524,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRuleWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *removeAccessGroupRuleOptions.AccessGroupID,
-		"rule_id": *removeAccessGroupRuleOptions.RuleID,
+		"rule_id":         *removeAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -3115,9 +3115,9 @@ type AddAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewAddAccessGroupRuleOptions(accessGroupID string, expiration int64, realmName string, conditions []RuleConditions) *AddAccessGroupRuleOptions {
 	return &AddAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		Expiration: core.Int64Ptr(expiration),
-		RealmName: core.StringPtr(realmName),
-		Conditions: conditions,
+		Expiration:    core.Int64Ptr(expiration),
+		RealmName:     core.StringPtr(realmName),
+		Conditions:    conditions,
 	}
 }
 
@@ -3176,7 +3176,7 @@ type AddGroupMembersRequestMembersItem struct {
 func (*IamAccessGroupsV2) NewAddGroupMembersRequestMembersItem(iamID string, typeVar string) (_model *AddGroupMembersRequestMembersItem, err error) {
 	_model = &AddGroupMembersRequestMembersItem{
 		IamID: core.StringPtr(iamID),
-		Type: core.StringPtr(typeVar),
+		Type:  core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -3315,7 +3315,7 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 func (*IamAccessGroupsV2) NewAddMemberToMultipleAccessGroupsOptions(accountID string, iamID string) *AddMemberToMultipleAccessGroupsOptions {
 	return &AddMemberToMultipleAccessGroupsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -3708,7 +3708,7 @@ func (*IamAccessGroupsV2) NewCommitTemplateOptions(templateID string, versionNum
 	return &CommitTemplateOptions{
 		TemplateID: core.StringPtr(templateID),
 		VersionNum: core.StringPtr(versionNum),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:    core.StringPtr(ifMatch),
 	}
 }
 
@@ -3803,7 +3803,7 @@ type CreateAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewCreateAccessGroupOptions(accountID string, name string) *CreateAccessGroupOptions {
 	return &CreateAccessGroupOptions{
 		AccountID: core.StringPtr(accountID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -3861,17 +3861,17 @@ type CreateAssignmentOptions struct {
 // Constants associated with the CreateAssignmentOptions.TargetType property.
 // The type of the entity to which the template should be assigned, e.g. 'Account', 'AccountGroup', etc.
 const (
-	CreateAssignmentOptionsTargetTypeAccountConst = "Account"
+	CreateAssignmentOptionsTargetTypeAccountConst      = "Account"
 	CreateAssignmentOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // NewCreateAssignmentOptions : Instantiate CreateAssignmentOptions
 func (*IamAccessGroupsV2) NewCreateAssignmentOptions(templateID string, templateVersion string, targetType string, target string) *CreateAssignmentOptions {
 	return &CreateAssignmentOptions{
-		TemplateID: core.StringPtr(templateID),
+		TemplateID:      core.StringPtr(templateID),
 		TemplateVersion: core.StringPtr(templateVersion),
-		TargetType: core.StringPtr(targetType),
-		Target: core.StringPtr(target),
+		TargetType:      core.StringPtr(targetType),
+		Target:          core.StringPtr(target),
 	}
 }
 
@@ -3939,7 +3939,7 @@ type CreateTemplateOptions struct {
 // NewCreateTemplateOptions : Instantiate CreateTemplateOptions
 func (*IamAccessGroupsV2) NewCreateTemplateOptions(name string, accountID string) *CreateTemplateOptions {
 	return &CreateTemplateOptions{
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -4472,7 +4472,7 @@ type GetAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewGetAccessGroupRuleOptions(accessGroupID string, ruleID string) *GetAccessGroupRuleOptions {
 	return &GetAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
 	}
 }
 
@@ -5144,7 +5144,7 @@ type IsMemberOfAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewIsMemberOfAccessGroupOptions(accessGroupID string, iamID string) *IsMemberOfAccessGroupOptions {
 	return &IsMemberOfAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IamID: core.StringPtr(iamID),
+		IamID:         core.StringPtr(iamID),
 	}
 }
 
@@ -5468,10 +5468,10 @@ type ListAssignmentsOptions struct {
 // Constants associated with the ListAssignmentsOptions.Status property.
 // Filter results by the assignment status.
 const (
-	ListAssignmentsOptionsStatusAcceptedConst = "accepted"
-	ListAssignmentsOptionsStatusFailedConst = "failed"
+	ListAssignmentsOptionsStatusAcceptedConst   = "accepted"
+	ListAssignmentsOptionsStatusFailedConst     = "failed"
 	ListAssignmentsOptionsStatusInProgressConst = "in_progress"
-	ListAssignmentsOptionsStatusSucceededConst = "succeeded"
+	ListAssignmentsOptionsStatusSucceededConst  = "succeeded"
 )
 
 // NewListAssignmentsOptions : Instantiate ListAssignmentsOptions
@@ -6200,7 +6200,7 @@ type RemoveAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewRemoveAccessGroupRuleOptions(accessGroupID string, ruleID string) *RemoveAccessGroupRuleOptions {
 	return &RemoveAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
 	}
 }
 
@@ -6249,7 +6249,7 @@ type RemoveMemberFromAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewRemoveMemberFromAccessGroupOptions(accessGroupID string, iamID string) *RemoveMemberFromAccessGroupOptions {
 	return &RemoveMemberFromAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IamID: core.StringPtr(iamID),
+		IamID:         core.StringPtr(iamID),
 	}
 }
 
@@ -6300,7 +6300,7 @@ type RemoveMemberFromAllAccessGroupsOptions struct {
 func (*IamAccessGroupsV2) NewRemoveMemberFromAllAccessGroupsOptions(accountID string, iamID string) *RemoveMemberFromAllAccessGroupsOptions {
 	return &RemoveMemberFromAllAccessGroupsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -6413,11 +6413,11 @@ type ReplaceAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewReplaceAccessGroupRuleOptions(accessGroupID string, ruleID string, ifMatch string, expiration int64, realmName string, conditions []RuleConditions) *ReplaceAccessGroupRuleOptions {
 	return &ReplaceAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID: core.StringPtr(ruleID),
-		IfMatch: core.StringPtr(ifMatch),
-		Expiration: core.Int64Ptr(expiration),
-		RealmName: core.StringPtr(realmName),
-		Conditions: conditions,
+		RuleID:        core.StringPtr(ruleID),
+		IfMatch:       core.StringPtr(ifMatch),
+		Expiration:    core.Int64Ptr(expiration),
+		RealmName:     core.StringPtr(realmName),
+		Conditions:    conditions,
 	}
 }
 
@@ -6642,20 +6642,20 @@ type RuleConditions struct {
 // Constants associated with the RuleConditions.Operator property.
 // The operation to perform on the claim.
 const (
-	RuleConditionsOperatorContainsConst = "CONTAINS"
-	RuleConditionsOperatorEqualsConst = "EQUALS"
-	RuleConditionsOperatorEqualsIgnoreCaseConst = "EQUALS_IGNORE_CASE"
-	RuleConditionsOperatorInConst = "IN"
-	RuleConditionsOperatorNotEqualsConst = "NOT_EQUALS"
+	RuleConditionsOperatorContainsConst            = "CONTAINS"
+	RuleConditionsOperatorEqualsConst              = "EQUALS"
+	RuleConditionsOperatorEqualsIgnoreCaseConst    = "EQUALS_IGNORE_CASE"
+	RuleConditionsOperatorInConst                  = "IN"
+	RuleConditionsOperatorNotEqualsConst           = "NOT_EQUALS"
 	RuleConditionsOperatorNotEqualsIgnoreCaseConst = "NOT_EQUALS_IGNORE_CASE"
 )
 
 // NewRuleConditions : Instantiate RuleConditions (Generic Model Constructor)
 func (*IamAccessGroupsV2) NewRuleConditions(claim string, operator string, value string) (_model *RuleConditions, err error) {
 	_model = &RuleConditions{
-		Claim: core.StringPtr(claim),
+		Claim:    core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value: core.StringPtr(value),
+		Value:    core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -6749,7 +6749,7 @@ type TemplateAssignmentResponse struct {
 // Constants associated with the TemplateAssignmentResponse.TargetType property.
 // The type of the entity that the assignment applies to.
 const (
-	TemplateAssignmentResponseTargetTypeAccountConst = "Account"
+	TemplateAssignmentResponseTargetTypeAccountConst      = "Account"
 	TemplateAssignmentResponseTargetTypeAccountgroupConst = "AccountGroup"
 )
 
@@ -6764,10 +6764,10 @@ const (
 // Constants associated with the TemplateAssignmentResponse.Status property.
 // The status of the assignment (e.g. 'accepted', 'in_progress', 'succeeded', 'failed', 'superseded').
 const (
-	TemplateAssignmentResponseStatusAcceptedConst = "accepted"
-	TemplateAssignmentResponseStatusFailedConst = "failed"
+	TemplateAssignmentResponseStatusAcceptedConst   = "accepted"
+	TemplateAssignmentResponseStatusFailedConst     = "failed"
 	TemplateAssignmentResponseStatusInProgressConst = "in_progress"
-	TemplateAssignmentResponseStatusSucceededConst = "succeeded"
+	TemplateAssignmentResponseStatusSucceededConst  = "succeeded"
 	TemplateAssignmentResponseStatusSupersededConst = "superseded"
 )
 
@@ -7224,7 +7224,7 @@ type UpdateAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewUpdateAccessGroupOptions(accessGroupID string, ifMatch string) *UpdateAccessGroupOptions {
 	return &UpdateAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:       core.StringPtr(ifMatch),
 	}
 }
 
@@ -7335,8 +7335,8 @@ type UpdateAssignmentOptions struct {
 // NewUpdateAssignmentOptions : Instantiate UpdateAssignmentOptions
 func (*IamAccessGroupsV2) NewUpdateAssignmentOptions(assignmentID string, ifMatch string, templateVersion string) *UpdateAssignmentOptions {
 	return &UpdateAssignmentOptions{
-		AssignmentID: core.StringPtr(assignmentID),
-		IfMatch: core.StringPtr(ifMatch),
+		AssignmentID:    core.StringPtr(assignmentID),
+		IfMatch:         core.StringPtr(ifMatch),
 		TemplateVersion: core.StringPtr(templateVersion),
 	}
 }
@@ -7401,7 +7401,7 @@ func (*IamAccessGroupsV2) NewUpdateTemplateVersionOptions(templateID string, ver
 	return &UpdateTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
 		VersionNum: core.StringPtr(versionNum),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:    core.StringPtr(ifMatch),
 	}
 }
 
@@ -7459,13 +7459,11 @@ func (options *UpdateTemplateVersionOptions) SetHeaders(param map[string]string)
 	return options
 }
 
-//
 // AccessGroupsPager can be used to simplify the use of the "ListAccessGroups" method.
-//
 type AccessGroupsPager struct {
-	hasNext bool
-	options *ListAccessGroupsOptions
-	client  *IamAccessGroupsV2
+	hasNext     bool
+	options     *ListAccessGroupsOptions
+	client      *IamAccessGroupsV2
 	pageContext struct {
 		next *int64
 	}
@@ -7553,13 +7551,11 @@ func (pager *AccessGroupsPager) GetAll() (allItems []Group, err error) {
 	return
 }
 
-//
 // AccessGroupMembersPager can be used to simplify the use of the "ListAccessGroupMembers" method.
-//
 type AccessGroupMembersPager struct {
-	hasNext bool
-	options *ListAccessGroupMembersOptions
-	client  *IamAccessGroupsV2
+	hasNext     bool
+	options     *ListAccessGroupMembersOptions
+	client      *IamAccessGroupsV2
 	pageContext struct {
 		next *int64
 	}
@@ -7647,13 +7643,11 @@ func (pager *AccessGroupMembersPager) GetAll() (allItems []ListGroupMembersRespo
 	return
 }
 
-//
 // TemplatesPager can be used to simplify the use of the "ListTemplates" method.
-//
 type TemplatesPager struct {
-	hasNext bool
-	options *ListTemplatesOptions
-	client  *IamAccessGroupsV2
+	hasNext     bool
+	options     *ListTemplatesOptions
+	client      *IamAccessGroupsV2
 	pageContext struct {
 		next *int64
 	}
@@ -7741,13 +7735,11 @@ func (pager *TemplatesPager) GetAll() (allItems []GroupTemplate, err error) {
 	return
 }
 
-//
 // TemplateVersionsPager can be used to simplify the use of the "ListTemplateVersions" method.
-//
 type TemplateVersionsPager struct {
-	hasNext bool
-	options *ListTemplateVersionsOptions
-	client  *IamAccessGroupsV2
+	hasNext     bool
+	options     *ListTemplateVersionsOptions
+	client      *IamAccessGroupsV2
 	pageContext struct {
 		next *int64
 	}
