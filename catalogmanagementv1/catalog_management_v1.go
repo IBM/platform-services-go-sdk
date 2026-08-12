@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.106.0-09823488-20250707-071701
+ * IBM OpenAPI SDK Code Generator Version: 3.116.0-df613dbc-20260803-154903
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -555,7 +555,7 @@ func (catalogManagement *CatalogManagementV1) GetShareApprovalListWithContext(ct
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/access`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/accessv2`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -785,7 +785,7 @@ func (catalogManagement *CatalogManagementV1) GetShareApprovalListAsSourceWithCo
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/access/source/{approval_state_identifier}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/shareapproval/{object_type}/accessv2/source/{approval_state_identifier}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -3554,7 +3554,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAccessListWithContext(c
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/access`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/accessv2`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -3681,14 +3681,14 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingAccessListWithContex
 
 // AddOfferingAccessList : Add accesses to offering access list
 // Add one or more accesses to the specified offering's access list.
-func (catalogManagement *CatalogManagementV1) AddOfferingAccessList(addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListResult, response *core.DetailedResponse, err error) {
+func (catalogManagement *CatalogManagementV1) AddOfferingAccessList(addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListBulkResponse, response *core.DetailedResponse, err error) {
 	result, response, err = catalogManagement.AddOfferingAccessListWithContext(context.Background(), addOfferingAccessListOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // AddOfferingAccessListWithContext is an alternate form of the AddOfferingAccessList method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(ctx context.Context, addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListResult, response *core.DetailedResponse, err error) {
+func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(ctx context.Context, addOfferingAccessListOptions *AddOfferingAccessListOptions) (result *AccessListBulkResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addOfferingAccessListOptions, "addOfferingAccessListOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -3745,7 +3745,7 @@ func (catalogManagement *CatalogManagementV1) AddOfferingAccessListWithContext(c
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListBulkResponse)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -7758,7 +7758,7 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessListWithContext(ctx
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/accessv1`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/accessv2`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -8006,7 +8006,7 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessWithContext(ctx 
 }
 
 // GetObjectAccessListDeprecated : Get object access list
-// Deprecated - use /accessv1 instead.
+// Deprecated - use /accessv2 instead.
 // Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) GetObjectAccessListDeprecated(getObjectAccessListDeprecatedOptions *GetObjectAccessListDeprecatedOptions) (result *ObjectAccessListResult, response *core.DetailedResponse, err error) {
 	result, response, err = catalogManagement.GetObjectAccessListDeprecatedWithContext(context.Background(), getObjectAccessListDeprecatedOptions)
@@ -8377,6 +8377,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if createOfferingInstanceOptions.ParentCRN != nil {
 		body["parent_crn"] = createOfferingInstanceOptions.ParentCRN
 	}
+	if createOfferingInstanceOptions.PlanEntitlement != nil {
+		body["plan_entitlement"] = createOfferingInstanceOptions.PlanEntitlement
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -8398,6 +8401,79 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// SearchOfferingInstance : List offering instances
+// List the available offering instances for the specified account and offering.
+func (catalogManagement *CatalogManagementV1) SearchOfferingInstance(searchOfferingInstanceOptions *SearchOfferingInstanceOptions) (result *OfferingInstanceListResult, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.SearchOfferingInstanceWithContext(context.Background(), searchOfferingInstanceOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// SearchOfferingInstanceWithContext is an alternate form of the SearchOfferingInstance method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SearchOfferingInstanceWithContext(ctx context.Context, searchOfferingInstanceOptions *SearchOfferingInstanceOptions) (result *OfferingInstanceListResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(searchOfferingInstanceOptions, "searchOfferingInstanceOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(searchOfferingInstanceOptions, "searchOfferingInstanceOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/offerings`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SearchOfferingInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range searchOfferingInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("offeringID", fmt.Sprint(*searchOfferingInstanceOptions.OfferingID))
+	if searchOfferingInstanceOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*searchOfferingInstanceOptions.Start))
+	}
+	if searchOfferingInstanceOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*searchOfferingInstanceOptions.Limit))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "search_offering_instance", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstanceListResult)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -8618,6 +8694,9 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	}
 	if putOfferingInstanceOptions.ParentCRN != nil {
 		body["parent_crn"] = putOfferingInstanceOptions.ParentCRN
+	}
+	if putOfferingInstanceOptions.PlanEntitlement != nil {
+		body["plan_entitlement"] = putOfferingInstanceOptions.PlanEntitlement
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -9280,7 +9359,7 @@ type Access struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
+	// Revision.
 	Rev *string `json:"_rev,omitempty"`
 
 	// account id.
@@ -11168,6 +11247,15 @@ type Configuration struct {
 
 	// The original type, as found in the source being onboarded.
 	TypeMetadata *string `json:"type_metadata,omitempty"`
+
+	// The specified random string rules are applied to this configuration item's default value if the item is of type
+	// string.  Random characters include lowercase letters and numbers.
+	RandomString *ConfigurationRandomString `json:"random_string,omitempty"`
+
+	// Only added to a configuration item when getting a single version by locator ID.  Contains the default value and a
+	// random string where specified.   If no default value is provided, value is set to a random string, otherwise value
+	// as appended with a `-` character followed by the random string.
+	Value interface{} `json:"value,omitempty"`
 }
 
 // UnmarshalConfiguration unmarshals an instance of Configuration from the specified map of raw messages.
@@ -11231,6 +11319,35 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "type_metadata", &obj.TypeMetadata)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "type_metadata-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "random_string", &obj.RandomString, UnmarshalConfigurationRandomString)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "random_string-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ConfigurationRandomString : The specified random string rules are applied to this configuration item's default value if the item is of type
+// string.  Random characters include lowercase letters and numbers.
+type ConfigurationRandomString struct {
+	// How many random characters to generate.  Default is 10, max is 25.
+	Length *int64 `json:"length,omitempty"`
+}
+
+// UnmarshalConfigurationRandomString unmarshals an instance of ConfigurationRandomString from the specified map of raw messages.
+func UnmarshalConfigurationRandomString(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigurationRandomString)
+	err = core.UnmarshalPrimitive(m, "length", &obj.Length)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "length-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11550,8 +11667,11 @@ type CostComponent struct {
 	// Cost component hourly cost.
 	HourlyCost *string `json:"hourlyCost,omitempty"`
 
-	// Cost component monthly cist.
+	// Cost component monthly cost.
 	MonthlyCost *string `json:"monthlyCost,omitempty"`
+
+	// Cost component metric.
+	Metric *string `json:"metric,omitempty"`
 }
 
 // UnmarshalCostComponent unmarshals an instance of CostComponent from the specified map of raw messages.
@@ -11590,6 +11710,11 @@ func UnmarshalCostComponent(m map[string]json.RawMessage, result interface{}) (e
 	err = core.UnmarshalPrimitive(m, "monthlyCost", &obj.MonthlyCost)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "monthlyCost-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metric", &obj.Metric)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "metric-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12291,6 +12416,10 @@ type CreateOfferingInstanceOptions struct {
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
 
+	// Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+	// license entitlement status and associated licenses for a software offering instance.
+	PlanEntitlement *PlanEntitlement `json:"plan_entitlement,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -12491,6 +12620,12 @@ func (_options *CreateOfferingInstanceOptions) SetPlanID(planID string) *CreateO
 // SetParentCRN : Allow user to set ParentCRN
 func (_options *CreateOfferingInstanceOptions) SetParentCRN(parentCRN string) *CreateOfferingInstanceOptions {
 	_options.ParentCRN = core.StringPtr(parentCRN)
+	return _options
+}
+
+// SetPlanEntitlement : Allow user to set PlanEntitlement
+func (_options *CreateOfferingInstanceOptions) SetPlanEntitlement(planEntitlement *PlanEntitlement) *CreateOfferingInstanceOptions {
+	_options.PlanEntitlement = planEntitlement
 	return _options
 }
 
@@ -13890,6 +14025,48 @@ func (_options *DeprecateVersionOptions) SetVersionLocID(versionLocID string) *D
 func (options *DeprecateVersionOptions) SetHeaders(param map[string]string) *DeprecateVersionOptions {
 	options.Headers = param
 	return options
+}
+
+// EntitlementLicense : License that is associated with a pricing plan.
+type EntitlementLicense struct {
+	// Configuration ID for the license.
+	ConfigID *string `json:"config_id,omitempty"`
+
+	// The Stock Keeping Unit (SKU) identifier for the license.
+	Sku *string `json:"sku,omitempty"`
+
+	// Provider ID for the license.
+	ProviderID *string `json:"provider_id,omitempty"`
+
+	// Vendor ID for the license.
+	VendorID *string `json:"vendor_id,omitempty"`
+}
+
+// UnmarshalEntitlementLicense unmarshals an instance of EntitlementLicense from the specified map of raw messages.
+func UnmarshalEntitlementLicense(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EntitlementLicense)
+	err = core.UnmarshalPrimitive(m, "config_id", &obj.ConfigID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "config_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "sku", &obj.Sku)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sku-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "provider_id", &obj.ProviderID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "provider_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "vendor_id", &obj.VendorID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "vendor_id-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // EvaluatedControl : Evaluated control.
@@ -19373,6 +19550,10 @@ type OfferingInstance struct {
 
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
+
+	// Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+	// license entitlement status and associated licenses for a software offering instance.
+	PlanEntitlement *PlanEntitlement `json:"plan_entitlement,omitempty"`
 }
 
 // UnmarshalOfferingInstance unmarshals an instance of OfferingInstance from the specified map of raw messages.
@@ -19533,6 +19714,11 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		err = core.SDKErrorf(err, "", "parent_crn-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "plan_entitlement", &obj.PlanEntitlement, UnmarshalPlanEntitlement)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_entitlement-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -19593,6 +19779,96 @@ func UnmarshalOfferingInstanceLastOperation(m map[string]json.RawMessage, result
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// OfferingInstanceListResult : Paginated offering instance search result.
+type OfferingInstanceListResult struct {
+	// The start token used for this response.
+	Start *string `json:"start,omitempty"`
+
+	// The limit that was applied to this response. It may be smaller than in the request because that was too large.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// The total count of resources in the system that matches the request.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this response.
+	ResourceCount *int64 `json:"resource_count" validate:"required"`
+
+	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first" validate:"required"`
+
+	// Link response on a token paginated query.
+	Next *PaginationTokenLink `json:"next,omitempty"`
+
+	// Link response on a token paginated query.
+	Prev *PaginationTokenLink `json:"prev,omitempty"`
+
+	// Link response on a token paginated query.
+	Last *PaginationTokenLink `json:"last,omitempty"`
+
+	// A list of offering instance records.
+	Instances []OfferingInstance `json:"instances" validate:"required"`
+}
+
+// UnmarshalOfferingInstanceListResult unmarshals an instance of OfferingInstanceListResult from the specified map of raw messages.
+func UnmarshalOfferingInstanceListResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OfferingInstanceListResult)
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "prev", &obj.Prev, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "prev-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "instances", &obj.Instances, UnmarshalOfferingInstance)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "instances-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *OfferingInstanceListResult) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // OfferingReference : Offering reference definition.
@@ -20033,6 +20309,9 @@ type Plan struct {
 
 	// Plan has been approved to publish for other users.
 	PublishApproved *bool `json:"publish_approved,omitempty"`
+
+	// List of licenses associated with this plan.
+	Licenses []EntitlementLicense `json:"licenses,omitempty"`
 }
 
 // UnmarshalPlan unmarshals an instance of Plan from the specified map of raw messages.
@@ -20136,6 +20415,46 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 	err = core.UnmarshalPrimitive(m, "publish_approved", &obj.PublishApproved)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "publish_approved-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "licenses", &obj.Licenses, UnmarshalEntitlementLicense)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "licenses-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PlanEntitlement : Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+// license entitlement status and associated licenses for a software offering instance.
+type PlanEntitlement struct {
+	// ID for the license entitlement.
+	ID *string `json:"id,omitempty"`
+
+	// The current status of the license entitlement.
+	Status *string `json:"status,omitempty"`
+
+	// Array of licenses associated with this entitlement.
+	LicenseInstances []EntitlementLicense `json:"license_instances,omitempty"`
+}
+
+// UnmarshalPlanEntitlement unmarshals an instance of PlanEntitlement from the specified map of raw messages.
+func UnmarshalPlanEntitlement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanEntitlement)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "license_instances", &obj.LicenseInstances, UnmarshalEntitlementLicense)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "license_instances-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -20796,6 +21115,10 @@ type PutOfferingInstanceOptions struct {
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
 
+	// Entitlement information returned from the license manager when a plan contains licenses. This object tracks the
+	// license entitlement status and associated licenses for a software offering instance.
+	PlanEntitlement *PlanEntitlement `json:"plan_entitlement,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -21006,6 +21329,12 @@ func (_options *PutOfferingInstanceOptions) SetParentCRN(parentCRN string) *PutO
 	return _options
 }
 
+// SetPlanEntitlement : Allow user to set PlanEntitlement
+func (_options *PutOfferingInstanceOptions) SetPlanEntitlement(planEntitlement *PlanEntitlement) *PutOfferingInstanceOptions {
+	_options.PlanEntitlement = planEntitlement
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *PutOfferingInstanceOptions) SetHeaders(param map[string]string) *PutOfferingInstanceOptions {
 	options.Headers = param
@@ -21091,6 +21420,8 @@ type Region struct {
 	Active *bool `json:"active,omitempty"`
 
 	Visibility map[string]interface{} `json:"visibility,omitempty"`
+
+	Services []string `json:"services,omitempty"`
 }
 
 // UnmarshalRegion unmarshals an instance of Region from the specified map of raw messages.
@@ -21184,6 +21515,11 @@ func UnmarshalRegion(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "visibility", &obj.Visibility)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "visibility-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "services", &obj.Services)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "services-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -23088,6 +23424,52 @@ func (options *SearchObjectsOptions) SetHeaders(param map[string]string) *Search
 	return options
 }
 
+// SearchOfferingInstanceOptions : The SearchOfferingInstance options.
+type SearchOfferingInstanceOptions struct {
+	// Return all offering instances that were created from the specified offering id.
+	OfferingID *string `json:"offeringID" validate:"required"`
+
+	// Start token for a query.
+	Start *string `json:"start,omitempty"`
+
+	// number or results to return in the query.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewSearchOfferingInstanceOptions : Instantiate SearchOfferingInstanceOptions
+func (*CatalogManagementV1) NewSearchOfferingInstanceOptions(offeringID string) *SearchOfferingInstanceOptions {
+	return &SearchOfferingInstanceOptions{
+		OfferingID: core.StringPtr(offeringID),
+	}
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *SearchOfferingInstanceOptions) SetOfferingID(offeringID string) *SearchOfferingInstanceOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *SearchOfferingInstanceOptions) SetStart(start string) *SearchOfferingInstanceOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *SearchOfferingInstanceOptions) SetLimit(limit int64) *SearchOfferingInstanceOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *SearchOfferingInstanceOptions) SetHeaders(param map[string]string) *SearchOfferingInstanceOptions {
+	options.Headers = param
+	return options
+}
+
 // SetDeprecatePlanOptions : The SetDeprecatePlan options.
 type SetDeprecatePlanOptions struct {
 	// A dotted value of `sw`.`catalogID`.`resourceID`.
@@ -23457,6 +23839,11 @@ func UnmarshalShareApprovalListAccessResult(m map[string]json.RawMessage, result
 	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
@@ -24074,6 +24461,10 @@ type TerraformEngineScope struct {
 	// Identifier for the specified type in the scope.
 	Name *string `json:"name,omitempty"`
 
+	// Optional field to provide the organization name of the scope. Needed if you want to query project or workspace scope
+	// by name instead of ID.
+	OrgName *string `json:"org_name,omitempty"`
+
 	// Scope to auto-create deployable architectures from. The supported scopes today are workspace, org, and project.
 	Type *string `json:"type,omitempty"`
 }
@@ -24084,6 +24475,11 @@ func UnmarshalTerraformEngineScope(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "org_name", &obj.OrgName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "org_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
@@ -24336,7 +24732,7 @@ type UpdateOfferingAccessOptions struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
+	// Revision.
 	Rev *string `json:"_rev,omitempty"`
 
 	// account id.
@@ -25535,6 +25931,12 @@ type Version struct {
 	// A map of translated strings, by language code.
 	LongDescriptionI18n map[string]string `json:"long_description_i18n,omitempty"`
 
+	// Short description for version.
+	ShortDescription *string `json:"short_description,omitempty"`
+
+	// A map of translated strings, by language code.
+	ShortDescriptionI18n map[string]string `json:"short_description_i18n,omitempty"`
+
 	// Whitelisted accounts for version.
 	WhitelistedAccounts []string `json:"whitelisted_accounts,omitempty"`
 
@@ -25744,6 +26146,16 @@ func UnmarshalVersion(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "long_description_i18n-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "short_description", &obj.ShortDescription)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "short_description-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "short_description_i18n", &obj.ShortDescriptionI18n)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "short_description_i18n-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "whitelisted_accounts", &obj.WhitelistedAccounts)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "whitelisted_accounts-error", common.GetComponentInfo())
@@ -25815,6 +26227,9 @@ type VersionDependant struct {
 	Version *VersionDependantVersion `json:"version,omitempty"`
 
 	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first" validate:"required"`
+
+	// Link response on a token paginated query.
 	Next *PaginationTokenLink `json:"next,omitempty"`
 
 	// Link response on a token paginated query.
@@ -25850,6 +26265,11 @@ func UnmarshalVersionDependant(m map[string]json.RawMessage, result interface{})
 	err = core.UnmarshalModel(m, "version", &obj.Version, UnmarshalVersionDependantVersion)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
@@ -26334,7 +26754,7 @@ func (catalogManagement *CatalogManagementV1) NewCatalogAccountAuditsPager(optio
 		return
 	}
 
-	var optionsCopy ListCatalogAccountAuditsOptions = *options
+	optionsCopy := *options
 	pager = &CatalogAccountAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26419,7 +26839,7 @@ func (catalogManagement *CatalogManagementV1) NewGetShareApprovalListPager(optio
 		return
 	}
 
-	var optionsCopy GetShareApprovalListOptions = *options
+	optionsCopy := *options
 	pager = &GetShareApprovalListPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26504,7 +26924,7 @@ func (catalogManagement *CatalogManagementV1) NewGetShareApprovalListAsSourcePag
 		return
 	}
 
-	var optionsCopy GetShareApprovalListAsSourceOptions = *options
+	optionsCopy := *options
 	pager = &GetShareApprovalListAsSourcePager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26589,7 +27009,7 @@ func (catalogManagement *CatalogManagementV1) NewCatalogAuditsPager(options *Lis
 		return
 	}
 
-	var optionsCopy ListCatalogAuditsOptions = *options
+	optionsCopy := *options
 	pager = &CatalogAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26674,7 +27094,7 @@ func (catalogManagement *CatalogManagementV1) NewEnterpriseAuditsPager(options *
 		return
 	}
 
-	var optionsCopy ListEnterpriseAuditsOptions = *options
+	optionsCopy := *options
 	pager = &EnterpriseAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26759,7 +27179,7 @@ func (catalogManagement *CatalogManagementV1) NewGetConsumptionOfferingsPager(op
 		return
 	}
 
-	var optionsCopy GetConsumptionOfferingsOptions = *options
+	optionsCopy := *options
 	pager = &GetConsumptionOfferingsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26851,7 +27271,7 @@ func (catalogManagement *CatalogManagementV1) NewOfferingsPager(options *ListOff
 		return
 	}
 
-	var optionsCopy ListOfferingsOptions = *options
+	optionsCopy := *options
 	pager = &OfferingsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -26943,7 +27363,7 @@ func (catalogManagement *CatalogManagementV1) NewOfferingAuditsPager(options *Li
 		return
 	}
 
-	var optionsCopy ListOfferingAuditsOptions = *options
+	optionsCopy := *options
 	pager = &OfferingAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27028,7 +27448,7 @@ func (catalogManagement *CatalogManagementV1) NewGetOfferingAccessListPager(opti
 		return
 	}
 
-	var optionsCopy GetOfferingAccessListOptions = *options
+	optionsCopy := *options
 	pager = &GetOfferingAccessListPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27113,7 +27533,7 @@ func (catalogManagement *CatalogManagementV1) NewGetVersionsPager(options *GetVe
 		return
 	}
 
-	var optionsCopy GetVersionsOptions = *options
+	optionsCopy := *options
 	pager = &GetVersionsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27198,7 +27618,7 @@ func (catalogManagement *CatalogManagementV1) NewGetNamespacesPager(options *Get
 		return
 	}
 
-	var optionsCopy GetNamespacesOptions = *options
+	optionsCopy := *options
 	pager = &GetNamespacesPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27290,7 +27710,7 @@ func (catalogManagement *CatalogManagementV1) NewSearchObjectsPager(options *Sea
 		return
 	}
 
-	var optionsCopy SearchObjectsOptions = *options
+	optionsCopy := *options
 	pager = &SearchObjectsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27382,7 +27802,7 @@ func (catalogManagement *CatalogManagementV1) NewObjectsPager(options *ListObjec
 		return
 	}
 
-	var optionsCopy ListObjectsOptions = *options
+	optionsCopy := *options
 	pager = &ObjectsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27474,7 +27894,7 @@ func (catalogManagement *CatalogManagementV1) NewObjectAuditsPager(options *List
 		return
 	}
 
-	var optionsCopy ListObjectAuditsOptions = *options
+	optionsCopy := *options
 	pager = &ObjectAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27559,7 +27979,7 @@ func (catalogManagement *CatalogManagementV1) NewGetObjectAccessListPager(option
 		return
 	}
 
-	var optionsCopy GetObjectAccessListOptions = *options
+	optionsCopy := *options
 	pager = &GetObjectAccessListPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27644,7 +28064,7 @@ func (catalogManagement *CatalogManagementV1) NewGetObjectAccessListDeprecatedPa
 		return
 	}
 
-	var optionsCopy GetObjectAccessListDeprecatedOptions = *options
+	optionsCopy := *options
 	pager = &GetObjectAccessListDeprecatedPager{
 		hasNext: true,
 		options: &optionsCopy,
@@ -27719,6 +28139,91 @@ func (pager *GetObjectAccessListDeprecatedPager) GetAll() (allItems []Access, er
 	return
 }
 
+// SearchOfferingInstancePager can be used to simplify the use of the "SearchOfferingInstance" method.
+type SearchOfferingInstancePager struct {
+	hasNext     bool
+	options     *SearchOfferingInstanceOptions
+	client      *CatalogManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewSearchOfferingInstancePager returns a new SearchOfferingInstancePager instance.
+func (catalogManagement *CatalogManagementV1) NewSearchOfferingInstancePager(options *SearchOfferingInstanceOptions) (pager *SearchOfferingInstancePager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	optionsCopy := *options
+	pager = &SearchOfferingInstancePager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *SearchOfferingInstancePager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *SearchOfferingInstancePager) GetNextWithContext(ctx context.Context) (page []OfferingInstance, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.SearchOfferingInstanceWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Instances
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *SearchOfferingInstancePager) GetAllWithContext(ctx context.Context) (allItems []OfferingInstance, err error) {
+	for pager.HasNext() {
+		var nextPage []OfferingInstance
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *SearchOfferingInstancePager) GetNext() (page []OfferingInstance, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *SearchOfferingInstancePager) GetAll() (allItems []OfferingInstance, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
 // OfferingInstanceAuditsPager can be used to simplify the use of the "ListOfferingInstanceAudits" method.
 type OfferingInstanceAuditsPager struct {
 	hasNext     bool
@@ -27736,7 +28241,7 @@ func (catalogManagement *CatalogManagementV1) NewOfferingInstanceAuditsPager(opt
 		return
 	}
 
-	var optionsCopy ListOfferingInstanceAuditsOptions = *options
+	optionsCopy := *options
 	pager = &OfferingInstanceAuditsPager{
 		hasNext: true,
 		options: &optionsCopy,
