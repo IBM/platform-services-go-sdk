@@ -1,3 +1,10 @@
+## [0.103.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.1...v0.103.2) (2026-09-09)
+
+
+### Bug Fixes
+
+* **deps:** bump go runtime version and vulnerable packages ([#468](https://github.com/IBM/platform-services-go-sdk/issues/468)) ([b3bbf96](https://github.com/IBM/platform-services-go-sdk/commit/b3bbf96172dc2f7a72844aca7d0ddc388135b8b7))
+
 ## [0.103.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.0...v0.103.1) (2026-09-01)
 
 
