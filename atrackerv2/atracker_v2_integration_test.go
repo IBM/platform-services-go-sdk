@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ import (
  */
 
 var _ = Describe(`AtrackerV2 Integration Tests`, func() {
-
 	const externalConfigFile = "../atracker_v2.env"
 
 	const notFoundTargetID = "ffffffff-1111-1111-1111-111111111111"
@@ -96,11 +95,9 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-
 			atrackerServiceOptions := &atrackerv2.AtrackerV2Options{}
 
 			atrackerService, err = atrackerv2.NewAtrackerV2UsingExternalConfig(atrackerServiceOptions)
-
 			Expect(err).To(BeNil())
 			Expect(atrackerService).ToNot(BeNil())
 			Expect(atrackerService.Service.Options.URL).To(Equal(serviceURL))
@@ -164,7 +161,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				APIKey:                  core.StringPtr("xxxxxxxxxxxxxx"),
 				ServiceToServiceEnabled: core.BoolPtr(true),
 			}
-
 			createTargetOptions := &atrackerv2.CreateTargetOptions{
 				Name:        core.StringPtr("my-cos-target"),
 				TargetType:  core.StringPtr("cloud_object_storage"),
@@ -948,6 +944,27 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
+
+	Describe(`QueryDestinations - Query Destinations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions)`, func() {
+			crnPrototypeModel := &atrackerv2.CRNPrototype{
+				CRN: core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"),
+			}
+
+			queryDestinationsOptions := &atrackerv2.QueryDestinationsOptions{
+				Crns: []atrackerv2.CRNPrototype{*crnPrototypeModel},
+			}
+
+			destinationsQuery, response, err := atrackerService.QueryDestinations(queryDestinationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(destinationsQuery).ToNot(BeNil())
+		})
+	})
+
 })
 
 //

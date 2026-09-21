@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -135,7 +135,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			targetIDLink = *target.ID
 			fmt.Fprintf(GinkgoWriter, "Saved targetIDLink value: %v\n", targetIDLink)
-
 		})
 		It(`CreateRoute request example`, func() {
 			fmt.Println("\nCreateRoute() result:")
@@ -166,7 +165,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			routeIDLink = *route.ID
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
-
 		})
 		It(`ListTargets request example`, func() {
 			fmt.Println("\nListTargets() result:")
@@ -186,7 +184,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(targetList).ToNot(BeNil())
-
 		})
 		It(`GetTarget request example`, func() {
 			fmt.Println("\nGetTarget() result:")
@@ -208,7 +205,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
-
 		})
 		It(`ReplaceTarget request example`, func() {
 			fmt.Println("\nReplaceTarget() result:")
@@ -230,7 +226,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
-
 		})
 		It(`ValidateTarget request example`, func() {
 			fmt.Println("\nValidateTarget() result:")
@@ -252,7 +247,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
-
 		})
 		It(`ListRoutes request example`, func() {
 			fmt.Println("\nListRoutes() result:")
@@ -272,7 +266,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(routeList).ToNot(BeNil())
-
 		})
 		It(`GetRoute request example`, func() {
 			fmt.Println("\nGetRoute() result:")
@@ -294,7 +287,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(route).ToNot(BeNil())
-
 		})
 		It(`ReplaceRoute request example`, func() {
 			fmt.Println("\nReplaceRoute() result:")
@@ -323,7 +315,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(route).ToNot(BeNil())
-
 		})
 		It(`GetSettings request example`, func() {
 			fmt.Println("\nGetSettings() result:")
@@ -343,7 +334,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(settings).ToNot(BeNil())
-
 		})
 		It(`PutSettings request example`, func() {
 			fmt.Println("\nPutSettings() result:")
@@ -366,7 +356,31 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(settings).ToNot(BeNil())
+		})
+		It(`QueryDestinations request example`, func() {
+			fmt.Println("\nQueryDestinations() result:")
+			// begin-query_destinations
 
+			crnPrototypeModel := &atrackerv2.CRNPrototype{
+				CRN: core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"),
+			}
+
+			queryDestinationsOptions := atrackerService.NewQueryDestinationsOptions(
+				[]atrackerv2.CRNPrototype{*crnPrototypeModel},
+			)
+
+			destinationsQuery, response, err := atrackerService.QueryDestinations(queryDestinationsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(destinationsQuery, "", "  ")
+			fmt.Println(string(b))
+
+			// end-query_destinations
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(destinationsQuery).ToNot(BeNil())
 		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
@@ -387,7 +401,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
 		})
 		It(`DeleteTarget request example`, func() {
 			fmt.Println("\nDeleteTarget() result:")
@@ -409,8 +422,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 			Expect(warningReport).To(BeNil())
-
 		})
-
 	})
 })
