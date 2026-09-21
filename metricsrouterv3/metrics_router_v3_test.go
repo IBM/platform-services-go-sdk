@@ -2892,11 +2892,281 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
+	Describe(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions) - Operation response error`, func() {
+		queryDestinationsPath := "/destinations/query"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(queryDestinationsPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke QueryDestinations with error: Operation response processing error`, func() {
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(metricsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(metricsrouterv3.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(metricsrouterv3.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []metricsrouterv3.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := metricsRouterService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				metricsRouterService.EnableRetries(0, 0)
+				result, response, operationErr = metricsRouterService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions)`, func() {
+		queryDestinationsPath := "/destinations/query"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(queryDestinationsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"destinations": {"mapKey": [{"account": "d26e70b9a57f4388a68b1e03888e82a9", "action": "send", "associated_targets": [{"crn": "crn:v1:bluemix:public:metrics-router:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::target:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "id": "2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "name": "my-sysdig-target", "association_reasons": [{"type": "route", "name": "my-dallas-route", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::route:37bf4abf-4479-4992-b3c8-dbbab387e445"}]}], "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::", "region": "us-south", "service_name": "sysdig-monitor"}]}}`)
+				}))
+			})
+			It(`Invoke QueryDestinations successfully with retries`, func() {
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(metricsRouterService).ToNot(BeNil())
+				metricsRouterService.EnableRetries(0, 0)
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(metricsrouterv3.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(metricsrouterv3.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []metricsrouterv3.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := metricsRouterService.QueryDestinationsWithContext(ctx, queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				metricsRouterService.DisableRetries()
+				result, response, operationErr := metricsRouterService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = metricsRouterService.QueryDestinationsWithContext(ctx, queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(queryDestinationsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"destinations": {"mapKey": [{"account": "d26e70b9a57f4388a68b1e03888e82a9", "action": "send", "associated_targets": [{"crn": "crn:v1:bluemix:public:metrics-router:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::target:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "id": "2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "name": "my-sysdig-target", "association_reasons": [{"type": "route", "name": "my-dallas-route", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::route:37bf4abf-4479-4992-b3c8-dbbab387e445"}]}], "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::", "region": "us-south", "service_name": "sysdig-monitor"}]}}`)
+				}))
+			})
+			It(`Invoke QueryDestinations successfully`, func() {
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(metricsRouterService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := metricsRouterService.QueryDestinations(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(metricsrouterv3.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(metricsrouterv3.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []metricsrouterv3.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = metricsRouterService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke QueryDestinations with error: Operation validation and request error`, func() {
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(metricsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(metricsrouterv3.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(metricsrouterv3.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []metricsrouterv3.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := metricsRouterService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := metricsRouterService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the QueryDestinationsOptions model with no property values
+				queryDestinationsOptionsModelNew := new(metricsrouterv3.QueryDestinationsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = metricsRouterService.QueryDestinations(queryDestinationsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke QueryDestinations successfully`, func() {
+				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(metricsRouterService).ToNot(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(metricsrouterv3.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(metricsrouterv3.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []metricsrouterv3.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := metricsRouterService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			metricsRouterService, _ := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 				URL:           "http://metricsrouterv3modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewCRNPrototype successfully`, func() {
+				crn := "crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"
+				_model, err := metricsRouterService.NewCRNPrototype(crn)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewCreateRouteOptions successfully`, func() {
 				// Construct an instance of the TargetIdentity model
@@ -3025,6 +3295,22 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(listTargetsOptionsModel).ToNot(BeNil())
 				Expect(listTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewQueryDestinationsOptions successfully`, func() {
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(metricsrouterv3.CRNPrototype)
+				Expect(crnPrototypeModel).ToNot(BeNil())
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+				Expect(crnPrototypeModel.CRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")))
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsCrns := []metricsrouterv3.CRNPrototype{}
+				queryDestinationsOptionsModel := metricsRouterService.NewQueryDestinationsOptions(queryDestinationsOptionsCrns)
+				queryDestinationsOptionsModel.SetCrns([]metricsrouterv3.CRNPrototype{*crnPrototypeModel})
+				queryDestinationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(queryDestinationsOptionsModel).ToNot(BeNil())
+				Expect(queryDestinationsOptionsModel.Crns).To(Equal([]metricsrouterv3.CRNPrototype{*crnPrototypeModel}))
+				Expect(queryDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewRulePrototype successfully`, func() {
 				targets := []metricsrouterv3.TargetIdentity{}
 				inclusionFilters := []metricsrouterv3.InclusionFilterPrototype{}
@@ -3118,6 +3404,24 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalCRNPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(metricsrouterv3.CRNPrototype)
+			model.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *metricsrouterv3.CRNPrototype
+			err = metricsrouterv3.UnmarshalCRNPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalInclusionFilterPrototype successfully`, func() {
 			// Construct an instance of the model.
 			model := new(metricsrouterv3.InclusionFilterPrototype)
