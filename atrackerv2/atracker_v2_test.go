@@ -3413,6 +3413,270 @@ var _ = Describe(`AtrackerV2`, func() {
 			})
 		})
 	})
+	Describe(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions) - Operation response error`, func() {
+		queryDestinationsPath := "/api/v2/destinations/query"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(queryDestinationsPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke QueryDestinations with error: Operation response processing error`, func() {
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(atrackerv2.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(atrackerv2.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []atrackerv2.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := atrackerService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				atrackerService.EnableRetries(0, 0)
+				result, response, operationErr = atrackerService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions)`, func() {
+		queryDestinationsPath := "/api/v2/destinations/query"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(queryDestinationsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"destinations": {"mapKey": [{"account": "d26e70b9a57f4388a68b1e03888e82a9", "action": "send", "associated_targets": [{"crn": "crn:v1:bluemix:public:atracker:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::target:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "id": "2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "name": "my-logs-target", "association_reasons": [{"type": "route", "name": "my-dallas-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::route:37bf4abf-4479-4992-b3c8-dbbab387e445"}]}], "crn": "crn:v1:bluemix:public:logs:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::", "region": "us-south", "service_name": "logs"}]}}`)
+				}))
+			})
+			It(`Invoke QueryDestinations successfully with retries`, func() {
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+				atrackerService.EnableRetries(0, 0)
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(atrackerv2.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(atrackerv2.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []atrackerv2.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := atrackerService.QueryDestinationsWithContext(ctx, queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				atrackerService.DisableRetries()
+				result, response, operationErr := atrackerService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = atrackerService.QueryDestinationsWithContext(ctx, queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(queryDestinationsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"destinations": {"mapKey": [{"account": "d26e70b9a57f4388a68b1e03888e82a9", "action": "send", "associated_targets": [{"crn": "crn:v1:bluemix:public:atracker:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::target:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "id": "2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7", "name": "my-logs-target", "association_reasons": [{"type": "route", "name": "my-dallas-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/d26e70b9a57f4388a68b1e03888e82a9::route:37bf4abf-4479-4992-b3c8-dbbab387e445"}]}], "crn": "crn:v1:bluemix:public:logs:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::", "region": "us-south", "service_name": "logs"}]}}`)
+				}))
+			})
+			It(`Invoke QueryDestinations successfully`, func() {
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := atrackerService.QueryDestinations(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(atrackerv2.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(atrackerv2.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []atrackerv2.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = atrackerService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke QueryDestinations with error: Operation validation and request error`, func() {
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(atrackerv2.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(atrackerv2.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []atrackerv2.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := atrackerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := atrackerService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the QueryDestinationsOptions model with no property values
+				queryDestinationsOptionsModelNew := new(atrackerv2.QueryDestinationsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = atrackerService.QueryDestinations(queryDestinationsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke QueryDestinations successfully`, func() {
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(atrackerv2.CRNPrototype)
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsModel := new(atrackerv2.QueryDestinationsOptions)
+				queryDestinationsOptionsModel.Crns = []atrackerv2.CRNPrototype{*crnPrototypeModel}
+				queryDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.QueryDestinations(queryDestinationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			atrackerService, _ := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
@@ -3422,6 +3686,12 @@ var _ = Describe(`AtrackerV2`, func() {
 			It(`Invoke NewAppconfigEndpointPrototype successfully`, func() {
 				targetCRN := "crn:v1:bluemix:public:apprapp:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"
 				_model, err := atrackerService.NewAppconfigEndpointPrototype(targetCRN)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewCRNPrototype successfully`, func() {
+				crn := "crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"
+				_model, err := atrackerService.NewCRNPrototype(crn)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -3617,6 +3887,22 @@ var _ = Describe(`AtrackerV2`, func() {
 				Expect(putSettingsOptionsModel.MetadataRegionBackup).To(Equal(core.StringPtr("eu-de")))
 				Expect(putSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewQueryDestinationsOptions successfully`, func() {
+				// Construct an instance of the CRNPrototype model
+				crnPrototypeModel := new(atrackerv2.CRNPrototype)
+				Expect(crnPrototypeModel).ToNot(BeNil())
+				crnPrototypeModel.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+				Expect(crnPrototypeModel.CRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")))
+
+				// Construct an instance of the QueryDestinationsOptions model
+				queryDestinationsOptionsCrns := []atrackerv2.CRNPrototype{}
+				queryDestinationsOptionsModel := atrackerService.NewQueryDestinationsOptions(queryDestinationsOptionsCrns)
+				queryDestinationsOptionsModel.SetCrns([]atrackerv2.CRNPrototype{*crnPrototypeModel})
+				queryDestinationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(queryDestinationsOptionsModel).ToNot(BeNil())
+				Expect(queryDestinationsOptionsModel.Crns).To(Equal([]atrackerv2.CRNPrototype{*crnPrototypeModel}))
+				Expect(queryDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewReplaceRouteOptions successfully`, func() {
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(atrackerv2.RulePrototype)
@@ -3736,6 +4022,24 @@ var _ = Describe(`AtrackerV2`, func() {
 
 			var result *atrackerv2.AppconfigEndpointPrototype
 			err = atrackerv2.UnmarshalAppconfigEndpointPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCRNPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(atrackerv2.CRNPrototype)
+			model.CRN = core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *atrackerv2.CRNPrototype
+			err = atrackerv2.UnmarshalCRNPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
