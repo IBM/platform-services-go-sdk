@@ -1,3 +1,10 @@
+## [0.103.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.3...v0.103.4) (2026-09-23)
+
+
+### Bug Fixes
+
+* **ATracker:** added Destinations Query API ([#470](https://github.com/IBM/platform-services-go-sdk/issues/470)) ([48f68a4](https://github.com/IBM/platform-services-go-sdk/commit/48f68a47188f46bea762472b4b2c61a9ec0e07a0))
+
 ## [0.103.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.2...v0.103.3) (2026-09-23)
 
 
