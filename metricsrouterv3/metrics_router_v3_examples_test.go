@@ -329,6 +329,31 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(setting).ToNot(BeNil())
 		})
+		It(`QueryDestinations request example`, func() {
+			fmt.Println("\nQueryDestinations() result:")
+			// begin-query_destinations
+
+			crnPrototypeModel := &metricsrouterv3.CRNPrototype{
+				CRN: core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"),
+			}
+
+			queryDestinationsOptions := metricsRouterService.NewQueryDestinationsOptions(
+				[]metricsrouterv3.CRNPrototype{*crnPrototypeModel},
+			)
+
+			destinationsQuery, response, err := metricsRouterService.QueryDestinations(queryDestinationsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(destinationsQuery, "", "  ")
+			fmt.Println(string(b))
+
+			// end-query_destinations
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(destinationsQuery).ToNot(BeNil())
+		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
 
