@@ -1,3 +1,10 @@
+## [0.103.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.2...v0.103.3) (2026-09-23)
+
+
+### Bug Fixes
+
+* **Metrics Router:** add Destinations Query API ([#469](https://github.com/IBM/platform-services-go-sdk/issues/469)) ([fadfb4c](https://github.com/IBM/platform-services-go-sdk/commit/fadfb4c7acdefdf4874eb7a29772530747246a73))
+
 ## [0.103.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.1...v0.103.2) (2026-09-09)
 
 

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.114.0-a902401e-20260427-192904
+ * IBM OpenAPI SDK Code Generator Version: 3.117.0-7f07c563-20260915-094553
  */
 
 // Package metricsrouterv3 : Operations and models for the MetricsRouterV3 service
@@ -1087,8 +1087,191 @@ func (metricsRouter *MetricsRouterV3) UpdateSettingsWithContext(ctx context.Cont
 
 	return
 }
+
+// QueryDestinations : Query Destinations
+// Query target destinations for a given set of cloud resources.
+func (metricsRouter *MetricsRouterV3) QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions) (result *DestinationsQuery, response *core.DetailedResponse, err error) {
+	result, response, err = metricsRouter.QueryDestinationsWithContext(context.Background(), queryDestinationsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// QueryDestinationsWithContext is an alternate form of the QueryDestinations method which supports a Context parameter
+func (metricsRouter *MetricsRouterV3) QueryDestinationsWithContext(ctx context.Context, queryDestinationsOptions *QueryDestinationsOptions) (result *DestinationsQuery, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(queryDestinationsOptions, "queryDestinationsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(queryDestinationsOptions, "queryDestinationsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = metricsRouter.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(metricsRouter.Service.Options.URL, `/destinations/query`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("metrics_router", "V3", "QueryDestinations")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range queryDestinationsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if queryDestinationsOptions.Crns != nil {
+		body["crns"] = queryDestinationsOptions.Crns
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = metricsRouter.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "query_destinations", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDestinationsQuery)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "3.0.0")
+}
+
+// AssociatedTargets : A target that points to the destination.
+type AssociatedTargets struct {
+	// CRN of the target.
+	CRN *string `json:"crn" validate:"required"`
+
+	// ID of the target.
+	ID *string `json:"id" validate:"required"`
+
+	// Name of the target.
+	Name *string `json:"name" validate:"required"`
+
+	// A list of reasons why the target was associated with the resource CRN.
+	AssociationReasons []AssociationReason `json:"association_reasons" validate:"required"`
+}
+
+// UnmarshalAssociatedTargets unmarshals an instance of AssociatedTargets from the specified map of raw messages.
+func UnmarshalAssociatedTargets(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AssociatedTargets)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "association_reasons", &obj.AssociationReasons, UnmarshalAssociationReason)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "association_reasons-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AssociationReason : Details the reason why the target destination matched the resource CRN. The reasoning is either that the target is
+// attached to a route or one of the default targets.
+type AssociationReason struct {
+	// Type of association reason.
+	Type *string `json:"type" validate:"required"`
+
+	// Name of the route, if applicable.
+	Name *string `json:"name,omitempty"`
+
+	// CRN of the route, if applicable.
+	CRN *string `json:"crn,omitempty"`
+}
+
+// UnmarshalAssociationReason unmarshals an instance of AssociationReason from the specified map of raw messages.
+func UnmarshalAssociationReason(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AssociationReason)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CRNPrototype : A Cloud Resource Name (CRN).
+type CRNPrototype struct {
+	// CRN of a cloud resource.
+	CRN *string `json:"crn" validate:"required"`
+}
+
+// NewCRNPrototype : Instantiate CRNPrototype (Generic Model Constructor)
+func (*MetricsRouterV3) NewCRNPrototype(crn string) (_model *CRNPrototype, err error) {
+	_model = &CRNPrototype{
+		CRN: core.StringPtr(crn),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalCRNPrototype unmarshals an instance of CRNPrototype from the specified map of raw messages.
+func UnmarshalCRNPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CRNPrototype)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // CreateRouteOptions : The CreateRoute options.
@@ -1274,6 +1457,82 @@ func (_options *DeleteTargetOptions) SetID(id string) *DeleteTargetOptions {
 func (options *DeleteTargetOptions) SetHeaders(param map[string]string) *DeleteTargetOptions {
 	options.Headers = param
 	return options
+}
+
+// DestinationPrototype : A single target destination.
+type DestinationPrototype struct {
+	// Account that owns the destination.
+	Account *string `json:"account,omitempty"`
+
+	// If metrics are going to a destination: 'send', if explicitly dropped: 'drop'.
+	Action *string `json:"action" validate:"required"`
+
+	// A list of targets that points to the destination.
+	AssociatedTargets []AssociatedTargets `json:"associated_targets,omitempty"`
+
+	// CRN of the destination.
+	CRN *string `json:"crn,omitempty"`
+
+	// Region of the target destination.
+	Region *string `json:"region,omitempty"`
+
+	// CRN service name of the destination.
+	ServiceName *string `json:"service_name,omitempty"`
+}
+
+// UnmarshalDestinationPrototype unmarshals an instance of DestinationPrototype from the specified map of raw messages.
+func UnmarshalDestinationPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DestinationPrototype)
+	err = core.UnmarshalPrimitive(m, "account", &obj.Account)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "action-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "associated_targets", &obj.AssociatedTargets, UnmarshalAssociatedTargets)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "associated_targets-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DestinationsQuery : Destinations Query response payload. Returning the target destinations for each requested resource CRN.
+type DestinationsQuery struct {
+	// Key is the resource CRN. Value is an array of target destinations for each requested resource CRN.
+	Destinations map[string][]DestinationPrototype `json:"destinations" validate:"required"`
+}
+
+// UnmarshalDestinationsQuery unmarshals an instance of DestinationsQuery from the specified map of raw messages.
+func UnmarshalDestinationsQuery(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DestinationsQuery)
+	err = core.UnmarshalModel(m, "destinations", &obj.Destinations, UnmarshalDestinationPrototype)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "destinations-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // GetRouteOptions : The GetRoute options.
@@ -1502,6 +1761,34 @@ func (*MetricsRouterV3) NewListTargetsOptions() *ListTargetsOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTargetsOptions {
+	options.Headers = param
+	return options
+}
+
+// QueryDestinationsOptions : The QueryDestinations options.
+type QueryDestinationsOptions struct {
+	// List of resource CRNs that will be queried.
+	Crns []CRNPrototype `json:"crns" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewQueryDestinationsOptions : Instantiate QueryDestinationsOptions
+func (*MetricsRouterV3) NewQueryDestinationsOptions(crns []CRNPrototype) *QueryDestinationsOptions {
+	return &QueryDestinationsOptions{
+		Crns: crns,
+	}
+}
+
+// SetCrns : Allow user to set Crns
+func (_options *QueryDestinationsOptions) SetCrns(crns []CRNPrototype) *QueryDestinationsOptions {
+	_options.Crns = crns
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *QueryDestinationsOptions) SetHeaders(param map[string]string) *QueryDestinationsOptions {
 	options.Headers = param
 	return options
 }

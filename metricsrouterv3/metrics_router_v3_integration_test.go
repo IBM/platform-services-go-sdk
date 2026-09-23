@@ -194,7 +194,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			routeIDLink = *route.ID
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
 		})
-
 		It(`CreateRoute(createRouteOptions *CreateRouteOptions) with in operator`, func() {
 			targetIdentityModel := &metricsrouterv3.TargetIdentity{
 				ID: &targetIDLink,
@@ -760,6 +759,26 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`QueryDestinations - Query Destinations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`QueryDestinations(queryDestinationsOptions *QueryDestinationsOptions)`, func() {
+			crnPrototypeModel := &metricsrouterv3.CRNPrototype{
+				CRN: core.StringPtr("crn:v1:bluemix:public:codeengine:us-south:a/d26e70b9a57f4388a68b1e03888e82a9:2c6a54f8-4afe-4b8b-b55a-9d31a8e890c7::"),
+			}
+
+			queryDestinationsOptions := &metricsrouterv3.QueryDestinationsOptions{
+				Crns: []metricsrouterv3.CRNPrototype{*crnPrototypeModel},
+			}
+
+			destinationsQuery, response, err := metricsRouterService.QueryDestinations(queryDestinationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(destinationsQuery).ToNot(BeNil())
 		})
 	})
 
