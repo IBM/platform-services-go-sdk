@@ -7,7 +7,7 @@ Please make sure that your PR fulfills the following requirements:
 - [ ] The commit message follows the [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines).
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
-- [ ] If integration tests or examples were added or modified, a clean test run has been executed and the output is included below (see **Integration / examples test evidence**)
+- [ ] If integration tests or examples were added or modified, a clean test run has been executed and the output is included below (see Integration / examples test evidence)
 
 ## Current vs new behavior  
 <!-- Please describe the current behavior that you are modifying and the new behavior. -->
