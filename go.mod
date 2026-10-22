@@ -4,7 +4,7 @@ go 1.26.0
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.25.1
-	github.com/go-openapi/strfmt v0.27.3
+	github.com/go-openapi/strfmt v0.27.4
 	github.com/google/uuid v1.6.0
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/ginkgo/v2 v2.33.1
