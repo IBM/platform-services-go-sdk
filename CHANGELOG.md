@@ -1,3 +1,10 @@
+## [0.103.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.4...v0.103.5) (2026-10-22)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#467](https://github.com/IBM/platform-services-go-sdk/issues/467)) ([4736a50](https://github.com/IBM/platform-services-go-sdk/commit/4736a50b74e0ee227fbc3837a41578d88bb3c6fd))
+
 ## [0.103.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.103.3...v0.103.4) (2026-09-23)
 
 
