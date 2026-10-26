@@ -25,4 +25,4 @@ tidy:
 	${GO} mod tidy
 
 format:
-	${GO} fmt ./...
+	${LINT} fmt
