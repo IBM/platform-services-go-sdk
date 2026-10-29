@@ -226,15 +226,15 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			// begin-add_members_to_access_group
 
 			groupMembers := []iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
-				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
+				{
 					IamID: core.StringPtr("IBMid-user1"),
 					Type:  core.StringPtr("user"),
 				},
-				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
+				{
 					IamID: core.StringPtr("iam-ServiceId-123"),
 					Type:  core.StringPtr("service"),
 				},
-				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
+				{
 					IamID: core.StringPtr(testProfileID),
 					Type:  core.StringPtr("profile"),
 				},
