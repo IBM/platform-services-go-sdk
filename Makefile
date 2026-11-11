@@ -1,6 +1,7 @@
 # Makefile to build the project
 GO=go
 LINT=golangci-lint
+FORMATTER=golangci-lint
 COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
 all: tidy test lint
@@ -25,4 +26,4 @@ tidy:
 	${GO} mod tidy
 
 format:
-	${LINT} fmt
+	${FORMATTER} fmt
