@@ -112,19 +112,19 @@ var _ = Describe(`UsageMeteringV4 Integration Tests`, func() {
 				Start:              &startTime,
 				End:                &endTime,
 				MeasuredUsage: []usagemeteringv4.MeasureAndQuantity{
-					usagemeteringv4.MeasureAndQuantity{
+					{
 						Measure:  core.StringPtr("LOOKUP"),
 						Quantity: core.Int64Ptr(0),
 					},
-					usagemeteringv4.MeasureAndQuantity{
+					{
 						Measure:  core.StringPtr("WRITE"),
 						Quantity: core.Int64Ptr(0),
 					},
-					usagemeteringv4.MeasureAndQuantity{
+					{
 						Measure:  core.StringPtr("QUERY"),
 						Quantity: core.Int64Ptr(0),
 					},
-					usagemeteringv4.MeasureAndQuantity{
+					{
 						Measure:  core.StringPtr("GIGABYTE"),
 						Quantity: core.Int64Ptr(0),
 					},

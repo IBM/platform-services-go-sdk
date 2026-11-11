@@ -306,42 +306,42 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 				ID: &targetIDLink,
 			}
 			inclusionFilterPrototypeModel := []metricsrouterv3.InclusionFilterPrototype{
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"us-south"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"us-east"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"au-syd"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"eu-de"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"eu-gb"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"us-south"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"us-south"},
 				},
-				metricsrouterv3.InclusionFilterPrototype{
+				{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
 					Values:   []string{"us-south"},
