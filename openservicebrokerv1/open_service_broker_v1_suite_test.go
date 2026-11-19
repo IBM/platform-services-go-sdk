@@ -17,9 +17,10 @@
 package openservicebrokerv1_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestOpenServiceBrokerV1(t *testing.T) {

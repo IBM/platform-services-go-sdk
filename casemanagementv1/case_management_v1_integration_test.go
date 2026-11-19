@@ -81,13 +81,13 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		shouldSkipTest = func() {}
 
 		// Initialize required model instances.
-		resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
+		resourcePayload = []casemanagementv1.ResourcePayload{{
 			CRN: &resourceCRN,
 		}}
 
 		watchlistPayload = &casemanagementv1.Watchlist{
 			Watchlist: []casemanagementv1.User{
-				casemanagementv1.User{
+				{
 					Realm:  core.StringPtr("IBMid"),
 					UserID: core.StringPtr("abc@ibm.com"),
 				},

@@ -21,12 +21,13 @@ package usermanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
-	"time"
 )
 
 var _ = Describe(`UserManagementV1 Examples Tests`, func() {

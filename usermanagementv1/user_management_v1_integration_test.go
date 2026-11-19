@@ -20,14 +20,15 @@ package usermanagementv1_test
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"time"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"log"
-	"os"
-	"time"
 )
 
 /**
