@@ -26,4 +26,4 @@ tidy:
 	${GO} mod tidy
 
 format:
-	${FORMATTER} fmt
+	${FORMATTER} fmt -E goimports -E gofmt
